@@ -1,18 +1,15 @@
 package com.sigmabravo.rnd.jim.nitf.tre.camsda;
 
-import com.sigmabravo.rnd.jim.nitf.tre.ITREParser;
+import com.sigmabravo.rnd.jim.nitf.tre.AbstractTREParser;
 import com.sigmabravo.rnd.jim.nitf.tre.TRE;
-import java.nio.charset.StandardCharsets;
-import java.util.UUID;
 
 /** CAMSDA TRE Parser. */
-public class CAMSDAParser implements ITREParser {
+public class CAMSDAParser extends AbstractTREParser {
 
     private static final int NUM_CAMERA_SETS_LEN = 3;
     private static final int NUM_CAMERA_SETS_IN_TRE_LEN = 3;
     private static final int FIRST_CAMERA_SET_IN_TRE_LEN = 3;
     private static final int NUM_CAMERAS_IN_SET_LEN = 3;
-    private static final int UUID_LEN = 36;
     private static final int CAMERA_ID_LEN = UUID_LEN;
     private static final int CAMERA_DESC_LEN = 80;
     private static final int LAYER_ID_LEN = 36;
@@ -71,23 +68,5 @@ public class CAMSDAParser implements ITREParser {
         }
         assert offset == bytes.length;
         return tre;
-    }
-
-    private int readBCSN(byte[] bytes, int offset, int len) {
-        String s = new String(bytes, offset, len, StandardCharsets.US_ASCII);
-        return Integer.parseInt(s);
-    }
-
-    private UUID readUUIDAsString(byte[] bytes, int offset) {
-        String s = new String(bytes, offset, UUID_LEN, StandardCharsets.US_ASCII);
-        return UUID.fromString(s);
-    }
-
-    private String readBCSA(byte[] bytes, int offset, int len) {
-        return new String(bytes, offset, len, StandardCharsets.US_ASCII);
-    }
-
-    private int readBCSNPI(byte[] bytes, int offset, int len) {
-        return readBCSN(bytes, offset, len);
     }
 }

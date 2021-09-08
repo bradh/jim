@@ -1,4 +1,4 @@
-package com.sigmabravo.rnd.jim.nitf.tre.camsda;
+package com.sigmabravo.rnd.jim.nitf.tre;
 
 import java.util.UUID;
 import javafx.scene.control.TreeItem;

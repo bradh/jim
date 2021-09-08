@@ -1,13 +1,17 @@
 package com.sigmabravo.rnd.jim.nitf.tre.camsda;
 
+import com.sigmabravo.rnd.jim.nitf.tre.TREGroup;
+import com.sigmabravo.rnd.jim.nitf.tre.TREOrder;
+import com.sigmabravo.rnd.jim.nitf.tre.TreePart;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.control.TreeItem;
 
 /** Camera Set, part of CAMSDA. */
-public class CameraSet {
+public class CameraSet extends TreePart {
     private final List<Camera> cameras = new ArrayList<>();
 
+    @TREOrder(order = 1)
+    @TREGroup()
     public List<Camera> getCameras() {
         return new ArrayList<>(cameras);
     }
@@ -16,15 +20,8 @@ public class CameraSet {
         cameras.add(camera);
     }
 
+    @Override
     public String getTreeItemLabel() {
         return "Camera Set";
-    }
-
-    public TreeItem<String> toTreeItem() {
-        TreeItem<String> treeItem = new TreeItem<>(getTreeItemLabel());
-        for (Camera camera : getCameras()) {
-            treeItem.getChildren().add(camera.toTreeItem());
-        }
-        return treeItem;
     }
 }

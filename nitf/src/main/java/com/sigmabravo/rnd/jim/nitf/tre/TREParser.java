@@ -27,7 +27,7 @@ public class TREParser {
             String lengthString = new String(lengthBytes, StandardCharsets.US_ASCII);
             int length = Integer.parseInt(lengthString);
             offset += TREL_LEN;
-            ITREParser parser = TREParserManager.getInstance().getParser(tag);
+            AbstractTREParser parser = TREParserManager.getInstance().getParser(tag);
             if (parser != null) {
                 TRE tre = parser.parse(tag, Arrays.copyOfRange(bytes, offset, offset + length));
                 tres.add(tre);

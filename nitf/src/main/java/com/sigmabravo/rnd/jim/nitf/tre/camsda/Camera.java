@@ -1,16 +1,12 @@
 package com.sigmabravo.rnd.jim.nitf.tre.camsda;
 
 import com.sigmabravo.rnd.jim.nitf.tre.TREField;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import com.sigmabravo.rnd.jim.nitf.tre.TREOrder;
+import com.sigmabravo.rnd.jim.nitf.tre.TreePart;
 import java.util.UUID;
-import javafx.scene.control.TreeItem;
 
 /** Camera, part of Camera Set within CAMSDA TRE. */
-class Camera {
+public class Camera extends TreePart {
     private UUID camera_id;
     private String camera_desc;
     private String layer_id;
@@ -21,7 +17,8 @@ class Camera {
     private int nrows;
     private int ncols;
 
-    @TREField(label = "CAMERA_ID", order = 1)
+    @TREField(label = "CAMERA_ID")
+    @TREOrder(order = 1)
     public UUID getCamera_id() {
         return camera_id;
     }
@@ -30,7 +27,8 @@ class Camera {
         this.camera_id = camera_id;
     }
 
-    @TREField(label = "CAMERA_DESC", order = 2)
+    @TREField(label = "CAMERA_DESC")
+    @TREOrder(order = 2)
     public String getCamera_desc() {
         return camera_desc;
     }
@@ -39,7 +37,8 @@ class Camera {
         this.camera_desc = camera_desc;
     }
 
-    @TREField(label = "LAYER_ID", order = 3)
+    @TREField(label = "LAYER_ID")
+    @TREOrder(order = 3)
     public String getLayer_id() {
         return layer_id;
     }
@@ -48,7 +47,8 @@ class Camera {
         this.layer_id = layer_id;
     }
 
-    @TREField(label = "IDLVL", order = 4)
+    @TREField(label = "IDLVL")
+    @TREOrder(order = 4)
     public int getIdlvl() {
         return idlvl;
     }
@@ -57,7 +57,8 @@ class Camera {
         this.idlvl = idlvl;
     }
 
-    @TREField(label = "IALVL", order = 5)
+    @TREField(label = "IALVL")
+    @TREOrder(order = 5)
     public int getIalvl() {
         return ialvl;
     }
@@ -66,7 +67,8 @@ class Camera {
         this.ialvl = ialvl;
     }
 
-    @TREField(label = "ILOC(ROW)", order = 6)
+    @TREField(label = "ILOC(ROW)")
+    @TREOrder(order = 6)
     public int getIloc_row() {
         return iloc_row;
     }
@@ -75,7 +77,8 @@ class Camera {
         this.iloc_row = iloc_row;
     }
 
-    @TREField(label = "ILOC(COL)", order = 7)
+    @TREField(label = "ILOC(COL)")
+    @TREOrder(order = 7)
     public int getIloc_col() {
         return iloc_col;
     }
@@ -84,7 +87,8 @@ class Camera {
         this.iloc_col = iloc_col;
     }
 
-    @TREField(label = "NROWS", order = 8)
+    @TREField(label = "NROWS")
+    @TREOrder(order = 8)
     public int getNrows() {
         return nrows;
     }
@@ -93,7 +97,8 @@ class Camera {
         this.nrows = nrows;
     }
 
-    @TREField(label = "NCOLS", order = 9)
+    @TREField(label = "NCOLS")
+    @TREOrder(order = 9)
     public int getNcols() {
         return ncols;
     }
@@ -126,38 +131,8 @@ class Camera {
                 + '}';
     }
 
+    @Override
     public String getTreeItemLabel() {
         return "Camera";
-    }
-
-    public TreeItem<String> toTreeItem() {
-        TreeItem<String> treeItem = new TreeItem<>(getTreeItemLabel());
-        Method[] methods = this.getClass().getDeclaredMethods();
-        SortedMap<Integer, Method> treeGetterMethods = new TreeMap<>();
-        try {
-            for (Method method : methods) {
-                Annotation[] annotations = method.getDeclaredAnnotations();
-                for (Annotation annotation : annotations) {
-                    if (annotation instanceof TREField) {
-                        treeGetterMethods.put(((TREField) annotation).order(), method);
-                    }
-                }
-            }
-            for (Method method : treeGetterMethods.values()) {
-                Annotation[] annotations = method.getDeclaredAnnotations();
-                for (Annotation annotation : annotations) {
-                    if (annotation instanceof TREField) {
-                        TREField treField = (TREField) annotation;
-                        treeItem.getChildren()
-                                .add(
-                                        new TreTreeItem(
-                                                treField.label(), method.invoke(this).toString()));
-                    }
-                }
-            }
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            ex.printStackTrace();
-        }
-        return treeItem;
     }
 }

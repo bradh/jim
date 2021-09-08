@@ -3,6 +3,8 @@ package com.sigmabravo.rnd.jim.nitf.tre;
 import static org.testng.Assert.assertTrue;
 
 import com.sigmabravo.rnd.jim.nitf.tre.camsda.CAMSDAParser;
+import com.sigmabravo.rnd.jim.nitf.tre.mimcsa.MIMCSAParser;
+import com.sigmabravo.rnd.jim.nitf.tre.tminta.TMINTAParser;
 import org.testng.annotations.Test;
 
 /** Unit tests for TREParserManager. */

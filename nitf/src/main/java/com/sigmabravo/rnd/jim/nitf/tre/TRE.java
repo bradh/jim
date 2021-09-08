@@ -1,9 +1,7 @@
 package com.sigmabravo.rnd.jim.nitf.tre;
 
-import javafx.scene.control.TreeItem;
-
 /** @author bradh */
-public abstract class TRE {
+public abstract class TRE extends TreePart {
     private String tag;
 
     public TRE(String tag) {
@@ -17,6 +15,4 @@ public abstract class TRE {
     public void setTag(String tag) {
         this.tag = tag;
     }
-
-    public abstract TreeItem<String> toTreeItem();
 }

@@ -2,9 +2,10 @@ package com.sigmabravo.rnd.jim.nitf.tre.camsda;
 
 import com.sigmabravo.rnd.jim.nitf.tre.TRE;
 import com.sigmabravo.rnd.jim.nitf.tre.TREField;
+import com.sigmabravo.rnd.jim.nitf.tre.TREGroup;
+import com.sigmabravo.rnd.jim.nitf.tre.TREOrder;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.control.TreeItem;
 
 /** CAMSDA TRE. */
 public class CAMSDA extends TRE {
@@ -23,7 +24,8 @@ public class CAMSDA extends TRE {
      *
      * @return number of camera sets in collection.
      */
-    @TREField(label = "NUM_CAMERA_SETS", order = 1)
+    @TREField(label = "NUM_CAMERA_SETS")
+    @TREOrder(order = 1)
     public int getNumCameraSets() {
         return numCameraSets;
     }
@@ -32,6 +34,8 @@ public class CAMSDA extends TRE {
         this.numCameraSets = numCameraSets;
     }
 
+    @TREOrder(order = 2)
+    @TREGroup()
     public List<CameraSet> getCameraSets() {
         return new ArrayList<>(cameraSets);
     }
@@ -42,16 +46,5 @@ public class CAMSDA extends TRE {
 
     public String getTreeItemLabel() {
         return "CAMSDA";
-    }
-
-    @Override
-    public TreeItem<String> toTreeItem() {
-        TreeItem<String> treeItem = new TreeItem<>(getTreeItemLabel());
-        treeItem.getChildren()
-                .add(new TreeItem<String>("Number of camera sets (total): " + this.numCameraSets));
-        for (CameraSet cameraSet : getCameraSets()) {
-            treeItem.getChildren().add(cameraSet.toTreeItem());
-        }
-        return treeItem;
     }
 }
