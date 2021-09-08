@@ -16,8 +16,12 @@ public class CameraSet {
         cameras.add(camera);
     }
 
+    public String getTreeItemLabel() {
+        return "Camera Set";
+    }
+
     public TreeItem<String> toTreeItem() {
-        TreeItem<String> treeItem = new TreeItem<>("Camera Set");
+        TreeItem<String> treeItem = new TreeItem<>(getTreeItemLabel());
         for (Camera camera : getCameras()) {
             treeItem.getChildren().add(camera.toTreeItem());
         }
