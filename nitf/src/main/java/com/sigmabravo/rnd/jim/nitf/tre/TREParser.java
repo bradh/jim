@@ -31,6 +31,8 @@ public class TREParser {
             if (parser != null) {
                 TRE tre = parser.parse(tag, Arrays.copyOfRange(bytes, offset, offset + length));
                 tres.add(tre);
+            } else {
+                System.out.println("No support for " + tag);
             }
             offset += length;
         }

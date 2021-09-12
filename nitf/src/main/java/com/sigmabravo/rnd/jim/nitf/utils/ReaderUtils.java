@@ -1,0 +1,46 @@
+package com.sigmabravo.rnd.jim.nitf.utils;
+
+import java.nio.charset.StandardCharsets;
+
+public class ReaderUtils {
+
+    public static final int DATE_TIME_LEN = 14;
+    public static final int ENCRYP_LEN = 1;
+    public static final int SECURITY_FIELDS_LEN = 167;
+
+    public static int convertByteArrayToBCS_NPI(byte[] dest) {
+        String s = new String(dest, StandardCharsets.US_ASCII);
+        if (s.isBlank()) {
+            // This shouldn't happen.
+            return 0;
+        }
+        return Integer.parseInt(s);
+    }
+
+    public static int convertByteArrayToBCS_NPI(byte[] dest, int offset, int len) {
+        String s = new String(dest, offset, len, StandardCharsets.US_ASCII);
+        if (s.isBlank()) {
+            // This shouldn't happen.
+            return 0;
+        }
+        return Integer.parseInt(s);
+    }
+
+    public static String convertByteArrayToBCSA(byte[] bytes) {
+        return new String(bytes, StandardCharsets.US_ASCII);
+    }
+
+    public static String convertByteArrayToBCSA(byte[] bytes, int offset, int len) {
+        return new String(bytes, offset, len, StandardCharsets.US_ASCII);
+    }
+
+    public static String convertByteArrayToECSA(byte[] bytes) {
+        // TODO: this isn't quite right - needs to be more precise
+        return new String(bytes, StandardCharsets.ISO_8859_1);
+    }
+
+    public static String convertByteArrayToECSA(byte[] bytes, int offset, int len) {
+        // TODO: this isn't quite right - needs to be more precise
+        return new String(bytes, offset, len, StandardCharsets.ISO_8859_1);
+    }
+}

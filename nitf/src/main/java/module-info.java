@@ -3,6 +3,8 @@ module com.sigmabravo.rnd.jim.nitf {
 
     exports com.sigmabravo.rnd.jim.nitf;
     exports com.sigmabravo.rnd.jim.nitf.tre;
+    exports com.sigmabravo.rnd.jim.nitf.image;
+    exports com.sigmabravo.rnd.jim.nitf.text;
 
     uses com.sigmabravo.rnd.jim.nitf.tre.AbstractTREParser;
 

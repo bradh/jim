@@ -1,11 +1,13 @@
 package com.sigmabravo.rnd.jim.nitf;
 
+import com.sigmabravo.rnd.jim.nitf.image.ImageSegmentHeader;
+import com.sigmabravo.rnd.jim.nitf.text.TextSegmentHeader;
 import com.sigmabravo.rnd.jim.nitf.tre.TRE;
 import com.sigmabravo.rnd.jim.nitf.tre.TREParser;
+import com.sigmabravo.rnd.jim.nitf.utils.ReaderUtils;
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,18 +32,15 @@ public class Reader {
     private static final int OSTAID_OFFSET = STYPE_OFFSET + STYPE_LEN;
     private static final int OSTAID_LEN = 10;
     private static final int FDT_OFFSET = OSTAID_OFFSET + OSTAID_LEN;
-    private static final int FDT_LEN = 14;
-    private static final int FTITLE_OFFSET = FDT_OFFSET + FDT_LEN;
+    private static final int FTITLE_OFFSET = FDT_OFFSET + ReaderUtils.DATE_TIME_LEN;
     private static final int FTITLE_LEN = 80;
     private static final int SECURITY_OFFSET = FTITLE_OFFSET + FTITLE_LEN;
-    private static final int SECURITY_LEN = 167;
-    private static final int FSCOP_OFFSET = SECURITY_OFFSET + SECURITY_LEN;
+    private static final int FSCOP_OFFSET = SECURITY_OFFSET + ReaderUtils.SECURITY_FIELDS_LEN;
     private static final int FSCOP_LEN = 5;
     private static final int FSCPYS_OFFSET = FSCOP_OFFSET + FSCOP_LEN;
     private static final int FSCPYS_LEN = 5;
     private static final int ENCRYP_OFFSET = FSCPYS_OFFSET + FSCPYS_LEN;
-    private static final int ENCRYP_LEN = 1;
-    private static final int FBKGC_OFFSET = ENCRYP_OFFSET + ENCRYP_LEN;
+    private static final int FBKGC_OFFSET = ENCRYP_OFFSET + ReaderUtils.ENCRYP_LEN;
     private static final int FBKGC_LEN = 3;
     private static final int ONAME_OFFSET = FBKGC_OFFSET + FBKGC_LEN;
     private static final int ONAME_LEN = 24;
@@ -104,31 +103,33 @@ public class Reader {
             fileHeaderLength = getFileHeaderLength();
             int nextSegmentStartOffset = fileHeaderLength;
             byte[] numiBytes = getBytesAt(NUMI_OFFSET, NUMI_LEN);
-            int numImageSegments = convertByteArrayToBCS_NPI(numiBytes);
+            int numImageSegments = ReaderUtils.convertByteArrayToBCS_NPI(numiBytes);
             int offset = NUMI_OFFSET + NUMI_LEN;
             for (int i = 0; i < numImageSegments; i++) {
                 SegmentInfo segmentInfo = new SegmentInfo();
                 segmentInfo.setSegmentFileOffset(nextSegmentStartOffset);
                 byte[] lishBytes = getBytesAt(offset, LISH_LEN);
-                segmentInfo.setSubheaderLength(convertByteArrayToBCS_NPI(lishBytes));
+                segmentInfo.setSubheaderLength(ReaderUtils.convertByteArrayToBCS_NPI(lishBytes));
                 offset += LISH_LEN;
+                nextSegmentStartOffset += segmentInfo.getSubheaderLength();
                 byte[] liBytes = getBytesAt(offset, LI_LEN);
-                segmentInfo.setSegmentLength(convertByteArrayToBCS_NPI(liBytes));
+                segmentInfo.setSegmentLength(ReaderUtils.convertByteArrayToBCS_NPI(liBytes));
                 offset += LI_LEN;
                 nextSegmentStartOffset += segmentInfo.getSegmentLength();
                 imageSegments.add(segmentInfo);
             }
             byte[] numsBytes = getBytesAt(offset, NUMS_LEN);
             offset += NUMS_LEN;
-            int numGraphicSegments = convertByteArrayToBCS_NPI(numsBytes);
+            int numGraphicSegments = ReaderUtils.convertByteArrayToBCS_NPI(numsBytes);
             for (int i = 0; i < numGraphicSegments; i++) {
                 SegmentInfo segmentInfo = new SegmentInfo();
                 segmentInfo.setSegmentFileOffset(nextSegmentStartOffset);
                 byte[] lsshBytes = getBytesAt(offset, LSSH_LEN);
-                segmentInfo.setSubheaderLength(convertByteArrayToBCS_NPI(lsshBytes));
+                segmentInfo.setSubheaderLength(ReaderUtils.convertByteArrayToBCS_NPI(lsshBytes));
                 offset += LSSH_LEN;
+                nextSegmentStartOffset += segmentInfo.getSubheaderLength();
                 byte[] lsBytes = getBytesAt(offset, LS_LEN);
-                segmentInfo.setSegmentLength(convertByteArrayToBCS_NPI(lsBytes));
+                segmentInfo.setSegmentLength(ReaderUtils.convertByteArrayToBCS_NPI(lsBytes));
                 offset += LS_LEN;
                 nextSegmentStartOffset += segmentInfo.getSegmentLength();
                 graphicSegments.add(segmentInfo);
@@ -136,49 +137,51 @@ public class Reader {
             offset += NUMX_LEN;
             byte[] numtBytes = getBytesAt(offset, NUMT_LEN);
             offset += NUMT_LEN;
-            int numTextSegments = convertByteArrayToBCS_NPI(numtBytes);
+            int numTextSegments = ReaderUtils.convertByteArrayToBCS_NPI(numtBytes);
             for (int i = 0; i < numTextSegments; i++) {
                 SegmentInfo segmentInfo = new SegmentInfo();
                 segmentInfo.setSegmentFileOffset(nextSegmentStartOffset);
                 byte[] ltshBytes = getBytesAt(offset, LTSH_LEN);
-                segmentInfo.setSubheaderLength(convertByteArrayToBCS_NPI(ltshBytes));
+                segmentInfo.setSubheaderLength(ReaderUtils.convertByteArrayToBCS_NPI(ltshBytes));
                 offset += LTSH_LEN;
+                nextSegmentStartOffset += segmentInfo.getSubheaderLength();
                 byte[] ltBytes = getBytesAt(offset, LT_LEN);
-                segmentInfo.setSegmentLength(convertByteArrayToBCS_NPI(ltBytes));
+                segmentInfo.setSegmentLength(ReaderUtils.convertByteArrayToBCS_NPI(ltBytes));
                 offset += LT_LEN;
                 nextSegmentStartOffset += segmentInfo.getSegmentLength();
                 textSegments.add(segmentInfo);
             }
             byte[] numdesBytes = getBytesAt(offset, NUMDES_LEN);
             offset += NUMDES_LEN;
-            int numDES = convertByteArrayToBCS_NPI(numdesBytes);
+            int numDES = ReaderUtils.convertByteArrayToBCS_NPI(numdesBytes);
             for (int i = 0; i < numDES; i++) {
                 SegmentInfo segmentInfo = new SegmentInfo();
                 segmentInfo.setSegmentFileOffset(nextSegmentStartOffset);
                 byte[] ldshBytes = getBytesAt(offset, LDSH_LEN);
-                segmentInfo.setSubheaderLength(convertByteArrayToBCS_NPI(ldshBytes));
+                segmentInfo.setSubheaderLength(ReaderUtils.convertByteArrayToBCS_NPI(ldshBytes));
                 offset += LDSH_LEN;
+                nextSegmentStartOffset += segmentInfo.getSubheaderLength();
                 byte[] ldBytes = getBytesAt(offset, LD_LEN);
-                segmentInfo.setSegmentLength(convertByteArrayToBCS_NPI(ldBytes));
+                segmentInfo.setSegmentLength(ReaderUtils.convertByteArrayToBCS_NPI(ldBytes));
                 offset += LD_LEN;
                 nextSegmentStartOffset += segmentInfo.getSegmentLength();
                 dataExtensionSegments.add(segmentInfo);
             }
             offset += NUMRES_LEN;
             // Assume there are never RES
-            int udhdl = convertByteArrayToBCS_NPI(getBytesAt(offset, UDHDL_LEN));
+            int udhdl = ReaderUtils.convertByteArrayToBCS_NPI(getBytesAt(offset, UDHDL_LEN));
             offset += UDHDL_LEN;
             if (udhdl != 0) {
-                udhofl = convertByteArrayToBCS_NPI(getBytesAt(offset, UDHOFL_LEN));
+                udhofl = ReaderUtils.convertByteArrayToBCS_NPI(getBytesAt(offset, UDHOFL_LEN));
                 offset += UDHOFL_LEN;
                 udhdOffset = offset;
                 udhdLength = udhdl - UDHOFL_LEN;
                 offset += udhdLength;
             }
-            int xhdl = convertByteArrayToBCS_NPI(getBytesAt(offset, XHDL_LEN));
+            int xhdl = ReaderUtils.convertByteArrayToBCS_NPI(getBytesAt(offset, XHDL_LEN));
             offset += XHDL_LEN;
             if (xhdl != 0) {
-                xhdlofl = convertByteArrayToBCS_NPI(getBytesAt(offset, XHDLOFL_LEN));
+                xhdlofl = ReaderUtils.convertByteArrayToBCS_NPI(getBytesAt(offset, XHDLOFL_LEN));
                 offset += XHDLOFL_LEN;
                 xhdOffset = offset;
                 xhdLength = xhdl - XHDLOFL_LEN;
@@ -203,7 +206,7 @@ public class Reader {
      */
     public int getCLEVEL() {
         byte[] bytes = getBytesAt(CLEVEL_OFFSET, CLEVEL_LEN);
-        return convertByteArrayToBCS_NPI(bytes);
+        return ReaderUtils.convertByteArrayToBCS_NPI(bytes);
     }
 
     /**
@@ -213,7 +216,7 @@ public class Reader {
      */
     public String getOSTAID() {
         byte[] bytes = getBytesAt(OSTAID_OFFSET, OSTAID_LEN);
-        return convertByteArrayToBCSA(bytes);
+        return ReaderUtils.convertByteArrayToBCSA(bytes);
     }
 
     /**
@@ -222,10 +225,11 @@ public class Reader {
      * @return date / time in the format CCYYMMDDhhmmss.
      */
     public String getFileDateTime() {
-        byte[] bytes = getBytesAt(FDT_OFFSET, FDT_LEN);
+        byte[] bytes = getBytesAt(FDT_OFFSET, ReaderUtils.DATE_TIME_LEN);
         // The character set is BCS-N, but we need a string here.
-        return convertByteArrayToBCSA(bytes);
+        return ReaderUtils.convertByteArrayToBCSA(bytes);
     }
+
     /**
      * Get the originator's name for the file.
      *
@@ -233,7 +237,7 @@ public class Reader {
      */
     public String getONAME() {
         byte[] bytes = getBytesAt(ONAME_OFFSET, ONAME_LEN);
-        return convertByteArrayToECSA(bytes);
+        return ReaderUtils.convertByteArrayToECSA(bytes);
     }
 
     /**
@@ -243,7 +247,7 @@ public class Reader {
      */
     public String getOPHONE() {
         byte[] bytes = getBytesAt(OPHONE_OFFSET, OPHONE_LEN);
-        return convertByteArrayToECSA(bytes);
+        return ReaderUtils.convertByteArrayToECSA(bytes);
     }
 
     /**
@@ -283,7 +287,17 @@ public class Reader {
     }
 
     public byte[] getUserDefinedHeaderData() {
+        if ((udhdOffset <= 0) || (udhdLength <= 0)) {
+            return new byte[0];
+        }
         return getBytesAt(udhdOffset, udhdLength);
+    }
+
+    public byte[] getExtendedHeaderData() {
+        if ((xhdOffset <= 0) || (xhdLength <= 0)) {
+            return new byte[0];
+        }
+        return getBytesAt(xhdOffset, xhdLength);
     }
 
     private byte[] getBytesAt(int offset, int len) {
@@ -293,23 +307,23 @@ public class Reader {
         return dest;
     }
 
-    private int convertByteArrayToBCS_NPI(byte[] dest) {
-        String s = new String(dest, StandardCharsets.US_ASCII);
-        return Integer.parseInt(s);
-    }
-
-    private String convertByteArrayToBCSA(byte[] bytes) {
-        return new String(bytes, StandardCharsets.US_ASCII);
-    }
-
-    private String convertByteArrayToECSA(byte[] bytes) {
-        // TODO: this isn't quite right - needs to be more precise
-        return new String(bytes, StandardCharsets.ISO_8859_1);
-    }
-
     private int getFileHeaderLength() {
         byte[] bytes = getBytesAt(HL_OFFSET, HL_LEN);
-        return convertByteArrayToBCS_NPI(bytes);
+        return ReaderUtils.convertByteArrayToBCS_NPI(bytes);
+    }
+
+    public ImageSegmentHeader getImageSegmentHeader(int segmentNumber) {
+        SegmentInfo segmentInfo = imageSegments.get(segmentNumber);
+        byte[] subheaderBytes =
+                getBytesAt(segmentInfo.getSegmentFileOffset(), segmentInfo.getSubheaderLength());
+        return new ImageSegmentHeader(subheaderBytes);
+    }
+
+    public TextSegmentHeader getTextSegmentHeader(int segmentNumber) {
+        SegmentInfo segmentInfo = textSegments.get(segmentNumber);
+        byte[] subheaderBytes =
+                getBytesAt(segmentInfo.getSegmentFileOffset(), segmentInfo.getSubheaderLength());
+        return new TextSegmentHeader(subheaderBytes);
     }
 
     public String getTextSegmentBody(int segmentNumber) {
@@ -318,7 +332,7 @@ public class Reader {
                 getBytesAt(
                         segmentInfo.getSegmentFileOffset() + segmentInfo.getSubheaderLength(),
                         segmentInfo.getSegmentLength());
-        return this.convertByteArrayToECSA(segmentBytes);
+        return ReaderUtils.convertByteArrayToECSA(segmentBytes);
     }
 
     // These are temporary.
@@ -345,7 +359,11 @@ public class Reader {
         if (udhd.length > 0) {
             tres.addAll(parser.parse(udhd));
         }
-        // TODO: xdhd and overflow DES.
+        byte[] xhd = getExtendedHeaderData();
+        if (xhd.length > 0) {
+            tres.addAll(parser.parse(xhd));
+        }
+        // TODO: overflow DES.
         return tres;
     }
 }

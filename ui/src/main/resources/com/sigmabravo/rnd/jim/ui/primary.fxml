@@ -6,6 +6,8 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TreeItem?>
 <?import javafx.scene.control.TreeView?>
 
@@ -16,9 +18,10 @@
             <menus>
                 <Menu text="File">
                     <items>
-                        <MenuItem text="Open" onAction="#openFile" />
+                        <MenuItem text="Open Manifest..." onAction="#openManifest" />
+                        <MenuItem text="Open Single File..." onAction="#openSingleFile" />
                         <SeparatorMenuItem  />
-                        <MenuItem text="Exit"/>
+                        <MenuItem text="Exit" onAction="#applicationExit"/>
                     </items>
                 </Menu>
                 <Menu text="Help">
@@ -28,12 +31,10 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <HBox VBox.vgrow="ALWAYS">
-            <children>
-                <TreeView fx:id="treTreeView" HBox.hgrow="ALWAYS">
-                    <TreeItem value = "TREs" fx:id="treRoot" expanded="true"/>
-                </TreeView>
-            </children>
-        </HBox>
+        <SplitPane VBox.vgrow="ALWAYS">
+            <TreeView fx:id="treeView" HBox.hgrow="ALWAYS">
+            </TreeView>
+            <TextArea fx:id="textArea"/>
+        </SplitPane>
     </children>
 </VBox>
