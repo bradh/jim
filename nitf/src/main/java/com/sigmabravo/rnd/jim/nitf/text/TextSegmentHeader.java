@@ -1,6 +1,7 @@
 package com.sigmabravo.rnd.jim.nitf.text;
 
 import com.sigmabravo.rnd.jim.nitf.utils.ReaderUtils;
+import java.util.Arrays;
 
 public class TextSegmentHeader {
 
@@ -21,6 +22,7 @@ public class TextSegmentHeader {
     private static final int TXSHDL_LEN = 5;
     private static final int TXSOFL_LEN = 3;
 
+    private final byte[] bytes;
     private String id;
     private int attachmentLevel;
     private String dateTime;
@@ -28,6 +30,7 @@ public class TextSegmentHeader {
     private String format;
 
     public TextSegmentHeader(byte[] subheaderBytes) {
+        bytes = Arrays.copyOf(subheaderBytes, subheaderBytes.length);
         id = ReaderUtils.convertByteArrayToBCSA(subheaderBytes, TEXTID_OFFSET, TEXTID_LEN);
         attachmentLevel =
                 ReaderUtils.convertByteArrayToBCS_NPI(subheaderBytes, TXTALVL_OFFSET, TXTALVL_LEN);

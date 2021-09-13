@@ -9,14 +9,20 @@ import java.io.IOException;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
 public class PrimaryController {
@@ -27,6 +33,8 @@ public class PrimaryController {
     private TreeView<String> treeView;
     @FXML
     private TextArea textArea;
+
+    private final ContextMenu contextMenu = new ContextMenu();
 
     /**
      * Handle action related to "File->Open Manifest" menu item.
@@ -96,11 +104,49 @@ public class PrimaryController {
     }
 
     private void addImageSegmentToTreeView(ImageSegmentHeader header, TreeItem<String> parentItem) {
-        TreeItem<String> segmentTreeItem = new TreeItem<>(header.getIid1());
+        TreeItem<String> segmentTreeItem = new TreeItem<>("[Image Segment]");
+        if (!header.getIid1().isBlank()) {
+            segmentTreeItem.setValue(header.getIid1());
+        } else if (!header.getIid2().isBlank()) {
+            segmentTreeItem.setValue(header.getIid2());
+        }
         TreeItem<String> headerRoot = new TreeItem<>("Header");
+        addTreeItem(headerRoot, "IID1", header.getIid1());
+        addTreeItem(headerRoot, "IDATIM", header.getImageDateTime());
+        addTreeItem(headerRoot, "TGTID", header.getTgtid());
+        addTreeItem(headerRoot, "IID2", header.getIid2());
+        addTreeItem(headerRoot, "ISORCE", header.getIsource());
+        addTreeItem(headerRoot, "NROWS", header.getNrows());
+        addTreeItem(headerRoot, "NCOLS", header.getNcols());
+        addTreeItem(headerRoot, "PVTYPE", header.getPvtype());
+        addTreeItem(headerRoot, "IREP", header.getIrep());
+        addTreeItem(headerRoot, "ICAT", header.getIcat());
+        addTreeItem(headerRoot, "ABPP", header.getAbpp());
+        addTreeItem(headerRoot, "PJUST", header.getPjust());
+        addTreeItem(headerRoot, "ICORDS", header.getIcords());
+        addTreeItem(headerRoot, "IGEOLO", header.getIgeolo());
+        for (int i = 0; i < header.getImageComments().size(); ++i) {
+            addTreeItem(headerRoot, "ICOM" + i, header.getImageComments().get(i));
+        }
+        addTreeItem(headerRoot, "IC", header.getIc());
+        addTreeItem(headerRoot, "COMRAT", header.getComrat());
+        addTreeItem(headerRoot, "ISYNC", header.getIsync());
+        addTreeItem(headerRoot, "IMODE", header.getImode());
+        addTreeItem(headerRoot, "NBPR", header.getNbpr());
+        addTreeItem(headerRoot, "NBPC", header.getNbpc());
+        addTreeItem(headerRoot, "NPPBH", header.getNppbh());
+        addTreeItem(headerRoot, "NPPBV", header.getNppbv());
+        addTreeItem(headerRoot, "NBPP", header.getNbpp());
+        addTreeItem(headerRoot, "IDLVL", header.getIdlvl());
+        addTreeItem(headerRoot, "IALVL", header.getIalvl());
+        addTreeItem(headerRoot, "ILOC", header.getIloc());
+        addTreeItemAsDouble(headerRoot, "IMAG", header.getImag());
         segmentTreeItem.getChildren().add(headerRoot);
         TreeItem<String> treRoot = new TreeItem<>("TREs");
         segmentTreeItem.getChildren().add(treRoot);
+        for (TRE tre : header.getTREs()) {
+            treRoot.getChildren().add(tre.toTreeItem());
+        }
         parentItem.getChildren().add(segmentTreeItem);
     }
 
@@ -162,5 +208,23 @@ public class PrimaryController {
     @FXML
     public void initialize() {
         menuBar.setFocusTraversable(true);
+    }
+
+    private TreeItem<String> addTreeItem(TreeItem<String> parent, String label, String value) {
+        TreeItem<String> treeItem = new TreeItem<>(label + ": " + value);
+        parent.getChildren().add(treeItem);
+        return treeItem;
+    }
+
+    private TreeItem<String> addTreeItem(TreeItem<String> parent, String label, int value) {
+        TreeItem<String> treeItem = new TreeItem<>(label + ": " + value);
+        parent.getChildren().add(treeItem);
+        return treeItem;
+    }
+
+    private TreeItem<String> addTreeItemAsDouble(TreeItem<String> parent, String label, double value) {
+        TreeItem<String> treeItem = new TreeItem<>(String.format("%s: %04f", label, value));
+        parent.getChildren().add(treeItem);
+        return treeItem;
     }
 }

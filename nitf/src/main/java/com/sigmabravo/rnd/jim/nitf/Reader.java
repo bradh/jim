@@ -344,14 +344,6 @@ public class Reader {
         return xhdlofl;
     }
 
-    public int getXhdOffset() {
-        return xhdOffset;
-    }
-
-    public int getXhdLength() {
-        return xhdLength;
-    }
-
     public List<TRE> getFileTREs() {
         TREParser parser = new TREParser();
         List<TRE> tres = new ArrayList<>();
