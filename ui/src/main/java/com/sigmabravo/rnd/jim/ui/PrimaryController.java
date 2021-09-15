@@ -9,8 +9,6 @@ import com.sigmabravo.rnd.jim.nitf.tre.TRE;
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -30,11 +28,9 @@ import org.freedesktop.gstreamer.Element;
 import org.freedesktop.gstreamer.ElementFactory;
 import org.freedesktop.gstreamer.Gst;
 import org.freedesktop.gstreamer.Pad;
-import org.freedesktop.gstreamer.PadDirection;
 import org.freedesktop.gstreamer.Pipeline;
 import org.freedesktop.gstreamer.Version;
 import org.freedesktop.gstreamer.elements.AppSrc;
-import org.freedesktop.gstreamer.elements.PlayBin;
 import org.freedesktop.gstreamer.fx.FXImageSink;
 
 public class PrimaryController {
@@ -116,11 +112,11 @@ public class PrimaryController {
                     sb.append(" sink_");
                     sb.append(blockIndex);
                     sb.append("::xpos=");
-                    sb.append(1024 * ibi.getColumnIndex());
+                    sb.append(header.getNppbv() * ibi.getColumnIndex());
                     sb.append(" sink_");
                     sb.append(blockIndex);
                     sb.append("::ypos=");
-                    sb.append(1024 * ibi.getRowIndex());
+                    sb.append(header.getNppbv() * ibi.getRowIndex());
                 }
                 sb.append(" ! queue name=queue");
                 String launchString = sb.toString();
