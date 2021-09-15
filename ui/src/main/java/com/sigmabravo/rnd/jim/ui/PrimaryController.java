@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -28,6 +29,8 @@ import org.freedesktop.gstreamer.Buffer;
 import org.freedesktop.gstreamer.Element;
 import org.freedesktop.gstreamer.ElementFactory;
 import org.freedesktop.gstreamer.Gst;
+import org.freedesktop.gstreamer.Pad;
+import org.freedesktop.gstreamer.PadDirection;
 import org.freedesktop.gstreamer.Pipeline;
 import org.freedesktop.gstreamer.Version;
 import org.freedesktop.gstreamer.elements.AppSrc;
@@ -44,6 +47,10 @@ public class PrimaryController {
     private TextArea textArea;
     @FXML
     private BorderPane viewPane;
+
+    public PrimaryController() {
+        Gst.init(new Version(1, 18), "FXPlayer");
+    }
 
     /**
      * Handle action related to "File->Open Manifest" menu item.
@@ -99,50 +106,31 @@ public class PrimaryController {
             for (int i = 0; i < reader.getNumberOfImageSegments(); i++) {
                 ImageSegmentHeader header = reader.getImageSegmentHeader(i);
                 final ImageSegmentInfo isi = reader.getImageSegmentInfo(i);
-                final ImageBlockInfo ibi = isi.getImageBlocks().get(10);
                 addImageSegmentToTreeView(header, imageSegments);
-                Gst.init(new Version(1, 18), "FXPlayer");
-
-                // Pipeline pipeline = (Pipeline) Gst.parseLaunch("filesrc location=wpr-h264.r3t0q0c1i15.NTF_10.h264 ! h264parse ! avdec_h264");
-                Pipeline pipeline = new Pipeline();
-                AppSrc source = (AppSrc) ElementFactory.make("appsrc", "source");
-                source.connect(new AppSrc.NEED_DATA() {
-                    byte[] blockBytes =
-                    reader.getBytesAt(
-                            isi.getSegmentFileOffset()
-                                    + isi.getSubheaderLength()
-                                    + isi.getImageDataOffset()
-                                    + ibi.getBlockOffset(),
-                            ibi.getBlockLength());
-                    private final ByteBuffer bb = ByteBuffer.wrap(blockBytes);
-                    @Override
-                    public void needData(AppSrc elem, int size) {
-                        if (bb.hasRemaining()) {
-                            System.out.println("needData: size = " + size);
-                            byte[] tempBuffer;
-                            Buffer buf;
-                            int copyLength = (bb.remaining() >= size) ? size : bb.remaining();
-                            tempBuffer = new byte[copyLength];
-                            buf = new Buffer(copyLength);
-                            bb.get(tempBuffer);
-                            System.out.println("Temp Buffer remaining bytes: " + bb.remaining());
-                            buf.map(true).put(ByteBuffer.wrap(tempBuffer));
-                            elem.pushBuffer(buf);
-                        } else {
-                            elem.endOfStream();
-                        }
-                    }
-                });
-                Element parser = ElementFactory.make("h264parse", "parser");
-                Element decoder = ElementFactory.make("avdec_h264", "decoder");
-                Element converter = ElementFactory.make("videoconvert", "converter");
+                // Pipeline pipeline = new Pipeline();
+                // Element compositor = ElementFactory.make("compositor", "converter");
+                StringBuilder sb = new StringBuilder();
+                sb.append("compositor name=converter");
+                for (ImageBlockInfo ibi : isi.getImageBlocks()) {
+                    int blockIndex = ibi.getColumnIndex() + ibi.getRowIndex() * header.getNbpr();
+                    sb.append(" sink_");
+                    sb.append(blockIndex);
+                    sb.append("::xpos=");
+                    sb.append(1024 * ibi.getColumnIndex());
+                    sb.append(" sink_");
+                    sb.append(blockIndex);
+                    sb.append("::ypos=");
+                    sb.append(1024 * ibi.getRowIndex());
+                }
+                sb.append(" ! queue name=queue");
+                String launchString = sb.toString();
+                Pipeline pipeline = (Pipeline) Gst.parseLaunch(launchString);
                 FXImageSink imageSink = new FXImageSink();
                 Element sink = imageSink.getSinkElement();
-                pipeline.addMany(source, parser, decoder, converter, sink);
-                source.link(parser);
-                parser.link(decoder);
-                decoder.link(converter);
-                converter.link(sink);
+                Element compositor = pipeline.getElementByName("converter");
+                Element queue = pipeline.getElementByName("queue");
+                pipeline.add(sink);
+                queue.link(sink);
                 ImageView view = new ImageView();
                 viewPane.setCenter(view);
                 view.imageProperty().bind(imageSink.imageProperty());
@@ -151,8 +139,48 @@ public class PrimaryController {
                 view.setPreserveRatio(true);
 
                 pipeline.stop();
-                pipeline.play();
+                for (ImageBlockInfo ibi : isi.getImageBlocks()) {
+                    int blockIndex = ibi.getColumnIndex() + ibi.getRowIndex() * header.getNbpr();
+                    AppSrc source = (AppSrc) ElementFactory.make("appsrc", "source" + blockIndex);
+                                        source.connect(new AppSrc.NEED_DATA() {
+                        byte[] blockBytes
+                                = reader.getBytesAt(
+                                        isi.getSegmentFileOffset()
+                                        + isi.getSubheaderLength()
+                                        + isi.getImageDataOffset()
+                                        + ibi.getBlockOffset(),
+                                        ibi.getBlockLength());
+                        private final ByteBuffer bb = ByteBuffer.wrap(blockBytes);
 
+                        @Override
+                        public void needData(AppSrc elem, int size) {
+                            if (bb.hasRemaining()) {
+                                // System.out.println("needData: size = " + size);
+                                byte[] tempBuffer;
+                                Buffer buf;
+                                int copyLength = (bb.remaining() >= size) ? size : bb.remaining();
+                                tempBuffer = new byte[copyLength];
+                                buf = new Buffer(copyLength);
+                                bb.get(tempBuffer);
+                                // System.out.println("Temp Buffer remaining bytes: " + bb.remaining());
+                                buf.map(true).put(ByteBuffer.wrap(tempBuffer));
+                                elem.pushBuffer(buf);
+                            } else {
+                                elem.endOfStream();
+                            }
+                        }
+                    });
+                    Element parser = ElementFactory.make("h264parse", "parser" + blockIndex);
+                    Element decoder = ElementFactory.make("avdec_h264", "decoder" + blockIndex);
+                    pipeline.addMany(source, parser, decoder);
+                    source.link(parser);
+                    parser.link(decoder);
+                    decoder.link(compositor);
+                    List<Pad> pads = compositor.getSinkPads();
+                    Pad lastPad = pads.get(blockIndex);
+                    System.out.println(lastPad.getName());
+                }
+                pipeline.play();
             }
         }
         if (reader.getNumberOfTextSegments() > 0) {

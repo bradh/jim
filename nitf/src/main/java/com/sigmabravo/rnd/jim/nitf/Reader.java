@@ -358,13 +358,15 @@ public class Reader {
             System.out.println("TPXCDLNTH: " + tpxcdlnth);
             // TODO: this logic isn't complete for all possible masking options
             if (bmrlnth > 0) {
-                for (int i = 0; i < ish.getNbpr() * ish.getNbpc(); i++) {
-                    byte[] bmrBytes = getBytesAt(offset, bmrlnth);
-                    offset += bmrlnth;
-                    int bmr = java.nio.ByteBuffer.wrap(bmrBytes).getInt();
-                    System.out.println("BMR: " + bmr);
-                    ImageBlockInfo imageBlockInfo = new ImageBlockInfo(bmr);
-                    imageSegmentInfo.addImageBlock(imageBlockInfo);
+                for (int r = 0; r < ish.getNbpr(); r++) {
+                    for (int c = 0; c < ish.getNbpc(); c++) {
+                        byte[] bmrBytes = getBytesAt(offset, bmrlnth);
+                        offset += bmrlnth;
+                        int bmr = java.nio.ByteBuffer.wrap(bmrBytes).getInt();
+                        System.out.println("BMR: " + bmr);
+                        ImageBlockInfo imageBlockInfo = new ImageBlockInfo(bmr, c, r);
+                        imageSegmentInfo.addImageBlock(imageBlockInfo);
+                    }
                 }
                 for (int i = 0; i < imageSegmentInfo.getImageBlocks().size() - 1; i++) {
                     ImageBlockInfo imageBlockInfo = imageSegmentInfo.getImageBlocks().get(i);

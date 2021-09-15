@@ -7,6 +7,6 @@ module com.sigmabravo.rnd.jim.ui {
     exports com.sigmabravo.rnd.jim.ui;
     requires org.freedesktop.gstreamer;
     requires org.freedesktop.gstreamer.fx;
-    // requires gst1.java.core;
+    // opens gst1.java.core;
     
 }
