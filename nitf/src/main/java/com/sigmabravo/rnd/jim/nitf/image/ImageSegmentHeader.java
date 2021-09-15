@@ -92,7 +92,7 @@ public class ImageSegmentHeader {
 
     public ImageSegmentHeader(byte[] subheaderBytes) {
         this.subheaderBytes = Arrays.copyOf(subheaderBytes, subheaderBytes.length);
-        int offset = 0;
+        int offset = IM_OFFSET;
         String im = ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, IM_LEN);
         assert im.equals("IM");
         offset += IM_LEN;
@@ -134,6 +134,7 @@ public class ImageSegmentHeader {
         offset += NICOM_LEN;
         for (int i = 0; i < nicom; i++) {
             String icom = ReaderUtils.convertByteArrayToECSA(subheaderBytes, offset, ICOM_LEN);
+            offset += ICOM_LEN;
             imageComments.add(icom);
         }
         ic = ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, IC_LEN);

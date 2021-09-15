@@ -1,29 +1,38 @@
 package com.sigmabravo.rnd.jim.ui;
 
 import com.sigmabravo.rnd.jim.nitf.Reader;
+import com.sigmabravo.rnd.jim.nitf.image.ImageBlockInfo;
 import com.sigmabravo.rnd.jim.nitf.image.ImageSegmentHeader;
+import com.sigmabravo.rnd.jim.nitf.image.ImageSegmentInfo;
 import com.sigmabravo.rnd.jim.nitf.text.TextSegmentHeader;
 import com.sigmabravo.rnd.jim.nitf.tre.TRE;
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.file.Files;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import org.freedesktop.gstreamer.Buffer;
+import org.freedesktop.gstreamer.Element;
+import org.freedesktop.gstreamer.ElementFactory;
+import org.freedesktop.gstreamer.Gst;
+import org.freedesktop.gstreamer.Pipeline;
+import org.freedesktop.gstreamer.Version;
+import org.freedesktop.gstreamer.elements.AppSrc;
+import org.freedesktop.gstreamer.elements.PlayBin;
+import org.freedesktop.gstreamer.fx.FXImageSink;
 
 public class PrimaryController {
 
@@ -33,8 +42,8 @@ public class PrimaryController {
     private TreeView<String> treeView;
     @FXML
     private TextArea textArea;
-
-    private final ContextMenu contextMenu = new ContextMenu();
+    @FXML
+    private BorderPane viewPane;
 
     /**
      * Handle action related to "File->Open Manifest" menu item.
@@ -74,7 +83,7 @@ public class PrimaryController {
         }
     }
 
-    private TreeItem<String> addFileToTreeView(File file, Reader reader) {
+    private TreeItem<String> addFileToTreeView(File file, Reader reader) throws IOException {
         TreeItem<String> fileRoot = new TreeItem<>(file.getName());
         treeView.setRoot(fileRoot);
         // TODO: file header info here?
@@ -89,7 +98,61 @@ public class PrimaryController {
             fileRoot.getChildren().add(imageSegments);
             for (int i = 0; i < reader.getNumberOfImageSegments(); i++) {
                 ImageSegmentHeader header = reader.getImageSegmentHeader(i);
+                final ImageSegmentInfo isi = reader.getImageSegmentInfo(i);
+                final ImageBlockInfo ibi = isi.getImageBlocks().get(10);
                 addImageSegmentToTreeView(header, imageSegments);
+                Gst.init(new Version(1, 18), "FXPlayer");
+
+                // Pipeline pipeline = (Pipeline) Gst.parseLaunch("filesrc location=wpr-h264.r3t0q0c1i15.NTF_10.h264 ! h264parse ! avdec_h264");
+                Pipeline pipeline = new Pipeline();
+                AppSrc source = (AppSrc) ElementFactory.make("appsrc", "source");
+                source.connect(new AppSrc.NEED_DATA() {
+                    byte[] blockBytes =
+                    reader.getBytesAt(
+                            isi.getSegmentFileOffset()
+                                    + isi.getSubheaderLength()
+                                    + isi.getImageDataOffset()
+                                    + ibi.getBlockOffset(),
+                            ibi.getBlockLength());
+                    private final ByteBuffer bb = ByteBuffer.wrap(blockBytes);
+                    @Override
+                    public void needData(AppSrc elem, int size) {
+                        if (bb.hasRemaining()) {
+                            System.out.println("needData: size = " + size);
+                            byte[] tempBuffer;
+                            Buffer buf;
+                            int copyLength = (bb.remaining() >= size) ? size : bb.remaining();
+                            tempBuffer = new byte[copyLength];
+                            buf = new Buffer(copyLength);
+                            bb.get(tempBuffer);
+                            System.out.println("Temp Buffer remaining bytes: " + bb.remaining());
+                            buf.map(true).put(ByteBuffer.wrap(tempBuffer));
+                            elem.pushBuffer(buf);
+                        } else {
+                            elem.endOfStream();
+                        }
+                    }
+                });
+                Element parser = ElementFactory.make("h264parse", "parser");
+                Element decoder = ElementFactory.make("avdec_h264", "decoder");
+                Element converter = ElementFactory.make("videoconvert", "converter");
+                FXImageSink imageSink = new FXImageSink();
+                Element sink = imageSink.getSinkElement();
+                pipeline.addMany(source, parser, decoder, converter, sink);
+                source.link(parser);
+                parser.link(decoder);
+                decoder.link(converter);
+                converter.link(sink);
+                ImageView view = new ImageView();
+                viewPane.setCenter(view);
+                view.imageProperty().bind(imageSink.imageProperty());
+                view.fitWidthProperty().bind(viewPane.widthProperty());
+                view.fitHeightProperty().bind(viewPane.heightProperty());
+                view.setPreserveRatio(true);
+
+                pipeline.stop();
+                pipeline.play();
+
             }
         }
         if (reader.getNumberOfTextSegments() > 0) {
@@ -148,6 +211,7 @@ public class PrimaryController {
             treRoot.getChildren().add(tre.toTreeItem());
         }
         parentItem.getChildren().add(segmentTreeItem);
+
     }
 
     private void addTextSegmentToTreeView(TextSegmentHeader header, TreeItem<String> parentItem) {

@@ -1,10 +1,19 @@
 package com.sigmabravo.rnd.jim.nitf;
 
 /** Information about a NITF segment. */
-class SegmentInfo {
+public class SegmentInfo {
+    private final int segmentNumber;
     private int subheaderLength;
     private int segmentLength;
     private int segmentFileOffset;
+
+    public SegmentInfo(int segmentNumber) {
+        this.segmentNumber = segmentNumber;
+    }
+
+    public int getSegmentNumber() {
+        return segmentNumber;
+    }
 
     public int getSubheaderLength() {
         return subheaderLength;

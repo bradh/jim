@@ -5,5 +5,8 @@ module com.sigmabravo.rnd.jim.ui {
 
     opens com.sigmabravo.rnd.jim.ui to javafx.fxml;
     exports com.sigmabravo.rnd.jim.ui;
+    requires org.freedesktop.gstreamer;
+    requires org.freedesktop.gstreamer.fx;
+    // requires gst1.java.core;
     
 }

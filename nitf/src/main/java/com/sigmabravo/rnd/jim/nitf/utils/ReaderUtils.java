@@ -32,6 +32,10 @@ public class ReaderUtils {
             // This shouldn't happen.
             return 0;
         }
+        if (s.startsWith("/")) {
+            s = s.substring("/".length()).strip();
+            return 1.0 / Integer.parseInt(s);
+        }
         return Double.parseDouble(s);
     }
 

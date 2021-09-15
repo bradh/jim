@@ -1,10 +1,13 @@
 package com.sigmabravo.rnd.jim.nitf;
 
+import com.sigmabravo.rnd.jim.nitf.image.ImageBlockInfo;
 import com.sigmabravo.rnd.jim.nitf.image.ImageSegmentHeader;
+import com.sigmabravo.rnd.jim.nitf.image.ImageSegmentInfo;
 import com.sigmabravo.rnd.jim.nitf.text.TextSegmentHeader;
 import com.sigmabravo.rnd.jim.nitf.tre.TRE;
 import com.sigmabravo.rnd.jim.nitf.tre.TREParser;
 import com.sigmabravo.rnd.jim.nitf.utils.ReaderUtils;
+import java.io.File;
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -83,7 +86,7 @@ public class Reader {
     private int xhdOffset = -1;
     private int xhdLength = 0;
 
-    private List<SegmentInfo> imageSegments = new ArrayList<>();
+    private List<ImageSegmentInfo> imageSegments = new ArrayList<>();
     private List<SegmentInfo> graphicSegments = new ArrayList<>();
     private List<SegmentInfo> textSegments = new ArrayList<>();
     private List<SegmentInfo> dataExtensionSegments = new ArrayList<>();
@@ -106,7 +109,7 @@ public class Reader {
             int numImageSegments = ReaderUtils.convertByteArrayToBCS_NPI(numiBytes);
             int offset = NUMI_OFFSET + NUMI_LEN;
             for (int i = 0; i < numImageSegments; i++) {
-                SegmentInfo segmentInfo = new SegmentInfo();
+                ImageSegmentInfo segmentInfo = new ImageSegmentInfo(i);
                 segmentInfo.setSegmentFileOffset(nextSegmentStartOffset);
                 byte[] lishBytes = getBytesAt(offset, LISH_LEN);
                 segmentInfo.setSubheaderLength(ReaderUtils.convertByteArrayToBCS_NPI(lishBytes));
@@ -122,7 +125,7 @@ public class Reader {
             offset += NUMS_LEN;
             int numGraphicSegments = ReaderUtils.convertByteArrayToBCS_NPI(numsBytes);
             for (int i = 0; i < numGraphicSegments; i++) {
-                SegmentInfo segmentInfo = new SegmentInfo();
+                SegmentInfo segmentInfo = new SegmentInfo(i);
                 segmentInfo.setSegmentFileOffset(nextSegmentStartOffset);
                 byte[] lsshBytes = getBytesAt(offset, LSSH_LEN);
                 segmentInfo.setSubheaderLength(ReaderUtils.convertByteArrayToBCS_NPI(lsshBytes));
@@ -139,7 +142,7 @@ public class Reader {
             offset += NUMT_LEN;
             int numTextSegments = ReaderUtils.convertByteArrayToBCS_NPI(numtBytes);
             for (int i = 0; i < numTextSegments; i++) {
-                SegmentInfo segmentInfo = new SegmentInfo();
+                SegmentInfo segmentInfo = new SegmentInfo(i);
                 segmentInfo.setSegmentFileOffset(nextSegmentStartOffset);
                 byte[] ltshBytes = getBytesAt(offset, LTSH_LEN);
                 segmentInfo.setSubheaderLength(ReaderUtils.convertByteArrayToBCS_NPI(ltshBytes));
@@ -155,7 +158,7 @@ public class Reader {
             offset += NUMDES_LEN;
             int numDES = ReaderUtils.convertByteArrayToBCS_NPI(numdesBytes);
             for (int i = 0; i < numDES; i++) {
-                SegmentInfo segmentInfo = new SegmentInfo();
+                SegmentInfo segmentInfo = new SegmentInfo(i);
                 segmentInfo.setSegmentFileOffset(nextSegmentStartOffset);
                 byte[] ldshBytes = getBytesAt(offset, LDSH_LEN);
                 segmentInfo.setSubheaderLength(ReaderUtils.convertByteArrayToBCS_NPI(ldshBytes));
@@ -185,6 +188,9 @@ public class Reader {
                 offset += XHDLOFL_LEN;
                 xhdOffset = offset;
                 xhdLength = xhdl - XHDLOFL_LEN;
+            }
+            for (ImageSegmentInfo imageSegmentInfo : imageSegments) {
+                getImageSegmentSpecificInfo(imageSegmentInfo);
             }
         }
     }
@@ -300,7 +306,7 @@ public class Reader {
         return getBytesAt(xhdOffset, xhdLength);
     }
 
-    private byte[] getBytesAt(int offset, int len) {
+    public byte[] getBytesAt(int offset, int len) {
         mappedByteBuffer.position(offset);
         byte[] dest = new byte[len];
         mappedByteBuffer.get(dest);
@@ -312,11 +318,89 @@ public class Reader {
         return ReaderUtils.convertByteArrayToBCS_NPI(bytes);
     }
 
+    public ImageSegmentInfo getImageSegmentInfo(int segmentNumber) {
+        return imageSegments.get(segmentNumber);
+    }
+
     public ImageSegmentHeader getImageSegmentHeader(int segmentNumber) {
         SegmentInfo segmentInfo = imageSegments.get(segmentNumber);
         byte[] subheaderBytes =
                 getBytesAt(segmentInfo.getSegmentFileOffset(), segmentInfo.getSubheaderLength());
         return new ImageSegmentHeader(subheaderBytes);
+    }
+
+    private void getImageSegmentSpecificInfo(ImageSegmentInfo imageSegmentInfo) {
+        int segmentNumber = imageSegmentInfo.getSegmentNumber();
+        ImageSegmentHeader ish = getImageSegmentHeader(segmentNumber);
+        imageSegmentInfo.setImageSegmentHeader(ish);
+        String imode = ish.getImode();
+        String ic = ish.getIc();
+        System.out.println("IMODE: " + imode);
+        if (ic.startsWith("M")) {
+            int offset =
+                    imageSegmentInfo.getSegmentFileOffset() + imageSegmentInfo.getSubheaderLength();
+            byte[] offsetBytes = getBytesAt(offset, Integer.BYTES);
+            offset += Integer.BYTES;
+            int imdatoff = java.nio.ByteBuffer.wrap(offsetBytes).getInt();
+            System.out.println("IMDATOFF: " + imdatoff);
+            imageSegmentInfo.setImageDataOffset(imdatoff);
+            byte[] bmrlnthBytes = getBytesAt(offset, Short.BYTES);
+            offset += Short.BYTES;
+            int bmrlnth = java.nio.ByteBuffer.wrap(bmrlnthBytes).getShort();
+            System.out.println("BMRLNTH: " + bmrlnth);
+            byte[] tmrlnthBytes = getBytesAt(offset, Short.BYTES);
+            offset += Short.BYTES;
+            int tmrlnth = java.nio.ByteBuffer.wrap(tmrlnthBytes).getShort();
+            System.out.println("TMRLNTH: " + tmrlnth);
+            byte[] tpxcdlnthBytes = getBytesAt(offset, Short.BYTES);
+            offset += Short.BYTES;
+            int tpxcdlnth = java.nio.ByteBuffer.wrap(tpxcdlnthBytes).getShort();
+            System.out.println("TPXCDLNTH: " + tpxcdlnth);
+            // TODO: this logic isn't complete for all possible masking options
+            if (bmrlnth > 0) {
+                for (int i = 0; i < ish.getNbpr() * ish.getNbpc(); i++) {
+                    byte[] bmrBytes = getBytesAt(offset, bmrlnth);
+                    offset += bmrlnth;
+                    int bmr = java.nio.ByteBuffer.wrap(bmrBytes).getInt();
+                    System.out.println("BMR: " + bmr);
+                    ImageBlockInfo imageBlockInfo = new ImageBlockInfo(bmr);
+                    imageSegmentInfo.addImageBlock(imageBlockInfo);
+                }
+                for (int i = 0; i < imageSegmentInfo.getImageBlocks().size() - 1; i++) {
+                    ImageBlockInfo imageBlockInfo = imageSegmentInfo.getImageBlocks().get(i);
+                    ImageBlockInfo nextImageBlockInfo =
+                            imageSegmentInfo.getImageBlocks().get(i + 1);
+                    int length =
+                            nextImageBlockInfo.getBlockOffset() - imageBlockInfo.getBlockOffset();
+                    imageBlockInfo.setBlockLength(length);
+                }
+                // last block, need to use total segment length
+                ImageBlockInfo lastBlock =
+                        imageSegmentInfo
+                                .getImageBlocks()
+                                .get(imageSegmentInfo.getImageBlocks().size() - 1);
+                int length =
+                        imageSegmentInfo.getSegmentLength() - imdatoff - lastBlock.getBlockOffset();
+                lastBlock.setBlockLength(length);
+            }
+        }
+    }
+
+    public void saveImageSegmentBody(int segmentNumber, String path) throws IOException {
+        ImageSegmentInfo segmentInfo = imageSegments.get(segmentNumber);
+        for (int i = 0; i < segmentInfo.getImageBlocks().size(); i++) {
+            // TODO: find a way to stream this out
+            ImageBlockInfo imageBlockInfo = segmentInfo.getImageBlocks().get(i);
+            byte[] blockBytes =
+                    getBytesAt(
+                            segmentInfo.getSegmentFileOffset()
+                                    + segmentInfo.getSubheaderLength()
+                                    + segmentInfo.getImageDataOffset()
+                                    + imageBlockInfo.getBlockOffset(),
+                            imageBlockInfo.getBlockLength());
+            File file = new File(path + "_" + i + ".h264");
+            Files.write(file.toPath(), blockBytes);
+        }
     }
 
     public TextSegmentHeader getTextSegmentHeader(int segmentNumber) {
