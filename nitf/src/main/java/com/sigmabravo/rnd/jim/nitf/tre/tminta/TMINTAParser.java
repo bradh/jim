@@ -8,8 +8,6 @@ public class TMINTAParser extends AbstractTREParser {
 
     private static final int NUM_TIME_INT_LEN = 4;
     private static final int TIME_INTERVAL_INDEX_LEN = 6;
-    private static final int START_TIMESTAMP_LEN = 24;
-    private static final int END_TIMESTAMP_LEN = 24;
 
     @Override
     public void init() {}
@@ -29,9 +27,9 @@ public class TMINTAParser extends AbstractTREParser {
             TimeInterval timeInterval = new TimeInterval();
             timeInterval.setTime_interval_index(readBCSN(bytes, offset, TIME_INTERVAL_INDEX_LEN));
             offset += TIME_INTERVAL_INDEX_LEN;
-            timeInterval.setStart_timestamp(readBCSA(bytes, offset, START_TIMESTAMP_LEN));
+            timeInterval.setStart_timestamp(readStartTimeStampAsString(bytes, offset));
             offset += START_TIMESTAMP_LEN;
-            timeInterval.setEnd_timestamp(readBCSA(bytes, offset, END_TIMESTAMP_LEN));
+            timeInterval.setEnd_timestamp(readEndTimeStampAsString(bytes, offset));
             offset += END_TIMESTAMP_LEN;
             tre.addTimeInterval(timeInterval);
         }
