@@ -24,9 +24,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import org.freedesktop.gstreamer.Buffer;
+import org.freedesktop.gstreamer.Bus;
 import org.freedesktop.gstreamer.Element;
 import org.freedesktop.gstreamer.ElementFactory;
 import org.freedesktop.gstreamer.Gst;
+import org.freedesktop.gstreamer.GstObject;
 import org.freedesktop.gstreamer.Pad;
 import org.freedesktop.gstreamer.Pipeline;
 import org.freedesktop.gstreamer.Version;
@@ -43,6 +45,8 @@ public class PrimaryController {
     private TextArea textArea;
     @FXML
     private BorderPane viewPane;
+    
+    private Pipeline pipeline;
 
     public PrimaryController() {
         Gst.init(new Version(1, 18), "FXPlayer");
@@ -120,7 +124,7 @@ public class PrimaryController {
                 }
                 sb.append(" ! queue name=queue");
                 String launchString = sb.toString();
-                Pipeline pipeline = (Pipeline) Gst.parseLaunch(launchString);
+                pipeline = (Pipeline) Gst.parseLaunch(launchString);
                 FXImageSink imageSink = new FXImageSink();
                 Element sink = imageSink.getSinkElement();
                 Element compositor = pipeline.getElementByName("converter");
@@ -138,7 +142,7 @@ public class PrimaryController {
                 for (ImageBlockInfo ibi : isi.getImageBlocks()) {
                     int blockIndex = ibi.getColumnIndex() + ibi.getRowIndex() * header.getNbpr();
                     AppSrc source = (AppSrc) ElementFactory.make("appsrc", "source" + blockIndex);
-                                        source.connect(new AppSrc.NEED_DATA() {
+                    source.connect(new AppSrc.NEED_DATA() {
                         byte[] blockBytes
                                 = reader.getBytesAt(
                                         isi.getSegmentFileOffset()
@@ -172,10 +176,12 @@ public class PrimaryController {
                     source.link(parser);
                     parser.link(decoder);
                     decoder.link(compositor);
-                    List<Pad> pads = compositor.getSinkPads();
-                    Pad lastPad = pads.get(blockIndex);
-                    System.out.println(lastPad.getName());
                 }
+                Bus bus = pipeline.getBus();
+                bus.connect((Bus.EOS) (GstObject source) -> {
+                    System.out.println("Reached end of stream");
+                });
+
                 pipeline.play();
             }
         }
