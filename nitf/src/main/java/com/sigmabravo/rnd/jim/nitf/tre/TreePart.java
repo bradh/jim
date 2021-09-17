@@ -14,6 +14,7 @@ public abstract class TreePart {
 
     public TreeItem<String> toTreeItem() {
         TreeItem<String> treeItem = new TreeItem<>(getTreeItemLabel());
+        // System.out.println(getTreeItemLabel());
         Method[] methods = this.getClass().getDeclaredMethods();
         SortedMap<Integer, Method> treeGetterMethods = new TreeMap<>();
         try {
@@ -30,6 +31,7 @@ public abstract class TreePart {
                 for (Annotation annotation : annotations) {
                     if (annotation instanceof TREField) {
                         TREField treField = (TREField) annotation;
+                        // System.out.println(treField.label());
                         treeItem.getChildren()
                                 .add(
                                         new TreTreeItem(

@@ -21,7 +21,7 @@ public class TREParser {
                     new String(
                             Arrays.copyOfRange(bytes, offset, offset + TRETAG_LEN),
                             StandardCharsets.US_ASCII);
-            System.out.println(tag);
+            // System.out.println(tag);
             offset += TRETAG_LEN;
             byte[] lengthBytes = Arrays.copyOfRange(bytes, offset, offset + TREL_LEN);
             String lengthString = new String(lengthBytes, StandardCharsets.US_ASCII);

@@ -7,8 +7,9 @@ public abstract class AbstractTREParser {
 
     protected static final int UUID_LEN = 36;
     protected static final int UE13_LEN = 13;
-    protected static final int START_TIMESTAMP_LEN = 24;
-    protected static final int END_TIMESTAMP_LEN = 24;
+    protected static final int TIMESTAMP_LEN = 24;
+    protected static final int CETAG_LEN = 6;
+    protected static final int CEL_LEN = 5;
 
     public abstract void init();
 
@@ -26,12 +27,8 @@ public abstract class AbstractTREParser {
         return UUID.fromString(s);
     }
 
-    protected String readStartTimeStampAsString(byte[] bytes, int offset) {
-        return readBCSA(bytes, offset, START_TIMESTAMP_LEN);
-    }
-
-    protected String readEndTimeStampAsString(byte[] bytes, int offset) {
-        return readBCSA(bytes, offset, END_TIMESTAMP_LEN);
+    protected String readTimeStampAsString(byte[] bytes, int offset) {
+        return readBCSA(bytes, offset, TIMESTAMP_LEN);
     }
 
     protected String readBCSA(byte[] bytes, int offset, int len) {

@@ -27,10 +27,10 @@ public class TMINTAParser extends AbstractTREParser {
             TimeInterval timeInterval = new TimeInterval();
             timeInterval.setTime_interval_index(readBCSN(bytes, offset, TIME_INTERVAL_INDEX_LEN));
             offset += TIME_INTERVAL_INDEX_LEN;
-            timeInterval.setStart_timestamp(readStartTimeStampAsString(bytes, offset));
-            offset += START_TIMESTAMP_LEN;
-            timeInterval.setEnd_timestamp(readEndTimeStampAsString(bytes, offset));
-            offset += END_TIMESTAMP_LEN;
+            timeInterval.setStart_timestamp(readTimeStampAsString(bytes, offset));
+            offset += TIMESTAMP_LEN;
+            timeInterval.setEnd_timestamp(readTimeStampAsString(bytes, offset));
+            offset += TIMESTAMP_LEN;
             tre.addTimeInterval(timeInterval);
         }
         return tre;

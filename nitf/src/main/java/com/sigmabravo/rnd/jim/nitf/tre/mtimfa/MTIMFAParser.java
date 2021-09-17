@@ -42,10 +42,10 @@ public class MTIMFAParser extends AbstractTREParser {
             offset += NUM_TEMP_BLOCKS_LEN;
             for (int m = 0; m < num_temp_blocks; m++) {
                 TemporalBlock temporalBlock = new TemporalBlock();
-                temporalBlock.setStart_timestamp(readStartTimeStampAsString(bytes, offset));
-                offset += START_TIMESTAMP_LEN;
-                temporalBlock.setEnd_timestamp(readEndTimeStampAsString(bytes, offset));
-                offset += END_TIMESTAMP_LEN;
+                temporalBlock.setStart_timestamp(readTimeStampAsString(bytes, offset));
+                offset += TIMESTAMP_LEN;
+                temporalBlock.setEnd_timestamp(readTimeStampAsString(bytes, offset));
+                offset += TIMESTAMP_LEN;
                 String imageSegIndexAsString = readBCSA(bytes, offset, IMAGE_SEG_INDEX_LEN);
 
                 if (imageSegIndexAsString.trim().length() == 0) {
