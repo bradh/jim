@@ -32,10 +32,11 @@ public abstract class TreePart {
                     if (annotation instanceof TREField) {
                         TREField treField = (TREField) annotation;
                         // System.out.println(treField.label());
-                        treeItem.getChildren()
-                                .add(
-                                        new TreTreeItem(
-                                                treField.label(), method.invoke(this).toString()));
+                        Object value = method.invoke(this);
+                        if (value != null) {
+                            treeItem.getChildren()
+                                    .add(new TreTreeItem(treField.label(), value.toString()));
+                        }
                     }
                     if (annotation instanceof TREGroup) {
                         var parts = method.invoke(this);

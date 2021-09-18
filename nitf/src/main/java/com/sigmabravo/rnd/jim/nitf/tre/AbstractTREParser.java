@@ -35,6 +35,10 @@ public abstract class AbstractTREParser {
         return new String(bytes, offset, len, StandardCharsets.US_ASCII);
     }
 
+    protected String readUTF8(byte[] bytes, int offset, int len) {
+        return new String(bytes, offset, len, StandardCharsets.UTF_8);
+    }
+
     protected int readBCSNPI(byte[] bytes, int offset, int len) {
         return readBCSN(bytes, offset, len);
     }
