@@ -9,6 +9,10 @@ public class TreTreeItem extends TreeItem<String> {
         super(label + ": " + value);
     }
 
+    public TreTreeItem(String label, int value) {
+        super(label + ": " + value);
+    }
+
     TreTreeItem(String label, UUID uuid) {
         super(label + ": " + uuid.toString());
     }

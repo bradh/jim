@@ -82,8 +82,8 @@ public class PrimaryController {
         File file = chooser.showOpenDialog(menuBar.getScene().getWindow());
         if (file != null) {
             Reader reader = new Reader(file.getAbsolutePath());
-            System.out.println(reader.getNumberOfImageSegments());
-            System.out.println(reader.getNumberOfTextSegments());
+            // System.out.println(reader.getNumberOfImageSegments());
+            // System.out.println(reader.getNumberOfTextSegments());
             treeView.setRoot(null);
             TreeItem<String> fileRoot = addFileToTreeView(file, reader);
             fileRoot.setExpanded(true);

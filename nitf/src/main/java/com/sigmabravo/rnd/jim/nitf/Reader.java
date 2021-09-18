@@ -333,29 +333,29 @@ public class Reader {
         int segmentNumber = imageSegmentInfo.getSegmentNumber();
         ImageSegmentHeader ish = getImageSegmentHeader(segmentNumber);
         imageSegmentInfo.setImageSegmentHeader(ish);
-        String imode = ish.getImode();
+        // String imode = ish.getImode();
         String ic = ish.getIc();
-        System.out.println("IMODE: " + imode);
+        // System.out.println("IMODE: " + imode);
         if (ic.startsWith("M")) {
             int offset =
                     imageSegmentInfo.getSegmentFileOffset() + imageSegmentInfo.getSubheaderLength();
             byte[] offsetBytes = getBytesAt(offset, Integer.BYTES);
             offset += Integer.BYTES;
             int imdatoff = java.nio.ByteBuffer.wrap(offsetBytes).getInt();
-            System.out.println("IMDATOFF: " + imdatoff);
+            // System.out.println("IMDATOFF: " + imdatoff);
             imageSegmentInfo.setImageDataOffset(imdatoff);
             byte[] bmrlnthBytes = getBytesAt(offset, Short.BYTES);
             offset += Short.BYTES;
             int bmrlnth = java.nio.ByteBuffer.wrap(bmrlnthBytes).getShort();
-            System.out.println("BMRLNTH: " + bmrlnth);
-            byte[] tmrlnthBytes = getBytesAt(offset, Short.BYTES);
+            // System.out.println("BMRLNTH: " + bmrlnth);
+            // byte[] tmrlnthBytes = getBytesAt(offset, Short.BYTES);
             offset += Short.BYTES;
-            int tmrlnth = java.nio.ByteBuffer.wrap(tmrlnthBytes).getShort();
-            System.out.println("TMRLNTH: " + tmrlnth);
-            byte[] tpxcdlnthBytes = getBytesAt(offset, Short.BYTES);
+            // int tmrlnth = java.nio.ByteBuffer.wrap(tmrlnthBytes).getShort();
+            // System.out.println("TMRLNTH: " + tmrlnth);
+            // byte[] tpxcdlnthBytes = getBytesAt(offset, Short.BYTES);
             offset += Short.BYTES;
-            int tpxcdlnth = java.nio.ByteBuffer.wrap(tpxcdlnthBytes).getShort();
-            System.out.println("TPXCDLNTH: " + tpxcdlnth);
+            // int tpxcdlnth = java.nio.ByteBuffer.wrap(tpxcdlnthBytes).getShort();
+            // System.out.println("TPXCDLNTH: " + tpxcdlnth);
             // TODO: this logic isn't complete for all possible masking options
             if (bmrlnth > 0) {
                 for (int r = 0; r < ish.getNbpr(); r++) {
@@ -363,7 +363,7 @@ public class Reader {
                         byte[] bmrBytes = getBytesAt(offset, bmrlnth);
                         offset += bmrlnth;
                         int bmr = java.nio.ByteBuffer.wrap(bmrBytes).getInt();
-                        System.out.println("BMR: " + bmr);
+                        // System.out.println("BMR: " + bmr);
                         ImageBlockInfo imageBlockInfo = new ImageBlockInfo(bmr, c, r);
                         imageSegmentInfo.addImageBlock(imageBlockInfo);
                     }
