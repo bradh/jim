@@ -41,6 +41,11 @@
             <artifactId>gst1-java-fx</artifactId>
             <version>0.9.0</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>mie4nitf</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

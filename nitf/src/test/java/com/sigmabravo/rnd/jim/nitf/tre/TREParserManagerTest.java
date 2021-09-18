@@ -2,9 +2,8 @@ package com.sigmabravo.rnd.jim.nitf.tre;
 
 import static org.testng.Assert.assertTrue;
 
-import com.sigmabravo.rnd.jim.nitf.tre.camsda.CAMSDAParser;
-import com.sigmabravo.rnd.jim.nitf.tre.mimcsa.MIMCSAParser;
-import com.sigmabravo.rnd.jim.nitf.tre.tminta.TMINTAParser;
+import com.sigmabravo.rnd.jim.nitf.tre.blocka.BLOCKAParser;
+import com.sigmabravo.rnd.jim.nitf.tre.engrda.ENGRDAParser;
 import org.testng.annotations.Test;
 
 /** Unit tests for TREParserManager. */
@@ -13,20 +12,14 @@ public class TREParserManagerTest {
     public TREParserManagerTest() {}
 
     @Test
-    public void camsda() {
+    public void blocka() {
         TREParserManager tpm = TREParserManager.getInstance();
-        assertTrue(tpm.getParser("CAMSDA") instanceof CAMSDAParser);
+        assertTrue(tpm.getParser("BLOCKA") instanceof BLOCKAParser);
     }
 
     @Test
-    public void mimcsa() {
+    public void engrda() {
         TREParserManager tpm = TREParserManager.getInstance();
-        assertTrue(tpm.getParser("MIMCSA") instanceof MIMCSAParser);
-    }
-
-    @Test
-    public void tminta() {
-        TREParserManager tpm = TREParserManager.getInstance();
-        assertTrue(tpm.getParser("TMINTA") instanceof TMINTAParser);
+        assertTrue(tpm.getParser("ENGRDA") instanceof ENGRDAParser);
     }
 }
