@@ -35,6 +35,11 @@ public abstract class AbstractTREParser {
         return new String(bytes, offset, len, StandardCharsets.US_ASCII);
     }
 
+    protected String readECSA(byte[] bytes, int offset, int len) {
+        // TODO: this isn't right - need to do conversion
+        return new String(bytes, offset, len, StandardCharsets.UTF_8);
+    }
+
     protected String readUTF8(byte[] bytes, int offset, int len) {
         return new String(bytes, offset, len, StandardCharsets.UTF_8);
     }

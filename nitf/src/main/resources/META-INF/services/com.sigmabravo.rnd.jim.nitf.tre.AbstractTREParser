@@ -1,2 +1,3 @@
 com.sigmabravo.rnd.jim.nitf.tre.blocka.BLOCKAParser
 com.sigmabravo.rnd.jim.nitf.tre.engrda.ENGRDAParser
+com.sigmabravo.rnd.jim.nitf.tre.matesa.MATESAParser

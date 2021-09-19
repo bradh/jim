@@ -10,5 +10,6 @@ module com.sigmabravo.rnd.jim.nitf {
 
     provides com.sigmabravo.rnd.jim.nitf.tre.AbstractTREParser with
             com.sigmabravo.rnd.jim.nitf.tre.blocka.BLOCKAParser,
-            com.sigmabravo.rnd.jim.nitf.tre.engrda.ENGRDAParser;
+            com.sigmabravo.rnd.jim.nitf.tre.engrda.ENGRDAParser,
+            com.sigmabravo.rnd.jim.nitf.tre.matesa.MATESAParser;
 }
