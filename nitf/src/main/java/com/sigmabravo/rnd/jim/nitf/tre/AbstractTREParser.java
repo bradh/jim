@@ -37,7 +37,7 @@ public abstract class AbstractTREParser {
 
     protected String readECSA(byte[] bytes, int offset, int len) {
         // TODO: this isn't right - need to do conversion
-        return new String(bytes, offset, len, StandardCharsets.UTF_8);
+        return new String(bytes, offset, len, StandardCharsets.ISO_8859_1);
     }
 
     protected String readUTF8(byte[] bytes, int offset, int len) {
@@ -54,5 +54,15 @@ public abstract class AbstractTREParser {
             return null;
         }
         return Double.parseDouble(s);
+    }
+
+    protected int readBits24(byte[] bytes, int offset) {
+        int val = 0;
+        for (int i = 0; i < 3; i++) {
+            int v = (bytes[offset + i] & 0xFF);
+            val = (val << Byte.SIZE);
+            val += v;
+        }
+        return val;
     }
 }

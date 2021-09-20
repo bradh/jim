@@ -26,8 +26,12 @@ public class ReaderUtils {
         return Integer.parseInt(s);
     }
 
-    public static double convertByteArrayToBCS_NPI_Double(byte[] dest, int offset, int len) {
-        String s = new String(dest, offset, len, StandardCharsets.US_ASCII);
+    public static double convertByteArrayToBCS_NPI_Double(byte[] bytes, int offset, int len) {
+        return convertByteArrayToBCS_N_Double(bytes, offset, len);
+    }
+
+    public static double convertByteArrayToBCS_N_Double(byte[] bytes, int offset, int len) {
+        String s = new String(bytes, offset, len, StandardCharsets.US_ASCII);
         if (s.isBlank()) {
             // This shouldn't happen.
             return 0;
