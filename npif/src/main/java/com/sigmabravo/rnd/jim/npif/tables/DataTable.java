@@ -28,4 +28,8 @@ public class DataTable {
     public void setHeader(Header header) {
         this.header = new Header(header);
     }
+
+    protected double radiansToDegrees(double angleInRadians) {
+        return 180 * angleInRadians / Math.PI;
+    }
 }

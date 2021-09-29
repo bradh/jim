@@ -1,6 +1,7 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensordata;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class SensorSampleTimingDataTableParser extends AbstractSensorDataTableParser {
@@ -10,7 +11,7 @@ public class SensorSampleTimingDataTableParser extends AbstractSensorDataTablePa
     public SensorSampleTimingDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset) {
+    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         System.out.println("Sensor Sample Timing Data Table");
         return new DataTable();
     }

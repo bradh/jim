@@ -1,6 +1,7 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class JPEG2000IndexDataTableParser extends AbstractSensorParametricDataTableParser {
@@ -10,7 +11,7 @@ public class JPEG2000IndexDataTableParser extends AbstractSensorParametricDataTa
     public JPEG2000IndexDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset) {
+    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         System.out.println("JPEG 2000 Index Data Table");
         return new DataTable();
     }

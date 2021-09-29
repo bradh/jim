@@ -1,6 +1,7 @@
 package com.sigmabravo.rnd.jim.npif.tables.missiondata;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTableParser;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class GeneralAdministrativeReferenceDataTableParser extends DataTableParser {
@@ -11,7 +12,7 @@ public class GeneralAdministrativeReferenceDataTableParser extends DataTablePars
 
     @Override
     public GeneralAdministrativeReferenceDataTable parse(
-            MappedByteBuffer mappedByteBuffer, int offset) {
+            MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         GeneralAdministrativeReferenceDataTable dataTable =
                 new GeneralAdministrativeReferenceDataTable();
         dataTable.setName("General Administrative Reference");

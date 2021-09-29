@@ -89,7 +89,7 @@ public class Reader {
             offset += HEADER_LEN;
             DataTableParser dtParser = getDataTableParser(header);
             if (dtParser != null) {
-                DataTable dataTable = dtParser.parse(mappedByteBuffer, offset);
+                DataTable dataTable = dtParser.parse(mappedByteBuffer, offset, header);
                 dataTable.setHeader(header);
                 dataTables.add(dataTable);
             }

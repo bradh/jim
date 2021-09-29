@@ -1,6 +1,7 @@
 package com.sigmabravo.rnd.jim.npif.tables.missiondata;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTableParser;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class CollectionPlatformIdentificationDataTableParser extends DataTableParser {
@@ -11,7 +12,7 @@ public class CollectionPlatformIdentificationDataTableParser extends DataTablePa
 
     @Override
     public CollectionPlatformIdentificationDataTable parse(
-            MappedByteBuffer mappedByteBuffer, int offset) {
+            MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         CollectionPlatformIdentificationDataTable dataTable =
                 new CollectionPlatformIdentificationDataTable();
         dataTable.setName("Collection Platform Identification");

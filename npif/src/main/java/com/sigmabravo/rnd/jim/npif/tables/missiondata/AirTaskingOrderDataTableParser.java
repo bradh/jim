@@ -2,6 +2,7 @@ package com.sigmabravo.rnd.jim.npif.tables.missiondata;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.DataTableParser;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class AirTaskingOrderDataTableParser extends DataTableParser {
@@ -11,7 +12,7 @@ public class AirTaskingOrderDataTableParser extends DataTableParser {
     public AirTaskingOrderDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset) {
+    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         AirTaskingOrderDataTable dataTable = new AirTaskingOrderDataTable();
         dataTable.setName("Air Tasking Order");
         dataTable.setSourceFile("Mission");

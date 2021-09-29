@@ -1,6 +1,7 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class SensorCompressionDataTableParser extends AbstractSensorParametricDataTableParser {
@@ -10,7 +11,7 @@ public class SensorCompressionDataTableParser extends AbstractSensorParametricDa
     public SensorCompressionDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset) {
+    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         System.out.println("Sensor Compression Data Table");
         return new DataTable();
     }

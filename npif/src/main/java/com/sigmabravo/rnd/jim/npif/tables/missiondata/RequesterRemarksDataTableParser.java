@@ -2,6 +2,7 @@ package com.sigmabravo.rnd.jim.npif.tables.missiondata;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.DataTableParser;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class RequesterRemarksDataTableParser extends DataTableParser {
@@ -12,7 +13,7 @@ public class RequesterRemarksDataTableParser extends DataTableParser {
     public RequesterRemarksDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset) {
+    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         RequesterRemarksDataTable dataTable = new RequesterRemarksDataTable();
         dataTable.setName("Requester Remarks");
         dataTable.setSourceFile("Mission");

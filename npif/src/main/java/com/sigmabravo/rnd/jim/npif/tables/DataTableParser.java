@@ -11,7 +11,7 @@ public abstract class DataTableParser {
 
     public abstract boolean canHandle(final int sourceAddress, final int fileAddress);
 
-    public abstract DataTable parse(MappedByteBuffer mappedByteBuffer, int offset);
+    public abstract DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header);
 
     protected String readASCII(MappedByteBuffer mappedByteBuffer, int offset, int len) {
         byte[] bytes = new byte[len];

@@ -2,6 +2,7 @@ package com.sigmabravo.rnd.jim.npif.tables.segmentevent;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.DataTableParser;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class EndOfRecordMarkerDataTableParser extends DataTableParser {
@@ -11,7 +12,7 @@ public class EndOfRecordMarkerDataTableParser extends DataTableParser {
     public EndOfRecordMarkerDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset) {
+    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         System.out.println("End of Record Marker Data Table");
         return new DataTable();
     }

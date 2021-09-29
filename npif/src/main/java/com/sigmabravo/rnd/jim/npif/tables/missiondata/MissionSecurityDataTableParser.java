@@ -2,6 +2,7 @@ package com.sigmabravo.rnd.jim.npif.tables.missiondata;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.DataTableParser;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class MissionSecurityDataTableParser extends DataTableParser {
@@ -11,7 +12,7 @@ public class MissionSecurityDataTableParser extends DataTableParser {
     public MissionSecurityDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset) {
+    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         MissionSecurityDataTable dataTable = new MissionSecurityDataTable();
         dataTable.setName("Mission Security");
         dataTable.setSourceFile("Mission");

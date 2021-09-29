@@ -2,6 +2,7 @@ package com.sigmabravo.rnd.jim.npif.tables.targetinfo;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.DataTableParser;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class GeneralTargetEEIDataTableParser extends DataTableParser {
@@ -12,7 +13,7 @@ public class GeneralTargetEEIDataTableParser extends DataTableParser {
     public GeneralTargetEEIDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset) {
+    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         GeneralTargetEEIDataTable dataTable = new GeneralTargetEEIDataTable();
         dataTable.setName("General Target EEI");
         dataTable.setSourceFile("Target");

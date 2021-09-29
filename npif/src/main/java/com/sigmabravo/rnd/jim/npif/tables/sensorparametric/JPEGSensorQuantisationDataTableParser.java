@@ -1,6 +1,7 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class JPEGSensorQuantisationDataTableParser extends AbstractSensorParametricDataTableParser {
@@ -10,7 +11,7 @@ public class JPEGSensorQuantisationDataTableParser extends AbstractSensorParamet
     public JPEGSensorQuantisationDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset) {
+    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         System.out.println("JPEG Sensor Quantisation Data Table");
         return new DataTable();
     }

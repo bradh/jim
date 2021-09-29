@@ -2,6 +2,7 @@ package com.sigmabravo.rnd.jim.npif.tables.segmentevent;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.DataTableParser;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class EventIndexDataTableParser extends DataTableParser {
@@ -16,7 +17,7 @@ public class EventIndexDataTableParser extends DataTableParser {
     public EventIndexDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset) {
+    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         System.out.println("Event Index Data Table");
         return new DataTable();
     }

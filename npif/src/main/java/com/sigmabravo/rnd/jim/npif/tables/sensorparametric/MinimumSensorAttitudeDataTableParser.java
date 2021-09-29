@@ -1,6 +1,7 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
+import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class MinimumSensorAttitudeDataTableParser extends AbstractSensorParametricDataTableParser {
@@ -10,7 +11,7 @@ public class MinimumSensorAttitudeDataTableParser extends AbstractSensorParametr
     public MinimumSensorAttitudeDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset) {
+    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
         System.out.println("Minimum Sensor Attitude Data Table");
         return new DataTable();
     }
