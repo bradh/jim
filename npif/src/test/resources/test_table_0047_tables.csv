@@ -1,0 +1,22 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,JPEG Sensor Huffman,64,258,0,0,1,420,0,7,0,INACTIVE,3
+--,Sensor ID Number:,0
+--,DHT Define Huffman Table marker:,FFC4
+--,Lh Length of parameters:,418
+--,Number of Tables (max 8),4
+--,TcTh Huffman Table Class and Table Identifier:,[0],Table 0 AC
+--,L1 Number of codes in each length:,[0],0; 2; 1; 3; 3; 2; 4; 3; 5; 5; 4; 4; 0; 0; 1; 125
+--,Vij Huffman Code Values:,[0],01020300041105122131410613516107...
+--,TcTh Huffman Table Class and Table Identifier:,[1],Table 1 AC
+--,L1 Number of codes in each length:,[1],0; 2; 1; 2; 4; 4; 3; 4; 7; 5; 4; 4; 0; 1; 2; 119
+--,Vij Huffman Code Values:,[1],00010203110405213106124151076171...
+--,TcTh Huffman Table Class and Table Identifier:,[2],Table 0 DC
+--,L1 Number of codes in each length:,[2],0; 1; 5; 1; 1; 1; 1; 1; 1; 0; 0; 0; 0; 0; 0; 0
+--,Vij Huffman Code Values:,[2],000102030405060708090A0B
+--,TcTh Huffman Table Class and Table Identifier:,[3],Table 1 DC
+--,L1 Number of codes in each length:,[3],0; 3; 1; 1; 1; 1; 1; 1; 1; 1; 1; 0; 0; 0; 0; 0
+--,Vij Huffman Code Values:,[3],000102030405060708090A0B
+

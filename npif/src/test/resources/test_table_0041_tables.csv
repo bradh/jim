@@ -1,0 +1,10 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,Sensor Position,64,16,0,0,1,24,0,1,0,INACTIVE,3
+--,Sensor ID Number:,0
+--,X vector component:,5.0
+--,Y vector component:,0.0
+--,Z vector component:,0.0
+

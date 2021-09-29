@@ -1,0 +1,18 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Target,General Target Information,17,0,0,0,1,130,0,0,0,INACTIVE,3
+--,Target ID Number:,0
+--,Target Type:,POINT
+--,Target Priority:,PRIORITY 3
+--,Basic Encyclopaedia (BE) Number:,Target0
+--,Target Security Classification:,<NULL>
+--,Required Time on Target:,<NULL>
+--,Requested Sensor Type:,LINESCAN
+--,Requested Sensor Response Band:,IR
+--,Requested Collection Technique:,VERTICAL
+--,Number of Locations:,1
+--,Requester Address Index:,0; 1
+--,Target Name:,Target 0
+

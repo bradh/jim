@@ -1,0 +1,25 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,RADAR Element,85,69632,0,0,0,83,2,238,305419896,INACTIVE,4
+--,Sensor ID Number:,21
+--,Elements in table,1
+--,Element size:,[0],12
+--,Element Bit offset:,[0],0
+--,Sensor Element ID:,[0],0
+--,Type of Element:,[0],Unsigned Binary
+--,Physical characteristic:,[0],Velocity (image referenced (x, y))
+--,RF Centre frequency:,[0],1.0
+--,RF Bandwidth:,[0],1.0
+--,Mean Doppler Frequency:,[0],1.0
+--,Look Centre Frequency:,[0],1.0
+--,Look Bandwidth:,[0],1.0
+--,Minimum Element Value:,[0],1.0
+--,Maximum Element Value:,[0],1.0
+--,Minimum Physical Value:,[0],1.0
+--,Maximum Physical Value:,[0],1.0
+--,Polarisation:,[0],VV
+--,Use of element:,[0],Quadrature (Q)
+--,Transfer Function Type:,[0],Linear
+

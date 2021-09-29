@@ -1,0 +1,9 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,Sensor Calibration,64,2,0,0,1,99,0,6,0,INACTIVE,3
+--,Sensor ID Number:,0
+--,Calibration date:,2003-02-01, 12:50:00.000000
+--,Calibration Agency:,General Dynamics UK
+

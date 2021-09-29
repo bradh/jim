@@ -1,0 +1,11 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,Sensor Data Timing,64,4,0,0,1,32,0,10,0,INACTIVE,3
+--,Sensor ID Number:,0
+--,Frame period:,<NULL>
+--,Intra Frame Time:,<NULL>
+--,Line period:,0.0051
+--,Intra Line time:,0.0001
+

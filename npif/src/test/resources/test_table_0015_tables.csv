@@ -1,0 +1,37 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,Rectified Image Geometry,85,66306,0,0,0,226,2,238,305419896,INACTIVE,4
+--,Sensor ID Number:,21
+--,Axx:,1.1
+--,Axy:,2.1
+--,Ayx:,3.1
+--,Ayy:,4.1
+--,Cx:,5.1
+--,Cy:,6.1
+--,Data 1:,7.1
+--,Data 2:,8.1
+--,Data 3:,9.1
+--,Data 4:,10.1
+--,Data 5:,11.1
+--,Data 6:,<NULL>
+--,Data 7:,<NULL>
+--,Data 8:,<NULL>
+--,Data 9:,<NULL>
+--,Data 10:,<NULL>
+--,Data 11:,<NULL>
+--,Data 12:,<NULL>
+--,Data 13:,<NULL>
+--,Data 14:,<NULL>
+--,Data 15:,<NULL>
+--,Data 16:,<NULL>
+--,Data 17:,<NULL>
+--,Data 18:,<NULL>
+--,Data 19:,<NULL>
+--,Data 20:,<NULL>
+--,Near Range Point Depression angle:,28.64788975654116
+--,Far Range Point Depression angle:,28.64788975654116
+--,Projection type:,Stereographic
+--,Terrain model:,DTED
+

@@ -1,0 +1,8 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Mission,Requester Remarks,16,96,0,0,1,1024,0,5,0,INACTIVE,3
+--,Requester Index Number:,0
+--,Remarks:,Remarks from requester ID 0
+

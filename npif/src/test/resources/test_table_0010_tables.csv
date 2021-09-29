@@ -1,0 +1,27 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,Sensor Sample Coordinate Description,80,4112,0,0,0,19,2,238,305419896,INACTIVE,4
+--,Sensor ID Number:,16
+--,Vector model:,Sample by sample
+--,Number of Elements in table,3
+--,Size of 'x' vector component:,[0],12
+--,Type of 'x' vector component:,[0],Unsigned Binary
+--,Size of 'y' vector component:,[0],32
+--,Type of 'y' vector component:,[0],Short Float (IEEE 32-bit definition)
+--,Size of 'z' vector component:,[0],32
+--,Type of 'z' vector component:,[0],Short Float (IEEE 32-bit definition)
+--,Size of 'x' vector component:,[1],12
+--,Type of 'x' vector component:,[1],Unsigned Binary
+--,Size of 'y' vector component:,[1],32
+--,Type of 'y' vector component:,[1],Short Float (IEEE 32-bit definition)
+--,Size of 'z' vector component:,[1],32
+--,Type of 'z' vector component:,[1],Short Float (IEEE 32-bit definition)
+--,Size of 'x' vector component:,[2],12
+--,Type of 'x' vector component:,[2],Unsigned Binary
+--,Size of 'y' vector component:,[2],32
+--,Type of 'y' vector component:,[2],Short Float (IEEE 32-bit definition)
+--,Size of 'z' vector component:,[2],32
+--,Type of 'z' vector component:,[2],Short Float (IEEE 32-bit definition)
+

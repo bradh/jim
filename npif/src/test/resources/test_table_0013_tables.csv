@@ -1,0 +1,12 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,RADAR Collection Plane Image Geometry,85,66304,0,0,0,33,2,238,305419896,INACTIVE,4
+--,Sensor ID Number:,21
+--,Alpha:,85.94366926962348
+--,Virtual distance to the first pixel in the image:,2.5
+--,Pixel interval in the Virtual Look Direction:,3.5
+--,Pixel interval in the Cross Virtual Look Direction:,4.5
+--,Units of measurement for CrossVirtual Look Direction:,distance (metres)
+

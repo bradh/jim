@@ -1,0 +1,19 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,RADAR Sensor Description,85,65537,0,0,0,29,2,238,305419896,INACTIVE,4
+--,Sensor ID Number:,21
+--,Image length:,255
+--,Image width:,255
+--,Packets per image:,64
+--,Tile length:,128
+--,Tile width:,128
+--,Physical coordinate system:,Range; Cross Range
+--,Coordinate System Orientation:,vld is Y positive; cvld is X negative
+--,Sensor mode:,ON
+--,Pixel size:,16
+--,Elements per pixel:,8
+--,Data ordering:,4, UNKNOWN EMUMERATION ####****
+--,vld orientation:,Port; i.e. value of alpha is negative
+

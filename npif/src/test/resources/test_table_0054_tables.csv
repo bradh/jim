@@ -1,0 +1,15 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Segment/Event Index,Segment Index,48,256,0,0,1,80,1,0,3901,INACTIVE,3
+--,Segment ID Number:,1
+--,Start of data segment:,11148
+--,End of data segment:,18756481
+--,Start time of recording:,2003-03-26, 16:31:00.020000
+--,Stop time of recording:,2003-03-26, 16:32:18.020000
+--,Start of Header Time Tag:,1
+--,End of Header Time Tag:,3901
+--,Aircraft location at the start of recording of the segment:,<NULL>,<NULL>
+--,Aircraft location at the end of recording of the segment:,51.40429667833545,-1.6292281129160922
+

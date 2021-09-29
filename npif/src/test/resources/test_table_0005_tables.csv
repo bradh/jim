@@ -1,0 +1,14 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Platform,Sensor Grouping,32,4260027,0,0,0,6,2,238,305419896,INACTIVE,4
+--,Group ID Number:,187
+--,Group type:,Coverage
+--,Number of sensor numbers within the Group:,2
+--,Coverage relationship:,Abutted
+--,Timing relationship:,Simultaneous
+--,Number of Sensors listed in table,2
+--,Sensor number:,[0],5
+--,Sensor number:,[1],9
+

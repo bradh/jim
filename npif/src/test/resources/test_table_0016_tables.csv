@@ -1,0 +1,14 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,Virtual Sensor Definition,86,66307,0,0,0,25,2,238,305419896,INACTIVE,4
+--,Sensor ID Number:,22
+--,Transmit phase difference:,0.0
+--,Receive phase difference:,0.0
+--,Transmit antenna 1 Sensor number:,1
+--,Transmit antenna 2 Sensor number:,Not in use
+--,Receive antenna 1 Sensor number:,3
+--,Receive antenna 2 Sensor number:,Not in use
+--,Combination operation:,Addition
+

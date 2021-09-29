@@ -1,0 +1,11 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,Minimum Gimbals Attitude,67,96,0,0,0,24,1,2,2,INACTIVE,3
+--,Sensor ID Number:,3
+--,Gimbal ID Number:,0
+--,Rotation about Z-axis:,0.0
+--,Rotation about Y-axis:,-28.64788975654116
+--,Rotation about X-axis:,0.0
+

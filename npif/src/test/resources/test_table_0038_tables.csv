@@ -1,0 +1,21 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Mission,Requester,16,64,0,0,1,849,0,4,0,INACTIVE,3
+--,Requester Index Number:,0
+--,Report Message Type:,RECCEXREP
+--,Message Communications Channel:,internet
+--,Secondary Imagery Dissemination Channel:,CD-ROM
+--,Latest Time of Intelligence Value:,2003-06-12, 12:11:00.000000
+--,Requester Serial Number:,1
+--,Mission Priority:,PRIORITY 3
+--,Requester Address:,General Dynamics United Kingdom Ltd
+--,Requester Type:,MISSION REQUESTER
+--,Operation Codeword:,LINE-8
+--,Operation Plan Originator & Number:,GDUK LINE-8
+--,Operation Option Name - Primary:,Primary
+--,Operation Option Name - Secondary:,Secondary
+--,Exercise Nickname:,LINE-8
+--,Message Additional Identifier:,Test stream LINE-8
+

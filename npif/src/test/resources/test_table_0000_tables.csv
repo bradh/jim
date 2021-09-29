@@ -1,0 +1,34 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Platform,Comprehensive Dynamic Platform,32,1,0,0,0,231,1,0,1,INACTIVE,3
+--,Platform ID Number:,0
+--,Platform Time:,2003-03-27, 10:16:00.020000,FULL SPECIFICATION
+--,Platform Geo-Location:,51.0000036610912,1.4392463055206753e-05,DE-RATED
+--,MSL Altitude:,<NULL>,FAIL
+--,AGL Altitude:,1000.0,FULL SPECIFICATION
+--,GPS Altitude:,<NULL>,FAIL
+--,Platform true airspeed:,60.0,FULL SPECIFICATION
+--,Platform ground speed:,<NULL>,FAIL
+--,Platform true Course:,57.35860971249908,FULL SPECIFICATION
+--,Platform true Heading:,57.29577951308232,FULL SPECIFICATION
+--,Platform Pitch:,0.0,FULL SPECIFICATION
+--,Platform Roll:,0.0,FULL SPECIFICATION
+--,Platform Yaw:,0.06283019941676306,FULL SPECIFICATION
+--,Platform Velocity North:,32.362753757099256,DE-RATED
+--,Platform Velocity East:,50.52377825595942,DE-RATED
+--,Platform Velocity Down:,-0.0,DE-RATED
+--,Platform Acceleration North:,-2.7692297494564144,DE-RATED
+--,Platform Acceleration East:,1.775958374281572,DE-RATED
+--,Platform Acceleration Down:,0.0,DE-RATED
+--,Platform Heading Rate:,0.0,FULL SPECIFICATION
+--,Platform Pitch Rate:,0.0,FULL SPECIFICATION
+--,Platform Roll Rate:,0.0,FULL SPECIFICATION
+--,Platform Yaw Rate:,3.1415099708381526,FULL SPECIFICATION
+--,Platform Heading angular Acceleration:,0.0,FULL SPECIFICATION
+--,Platform Pitch angular Acceleration:,0.0,FULL SPECIFICATION
+--,Platform Roll angular Acceleration:,0.0,FULL SPECIFICATION
+--,Platform Yaw angular Acceleration:,157.07549854190762,FULL SPECIFICATION
+--,V/H:,0.06,DE-RATED
+

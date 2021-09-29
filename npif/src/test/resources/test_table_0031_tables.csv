@@ -1,0 +1,11 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Target,General Target EEI,17,8192,0,0,1,40,0,1,0,INACTIVE,3
+--,Target ID Number:,0
+--,Location ID Number:,0
+--,Target Category/Essential Elements of Information:,EEI for target 0 location 0
+--,EEI/Target Category Designation Scheme:,NATO STANAG 3596
+--,Weather Over the Target Reporting Code:,3668ALP
+

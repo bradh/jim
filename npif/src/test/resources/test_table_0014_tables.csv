@@ -1,0 +1,15 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,Reference Track,85,66305,0,0,0,72,2,238,305419896,INACTIVE,4
+--,Sensor ID Number:,21
+--,Sensor Virtual Position geo-location:,45.0,45.0
+--,Sensor Virtual Position MSL altitude:,<NULL>
+--,Sensor Virtual Position AGL altitude:,<NULL>
+--,Sensor Virtual Position GPS altitude:,<NULL>
+--,Reference Track north:,1.1
+--,Reference Track east:,2.1
+--,Reference Track down:,3.1
+--,Reference Track Speed:,4.1
+

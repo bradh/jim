@@ -1,0 +1,14 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,JPEG 2000 Description,85,259,0,0,0,9,2,238,305419896,INACTIVE,4
+--,Sensor ID Number:,21
+--,Codestream capability:,Profile 0 (see ITU-T T.800 | IS 15444-1 AMD-1)
+--,Progression order:,Layer-Resolution-Component-Position
+--,Number of decomposition levels:,8
+--,Number of layers:,64
+--,Number of components:,32
+--,JPEG 2000 Tiling performed:,JPEG 2000 Tiling has been used
+--,IREP:,YCbCr601
+

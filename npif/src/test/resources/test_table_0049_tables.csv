@@ -1,0 +1,15 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,Sync Hierarchy and Image Build,64,3,0,0,1,8,0,9,0,INACTIVE,3
+--,Sensor ID Number:,0
+--,SUPER FRAME hierarchy:,0
+--,FRAME hierarchy:,0
+--,FIELD hierarchy:,0
+--,SWATH hierarchy:,0
+--,TILE hierarchy:,0
+--,LINE hierarchy:,1
+--,Build direction of TILE image components:,not used
+--,Frame Coverage Relationship:,None
+

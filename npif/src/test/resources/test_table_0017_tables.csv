@@ -1,0 +1,34 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,RADAR Parameters,85,66308,0,0,0,122,2,238,305419896,INACTIVE,4
+--,Sensor ID Number:,21
+--,Processed resolution in vld:,1.0
+--,Processed resolution in cvld:,1.0
+--,Wavelength:,1.0
+--,Average power:,1.0
+--,Antenna Gain:,1.0
+--,PRF:,1.0
+--,Radiometric scale factor:,1.0
+--,Aperture Time:,1.0
+--,Pulse Compression Ratio:,1.0
+--,Azimuth Beamwidth:,57.29577951308232
+--,Interpulse Transmit Bandwidth:,1.0
+--,Instantaneous Receiver Bandwidth:,1.0
+--,A/D converter sample rate:,1.0
+--,RADAR mode:,Swath
+--,Processed number of looks:,10
+--,Pre-summing in range:,10
+--,Pre-summing in azimuth:,10
+--,Number of A/D converter bits:,64
+--,Interpulse modulation type:,None
+--,Pulse-to-pulse modulation type:,Linear step
+--,Range compression processing algorithm:,Analogue matched filter
+--,Azimuth compression processing algorithm:,Doppler
+--,Autofocus processing algorithms:,Multilook registration plus MOCO
+--,Range processing weighting:,-40dB m = 81 Taylor
+--,Azimuth processing weighting:,-40dB m = 6 Dolph-Chebyshev
+--,Antenna azimuth weighting:,-50dB m = 6 Dolph-Chebyshev
+--,Antenna elevation weighting:,-60dB m = 6 Dolph-Chebyshev
+

@@ -1,0 +1,11 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="BasicTests">
+    <test name="basic-unit">
+        <packages>
+            <package name="com.sigmabravo.rnd.jim.npif"/>
+            <package name="com.sigmabravo.rnd.jim.npif.*"/>
+        </packages>
+    </test>
+</suite>

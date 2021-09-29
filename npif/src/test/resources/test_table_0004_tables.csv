@@ -1,0 +1,19 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Segment/Event Index,Event Index,48,257,0,0,1,78,1,2,1013,INACTIVE,3
+--,Segment ID Number:,1
+--,Event ID Number:,1
+--,Event Type:,Manual Point Event/Target
+--,Target Number:,0
+--,Target Sub-section:,0
+--,Time Tag:,496
+--,Event Time:,2003-06-16, 15:44:00.920000
+--,Aircraft Geo-Location:,54.30312394615454,-2.2995546826400632
+--,Primary Sensor Number:,2
+--,Secondary Sensor Number:,4
+--,Third Sensor Number:,6
+--,Event position in the record:,23696750
+--,Event Name:,<NULL>
+

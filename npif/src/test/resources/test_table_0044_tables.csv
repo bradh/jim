@@ -1,0 +1,24 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,PASSIVE Sensor Description,64,1,0,0,1,61,0,4,0,INACTIVE,3
+--,Sensor ID Number:,0
+--,Frame or Swath size:,1
+--,Active Line time:,0.005000000000000001
+--,Line size of active data:,1200
+--,Packets per Frame or Swath:,1
+--,Size of tile in the high frequency scanning direction:,1200
+--,Size of tile in the low frequency scanning direction:,1
+--,Number of tiles across a line:,1
+--,Number of swaths per frame:,1
+--,Sensor mode:,Off
+--,Pixel size:,8
+--,Elements per pixel:,1
+--,Data Ordering:,INACTIVE (Unispectral data)
+--,Line FOV:,143.2394487827058
+--,Frame or Swath FOV:,0.057295779513082325
+--,Number of Fields:,INVALID
+--,High frequency scanning direction:,positive direction
+--,Low frequency scanning direction:,negative direction
+

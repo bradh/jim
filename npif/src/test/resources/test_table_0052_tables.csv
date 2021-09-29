@@ -1,0 +1,19 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Platform,Minimum Dynamic Platform,32,0,0,0,0,107,1,0,1,INACTIVE,3
+--,Platform ID Number:,0
+--,Platform Time:,2003-03-26, 16:31:00.020000,FULL SPECIFICATION
+--,Platform Geo-Location:,51.354711209883625,-1.8677478001270087,FULL SPECIFICATION
+--,MSL Altitude:,<NULL>,FAIL
+--,AGL Altitude:,500.0,FULL SPECIFICATION
+--,GPS Altitude:,<NULL>,FAIL
+--,Platform true airspeed:,<NULL>,FAIL
+--,Platform ground speed:,257.0,FULL SPECIFICATION
+--,Platform true Course:,45.062935428991615,FULL SPECIFICATION
+--,Platform true Heading:,45.00010522957486,FULL SPECIFICATION
+--,Platform Pitch:,0.0,FULL SPECIFICATION
+--,Platform Roll:,0.0,FULL SPECIFICATION
+--,Platform Yaw:,0.06283019941676306,FULL SPECIFICATION
+

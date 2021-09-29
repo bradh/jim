@@ -1,0 +1,16 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Target,General Target Location,17,4096,0,0,1,71,0,2,0,INACTIVE,3
+--,Target ID Number:,0
+--,Location ID Number:,0
+--,Start_ Target or Corner Location:,51.35469,-1.868
+--,Start_ Target or Corner Elevation:,10.0
+--,Target Diameter or Width:,5.0
+--,Map Series:,OS
+--,Sheet Number of Target Location:,198
+--,Inverse Map Scale:,25000.0
+--,Map Edition Number:,1
+--,Map Edition Date:,<NULL>
+

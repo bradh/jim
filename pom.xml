@@ -19,6 +19,7 @@
         <module>mie4nitf</module>
         <module>nitf</module>
         <module>ccinfa</module>
+        <module>npif</module>
     </modules>
     <properties>
         <coveralls.version>4.3.0</coveralls.version>

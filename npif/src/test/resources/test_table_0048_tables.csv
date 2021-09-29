@@ -1,0 +1,14 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Sensor Parametric,JPEG Sensor Quantisation,64,257,0,0,1,134,0,8,0,INACTIVE,3
+--,Sensor ID Number:,0
+--,DQT Define Quantisation Table Marker:,FFDB
+--,Lq Length of parameters:,132
+--,Number of Tables (max 4),2
+--,PqTq Quantisation table element precision:,[0],Table 0, 8-bit precision
+--,Qk Quantisation table elements in zigzag order:,[0],100B0C0E0C0A100E0D0E121110131828...
+--,PqTq Quantisation table element precision:,[1],Table 1, 8-bit precision
+--,Qk Quantisation table elements in zigzag order:,[1],1112121815182F1A1A2F634238426363...
+

@@ -1,0 +1,12 @@
+Overview of all tables:
+For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
+DFA is Data File Address as an integer
+Count,Source,Table,         SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
+0,Mission,Air Tasking Order,16,32, 0, 0, 1, 50,  0,      2,     0,       INACTIVE, 3
+--,Air Tasking Order Title:,LINE-8
+--,Air Tasking Order Originator:,General Dynamics UK
+--,Air Tasking Order Serial Number:,LINE-8
+--,Date Time Group:,2003-06-12, 12:11:00.000000
+--,Qualifier:,001
+--,Qualifier Serial Number:,1
+
