@@ -15,12 +15,20 @@ public class MinimumGimbalsAttitudeDataTable extends DataTable {
     private double rotationAboutYAxis;
     private double rotationAboutXAxis;
 
-    public int getGimbalId() {
+    public int getSensorId() {
         return (getHeader().getSourceAddress() & 0x3F);
+    }
+
+    public int getGimbalId() {
+        return (getHeader().getDataFileAddress() & 0x0F);
     }
 
     public double getRotationAboutZAxis() {
         return rotationAboutZAxis;
+    }
+
+    public double getRotationAboutZAxisDegrees() {
+        return radiansToDegrees(getRotationAboutZAxis());
     }
 
     public void setRotationAboutZAxis(double rotationAboutZAxis) {
@@ -31,12 +39,20 @@ public class MinimumGimbalsAttitudeDataTable extends DataTable {
         return rotationAboutYAxis;
     }
 
+    public double getRotationAboutYAxisDegrees() {
+        return radiansToDegrees(getRotationAboutYAxis());
+    }
+
     public void setRotationAboutYAxis(double rotationAboutYAxis) {
         this.rotationAboutYAxis = rotationAboutYAxis;
     }
 
     public double getRotationAboutXAxis() {
         return rotationAboutXAxis;
+    }
+
+    public double getRotationAboutXAxisDegrees() {
+        return radiansToDegrees(getRotationAboutXAxis());
     }
 
     public void setRotationAboutXAxis(double rotationAboutXAxis) {

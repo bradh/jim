@@ -21,8 +21,12 @@ public class ComprehensiveGimbalsAttitudeDataTable extends DataTable {
     private double rotationAccelerationAboutYAxis;
     private double rotationAccelerationAboutXAxis;
 
-    public int getGimbalId() {
+    public int getSensorId() {
         return (getHeader().getSourceAddress() & 0x3F);
+    }
+
+    public int getGimbalId() {
+        return (getHeader().getDataFileAddress() & 0x0F);
     }
 
     public double getRotationAboutZAxis() {

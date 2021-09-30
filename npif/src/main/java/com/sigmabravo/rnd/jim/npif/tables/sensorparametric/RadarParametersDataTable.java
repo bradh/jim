@@ -15,7 +15,7 @@ public class RadarParametersDataTable extends DataTable {
     private double wavelength;
     private double averagePower;
     private double antennaGain;
-    private double pRF;
+    private double prf;
     private double radiometricScaleFactor;
     private double apertureTime;
     private double pulseCompressionRatio;
@@ -23,7 +23,7 @@ public class RadarParametersDataTable extends DataTable {
     private double interpulseTransmitBandwidth;
     private double instantaneousReceiver;
     private double aToDConverterSampleRate;
-    private int rADARMode;
+    private int radarMode;
     private int processedNumberOfLooks;
     private int preSummingInRange;
     private int preSummingInAzimuth;
