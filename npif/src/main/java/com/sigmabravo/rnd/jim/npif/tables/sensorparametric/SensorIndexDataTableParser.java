@@ -13,8 +13,33 @@ public class SensorIndexDataTableParser extends AbstractSensorParametricDataTabl
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Minimum Sensor Attitude Data Table");
-        return new DataTable();
+        SensorIndexDataTable dataTable = new SensorIndexDataTable();
+        dataTable.setName("Sensor Index");
+        dataTable.setSourceFile("Sensor Parametric");
+        int numLoops = header.getDataFileSize() / 80;
+        for (int i = 0; i < numLoops; i++) {
+            SensorIndexDataTableEntry entry = new SensorIndexDataTableEntry();
+            entry.setCollectionStartTime(this.readDTG(mappedByteBuffer, offset, 8));
+            offset += 8;
+            entry.setCollectionStopTime(this.readDTG(mappedByteBuffer, offset, 8));
+            offset += 8;
+            entry.setStartHeaderTimeTag(this.readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+            offset += 8;
+            entry.setEndHeaderTimeTag(this.readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+            offset += 8;
+            entry.setAircraftLocationAtCollectionStartTime(
+                    this.readPosition(mappedByteBuffer, offset));
+            offset += 16;
+            entry.setAircraftLocationAtCollectionEndTime(
+                    this.readPosition(mappedByteBuffer, offset));
+            offset += 16;
+            entry.setSensorStartPosition(this.readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+            offset += 8;
+            entry.setSensorEndPosition(this.readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+            offset += 8;
+            dataTable.addEntry(entry);
+        }
+        return dataTable;
     }
 
     @Override

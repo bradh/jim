@@ -163,6 +163,24 @@ public class TestSupport {
         }
     }
 
+    protected void validateDTGValueWithIndex(
+            ZonedDateTime zdtValue, int index, List<String> otherLines, int i) {
+        String[] lineParts = otherLines.get(i).split(",", 4);
+        String label = lineParts[1];
+        String indexAsFormattedString = lineParts[2].trim();
+        assertEquals(String.format("[%d]", index), indexAsFormattedString);
+        String valueAsString = lineParts[3].trim();
+        if (valueAsString.equals("<NULL>")) {
+            assertNull(zdtValue);
+        } else {
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern("uuuu-MM-dd, HH:mm:ss.SSSSSS")
+                            .withZone(ZoneOffset.UTC);
+            ZonedDateTime expectedZdt = ZonedDateTime.parse(valueAsString, formatter);
+            assertEquals(zdtValue, expectedZdt, "Mismatch at " + label);
+        }
+    }
+
     protected void validateIntegerValue(int value, List<String> otherLines, int i) {
         String[] lineParts = otherLines.get(i).split(",", 3);
         String label = lineParts[1];
@@ -190,6 +208,17 @@ public class TestSupport {
         assertEquals(value, expectedInteger, "Mismatch at " + label);
     }
 
+    protected void validateLongValueWithIndex(
+            long value, int index, List<String> otherLines, int i) {
+        String[] lineParts = otherLines.get(i).split(",", 4);
+        String label = lineParts[1];
+        String indexAsFormattedString = lineParts[2].trim();
+        String valueAsString = lineParts[3].trim();
+        assertEquals(String.format("[%d]", index), indexAsFormattedString);
+        long expectedInteger = Long.parseLong(valueAsString);
+        assertEquals(value, expectedInteger, "Mismatch at " + label);
+    }
+
     protected void validateDoubleValue(double value, List<String> otherLines, int i) {
         String[] lineParts = otherLines.get(i).split(",", 3);
         String label = lineParts[1];
@@ -213,6 +242,25 @@ public class TestSupport {
         String[] lineParts = otherLines.get(i).split(",", 3);
         String label = lineParts[1];
         String valueAsString = lineParts[2];
+        String[] valueParts = valueAsString.split(",");
+        if (valueParts[0].equals("<NULL>") && valueParts[1].equals("<NULL>")) {
+            assertTrue(Double.isNaN(position.getLatitudeDegrees()));
+            assertTrue(Double.isNaN(position.getLongitudeDegrees()));
+        } else {
+            double expectedLatitudeInDegrees = Double.parseDouble(valueParts[0]);
+            double expectedLongitudeInDegrees = Double.parseDouble(valueParts[1]);
+            assertEquals(position.getLatitudeDegrees(), expectedLatitudeInDegrees, 0.000001);
+            assertEquals(position.getLongitudeDegrees(), expectedLongitudeInDegrees, 0.000001);
+        }
+    }
+
+    protected void validatePositionValueWithIndex(
+            Position position, int index, List<String> otherLines, int i) {
+        String[] lineParts = otherLines.get(i).split(",", 4);
+        String label = lineParts[1];
+        String indexAsFormattedString = lineParts[2].trim();
+        String valueAsString = lineParts[3];
+        assertEquals(String.format("[%d]", index), indexAsFormattedString);
         String[] valueParts = valueAsString.split(",");
         if (valueParts[0].equals("<NULL>") && valueParts[1].equals("<NULL>")) {
             assertTrue(Double.isNaN(position.getLatitudeDegrees()));
