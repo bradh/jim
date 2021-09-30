@@ -3,16 +3,17 @@ package com.sigmabravo.rnd.jim.npif.tables.sensordata;
 import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
-public class S4607GMTIDataTableParser extends AbstractSensorDataTableParser {
+public class S4609MotionImageryDataTableParser extends AbstractSensorDataTableParser {
 
-    private static final int FILE_ADDRESS_SUPPORTED = 0x00000060;
+    private static final int FILE_ADDRESS_SUPPORTED = 0x00000070;
 
-    public S4607GMTIDataTableParser() {}
+    public S4609MotionImageryDataTableParser() {}
 
     @Override
-    public S4607GMTIDataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        S4607GMTIDataTable dataTable = new S4607GMTIDataTable();
-        dataTable.setName("4607 GMTI");
+    public S4609MotionImageryDataTable parse(
+            MappedByteBuffer mappedByteBuffer, int offset, Header header) {
+        S4609MotionImageryDataTable dataTable = new S4609MotionImageryDataTable();
+        dataTable.setName("4609 Motion Imagery");
         dataTable.setSourceFile("Sensor");
         dataTable.setData(this.readBytes(mappedByteBuffer, offset, header.getDataFileSize()));
         return dataTable;

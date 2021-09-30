@@ -150,7 +150,6 @@ public class TestSupport {
         String[] lineParts = otherLines.get(i).split(",", 3);
         String label = lineParts[1];
         String valueAsString = lineParts[2].trim();
-        System.out.println(valueAsString);
         if (valueAsString.equals("<NULL>")) {
             assertNull(zdtValue);
         } else {
@@ -158,7 +157,6 @@ public class TestSupport {
                     DateTimeFormatter.ofPattern("uuuu-MM-dd, HH:mm:ss.SSSSSS")
                             .withZone(ZoneOffset.UTC);
             ZonedDateTime expectedZdt = ZonedDateTime.parse(valueAsString, formatter);
-            System.out.println(expectedZdt.format(DateTimeFormatter.ISO_ZONED_DATE_TIME));
             assertEquals(zdtValue, expectedZdt, "Mismatch at " + label);
         }
     }

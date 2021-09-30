@@ -64,5 +64,7 @@ module STANAG7023TableExtractorValidatorAndEditorSTEVE {
             com.sigmabravo.rnd.jim.npif.tables.sensordata.SensorSampleYCoordinateDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensordata.SensorSampleZCoordinateDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensordata.SensorSampleTimingDataTableParser,
-            com.sigmabravo.rnd.jim.npif.tables.sensordata.S4607GMTIDataTableParser;
+            com.sigmabravo.rnd.jim.npif.tables.sensordata.S4607GMTIDataTableParser,
+            com.sigmabravo.rnd.jim.npif.tables.sensordata.S4609MotionImageryDataTableParser,
+            com.sigmabravo.rnd.jim.npif.tables.sensordata.RangeFinderDataTableParser;
 }

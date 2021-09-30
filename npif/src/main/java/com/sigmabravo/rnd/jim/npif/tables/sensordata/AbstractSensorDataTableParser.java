@@ -1,6 +1,7 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensordata;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTableParser;
+import java.nio.MappedByteBuffer;
 
 public abstract class AbstractSensorDataTableParser extends DataTableParser {
 
@@ -14,4 +15,10 @@ public abstract class AbstractSensorDataTableParser extends DataTableParser {
     }
 
     protected abstract boolean fileAddressValid(final int fileAddress);
+
+    protected byte[] readBytes(MappedByteBuffer mappedByteBuffer, int offset, int dataFileSize) {
+        byte[] dest = new byte[dataFileSize];
+        mappedByteBuffer.position(offset).get(dest);
+        return dest;
+    }
 }

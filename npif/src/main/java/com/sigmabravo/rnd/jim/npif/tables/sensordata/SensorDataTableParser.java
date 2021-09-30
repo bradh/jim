@@ -12,8 +12,11 @@ public class SensorDataTableParser extends AbstractSensorDataTableParser {
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Sensor Data Table");
-        return new DataTable();
+        SensorDataTable dataTable = new SensorDataTable();
+        dataTable.setName("Sensor");
+        dataTable.setSourceFile("Sensor");
+        dataTable.setSensorData(this.readBytes(mappedByteBuffer, offset, header.getDataFileSize()));
+        return dataTable;
     }
 
     @Override
