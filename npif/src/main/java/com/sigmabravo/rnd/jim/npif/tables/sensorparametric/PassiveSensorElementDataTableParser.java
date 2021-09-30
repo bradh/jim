@@ -12,8 +12,22 @@ public class PassiveSensorElementDataTableParser extends AbstractSensorParametri
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Passive Sensor Element Data Table");
-        return new DataTable();
+        PassiveSensorElementDataTable dataTable = new PassiveSensorElementDataTable();
+        dataTable.setName("Passive Sensor Element");
+        dataTable.setSourceFile("Sensor Parametric");
+        // TODO: this needs to loop
+        PassiveSensorElementDataTableEntry entry = new PassiveSensorElementDataTableEntry();
+        entry.setElementSize(this.readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        entry.setElementBitOffset(this.readUnsignedBinary(mappedByteBuffer, offset, 2));
+        offset += 2;
+        entry.setSensorElementID(this.readUnsignedBinary(mappedByteBuffer, offset, 2));
+        offset += 2;
+        entry.setMinimumWavelength(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        entry.setMaximumWavelength(this.readDouble(mappedByteBuffer, offset, 8));
+        dataTable.addEntry(entry);
+        return dataTable;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 	The sensor number is encoded into the Source Address. The binary form of the Source Address is: 01xxxxxx, where xxxxxx is the sensor number.
@@ -72,9 +74,18 @@ import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 	A-12        RADAR Data Tables
 */
 public class PassiveSensorElementDataTable extends DataTable {
-    private int elementSize;
-    private int elementBitOffset;
-    private int sensorElementID;
-    private double minimumWavelength;
-    private double maximumWavelength;
+
+    private List<PassiveSensorElementDataTableEntry> entries = new ArrayList<>();
+
+    public int getSensorId() {
+        return (getHeader().getSourceAddress() & 0x3F);
+    }
+
+    public List<PassiveSensorElementDataTableEntry> getEntries() {
+        return new ArrayList<>(entries);
+    }
+
+    public void addEntry(PassiveSensorElementDataTableEntry entry) {
+        entries.add(entry);
+    }
 }

@@ -171,6 +171,17 @@ public class TestSupport {
         assertEquals(value, expectedInteger, "Mismatch at " + label);
     }
 
+    protected void validateIntegerValueWithIndex(
+            int value, int index, List<String> otherLines, int i) {
+        String[] lineParts = otherLines.get(i).split(",", 4);
+        String label = lineParts[1];
+        String indexAsFormattedString = lineParts[2].trim();
+        String valueAsString = lineParts[3].trim();
+        assertEquals(String.format("[%d]", index), indexAsFormattedString);
+        int expectedInteger = Integer.parseInt(valueAsString);
+        assertEquals(value, expectedInteger, "Mismatch at " + label);
+    }
+
     protected void validateLongValue(long value, List<String> otherLines, int i) {
         String[] lineParts = otherLines.get(i).split(",", 3);
         String label = lineParts[1];
@@ -183,6 +194,17 @@ public class TestSupport {
         String[] lineParts = otherLines.get(i).split(",", 3);
         String label = lineParts[1];
         String valueAsString = lineParts[2].trim();
+        double expectedDouble = Double.parseDouble(valueAsString);
+        assertEquals(value, expectedDouble, 0.000000001, "Mismatch at " + label);
+    }
+
+    protected void validateDoubleValueWithIndex(
+            double value, int index, List<String> otherLines, int i) {
+        String[] lineParts = otherLines.get(i).split(",", 4);
+        String label = lineParts[1];
+        String indexAsFormattedString = lineParts[2].trim();
+        String valueAsString = lineParts[3].trim();
+        assertEquals(String.format("[%d]", index), indexAsFormattedString);
         double expectedDouble = Double.parseDouble(valueAsString);
         assertEquals(value, expectedDouble, 0.000000001, "Mismatch at " + label);
     }
