@@ -257,4 +257,8 @@ public class GeneralTargetInformationDataTable extends DataTable {
     public void setTargetName(String targetName) {
         this.targetName = targetName;
     }
+
+    public int getTargetNumber() {
+        return ((getHeader().getDataFileAddress() & 0x00000FF0) >> 4);
+    }
 }

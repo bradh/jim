@@ -21,4 +21,12 @@ public class GeneralTargetRemarksDataTable extends DataTable {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
+
+    public int getTargetNumber() {
+        return ((getHeader().getDataFileAddress() & 0x00000FF0) >> 4);
+    }
+
+    public int getLocationNumber() {
+        return (getHeader().getDataFileAddress() & 0x0000000F);
+    }
 }

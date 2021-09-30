@@ -318,4 +318,8 @@ public class ComprehensiveDynamicPlatformDataTable extends DataTable {
     public void setNavigationalConfidence(int navigationalConfidence) {
         this.navigationalConfidence = navigationalConfidence;
     }
+
+    public int getPlatformId() {
+        return (getHeader().getDataFileAddress() & 0x00FF0000) >> 16;
+    }
 }

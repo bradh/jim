@@ -19,7 +19,7 @@ public class RangeFinderDataTableParserTest extends TestSupport {
         assertTrue(dataTable instanceof RangeFinderDataTable);
         RangeFinderDataTable table = (RangeFinderDataTable) dataTable;
         List<String> otherLines = parseAndValidateHeader(table, "test_table_0026_tables.csv");
-        // TODO: extract sensor id
+        validateIntegerValue(table.getSensorId(), otherLines, 0);
         validateDoubleValue(table.getRange(), otherLines, 1);
         assertEquals(otherLines.size(), 2);
     }

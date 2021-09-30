@@ -19,7 +19,7 @@ public class ComprehensiveDynamicPlatformDataTableParserTest extends PlatformTes
         ComprehensiveDynamicPlatformDataTable table =
                 (ComprehensiveDynamicPlatformDataTable) dataTable;
         List<String> otherLines = parseAndValidateHeader(table, "test_table_0000_tables.csv");
-        // TODO: parse and verify platform ID
+        this.validateIntegerValue(table.getPlatformId(), otherLines, 0);
         validateDTGValueIgnoringConfidence(table.getPlatformTime(), otherLines, 1);
         validatePositionIgnoringConfidence(table.getPlatformGeoLocation(), otherLines, 2);
         validateDoubleValueIgnoringConfidence(table.getMslAltitude(), otherLines, 3);

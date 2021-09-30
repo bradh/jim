@@ -19,7 +19,7 @@ public class GeneralTargetInformationDataTableParserTest extends TestSupport {
         assertTrue(dataTable instanceof GeneralTargetInformationDataTable);
         GeneralTargetInformationDataTable table = (GeneralTargetInformationDataTable) dataTable;
         List<String> otherLines = parseAndValidateHeader(table, "test_table_0030_tables.csv");
-        // TODO: extract and test target id
+        validateIntegerValue(table.getTargetNumber(), otherLines, 0);
         validateASCIIValue(table.getTargetTypeAsText(), otherLines, 1);
         validateASCIIValue(table.getTargetPriorityAsText(), otherLines, 2);
         validateASCIIValue(table.getBasicEncyclopaediaNumber(), otherLines, 3);

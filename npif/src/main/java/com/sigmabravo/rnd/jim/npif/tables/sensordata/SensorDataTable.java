@@ -1,6 +1,5 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensordata;
 
-import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import java.util.Arrays;
 
 /*
@@ -25,7 +24,7 @@ import java.util.Arrays;
 	Total no. of bits in table = 750 x 6 = 4500 bits, and 4500 bits = 562 bytes and 4 bits, the padding is xxxx. The data file size for the 750 6-bit elements would be 563
 	bytes.
 */
-public class SensorDataTable extends DataTable {
+public class SensorDataTable extends AbstractSensorDataTable {
     private byte[] sensorData;
 
     public byte[] getSensorData() {

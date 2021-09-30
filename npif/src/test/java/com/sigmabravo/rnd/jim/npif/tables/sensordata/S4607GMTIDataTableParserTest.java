@@ -19,7 +19,7 @@ public class S4607GMTIDataTableParserTest extends TestSupport {
         assertTrue(dataTable instanceof S4607GMTIDataTable);
         S4607GMTIDataTable table = (S4607GMTIDataTable) dataTable;
         List<String> otherLines = parseAndValidateHeader(table, "test_table_0024_tables.csv");
-        // TODO: extract sensor id
+        validateIntegerValue(table.getSensorId(), otherLines, 0);
         byte[] expectedBytes = new byte[table.getHeader().getDataFileSize()];
         assertEquals(table.getData(), expectedBytes);
         assertEquals(otherLines.size(), 2);

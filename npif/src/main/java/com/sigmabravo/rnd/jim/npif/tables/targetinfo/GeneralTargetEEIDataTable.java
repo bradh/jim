@@ -44,4 +44,12 @@ public class GeneralTargetEEIDataTable extends DataTable {
     public void setWeatherOverTheTargetReportingCode(String weatherOverTheTargetReportingCode) {
         this.weatherOverTheTargetReportingCode = weatherOverTheTargetReportingCode;
     }
+
+    public int getTargetNumber() {
+        return ((getHeader().getDataFileAddress() & 0x00000FF0) >> 4);
+    }
+
+    public int getLocationNumber() {
+        return (getHeader().getDataFileAddress() & 0x0000000F);
+    }
 }

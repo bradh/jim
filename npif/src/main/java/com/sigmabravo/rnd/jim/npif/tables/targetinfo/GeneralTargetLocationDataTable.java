@@ -89,4 +89,12 @@ public class GeneralTargetLocationDataTable extends DataTable {
             this.mapEditionDate = mapEditionDate.plusHours(0);
         }
     }
+
+    public int getTargetNumber() {
+        return ((getHeader().getDataFileAddress() & 0x00000FF0) >> 4);
+    }
+
+    public int getLocationNumber() {
+        return (getHeader().getDataFileAddress() & 0x0000000F);
+    }
 }

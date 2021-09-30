@@ -19,7 +19,7 @@ public class S4609MotionImageryDataTableParserTest extends TestSupport {
         assertTrue(dataTable instanceof S4609MotionImageryDataTable);
         S4609MotionImageryDataTable table = (S4609MotionImageryDataTable) dataTable;
         List<String> otherLines = parseAndValidateHeader(table, "test_table_0025_tables.csv");
-        // TODO: extract sensor id
+        validateIntegerValue(table.getSensorId(), otherLines, 0);
         byte[] expectedBytes = new byte[table.getHeader().getDataFileSize()];
         assertEquals(table.getData(), expectedBytes);
         assertEquals(otherLines.size(), 2);

@@ -19,7 +19,8 @@ public class GeneralTargetEEIDataTableParserTest extends TestSupport {
         assertTrue(dataTable instanceof GeneralTargetEEIDataTable);
         GeneralTargetEEIDataTable table = (GeneralTargetEEIDataTable) dataTable;
         List<String> otherLines = parseAndValidateHeader(table, "test_table_0031_tables.csv");
-        // TODO: extract and test target id and location id
+        validateIntegerValue(table.getTargetNumber(), otherLines, 0);
+        validateIntegerValue(table.getLocationNumber(), otherLines, 1);
         validateASCIIValue(table.getTargetCategoryEssentialElementsOfInformation(), otherLines, 2);
         validateASCIIValue(table.getEeiTargetCategoryDesignationSchemeAsText(), otherLines, 3);
         validateASCIIValue(table.getWeatherOverTheTargetReportingCode(), otherLines, 4);

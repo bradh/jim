@@ -16,4 +16,8 @@ public class RangeFinderDataTable extends DataTable {
     public void setRange(double range) {
         this.range = range;
     }
+
+    public int getSensorId() {
+        return ((getHeader().getSourceAddress() & 0xFF) - 0x80);
+    }
 }

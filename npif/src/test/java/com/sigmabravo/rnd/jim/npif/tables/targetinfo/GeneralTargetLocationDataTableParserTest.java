@@ -19,7 +19,8 @@ public class GeneralTargetLocationDataTableParserTest extends TestSupport {
         assertTrue(dataTable instanceof GeneralTargetLocationDataTable);
         GeneralTargetLocationDataTable table = (GeneralTargetLocationDataTable) dataTable;
         List<String> otherLines = parseAndValidateHeader(table, "test_table_0032_tables.csv");
-        // TODO: extract and test target id and location id
+        validateIntegerValue(table.getTargetNumber(), otherLines, 0);
+        validateIntegerValue(table.getLocationNumber(), otherLines, 1);
         validateASCIIValue(table.getStartTargetOrCornerLocation().asText(), otherLines, 2);
         validateDoubleValue(table.getStartTargetOrCornerElevation(), otherLines, 3);
         validateDoubleValue(table.getTargetDiameterOrWidth(), otherLines, 4);

@@ -19,7 +19,7 @@ public class RequesterDataTableParserTest extends TestSupport {
         assertTrue(dataTable instanceof RequesterDataTable);
         RequesterDataTable table = (RequesterDataTable) dataTable;
         List<String> otherLines = parseAndValidateHeader(table, "test_table_0038_tables.csv");
-        // TODO: extract and test requester id.
+        validateIntegerValue(table.getRequesterId(), otherLines, 0);
         validateASCIIValue(table.getReportMessageTypeAsText(), otherLines, 1);
         validateASCIIValue(table.getMessageCommunicationsChannel(), otherLines, 2);
         validateASCIIValue(table.getSecondaryImageryDisseminationChannel(), otherLines, 3);

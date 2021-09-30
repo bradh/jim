@@ -19,7 +19,7 @@ public class SensorDataTableParserTest extends TestSupport {
         assertTrue(dataTable instanceof SensorDataTable);
         SensorDataTable table = (SensorDataTable) dataTable;
         List<String> otherLines = parseAndValidateHeader(table, "test_table_0053_tables.csv");
-        // TODO: extract sensor id
+        validateIntegerValue(table.getSensorId(), otherLines, 0);
         byte[] expectedBytes = new byte[table.getHeader().getDataFileSize()];
         int offset = 64;
         for (int i = 0x17; i >= 0; i--) {

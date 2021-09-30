@@ -19,7 +19,8 @@ public class GeneralTargetRemarksDataTableParserTest extends TestSupport {
         assertTrue(dataTable instanceof GeneralTargetRemarksDataTable);
         GeneralTargetRemarksDataTable table = (GeneralTargetRemarksDataTable) dataTable;
         List<String> otherLines = parseAndValidateHeader(table, "test_table_0033_tables.csv");
-        // TODO: extract and test target id and location id
+        validateIntegerValue(table.getTargetNumber(), otherLines, 0);
+        validateIntegerValue(table.getLocationNumber(), otherLines, 1);
         validateASCIIValue(table.getRemarks(), otherLines, 2);
         assertEquals(otherLines.size(), 3);
     }

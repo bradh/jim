@@ -6,7 +6,6 @@ import java.time.ZonedDateTime;
 /*
 	Each requester is assigned a unique requester index number. STANAG 7023 can handle both Information Requesters and Mission Requesters simultaneously. This
 	table describes the Requester and the required Report type, it also identifies the communications channels to be used.
-	File Addressing scheme is $0000 00xx where bits 0-4 represents the Requester Index Number as an offset from $0000 0040.
 */
 public class RequesterDataTable extends DataTable {
     private int reportMessageType;
@@ -177,5 +176,9 @@ public class RequesterDataTable extends DataTable {
 
     public void setMessageAdditionalIdentifier(String messageAdditionalIdentifier) {
         this.messageAdditionalIdentifier = messageAdditionalIdentifier;
+    }
+
+    public int getRequesterId() {
+        return ((getHeader().getDataFileAddress() & 0x5F) - 0x40);
     }
 }
