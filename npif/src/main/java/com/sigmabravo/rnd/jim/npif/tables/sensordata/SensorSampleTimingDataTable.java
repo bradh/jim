@@ -1,6 +1,5 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensordata;
 
-import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import java.util.Arrays;
 
 /*
@@ -20,7 +19,7 @@ import java.util.Arrays;
 	methods
 	Regardless of data ordering (BIP, BSQ, BIL) sample timing shall express the timing relationship of adjacent samples of the same element.
 */
-public class SensorSampleTimingDataTable extends DataTable {
+public class SensorSampleTimingDataTable extends AbstractSensorDataTable {
     private byte[] sampleTiming;
 
     public byte[] getSampleTiming() {

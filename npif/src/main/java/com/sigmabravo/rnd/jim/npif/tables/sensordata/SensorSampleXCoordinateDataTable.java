@@ -1,6 +1,5 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensordata;
 
-import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import java.util.Arrays;
 
 /*
@@ -9,7 +8,7 @@ import java.util.Arrays;
 	This table is used for the sensor modelling method VECTOR MODELLING. It is used in conjunction with the Sensor Sample Coordinate Description Data Table.
 	The data file size must be a multiple of whole bytes. Any padding will be in the last byte and from the LSB towards the MSB.
 */
-public class SensorSampleXCoordinateDataTable extends DataTable {
+public class SensorSampleXCoordinateDataTable extends AbstractSensorDataTable {
     private byte[] sampleXCoordinate;
 
     public byte[] getSampleXCoordinate() {

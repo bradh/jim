@@ -13,8 +13,11 @@ public class EndOfSegmentMarkerDataTableParser extends DataTableParser {
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("End of Segment Marker Data Table");
-        return new DataTable();
+        EndOfSegmentMarkerDataTable dataTable = new EndOfSegmentMarkerDataTable();
+        dataTable.setName("End of Segment Marker");
+        dataTable.setSourceFile("Segment/Event Index");
+        dataTable.setSizeOfSegment(readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+        return dataTable;
     }
 
     @Override

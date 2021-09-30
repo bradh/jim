@@ -12,8 +12,12 @@ public class SensorSampleTimingDataTableParser extends AbstractSensorDataTablePa
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Sensor Sample Timing Data Table");
-        return new DataTable();
+        SensorSampleTimingDataTable dataTable = new SensorSampleTimingDataTable();
+        dataTable.setName("Sensor Sample Timing");
+        dataTable.setSourceFile("Sensor");
+        dataTable.setSampleTiming(
+                this.readBytes(mappedByteBuffer, offset, header.getDataFileSize()));
+        return dataTable;
     }
 
     @Override

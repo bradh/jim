@@ -1,6 +1,5 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensordata;
 
-import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import java.util.Arrays;
 
 /*
@@ -8,7 +7,7 @@ import java.util.Arrays;
 	The sensor number is encoded into the Source Address. The binary form of the Source Address is: 10xxxxxx, where xxxxxx is the sensor number.
 	The data file size must be a multiple of whole bytes. Any padding will be in the last byte and from the LSB towards the MSB.
 */
-public class SensorSampleZCoordinateDataTable extends DataTable {
+public class SensorSampleZCoordinateDataTable extends AbstractSensorDataTable {
     private byte[] sampleZCoordinate;
 
     public byte[] getSampleZCoordinate() {

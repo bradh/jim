@@ -12,8 +12,12 @@ public class SensorSampleZCoordinateDataTableParser extends AbstractSensorDataTa
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Sensor Sample \"z\" Coordinate Data Table");
-        return new DataTable();
+        SensorSampleZCoordinateDataTable dataTable = new SensorSampleZCoordinateDataTable();
+        dataTable.setName("Sensor Sample \"z\" Coordinate");
+        dataTable.setSourceFile("Sensor");
+        dataTable.setSampleZCoordinate(
+                this.readBytes(mappedByteBuffer, offset, header.getDataFileSize()));
+        return dataTable;
     }
 
     @Override

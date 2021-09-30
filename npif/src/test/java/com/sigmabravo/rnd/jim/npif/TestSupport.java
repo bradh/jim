@@ -169,6 +169,14 @@ public class TestSupport {
         assertEquals(value, expectedInteger, "Mismatch at " + label);
     }
 
+    protected void validateLongValue(long value, List<String> otherLines, int i) {
+        String[] lineParts = otherLines.get(i).split(",", 3);
+        String label = lineParts[1];
+        String valueAsString = lineParts[2].trim();
+        long expectedInteger = Long.parseLong(valueAsString);
+        assertEquals(value, expectedInteger, "Mismatch at " + label);
+    }
+
     protected void validateDoubleValue(double value, List<String> otherLines, int i) {
         String[] lineParts = otherLines.get(i).split(",", 3);
         String label = lineParts[1];

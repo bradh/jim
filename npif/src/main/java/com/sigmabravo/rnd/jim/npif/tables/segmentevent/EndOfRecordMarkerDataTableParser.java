@@ -13,8 +13,11 @@ public class EndOfRecordMarkerDataTableParser extends DataTableParser {
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("End of Record Marker Data Table");
-        return new DataTable();
+        EndOfRecordMarkerDataTable dataTable = new EndOfRecordMarkerDataTable();
+        dataTable.setName("End of Record Marker");
+        dataTable.setSourceFile("Segment/Event Index");
+        dataTable.setSizeOfRecord(readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+        return dataTable;
     }
 
     @Override

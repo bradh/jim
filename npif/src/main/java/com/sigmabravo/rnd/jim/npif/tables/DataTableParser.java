@@ -70,6 +70,19 @@ public abstract class DataTableParser {
         }
     }
 
+    protected long readUnsignedBinaryLong(MappedByteBuffer mappedByteBuffer, int offset, int len) {
+        switch (len) {
+            case 8:
+                {
+                    long res = mappedByteBuffer.position(offset).getLong();
+                    // System.out.println(res);
+                    return res;
+                }
+            default:
+                throw new RuntimeException("Missing readUnsignedBinaryLong() len: " + len);
+        }
+    }
+
     protected double readDouble(MappedByteBuffer mappedByteBuffer, int offset, int len) {
         switch (len) {
             case 8:
