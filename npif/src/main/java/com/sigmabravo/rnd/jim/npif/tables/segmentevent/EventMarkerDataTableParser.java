@@ -13,8 +13,22 @@ public class EventMarkerDataTableParser extends DataTableParser {
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Event Marker Data Table");
-        return new DataTable();
+        EventMarkerDataTable dataTable = new EventMarkerDataTable();
+        dataTable.setName("Event Marker");
+        dataTable.setSourceFile("Segment/Event Index");
+        dataTable.setEventNumber(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setEventType(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setPrimarySensorNumber(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setSecondarySensorNumber(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setThirdSensorNumber(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setTargetNumber(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        return dataTable;
     }
 
     @Override

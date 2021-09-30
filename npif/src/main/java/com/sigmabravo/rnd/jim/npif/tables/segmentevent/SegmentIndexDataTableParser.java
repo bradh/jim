@@ -16,8 +16,28 @@ public class SegmentIndexDataTableParser extends DataTableParser {
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Segment Index Data Table");
-        return new DataTable();
+        SegmentIndexDataTable dataTable = new SegmentIndexDataTable();
+        dataTable.setName("Segment Index");
+        dataTable.setSourceFile("Segment/Event Index");
+        dataTable.setStartOfDataSegment(readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setEndOfDataSegment(readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setStartTimeOfRecording(readDTG(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setStopTimeOfRecording(readDTG(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setStartOfHeaderTimeTag(readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setEndOfHeaderTimeTag(readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setAircraftLocationAtTheStartOfRecordingOfTheSegment(
+                readPosition(mappedByteBuffer, offset));
+        offset += 16;
+        dataTable.setAircraftLocationAtTheEndOfRecordingOfTheSegment(
+                readPosition(mappedByteBuffer, offset));
+        offset += 16;
+        return dataTable;
     }
 
     @Override

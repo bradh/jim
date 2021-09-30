@@ -3,8 +3,10 @@ package com.sigmabravo.rnd.jim.npif;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
+import com.sigmabravo.rnd.jim.npif.tables.Position;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -183,5 +185,21 @@ public class TestSupport {
         String valueAsString = lineParts[2].trim();
         double expectedDouble = Double.parseDouble(valueAsString);
         assertEquals(value, expectedDouble, "Mismatch at " + label);
+    }
+
+    protected void validatePositionValue(Position position, List<String> otherLines, int i) {
+        String[] lineParts = otherLines.get(i).split(",", 3);
+        String label = lineParts[1];
+        String valueAsString = lineParts[2];
+        String[] valueParts = valueAsString.split(",");
+        if (valueParts[0].equals("<NULL>") && valueParts[1].equals("<NULL>")) {
+            assertTrue(Double.isNaN(position.getLatitudeDegrees()));
+            assertTrue(Double.isNaN(position.getLongitudeDegrees()));
+        } else {
+            double expectedLatitudeInDegrees = Double.parseDouble(valueParts[0]);
+            double expectedLongitudeInDegrees = Double.parseDouble(valueParts[1]);
+            assertEquals(position.getLatitudeDegrees(), expectedLatitudeInDegrees, 0.000001);
+            assertEquals(position.getLongitudeDegrees(), expectedLongitudeInDegrees, 0.000001);
+        }
     }
 }

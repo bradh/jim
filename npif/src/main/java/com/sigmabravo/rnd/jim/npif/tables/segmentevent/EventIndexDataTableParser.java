@@ -18,8 +18,32 @@ public class EventIndexDataTableParser extends DataTableParser {
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Event Index Data Table");
-        return new DataTable();
+        EventIndexDataTable dataTable = new EventIndexDataTable();
+        dataTable.setName("Event Index");
+        dataTable.setSourceFile("Segment/Event Index");
+        dataTable.setEventType(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setTargetNumber(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setTargetSubSection(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setTimeTag(readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setEventTime(readDTG(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setAircraftGeoLocation(readPosition(mappedByteBuffer, offset));
+        offset += 16;
+        dataTable.setPrimarySensorNumber(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setSecondarySensorNumber(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setThirdSensorNumber(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setEventPositionInTheRecord(readUnsignedBinaryLong(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setEventName(readASCII(mappedByteBuffer, offset, 32));
+        offset += 32;
+        return dataTable;
     }
 
     @Override

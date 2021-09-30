@@ -1,4 +1,4 @@
-package com.sigmabravo.rnd.jim.npif.tables.userdefined;
+package com.sigmabravo.rnd.jim.npif.tables.segmentevent;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.Position;
@@ -25,17 +25,40 @@ public class EventIndexDataTable extends DataTable {
     private int eventType;
     private int targetNumber;
     private int targetSubSection;
-    private int timeTag;
+    private long timeTag;
     private ZonedDateTime eventTime;
     private Position aircraftGeoLocation;
     private int primarySensorNumber;
     private int secondarySensorNumber;
     private int thirdSensorNumber;
-    private int eventPositionInTheRecord;
+    private long eventPositionInTheRecord;
     private String eventName;
 
     public int getEventType() {
         return eventType;
+    }
+
+    public String getEventTypeAsText() {
+        switch (getEventType()) {
+            case 0x00:
+                return "Pre-programmed Point Event/Target";
+            case 0x01:
+                return "Pre-programmed Duration START";
+            case 0x02:
+                return "Pre-programmed Duration END";
+            case 0x03:
+                return "Manual Point Event/Target";
+            case 0x04:
+                return "Manual Duration START";
+            case 0x05:
+                return "Manual Duration END";
+            case 0x06:
+                return "Recce Waypoint";
+            case 0x07:
+                return "Automatically Generated Event";
+            default:
+                return "Unknown event type (" + getEventType() + ")";
+        }
     }
 
     public void setEventType(int eventType) {
@@ -58,11 +81,11 @@ public class EventIndexDataTable extends DataTable {
         this.targetSubSection = targetSubSection;
     }
 
-    public int getTimeTag() {
+    public long getTimeTag() {
         return timeTag;
     }
 
-    public void setTimeTag(int timeTag) {
+    public void setTimeTag(long timeTag) {
         this.timeTag = timeTag;
     }
 
@@ -106,11 +129,11 @@ public class EventIndexDataTable extends DataTable {
         this.thirdSensorNumber = thirdSensorNumber;
     }
 
-    public int getEventPositionInTheRecord() {
+    public long getEventPositionInTheRecord() {
         return eventPositionInTheRecord;
     }
 
-    public void setEventPositionInTheRecord(int eventPositionInTheRecord) {
+    public void setEventPositionInTheRecord(long eventPositionInTheRecord) {
         this.eventPositionInTheRecord = eventPositionInTheRecord;
     }
 

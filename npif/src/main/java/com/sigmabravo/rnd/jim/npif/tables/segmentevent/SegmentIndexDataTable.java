@@ -10,28 +10,28 @@ import java.time.ZonedDateTime;
 	File Addressing scheme is $0000 xx00 where xx represents the segment number.
 */
 public class SegmentIndexDataTable extends DataTable {
-    private int startOfDataSegment;
-    private int endOfDataSegment;
+    private long startOfDataSegment;
+    private long endOfDataSegment;
     private ZonedDateTime startTimeOfRecording;
     private ZonedDateTime stopTimeOfRecording;
-    private int startOfHeaderTimeTag;
-    private int endOfHeaderTimeTag;
+    private long startOfHeaderTimeTag;
+    private long endOfHeaderTimeTag;
     private Position aircraftLocationAtTheStartOfRecordingOfTheSegment;
     private Position aircraftLocationAtTheEndOfRecordingOfTheSegment;
 
-    public int getStartOfDataSegment() {
+    public long getStartOfDataSegment() {
         return startOfDataSegment;
     }
 
-    public void setStartOfDataSegment(int startOfDataSegment) {
+    public void setStartOfDataSegment(long startOfDataSegment) {
         this.startOfDataSegment = startOfDataSegment;
     }
 
-    public int getEndOfDataSegment() {
+    public long getEndOfDataSegment() {
         return endOfDataSegment;
     }
 
-    public void setEndOfDataSegment(int endOfDataSegment) {
+    public void setEndOfDataSegment(long endOfDataSegment) {
         this.endOfDataSegment = endOfDataSegment;
     }
 
@@ -51,19 +51,19 @@ public class SegmentIndexDataTable extends DataTable {
         this.stopTimeOfRecording = stopTimeOfRecording.plusHours(0);
     }
 
-    public int getStartOfHeaderTimeTag() {
+    public long getStartOfHeaderTimeTag() {
         return startOfHeaderTimeTag;
     }
 
-    public void setStartOfHeaderTimeTag(int startOfHeaderTimeTag) {
+    public void setStartOfHeaderTimeTag(long startOfHeaderTimeTag) {
         this.startOfHeaderTimeTag = startOfHeaderTimeTag;
     }
 
-    public int getEndOfHeaderTimeTag() {
+    public long getEndOfHeaderTimeTag() {
         return endOfHeaderTimeTag;
     }
 
-    public void setEndOfHeaderTimeTag(int endOfHeaderTimeTag) {
+    public void setEndOfHeaderTimeTag(long endOfHeaderTimeTag) {
         this.endOfHeaderTimeTag = endOfHeaderTimeTag;
     }
 
