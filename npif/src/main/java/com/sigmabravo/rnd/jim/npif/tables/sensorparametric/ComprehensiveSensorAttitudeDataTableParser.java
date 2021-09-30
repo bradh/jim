@@ -13,8 +13,28 @@ public class ComprehensiveSensorAttitudeDataTableParser
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Comprehensive Sensor Attitude Data Table");
-        return new DataTable();
+        ComprehensiveSensorAttitudeDataTable dataTable = new ComprehensiveSensorAttitudeDataTable();
+        dataTable.setName("Comprehensive Sensor Attitude");
+        dataTable.setSourceFile("Sensor Parametric");
+        dataTable.setRotationAboutZAxis(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setRotationAboutYAxis(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setRotationAboutXAxis(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setRotationRateAboutZAxis(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setRotationRateAboutYAxis(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setRotationRateAboutXAxis(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setRotationAccelerationAboutZAxis(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setRotationAccelerationAboutYAxis(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setRotationAccelerationAboutXAxis(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        return dataTable;
     }
 
     @Override
