@@ -4,6 +4,7 @@ module STANAG7023TableExtractorValidatorAndEditorSTEVE {
     uses com.sigmabravo.rnd.jim.npif.tables.DataTableParser;
 
     provides com.sigmabravo.rnd.jim.npif.tables.DataTableParser with
+            com.sigmabravo.rnd.jim.npif.tables.formatdescription.FormatTimeTagDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.missiondata
                     .GeneralAdministrativeReferenceDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.missiondata.MissionSecurityDataTableParser,

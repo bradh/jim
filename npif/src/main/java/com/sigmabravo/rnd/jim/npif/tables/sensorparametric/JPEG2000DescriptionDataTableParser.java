@@ -1,23 +1,37 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
-import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
 public class JPEG2000DescriptionDataTableParser extends AbstractSensorParametricDataTableParser {
 
-    private static final int FILE_ADDRESS_SUPPORTED = 0x00000103;
-
     public JPEG2000DescriptionDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("JPEG 2000 Description Data Table");
-        return new DataTable();
+    public JPEG2000DescriptionDataTable parse(
+            MappedByteBuffer mappedByteBuffer, int offset, Header header) {
+        JPEG2000DescriptionDataTable dataTable = new JPEG2000DescriptionDataTable();
+        dataTable.setName("JPEG 2000 Description");
+        dataTable.setSourceFile("Sensor Parametric");
+        dataTable.setCodestreamCapability(this.readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setProgressionOrder(this.readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setNumberOfDecompositionLevels(
+                this.readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setNumberOfLayers(this.readUnsignedBinary(mappedByteBuffer, offset, 2));
+        offset += 2;
+        dataTable.setNumberOfComponents(this.readUnsignedBinary(mappedByteBuffer, offset, 2));
+        offset += 2;
+        dataTable.setJpeg2000TilingPerformed(this.readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setIrep(this.readUnsignedBinary(mappedByteBuffer, offset, 1));
+        return dataTable;
     }
 
     @Override
     protected boolean fileAddressValid(final int fileAddress) {
-        return (fileAddress == FILE_ADDRESS_SUPPORTED);
+        return (fileAddress == 0x00000103);
     }
 }
