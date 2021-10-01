@@ -1,6 +1,5 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
-import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
@@ -12,9 +11,26 @@ public class RadarCollectionPlaneImageGeometryDataTableParser
     public RadarCollectionPlaneImageGeometryDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Radar Collection Plane Image Geometry Data Table");
-        return new DataTable();
+    public RadarCollectionPlaneImageGeometryDataTable parse(
+            MappedByteBuffer mappedByteBuffer, int offset, Header header) {
+        RadarCollectionPlaneImageGeometryDataTable dataTable =
+                new RadarCollectionPlaneImageGeometryDataTable();
+        dataTable.setName("RADAR Collection Plane Image Geometry");
+        dataTable.setSourceFile("Sensor Parametric");
+        dataTable.setAlpha(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setVirtualDistanceToTheFirstPixelInTheImage(
+                this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setPixelIntervalInTheVirtualLookDirection(
+                this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setPixelIntervalInTheCrossVirtualLookDirection(
+                this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setUnitsOfMeasurementForCrossVirtualLookDirection(
+                this.readUnsignedBinary(mappedByteBuffer, offset, 1));
+        return dataTable;
     }
 
     @Override

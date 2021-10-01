@@ -2,57 +2,77 @@ package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 
-/*
-	The sensor number is encoded into the Source Address. The binary form of the Source Address is: 01xxxxxx, where xxxxxx is the sensor number.
-	n k
-	D
-	io o
-	VL
-	ct Lo
-	C
-	re l
-	Di irtua
-	Lo ros
-	ok s V
-	V
-	Di irtu
-	re a
-	ct l
-	io
-	n
-	CV
-	LD
-	e
-	ce ng
-	an a
-	st R
-	Di ear
-	N
-	
-	    Reference Track
-	Sensor Virtual
-	Position
-	Figure A-13 – General Geometry
-	Range/Cross Range
-	Along Track/Across Track                           (Spot SAR)
-	(Squinted Swath SAR)
-	 := 90°
-	R := const.
-	R := const
-	
-	Sensor Virtual
-	Position          R
-	     R
-	Sensor Position
-	=
-	Sensor Position                                 Sensor Virtual
-	Position
-	Figure A-14 Example for Swath SAR               Figure A-15 – Example for Spot SAR
-*/
 public class RadarCollectionPlaneImageGeometryDataTable extends DataTable {
     private double alpha;
-    private double virtualDistanceToTheFirstPixel;
-    private double pixelIntervalInTheVirtualLook;
-    private double pixelIntervalInTheCross;
-    private int unitsOfMeasurementFor;
+    private double virtualDistanceToTheFirstPixelInTheImage;
+    private double pixelIntervalInTheVirtualLookDirection;
+    private double pixelIntervalInTheCrossVirtualLookDirection;
+    private int unitsOfMeasurementForCrossVirtualLookDirection;
+
+    public int getSensorId() {
+        return (getHeader().getSourceAddress() & 0x3F);
+    }
+
+    public double getAlpha() {
+        return alpha;
+    }
+
+    public double getAlphaDegrees() {
+        return radiansToDegrees(getAlpha());
+    }
+
+    public void setAlpha(double alpha) {
+        this.alpha = alpha;
+    }
+
+    public double getVirtualDistanceToTheFirstPixelInTheImage() {
+        return virtualDistanceToTheFirstPixelInTheImage;
+    }
+
+    public void setVirtualDistanceToTheFirstPixelInTheImage(
+            double virtualDistanceToTheFirstPixelInTheImage) {
+        this.virtualDistanceToTheFirstPixelInTheImage = virtualDistanceToTheFirstPixelInTheImage;
+    }
+
+    public double getPixelIntervalInTheVirtualLookDirection() {
+        return pixelIntervalInTheVirtualLookDirection;
+    }
+
+    public void setPixelIntervalInTheVirtualLookDirection(
+            double pixelIntervalInTheVirtualLookDirection) {
+        this.pixelIntervalInTheVirtualLookDirection = pixelIntervalInTheVirtualLookDirection;
+    }
+
+    public double getPixelIntervalInTheCrossVirtualLookDirection() {
+        return pixelIntervalInTheCrossVirtualLookDirection;
+    }
+
+    public void setPixelIntervalInTheCrossVirtualLookDirection(
+            double pixelIntervalInTheCrossVirtualLookDirection) {
+        this.pixelIntervalInTheCrossVirtualLookDirection =
+                pixelIntervalInTheCrossVirtualLookDirection;
+    }
+
+    public int getUnitsOfMeasurementForCrossVirtualLookDirection() {
+        return unitsOfMeasurementForCrossVirtualLookDirection;
+    }
+
+    public String getUnitsOfMeasurementForCrossVirtualLookDirectionAsText() {
+        switch (getUnitsOfMeasurementForCrossVirtualLookDirection()) {
+            case 0x00:
+                return "angular (radians)";
+            case 0x01:
+                return "distance (metres)";
+            default:
+                return "Unknown units of measurement ("
+                        + getUnitsOfMeasurementForCrossVirtualLookDirection()
+                        + ")";
+        }
+    }
+
+    public void setUnitsOfMeasurementForCrossVirtualLookDirection(
+            int unitsOfMeasurementForCrossVirtualLookDirection) {
+        this.unitsOfMeasurementForCrossVirtualLookDirection =
+                unitsOfMeasurementForCrossVirtualLookDirection;
+    }
 }
