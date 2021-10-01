@@ -61,6 +61,7 @@ module STANAG7023TableExtractorValidatorAndEditorSTEVE {
                     .RectifiedImageGeometryDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensorparametric
                     .VirtualSensorDefinitionDataTableParser,
+            com.sigmabravo.rnd.jim.npif.tables.sensorparametric.SensorDataTimingDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensorparametric.RadarParametersDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensorparametric.ISARTrackDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensordata.SensorDataTableParser,
