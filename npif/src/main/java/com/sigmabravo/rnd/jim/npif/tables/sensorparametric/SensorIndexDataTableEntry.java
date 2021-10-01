@@ -14,19 +14,19 @@ public class SensorIndexDataTableEntry {
     private long sensorEndPosition;
 
     public ZonedDateTime getCollectionStartTime() {
-        return collectionStartTime;
+        return collectionStartTime.plusHours(0);
     }
 
     public void setCollectionStartTime(ZonedDateTime collectionStartTime) {
-        this.collectionStartTime = collectionStartTime;
+        this.collectionStartTime = collectionStartTime.plusHours(0);
     }
 
     public ZonedDateTime getCollectionStopTime() {
-        return collectionStopTime;
+        return collectionStopTime.plusHours(0);
     }
 
     public void setCollectionStopTime(ZonedDateTime collectionStopTime) {
-        this.collectionStopTime = collectionStopTime;
+        this.collectionStopTime = collectionStopTime.plusHours(0);
     }
 
     public long getStartHeaderTimeTag() {
@@ -46,21 +46,23 @@ public class SensorIndexDataTableEntry {
     }
 
     public Position getAircraftLocationAtCollectionStartTime() {
-        return aircraftLocationAtCollectionStartTime;
+        return new Position(aircraftLocationAtCollectionStartTime);
     }
 
     public void setAircraftLocationAtCollectionStartTime(
             Position aircraftLocationAtCollectionStartTime) {
-        this.aircraftLocationAtCollectionStartTime = aircraftLocationAtCollectionStartTime;
+        this.aircraftLocationAtCollectionStartTime =
+                new Position(aircraftLocationAtCollectionStartTime);
     }
 
     public Position getAircraftLocationAtCollectionEndTime() {
-        return aircraftLocationAtCollectionEndTime;
+        return new Position(aircraftLocationAtCollectionEndTime);
     }
 
     public void setAircraftLocationAtCollectionEndTime(
             Position aircraftLocationAtCollectionEndTime) {
-        this.aircraftLocationAtCollectionEndTime = aircraftLocationAtCollectionEndTime;
+        this.aircraftLocationAtCollectionEndTime =
+                new Position(aircraftLocationAtCollectionEndTime);
     }
 
     public long getSensorStartPosition() {

@@ -148,6 +148,19 @@ public class TestSupport {
         assertEquals(asciiValue, valueAsString, "Mismatch at " + label);
     }
 
+    protected void validateASCIIValueWithIndex(
+            String asciiValue, int index, List<String> otherLines, int i) {
+        String[] lineParts = otherLines.get(i).split(",", 4);
+        String label = lineParts[1];
+        String indexAsFormattedString = lineParts[2].trim();
+        assertEquals(String.format("[%d]", index), indexAsFormattedString);
+        String valueAsString = lineParts[3].trim();
+        if (asciiValue.isBlank()) {
+            asciiValue = "<NULL>";
+        }
+        assertEquals(asciiValue, valueAsString, "Mismatch at " + label);
+    }
+
     protected void validateDTGValue(ZonedDateTime zdtValue, List<String> otherLines, int i) {
         String[] lineParts = otherLines.get(i).split(",", 3);
         String label = lineParts[1];

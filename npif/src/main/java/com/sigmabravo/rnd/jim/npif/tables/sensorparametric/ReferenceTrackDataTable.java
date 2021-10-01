@@ -18,11 +18,11 @@ public class ReferenceTrackDataTable extends DataTable {
     }
 
     public Position getSensorVirtualPositionGeoLocation() {
-        return sensorVirtualPositionGeoLocation;
+        return new Position(sensorVirtualPositionGeoLocation);
     }
 
     public void setSensorVirtualPositionGeoLocation(Position sensorVirtualPositionGeoLocation) {
-        this.sensorVirtualPositionGeoLocation = sensorVirtualPositionGeoLocation;
+        this.sensorVirtualPositionGeoLocation = new Position(sensorVirtualPositionGeoLocation);
     }
 
     public double getSensorVirtualPositionMSLAltitude() {

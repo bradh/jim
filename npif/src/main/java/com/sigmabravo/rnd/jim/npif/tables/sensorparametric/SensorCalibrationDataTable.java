@@ -12,11 +12,11 @@ public class SensorCalibrationDataTable extends DataTable {
     }
 
     public ZonedDateTime getCalibrationDate() {
-        return calibrationDate;
+        return calibrationDate.plusHours(0);
     }
 
     public void setCalibrationDate(ZonedDateTime calibrationDate) {
-        this.calibrationDate = calibrationDate;
+        this.calibrationDate = calibrationDate.plusHours(0);
     }
 
     public String getCalibrationAgency() {
