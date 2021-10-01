@@ -1,6 +1,5 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
-import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
@@ -11,9 +10,18 @@ public class SensorPositionDataTableParser extends AbstractSensorParametricDataT
     public SensorPositionDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Sensor Position Data Table");
-        return new DataTable();
+    public SensorPositionDataTable parse(
+            MappedByteBuffer mappedByteBuffer, int offset, Header header) {
+        SensorPositionDataTable dataTable = new SensorPositionDataTable();
+        dataTable.setName("Sensor Position");
+        dataTable.setSourceFile("Sensor Parametric");
+        dataTable.setxVectorComponent(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setyVectorComponent(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setzVectorComponent(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        return dataTable;
     }
 
     @Override

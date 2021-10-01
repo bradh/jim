@@ -13,8 +13,19 @@ public class SensorIdentificationDataTableParser extends AbstractSensorParametri
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Sensor Identification Data Table");
-        return new DataTable();
+        SensorIdentificationDataTable dataTable = new SensorIdentificationDataTable();
+        dataTable.setName("Sensor Identification");
+        dataTable.setSourceFile("Sensor Parametric");
+        dataTable.setSensorType(this.readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setSensorSerialNumber(this.readASCII(mappedByteBuffer, offset, 16));
+        offset += 16;
+        dataTable.setSensorModelNumber(this.readASCII(mappedByteBuffer, offset, 16));
+        offset += 16;
+        dataTable.setSensorModellingMethod(this.readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setNumberOfGimbals(this.readUnsignedBinary(mappedByteBuffer, offset, 1));
+        return dataTable;
     }
 
     @Override
