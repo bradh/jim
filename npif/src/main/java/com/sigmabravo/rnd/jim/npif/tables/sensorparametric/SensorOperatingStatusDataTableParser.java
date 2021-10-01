@@ -1,6 +1,5 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
-import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
@@ -11,9 +10,13 @@ public class SensorOperatingStatusDataTableParser extends AbstractSensorParametr
     public SensorOperatingStatusDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Sensor Operating Status Data Table");
-        return new DataTable();
+    public SensorOperatingStatusDataTable parse(
+            MappedByteBuffer mappedByteBuffer, int offset, Header header) {
+        SensorOperatingStatusDataTable dataTable = new SensorOperatingStatusDataTable();
+        dataTable.setName("Sensor Operating Status");
+        dataTable.setSourceFile("Sensor Parametric");
+        dataTable.setStatus(this.readASCII(mappedByteBuffer, offset, 256));
+        return dataTable;
     }
 
     @Override
