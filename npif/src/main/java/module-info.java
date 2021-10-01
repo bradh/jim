@@ -51,7 +51,8 @@ module STANAG7023TableExtractorValidatorAndEditorSTEVE {
             com.sigmabravo.rnd.jim.npif.tables.sensorparametric.JPEGSensorHuffmanDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensorparametric.JPEG2000DescriptionDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensorparametric.JPEG2000IndexDataTableParser,
-            com.sigmabravo.rnd.jim.npif.tables.sensorparametric.PassiveSensorDataTableParser,
+            com.sigmabravo.rnd.jim.npif.tables.sensorparametric
+                    .PassiveSensorDescriptionDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensorparametric.PassiveSensorElementDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensorparametric
                     .RadarSensorDescriptionDataTableParser,
