@@ -1,6 +1,5 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
-import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
@@ -11,9 +10,15 @@ public class SensorCalibrationDataTableParser extends AbstractSensorParametricDa
     public SensorCalibrationDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Sensor Calibration Data Table");
-        return new DataTable();
+    public SensorCalibrationDataTable parse(
+            MappedByteBuffer mappedByteBuffer, int offset, Header header) {
+        SensorCalibrationDataTable dataTable = new SensorCalibrationDataTable();
+        dataTable.setName("Sensor Calibration");
+        dataTable.setSourceFile("Sensor Parametric");
+        dataTable.setCalibrationDate(readDTG(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setCalibrationAgency(readASCII(mappedByteBuffer, offset, 91));
+        return dataTable;
     }
 
     @Override

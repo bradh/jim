@@ -223,8 +223,12 @@ public class TestSupport {
         String[] lineParts = otherLines.get(i).split(",", 3);
         String label = lineParts[1];
         String valueAsString = lineParts[2].trim();
-        double expectedDouble = Double.parseDouble(valueAsString);
-        assertEquals(value, expectedDouble, 0.000000001, "Mismatch at " + label);
+        if (valueAsString.equals("<NULL>")) {
+            assertTrue(Double.isNaN(value));
+        } else {
+            double expectedDouble = Double.parseDouble(valueAsString);
+            assertEquals(value, expectedDouble, 0.000000001, "Mismatch at " + label);
+        }
     }
 
     protected void validateDoubleValueWithIndex(

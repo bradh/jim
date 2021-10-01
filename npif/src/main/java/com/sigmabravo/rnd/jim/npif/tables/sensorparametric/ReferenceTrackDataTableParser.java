@@ -1,6 +1,5 @@
 package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
-import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 import com.sigmabravo.rnd.jim.npif.tables.Header;
 import java.nio.MappedByteBuffer;
 
@@ -11,9 +10,27 @@ public class ReferenceTrackDataTableParser extends AbstractSensorParametricDataT
     public ReferenceTrackDataTableParser() {}
 
     @Override
-    public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Reference Track Data Table");
-        return new DataTable();
+    public ReferenceTrackDataTable parse(
+            MappedByteBuffer mappedByteBuffer, int offset, Header header) {
+        ReferenceTrackDataTable dataTable = new ReferenceTrackDataTable();
+        dataTable.setName("Reference Track");
+        dataTable.setSourceFile("Sensor Parametric");
+        dataTable.setSensorVirtualPositionGeoLocation(this.readPosition(mappedByteBuffer, offset));
+        offset += 16;
+        dataTable.setSensorVirtualPositionMSLAltitude(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setSensorVirtualPositionAGLAltitude(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setSensorVirtualPositionGPSAltitude(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setReferenceTrackNorth(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setReferenceTrackEast(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setReferenceTrackDown(this.readDouble(mappedByteBuffer, offset, 8));
+        offset += 8;
+        dataTable.setReferenceTrackSpeed(this.readDouble(mappedByteBuffer, offset, 8));
+        return dataTable;
     }
 
     @Override
