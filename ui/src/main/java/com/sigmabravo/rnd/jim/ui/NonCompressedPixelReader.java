@@ -36,19 +36,24 @@ public class NonCompressedPixelReader implements PixelReader {
     @Override
     public <T extends Buffer> void getPixels(int x, int y, int w, int h, WritablePixelFormat<T> pixelformat, T buffer, int scanlineStride) {
         // TODO: handle blocking
+        int numBytesPerPixel = (header.getNbpp() + 7) / 8;
         byte[] blockBytes
                 = reader.getBytesAt(
                         imageSegmentInfo.getSegmentFileOffset()
                         + imageSegmentInfo.getSubheaderLength()
                         + imageSegmentInfo.getImageDataOffset(),
-                         w * h);
+                         w * h * numBytesPerPixel);
         if (buffer instanceof ByteBuffer) {
             ByteBuffer bb = (ByteBuffer) buffer;
             for (int r = y; r < y + h; r++) {
                 for (int c = x; c < x + w; c++) {
-                    bb.put(blockBytes[r * w + c]);
-                    bb.put(blockBytes[r * w + c]);
-                    bb.put(blockBytes[r * w + c]);
+                    byte b = blockBytes[r * w + c];
+                    if (header.getAbpp() != 8) {
+                        b = (byte)(b << (8 - header.getAbpp()));
+                    }
+                    bb.put(b);
+                    bb.put(b);
+                    bb.put(b);
                     bb.put((byte) 0xFF);
                 }
             }
