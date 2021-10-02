@@ -13,9 +13,11 @@ import javafx.scene.paint.Color;
 
 public class NonCompressedPixelReader implements PixelReader {
 
-    private ImageSegmentHeader header;
-    private ImageSegmentInfo imageSegmentInfo;
-    private Reader reader;
+    private static final int NUM_BYTES_PER_BGRA_PIXEL = 4;
+        
+    private final ImageSegmentHeader header;
+    private final ImageSegmentInfo imageSegmentInfo;
+    private final Reader reader;
 
     public NonCompressedPixelReader(Reader reader, int segmentNumber) {
         this.header = reader.getImageSegmentHeader(segmentNumber);
@@ -145,7 +147,7 @@ public class NonCompressedPixelReader implements PixelReader {
                                     + imageSegmentInfo.getImageDataOffset()
                                     + numBytesPerBlock * (X + Y * header.getNbpc()),
                                     numBytesPerBlock);
-                    int offsetForBlock = 4 * 256 * 256 * Y * header.getNbpc();
+                    int offsetForBlock = NUM_BYTES_PER_BGRA_PIXEL * header.getNppbh() * header.getNppbv() * Y * header.getNbpc();
                     if (header.getImode().equals("P")) {
                         for (int r = 0; r < header.getNppbv(); r++) {
                             int bbOffsetForRow = offsetForBlock + (r * numBytesPerOutputRow) + (X * 4 * header.getNppbh());
