@@ -12,24 +12,33 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import org.freedesktop.gstreamer.Buffer;
 import org.freedesktop.gstreamer.Bus;
 import org.freedesktop.gstreamer.Element;
 import org.freedesktop.gstreamer.ElementFactory;
 import org.freedesktop.gstreamer.Gst;
 import org.freedesktop.gstreamer.GstObject;
-import org.freedesktop.gstreamer.Pad;
 import org.freedesktop.gstreamer.Pipeline;
 import org.freedesktop.gstreamer.Version;
 import org.freedesktop.gstreamer.elements.AppSrc;
@@ -45,7 +54,7 @@ public class PrimaryController {
     private TextArea textArea;
     @FXML
     private BorderPane viewPane;
-    
+
     private Pipeline pipeline;
 
     public PrimaryController() {
@@ -93,6 +102,8 @@ public class PrimaryController {
     private TreeItem<String> addFileToTreeView(File file, Reader reader) throws IOException {
         TreeItem<String> fileRoot = new TreeItem<>(file.getName());
         treeView.setRoot(fileRoot);
+        //Set the cell factory
+        treeView.setCellFactory((TreeView<String> p) -> new TextFieldTreeCellWithMenu());
         // TODO: file header info here?
         List<TRE> tres = reader.getFileTREs();
         TreeItem<String> treRoot = new TreeItem<>("File TREs");
@@ -107,82 +118,12 @@ public class PrimaryController {
                 ImageSegmentHeader header = reader.getImageSegmentHeader(i);
                 final ImageSegmentInfo isi = reader.getImageSegmentInfo(i);
                 addImageSegmentToTreeView(header, imageSegments);
-                // Pipeline pipeline = new Pipeline();
-                // Element compositor = ElementFactory.make("compositor", "converter");
-                StringBuilder sb = new StringBuilder();
-                sb.append("compositor name=converter");
-                for (ImageBlockInfo ibi : isi.getImageBlocks()) {
-                    int blockIndex = ibi.getColumnIndex() + ibi.getRowIndex() * header.getNbpr();
-                    sb.append(" sink_");
-                    sb.append(blockIndex);
-                    sb.append("::xpos=");
-                    sb.append(header.getNppbv() * ibi.getColumnIndex());
-                    sb.append(" sink_");
-                    sb.append(blockIndex);
-                    sb.append("::ypos=");
-                    sb.append(header.getNppbv() * ibi.getRowIndex());
+                if (header.getIc().equals("NC")) {
+                    showStillImage(reader, i);
                 }
-                sb.append(" ! queue name=queue");
-                String launchString = sb.toString();
-                pipeline = (Pipeline) Gst.parseLaunch(launchString);
-                FXImageSink imageSink = new FXImageSink();
-                Element sink = imageSink.getSinkElement();
-                Element compositor = pipeline.getElementByName("converter");
-                Element queue = pipeline.getElementByName("queue");
-                pipeline.add(sink);
-                queue.link(sink);
-                ImageView view = new ImageView();
-                viewPane.setCenter(view);
-                view.imageProperty().bind(imageSink.imageProperty());
-                view.fitWidthProperty().bind(viewPane.widthProperty());
-                view.fitHeightProperty().bind(viewPane.heightProperty());
-                view.setPreserveRatio(true);
-
-                pipeline.stop();
-                for (ImageBlockInfo ibi : isi.getImageBlocks()) {
-                    int blockIndex = ibi.getColumnIndex() + ibi.getRowIndex() * header.getNbpr();
-                    AppSrc source = (AppSrc) ElementFactory.make("appsrc", "source" + blockIndex);
-                    source.connect(new AppSrc.NEED_DATA() {
-                        byte[] blockBytes
-                                = reader.getBytesAt(
-                                        isi.getSegmentFileOffset()
-                                        + isi.getSubheaderLength()
-                                        + isi.getImageDataOffset()
-                                        + ibi.getBlockOffset(),
-                                        ibi.getBlockLength());
-                        private final ByteBuffer bb = ByteBuffer.wrap(blockBytes);
-
-                        @Override
-                        public void needData(AppSrc elem, int size) {
-                            if (bb.hasRemaining()) {
-                                // System.out.println("needData: size = " + size);
-                                byte[] tempBuffer;
-                                Buffer buf;
-                                int copyLength = (bb.remaining() >= size) ? size : bb.remaining();
-                                tempBuffer = new byte[copyLength];
-                                buf = new Buffer(copyLength);
-                                bb.get(tempBuffer);
-                                // System.out.println("Temp Buffer remaining bytes: " + bb.remaining());
-                                buf.map(true).put(ByteBuffer.wrap(tempBuffer));
-                                elem.pushBuffer(buf);
-                            } else {
-                                elem.endOfStream();
-                            }
-                        }
-                    });
-                    Element parser = ElementFactory.make("h264parse", "parser" + blockIndex);
-                    Element decoder = ElementFactory.make("avdec_h264", "decoder" + blockIndex);
-                    pipeline.addMany(source, parser, decoder);
-                    source.link(parser);
-                    parser.link(decoder);
-                    decoder.link(compositor);
+                if (header.getIc().equals("M9")) {
+                    playVideo(isi, header, reader);
                 }
-                Bus bus = pipeline.getBus();
-                bus.connect((Bus.EOS) (GstObject source) -> {
-                    System.out.println("Reached end of stream");
-                });
-
-                pipeline.play();
             }
         }
         if (reader.getNumberOfTextSegments() > 0) {
@@ -194,6 +135,85 @@ public class PrimaryController {
             }
         }
         return fileRoot;
+    }
+
+    private void playVideo(final ImageSegmentInfo isi, ImageSegmentHeader header, Reader reader) {
+        // Pipeline pipeline = new Pipeline();
+        // Element compositor = ElementFactory.make("compositor", "converter");
+        StringBuilder sb = new StringBuilder();
+        sb.append("compositor name=converter");
+        for (ImageBlockInfo ibi : isi.getImageBlocks()) {
+            int blockIndex = ibi.getColumnIndex() + ibi.getRowIndex() * header.getNbpr();
+            sb.append(" sink_");
+            sb.append(blockIndex);
+            sb.append("::xpos=");
+            sb.append(header.getNppbv() * ibi.getColumnIndex());
+            sb.append(" sink_");
+            sb.append(blockIndex);
+            sb.append("::ypos=");
+            sb.append(header.getNppbv() * ibi.getRowIndex());
+        }
+        sb.append(" ! queue name=queue");
+        String launchString = sb.toString();
+        pipeline = (Pipeline) Gst.parseLaunch(launchString);
+        FXImageSink imageSink = new FXImageSink();
+        Element sink = imageSink.getSinkElement();
+        Element compositor = pipeline.getElementByName("converter");
+        Element queue = pipeline.getElementByName("queue");
+        pipeline.add(sink);
+        queue.link(sink);
+        ImageView view = new ImageView();
+        viewPane.setCenter(view);
+        view.imageProperty().bind(imageSink.imageProperty());
+        view.fitWidthProperty().bind(viewPane.widthProperty());
+        view.fitHeightProperty().bind(viewPane.heightProperty());
+        view.setPreserveRatio(true);
+
+        pipeline.stop();
+        for (ImageBlockInfo ibi : isi.getImageBlocks()) {
+            int blockIndex = ibi.getColumnIndex() + ibi.getRowIndex() * header.getNbpr();
+            AppSrc source = (AppSrc) ElementFactory.make("appsrc", "source" + blockIndex);
+            source.connect(new AppSrc.NEED_DATA() {
+                byte[] blockBytes
+                        = reader.getBytesAt(
+                                isi.getSegmentFileOffset()
+                                + isi.getSubheaderLength()
+                                + isi.getImageDataOffset()
+                                + ibi.getBlockOffset(),
+                                ibi.getBlockLength());
+                private final ByteBuffer bb = ByteBuffer.wrap(blockBytes);
+
+                @Override
+                public void needData(AppSrc elem, int size) {
+                    if (bb.hasRemaining()) {
+                        // System.out.println("needData: size = " + size);
+                        byte[] tempBuffer;
+                        Buffer buf;
+                        int copyLength = (bb.remaining() >= size) ? size : bb.remaining();
+                        tempBuffer = new byte[copyLength];
+                        buf = new Buffer(copyLength);
+                        bb.get(tempBuffer);
+                        // System.out.println("Temp Buffer remaining bytes: " + bb.remaining());
+                        buf.map(true).put(ByteBuffer.wrap(tempBuffer));
+                        elem.pushBuffer(buf);
+                    } else {
+                        elem.endOfStream();
+                    }
+                }
+            });
+            Element parser = ElementFactory.make("h264parse", "parser" + blockIndex);
+            Element decoder = ElementFactory.make("avdec_h264", "decoder" + blockIndex);
+            pipeline.addMany(source, parser, decoder);
+            source.link(parser);
+            parser.link(decoder);
+            decoder.link(compositor);
+        }
+        Bus bus = pipeline.getBus();
+        bus.connect((Bus.EOS) (GstObject source) -> {
+            System.out.println("Reached end of stream");
+        });
+
+        pipeline.play();
     }
 
     private void addImageSegmentToTreeView(ImageSegmentHeader header, TreeItem<String> parentItem) {
@@ -320,5 +340,34 @@ public class PrimaryController {
         TreeItem<String> treeItem = new TreeItem<>(String.format("%s: %04f", label, value));
         parent.getChildren().add(treeItem);
         return treeItem;
+    }
+
+    private void showStillImage(Reader reader, int i) {
+        ImageSegmentHeader header = reader.getImageSegmentHeader(i);
+        PixelReader pixelReader = getPixelReader(reader, i);
+        WritableImage image = new WritableImage(pixelReader, header.getNcols(), header.getNrows());
+        /*
+        PixelWriter writer = image.getPixelWriter();
+        for (int c = 0; c < header.getNcols(); c++) {
+            for (int r = 0; r < header.getNrows(); r++) {
+                writer.setArgb(c, r, 0xFF00FF00);
+            }
+        }
+        */
+        ImageView view = new ImageView();
+        viewPane.setCenter(view);
+        view.setImage(image);
+        view.fitWidthProperty().bind(viewPane.widthProperty());
+        view.fitHeightProperty().bind(viewPane.heightProperty());
+        view.setPreserveRatio(true);
+    }
+
+    private PixelReader getPixelReader(Reader reader, int i) {
+        ImageSegmentHeader header = reader.getImageSegmentHeader(i);
+        if (header.getIc().equals("NC")) {
+            return new NonCompressedPixelReader(reader, i);
+        } else {
+            return null;
+        }
     }
 }
