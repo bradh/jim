@@ -151,10 +151,16 @@ public class ImageSegmentHeader {
         }
         for (int i = 0; i < bands; i++) {
             ImageHeaderBandInfo bandInfo = new ImageHeaderBandInfo();
-            // TODO: parse
+            bandInfo.setIrepband(
+                    ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, IREPBAND_LEN));
             offset += IREPBAND_LEN;
+            bandInfo.setIsubcat(
+                    ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, ISUBCAT_LEN));
             offset += ISUBCAT_LEN;
+            bandInfo.setIfc(ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, IFC_LEN));
             offset += IFC_LEN;
+            bandInfo.setImflt(
+                    ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, IMFLT_LEN));
             offset += IMFLT_LEN;
             offset += NLUTS_LEN;
             // TODO: handle LUTS
@@ -301,6 +307,16 @@ public class ImageSegmentHeader {
 
     public List<ImageHeaderBandInfo> getBandInfo() {
         return new ArrayList<>(bandInfos);
+    }
+
+    public int getBandIndex(String c) {
+        for (int i = 0; i < getBandInfo().size(); i++) {
+            ImageHeaderBandInfo info = getBandInfo().get(i);
+            if (info.getIrepband().trim().equals(c)) {
+                return i;
+            }
+        }
+        throw new RuntimeException("Bad IREPBAND look up request: " + c);
     }
 
     public int getIsync() {
