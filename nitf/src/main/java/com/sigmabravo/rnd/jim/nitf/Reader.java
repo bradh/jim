@@ -336,7 +336,7 @@ public class Reader {
         // String imode = ish.getImode();
         String ic = ish.getIc();
         // System.out.println("IMODE: " + imode);
-        if (ic.startsWith("M")) {
+        if (ic.startsWith("M") || ic.equals("NM")) {
             int offset =
                     imageSegmentInfo.getSegmentFileOffset() + imageSegmentInfo.getSubheaderLength();
             byte[] offsetBytes = getBytesAt(offset, Integer.BYTES);

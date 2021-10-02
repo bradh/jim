@@ -93,44 +93,78 @@ public class NonCompressedPixelReader implements PixelReader {
         int greenBandIndex = header.getBandIndex("G");
         int blueBandIndex = header.getBandIndex("B");
         // TODO: this needs to handle blocking.
-        byte[] blockBytes
-                = reader.getBytesAt(
-                        imageSegmentInfo.getSegmentFileOffset()
-                        + imageSegmentInfo.getSubheaderLength()
-                        + imageSegmentInfo.getImageDataOffset(),
-                        w * h * numBytesPerPixel);
-        if (header.getImode().equals("P")) {
-            for (int r = y; r < y + h; r++) {
-                for (int c = x; c < x + w; c++) {
-                    // BGRA format
-                    bb.put(blockBytes[(r * w + c) * numBytesPerPixel + blueBandIndex]);
-                    bb.put(blockBytes[(r * w + c) * numBytesPerPixel + greenBandIndex]);
-                    bb.put(blockBytes[(r * w + c) * numBytesPerPixel + redBandIndex]);
-                    bb.put((byte) 0xFF);
+        if ((header.getNbpr() == 1) || (header.getNbpc() == 1)) {
+            byte[] blockBytes
+                    = reader.getBytesAt(
+                            imageSegmentInfo.getSegmentFileOffset()
+                            + imageSegmentInfo.getSubheaderLength()
+                            + imageSegmentInfo.getImageDataOffset(),
+                            w * h * numBytesPerPixel);
+            if (header.getImode().equals("P")) {
+                for (int r = y; r < y + h; r++) {
+                    for (int c = x; c < x + w; c++) {
+                        // BGRA format
+                        bb.put(blockBytes[(r * w + c) * numBytesPerPixel + blueBandIndex]);
+                        bb.put(blockBytes[(r * w + c) * numBytesPerPixel + greenBandIndex]);
+                        bb.put(blockBytes[(r * w + c) * numBytesPerPixel + redBandIndex]);
+                        bb.put((byte) 0xFF);
+                    }
                 }
-            }
-        } else if (header.getImode().equals("R")) {
-            for (int r = y; r < y + h; r++) {
-                for (int c = x; c < x + w; c++) {
-                    // BGRA format
-                    bb.put(blockBytes[(r * 3 + blueBandIndex) * w + c]);
-                    bb.put(blockBytes[(r * 3 + greenBandIndex) * w + c]);
-                    bb.put(blockBytes[(r * 3 + redBandIndex) * w + c]);
-                    bb.put((byte) 0xFF);
+            } else if (header.getImode().equals("R")) {
+                for (int r = y; r < y + h; r++) {
+                    for (int c = x; c < x + w; c++) {
+                        // BGRA format
+                        bb.put(blockBytes[(r * 3 + blueBandIndex) * w + c]);
+                        bb.put(blockBytes[(r * 3 + greenBandIndex) * w + c]);
+                        bb.put(blockBytes[(r * 3 + redBandIndex) * w + c]);
+                        bb.put((byte) 0xFF);
+                    }
                 }
-            }
-        } else if (header.getImode().equals("B")) {
-            for (int r = y; r < y + h; r++) {
-                for (int c = x; c < x + w; c++) {
-                    // BGRA format
-                    bb.put(blockBytes[(blueBandIndex * h * w) + r * w + c]);
-                    bb.put(blockBytes[(greenBandIndex * h * w) + r * w + c]);
-                    bb.put(blockBytes[(redBandIndex * h * w) + r * w + c]);
-                    bb.put((byte) 0xFF);
+            } else if (header.getImode().equals("B")) {
+                for (int r = y; r < y + h; r++) {
+                    for (int c = x; c < x + w; c++) {
+                        // BGRA format
+                        bb.put(blockBytes[(blueBandIndex * h * w) + r * w + c]);
+                        bb.put(blockBytes[(greenBandIndex * h * w) + r * w + c]);
+                        bb.put(blockBytes[(redBandIndex * h * w) + r * w + c]);
+                        bb.put((byte) 0xFF);
+                    }
                 }
+            } else {
+                throw new UnsupportedOperationException("Unsupported RGB IMODE " + header.getImode());
             }
         } else {
-            throw new UnsupportedOperationException("Unsupported RGB IMODE " + header.getImode());
+            int numBytesPerBlock = numBytesPerPixel * header.getNppbh() * header.getNppbv();
+            int numBytesPerOutputRow = header.getNbpc() * header.getNppbh() * 4;
+            for (int Y = 0; Y < header.getNbpc(); Y++) {
+                for (int X = 0; X < header.getNbpr(); X++) {
+                    byte[] blockBytes
+                            = reader.getBytesAt(
+                                    imageSegmentInfo.getSegmentFileOffset()
+                                    + imageSegmentInfo.getSubheaderLength()
+                                    + imageSegmentInfo.getImageDataOffset()
+                                    + numBytesPerBlock * (X + Y * header.getNbpc()),
+                                    numBytesPerBlock);
+                    int offsetForBlock = 4 * 256 * 256 * Y * header.getNbpc();
+                    if (header.getImode().equals("P")) {
+                        for (int r = 0; r < header.getNppbv(); r++) {
+                            int bbOffsetForRow = offsetForBlock + (r * numBytesPerOutputRow) + (X * 4 * header.getNppbh());
+                            bb.position(bbOffsetForRow);
+                            for (int c = x; c < header.getNppbh(); c++) {
+                                // BGRA format
+                                // System.out.println((r * header.getNppbh() + c) * numBytesPerPixel + blueBandIndex);
+                                bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + blueBandIndex]);
+                                bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + greenBandIndex]);
+                                bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + redBandIndex]);
+                                bb.put((byte) 0xFF);
+                            }
+                        }
+                    } else {
+                        throw new UnsupportedOperationException("Unsupported Blocked RGB IMODE " + header.getImode());
+                    }
+                }
+            }
         }
     }
 }
+
