@@ -121,7 +121,7 @@ public class PrimaryController {
                 if (header.getIc().equals("NC")) {
                     showStillImage(reader, i);
                 }
-                if (header.getIc().equals("M9")) {
+                if (header.getIc().equals("M9") || header.getIc().equals("MA")) {
                     playVideo(isi, header, reader);
                 }
             }
@@ -201,12 +201,21 @@ public class PrimaryController {
                     }
                 }
             });
-            Element parser = ElementFactory.make("h264parse", "parser" + blockIndex);
-            Element decoder = ElementFactory.make("avdec_h264", "decoder" + blockIndex);
-            pipeline.addMany(source, parser, decoder);
-            source.link(parser);
-            parser.link(decoder);
-            decoder.link(compositor);
+            if (header.getIc().equals("M9")) {
+                Element parser = ElementFactory.make("h264parse", "parser" + blockIndex);
+                Element decoder = ElementFactory.make("avdec_h264", "decoder" + blockIndex);
+                pipeline.addMany(source, parser, decoder);
+                source.link(parser);
+                parser.link(decoder);
+                decoder.link(compositor);
+            } else if (header.getIc().equals("MA")) {
+                Element parser = ElementFactory.make("h265parse", "parser" + blockIndex);
+                Element decoder = ElementFactory.make("avdec_h265", "decoder" + blockIndex);
+                pipeline.addMany(source, parser, decoder);
+                source.link(parser);
+                parser.link(decoder);
+                decoder.link(compositor);
+            }
         }
         Bus bus = pipeline.getBus();
         bus.connect((Bus.EOS) (GstObject source) -> {
@@ -353,7 +362,7 @@ public class PrimaryController {
                 writer.setArgb(c, r, 0xFF00FF00);
             }
         }
-        */
+         */
         ImageView view = new ImageView();
         viewPane.setCenter(view);
         view.setImage(image);

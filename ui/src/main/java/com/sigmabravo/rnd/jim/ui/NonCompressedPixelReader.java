@@ -158,7 +158,6 @@ public class NonCompressedPixelReader implements PixelReader {
                             bb.position(byteOffsetForRow);
                             for (int c = x; c < header.getNppbh(); c++) {
                                 // BGRA format
-                                // System.out.println((r * header.getNppbh() + c) * numBytesPerPixel + blueBandIndex);
                                 bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + blueBandIndex]);
                                 bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + greenBandIndex]);
                                 bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + redBandIndex]);
