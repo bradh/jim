@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 public class NonCompressedPixelReader implements PixelReader {
 
     private static final int NUM_BYTES_PER_BGRA_PIXEL = 4;
-        
+
     private final ImageSegmentHeader header;
     private final ImageSegmentInfo imageSegmentInfo;
     private final Reader reader;
@@ -94,7 +94,9 @@ public class NonCompressedPixelReader implements PixelReader {
         int redBandIndex = header.getBandIndex("R");
         int greenBandIndex = header.getBandIndex("G");
         int blueBandIndex = header.getBandIndex("B");
-        // TODO: this needs to handle blocking.
+        int samplesPerInputBlock = header.getNppbh() * header.getNppbv();
+        int pixelsPerRow = header.getNbpr() * header.getNppbh();
+        // TODO: this needs to handle masking.
         if ((header.getNbpr() == 1) || (header.getNbpc() == 1)) {
             byte[] blockBytes
                     = reader.getBytesAt(
@@ -136,20 +138,37 @@ public class NonCompressedPixelReader implements PixelReader {
                 throw new UnsupportedOperationException("Unsupported RGB IMODE " + header.getImode());
             }
         } else {
-            int pixelsPerInputBlock = header.getNppbh() * header.getNppbv();
-            int numBytesPerInputBlock = numBytesPerPixel * header.getNppbh() * header.getNppbv();
-            for (int Y = 0; Y < header.getNbpc(); Y++) {
-                for (int X = 0; X < header.getNbpr(); X++) {
-                    byte[] blockBytes
-                            = reader.getBytesAt(imageSegmentInfo.getSegmentFileOffset()
-                                    + imageSegmentInfo.getSubheaderLength()
-                                    + imageSegmentInfo.getImageDataOffset()
-                                    + numBytesPerInputBlock * (X + Y * header.getNbpc()),
-                                    numBytesPerInputBlock);
-                    int pixelIndexForStartOfLeftMostBlock = pixelsPerInputBlock * Y * header.getNbpc();
-                    int pixelIndexHorizontalOffset = X * header.getNppbh();
-                    int pixelsPerRow = header.getNbpr() * header.getNppbh();
-                    if (header.getImode().equals("P")) {
+            int numBytesPerSample = (header.getNbpp() + 7) / 8;
+            int numBlocksPerBand = header.getNbpc() * header.getNbpr();
+            int bytesPerInputBlock = samplesPerInputBlock * numBytesPerSample;
+            int bandLengthInBytes = bytesPerInputBlock * numBlocksPerBand;
+
+            if (header.getImode().equals("S")) {
+                for (int Y = 0; Y < header.getNbpc(); Y++) {
+                    int pixelIndexForStartOfLeftMostBlock = samplesPerInputBlock * Y * header.getNbpc();
+                    for (int X = 0; X < header.getNbpr(); X++) {
+                        int pixelIndexHorizontalOffset = X * header.getNppbh();
+                        byte[] blueBlockBytes
+                                = reader.getBytesAt(imageSegmentInfo.getSegmentFileOffset()
+                                        + imageSegmentInfo.getSubheaderLength()
+                                        + imageSegmentInfo.getImageDataOffset()
+                                        + bandLengthInBytes * blueBandIndex
+                                        + bytesPerInputBlock * (X + Y * header.getNbpc()),
+                                        bytesPerInputBlock);
+                        byte[] greenBlockBytes
+                                = reader.getBytesAt(imageSegmentInfo.getSegmentFileOffset()
+                                        + imageSegmentInfo.getSubheaderLength()
+                                        + imageSegmentInfo.getImageDataOffset()
+                                        + bandLengthInBytes * greenBandIndex
+                                        + bytesPerInputBlock * (X + Y * header.getNbpc()),
+                                        bytesPerInputBlock);
+                        byte[] redBlockBytes
+                                = reader.getBytesAt(imageSegmentInfo.getSegmentFileOffset()
+                                        + imageSegmentInfo.getSubheaderLength()
+                                        + imageSegmentInfo.getImageDataOffset()
+                                        + bandLengthInBytes * redBandIndex
+                                        + bytesPerInputBlock * (X + Y * header.getNbpc()),
+                                        bytesPerInputBlock);
                         for (int r = 0; r < header.getNppbv(); r++) {
                             int pixelIndexVerticalOffset = r * pixelsPerRow;
                             int pixelIndexForStartOfRow = pixelIndexForStartOfLeftMostBlock
@@ -158,18 +177,77 @@ public class NonCompressedPixelReader implements PixelReader {
                             bb.position(byteOffsetForRow);
                             for (int c = x; c < header.getNppbh(); c++) {
                                 // BGRA format
-                                bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + blueBandIndex]);
-                                bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + greenBandIndex]);
-                                bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + redBandIndex]);
+                                bb.put(blueBlockBytes[(r * header.getNppbh() + c)]);
+                                bb.put(greenBlockBytes[(r * header.getNppbh() + c)]);
+                                bb.put(redBlockBytes[(r * header.getNppbh() + c)]);
                                 bb.put((byte) 0xFF);
                             }
                         }
-                    } else {
-                        throw new UnsupportedOperationException("Unsupported Blocked RGB IMODE " + header.getImode());
                     }
                 }
+            } else if (header.getImode().equals("B") || header.getImode().equals("P") || header.getImode().equals("R")) {
+                int numBytesPerInputBlock = numBytesPerPixel * header.getNppbh() * header.getNppbv();
+                for (int Y = 0; Y < header.getNbpc(); Y++) {
+                    int pixelIndexForStartOfLeftMostBlock = samplesPerInputBlock * Y * header.getNbpc();
+                    for (int X = 0; X < header.getNbpr(); X++) {
+                        int pixelIndexHorizontalOffset = X * header.getNppbh();
+                        byte[] blockBytes
+                                = reader.getBytesAt(imageSegmentInfo.getSegmentFileOffset()
+                                        + imageSegmentInfo.getSubheaderLength()
+                                        + imageSegmentInfo.getImageDataOffset()
+                                        + numBytesPerInputBlock * (X + Y * header.getNbpc()),
+                                        numBytesPerInputBlock);
+                        if (header.getImode().equals("P")) {
+                            for (int r = 0; r < header.getNppbv(); r++) {
+                                int pixelIndexVerticalOffset = r * pixelsPerRow;
+                                int pixelIndexForStartOfRow = pixelIndexForStartOfLeftMostBlock
+                                        + pixelIndexVerticalOffset + pixelIndexHorizontalOffset;
+                                int byteOffsetForRow = NUM_BYTES_PER_BGRA_PIXEL * pixelIndexForStartOfRow;
+                                bb.position(byteOffsetForRow);
+                                for (int c = x; c < header.getNppbh(); c++) {
+                                    // BGRA format
+                                    bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + blueBandIndex]);
+                                    bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + greenBandIndex]);
+                                    bb.put(blockBytes[(r * header.getNppbh() + c) * numBytesPerPixel + redBandIndex]);
+                                    bb.put((byte) 0xFF);
+                                }
+                            }
+                        } else if (header.getImode().equals("R")) {
+                            for (int r = 0; r < header.getNppbv(); r++) {
+                                int pixelIndexVerticalOffset = r * pixelsPerRow;
+                                int pixelIndexForStartOfRow = pixelIndexForStartOfLeftMostBlock
+                                        + pixelIndexVerticalOffset + pixelIndexHorizontalOffset;
+                                int byteOffsetForRow = NUM_BYTES_PER_BGRA_PIXEL * pixelIndexForStartOfRow;
+                                bb.position(byteOffsetForRow);
+                                for (int c = x; c < header.getNppbh(); c++) {
+                                    // BGRA format
+                                    bb.put(blockBytes[((r * numBytesPerPixel + blueBandIndex) * header.getNppbh() + c)]);
+                                    bb.put(blockBytes[((r * numBytesPerPixel + greenBandIndex) * header.getNppbh() + c)]);
+                                    bb.put(blockBytes[((r * numBytesPerPixel + redBandIndex) * header.getNppbh() + c)]);
+                                    bb.put((byte) 0xFF);
+                                }
+                            }
+                        } else if (header.getImode().equals("B")) {
+                            for (int r = 0; r < header.getNppbv(); r++) {
+                                int pixelIndexVerticalOffset = r * pixelsPerRow;
+                                int pixelIndexForStartOfRow = pixelIndexForStartOfLeftMostBlock
+                                        + pixelIndexVerticalOffset + pixelIndexHorizontalOffset;
+                                int byteOffsetForRow = NUM_BYTES_PER_BGRA_PIXEL * pixelIndexForStartOfRow;
+                                bb.position(byteOffsetForRow);
+                                for (int c = x; c < header.getNppbh(); c++) {
+                                    // BGRA format
+                                    bb.put(blockBytes[((blueBandIndex * header.getNppbh() + r) * header.getNppbh() + c)]);
+                                    bb.put(blockBytes[((greenBandIndex * header.getNppbh() + r) * header.getNppbh() + c)]);
+                                    bb.put(blockBytes[((redBandIndex * header.getNppbh() + r) * header.getNppbh() + c)]);
+                                    bb.put((byte) 0xFF);
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                throw new UnsupportedOperationException("Unsupported Blocked RGB IMODE " + header.getImode());
             }
         }
     }
 }
-

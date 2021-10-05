@@ -14,7 +14,7 @@ public class ReaderBasicTest extends TestSupport {
     @Test
     public void bib() throws IOException {
         Reader reader = new Reader(getHyperionBIBTestData());
-        assertTrue(reader.isNitf());
+        assertTrue(reader.isNITF());
         assertEquals(reader.getCLEVEL(), 5);
         assertEquals(reader.getOSTAID(), "L3Harris  ");
         assertEquals(reader.getONAME(), "Dr. Barbara Eckstein    ");

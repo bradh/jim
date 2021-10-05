@@ -77,6 +77,8 @@ public class Reader {
 
     private static final byte[] NITF21_BYTES =
             new byte[] {0x4e, 0x49, 0x54, 0x46, 0x30, 0x32, 0x2e, 0x31, 0x30};
+    private static final byte[] NSIF10_BYTES =
+            new byte[] {0x4e, 0x53, 0x49, 0x46, 0x30, 0x31, 0x2e, 0x30, 0x30};
 
     private int fileHeaderLength;
     private int udhofl = 0;
@@ -102,7 +104,7 @@ public class Reader {
             mappedByteBuffer =
                     fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size());
         }
-        if (isNitf()) {
+        if (isNITF() || isNSIF()) {
             fileHeaderLength = getFileHeaderLength();
             int nextSegmentStartOffset = fileHeaderLength;
             byte[] numiBytes = getBytesAt(NUMI_OFFSET, NUMI_LEN);
@@ -200,9 +202,19 @@ public class Reader {
      *
      * @return true if it looks like NITF, otherwise false.
      */
-    public final boolean isNitf() {
+    public final boolean isNITF() {
         byte[] bytes = getBytesAt(FHDR_OFFSET, FHDR_LEN + FVER_LEN);
         return (Arrays.equals(bytes, NITF21_BYTES));
+    }
+
+    /**
+     * Perform a quick sanity check of the file.
+     *
+     * @return true if it looks like NSIF (STANAG 4545), otherwise false.
+     */
+    public final boolean isNSIF() {
+        byte[] bytes = getBytesAt(FHDR_OFFSET, FHDR_LEN + FVER_LEN);
+        return (Arrays.equals(bytes, NSIF10_BYTES));
     }
 
     /**
