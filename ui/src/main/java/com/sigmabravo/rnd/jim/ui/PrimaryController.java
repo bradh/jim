@@ -12,27 +12,19 @@ import java.nio.ByteBuffer;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
-import javafx.util.Callback;
 import org.freedesktop.gstreamer.Buffer;
 import org.freedesktop.gstreamer.Bus;
 import org.freedesktop.gstreamer.Element;
@@ -46,14 +38,10 @@ import org.freedesktop.gstreamer.fx.FXImageSink;
 
 public class PrimaryController {
 
-    @FXML
-    private MenuBar menuBar;
-    @FXML
-    private TreeView<String> treeView;
-    @FXML
-    private TextArea textArea;
-    @FXML
-    private BorderPane viewPane;
+    @FXML private MenuBar menuBar;
+    @FXML private TreeView<String> treeView;
+    @FXML private TextArea textArea;
+    @FXML private BorderPane viewPane;
 
     private Pipeline pipeline;
 
@@ -102,7 +90,7 @@ public class PrimaryController {
     private TreeItem<String> addFileToTreeView(File file, Reader reader) throws IOException {
         TreeItem<String> fileRoot = new TreeItem<>(file.getName());
         treeView.setRoot(fileRoot);
-        //Set the cell factory
+        // Set the cell factory
         treeView.setCellFactory((TreeView<String> p) -> new TextFieldTreeCellWithMenu());
         // TODO: file header info here?
         List<TRE> tres = reader.getFileTREs();
@@ -173,34 +161,36 @@ public class PrimaryController {
         for (ImageBlockInfo ibi : isi.getImageBlocks()) {
             int blockIndex = ibi.getColumnIndex() + ibi.getRowIndex() * header.getNbpr();
             AppSrc source = (AppSrc) ElementFactory.make("appsrc", "source" + blockIndex);
-            source.connect(new AppSrc.NEED_DATA() {
-                byte[] blockBytes
-                        = reader.getBytesAt(
-                                isi.getSegmentFileOffset()
-                                + isi.getSubheaderLength()
-                                + isi.getImageDataOffset()
-                                + ibi.getBlockOffset(),
-                                ibi.getBlockLength());
-                private final ByteBuffer bb = ByteBuffer.wrap(blockBytes);
+            source.connect(
+                    new AppSrc.NEED_DATA() {
+                        byte[] blockBytes =
+                                reader.getBytesAt(
+                                        isi.getSegmentFileOffset()
+                                                + isi.getSubheaderLength()
+                                                + isi.getImageDataOffset()
+                                                + ibi.getBlockOffset(),
+                                        ibi.getBlockLength());
+                        private final ByteBuffer bb = ByteBuffer.wrap(blockBytes);
 
-                @Override
-                public void needData(AppSrc elem, int size) {
-                    if (bb.hasRemaining()) {
-                        // System.out.println("needData: size = " + size);
-                        byte[] tempBuffer;
-                        Buffer buf;
-                        int copyLength = (bb.remaining() >= size) ? size : bb.remaining();
-                        tempBuffer = new byte[copyLength];
-                        buf = new Buffer(copyLength);
-                        bb.get(tempBuffer);
-                        // System.out.println("Temp Buffer remaining bytes: " + bb.remaining());
-                        buf.map(true).put(ByteBuffer.wrap(tempBuffer));
-                        elem.pushBuffer(buf);
-                    } else {
-                        elem.endOfStream();
-                    }
-                }
-            });
+                        @Override
+                        public void needData(AppSrc elem, int size) {
+                            if (bb.hasRemaining()) {
+                                // System.out.println("needData: size = " + size);
+                                byte[] tempBuffer;
+                                Buffer buf;
+                                int copyLength = (bb.remaining() >= size) ? size : bb.remaining();
+                                tempBuffer = new byte[copyLength];
+                                buf = new Buffer(copyLength);
+                                bb.get(tempBuffer);
+                                // System.out.println("Temp Buffer remaining bytes: " +
+                                // bb.remaining());
+                                buf.map(true).put(ByteBuffer.wrap(tempBuffer));
+                                elem.pushBuffer(buf);
+                            } else {
+                                elem.endOfStream();
+                            }
+                        }
+                    });
             if (header.getIc().equals("M9")) {
                 Element parser = ElementFactory.make("h264parse", "parser" + blockIndex);
                 Element decoder = ElementFactory.make("avdec_h264", "decoder" + blockIndex);
@@ -218,9 +208,11 @@ public class PrimaryController {
             }
         }
         Bus bus = pipeline.getBus();
-        bus.connect((Bus.EOS) (GstObject source) -> {
-            System.out.println("Reached end of stream");
-        });
+        bus.connect(
+                (Bus.EOS)
+                        (GstObject source) -> {
+                            System.out.println("Reached end of stream");
+                        });
 
         pipeline.play();
     }
@@ -270,7 +262,6 @@ public class PrimaryController {
             treRoot.getChildren().add(tre.toTreeItem());
         }
         parentItem.getChildren().add(segmentTreeItem);
-
     }
 
     private void addTextSegmentToTreeView(TextSegmentHeader header, TreeItem<String> parentItem) {
@@ -306,8 +297,8 @@ public class PrimaryController {
     }
 
     /**
-     * Handle action related to input (in this case specifically only responds
-     * to keyboard event CTRL-A).
+     * Handle action related to input (in this case specifically only responds to keyboard event
+     * CTRL-A).
      *
      * @param event Input event.
      */
@@ -321,9 +312,7 @@ public class PrimaryController {
         }
     }
 
-    /**
-     * Perform functionality associated with "About" menu selection or CTRL-A.
-     */
+    /** Perform functionality associated with "About" menu selection or CTRL-A. */
     private void provideAboutFunctionality() {
         System.out.println("You clicked on About!");
     }
@@ -345,7 +334,8 @@ public class PrimaryController {
         return treeItem;
     }
 
-    private TreeItem<String> addTreeItemAsDouble(TreeItem<String> parent, String label, double value) {
+    private TreeItem<String> addTreeItemAsDouble(
+            TreeItem<String> parent, String label, double value) {
         TreeItem<String> treeItem = new TreeItem<>(String.format("%s: %04f", label, value));
         parent.getChildren().add(treeItem);
         return treeItem;

@@ -12,24 +12,25 @@ public class TextFieldTreeCellWithMenu extends TextFieldTreeCell<String> {
 
     public TextFieldTreeCellWithMenu() {
         MenuItem menuItem = new MenuItem("Right Click");
-        menuItem.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent ah) {
-                System.out.println(ah);
-            }
-        });
+        menuItem.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent ah) {
+                        System.out.println(ah);
+                    }
+                });
         contextMenu = new ContextMenu(menuItem);
     }
 
     @Override
     public void updateItem(String t, boolean bln) {
-        //Call the super class so everything works as before
+        // Call the super class so everything works as before
         super.updateItem(t, bln);
-        //Check to show the context menu for this TreeItem
+        // Check to show the context menu for this TreeItem
         if (showMenu(t, bln)) {
             setContextMenu(contextMenu);
         } else {
-            //If no menu for this TreeItem is used, deactivate the menu
+            // If no menu for this TreeItem is used, deactivate the menu
             setContextMenu(null);
         }
     }

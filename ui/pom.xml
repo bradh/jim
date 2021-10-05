@@ -120,6 +120,25 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <!-- java source code formatter -->
+                <groupId>com.theoryinpractise</groupId>
+                <artifactId>googleformatter-maven-plugin</artifactId>
+                <version>${googleformatter.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>reformat-sources</id>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <style>AOSP</style>
+                            <fixImports>true</fixImports>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
