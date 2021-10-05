@@ -62,23 +62,43 @@ public class NonCompressedPixelReader implements PixelReader {
     }
 
     private void processMono(ByteBuffer bb, int x, int y, int w, int h) {
-        int numBytesPerPixel = header.getNbpp() * (header.getNbpp() + 7) / 8;
-        byte[] blockBytes =
-                reader.getBytesAt(
-                        imageSegmentInfo.getSegmentFileOffset()
-                                + imageSegmentInfo.getSubheaderLength()
-                                + imageSegmentInfo.getImageDataOffset(),
-                        w * h * numBytesPerPixel);
-        for (int r = y; r < y + h; r++) {
-            for (int c = x; c < x + w; c++) {
-                byte b = blockBytes[r * w + c];
-                if (header.getAbpp() != 8) {
-                    b = (byte) (b << (8 - header.getAbpp()));
+        int numBytesPerPixel = (header.getNbpp() + 7) / 8;
+        int samplesPerInputBlock = header.getNppbh() * header.getNppbv();
+        int numBytesPerInputBlock = numBytesPerPixel * samplesPerInputBlock;
+        int pixelsPerRow = header.getNbpr() * header.getNppbh();
+        // for (int Y = 0; Y < header.getNbpr(); Y++) {
+        for (int Y = 0; Y < header.getNbpr(); Y++) {
+            int pixelIndexForStartOfLeftMostBlock = samplesPerInputBlock * Y * header.getNbpr();
+            // for (int X = 0; X < 1; X++) {
+            for (int X = 0; X < header.getNbpc(); X++) {
+                int pixelIndexHorizontalOffset = X * header.getNppbh();
+                byte[] blockBytes =
+                        reader.getBytesAt(
+                                imageSegmentInfo.getSegmentFileOffset()
+                                        + imageSegmentInfo.getSubheaderLength()
+                                        + imageSegmentInfo.getImageDataOffset()
+                                        + numBytesPerInputBlock * (X + Y * header.getNbpr()),
+                                numBytesPerInputBlock);
+                for (int r = y; r < header.getNppbv(); r++) {
+                    int pixelIndexVerticalOffset = r * pixelsPerRow;
+                    int pixelIndexForStartOfRow =
+                            pixelIndexForStartOfLeftMostBlock
+                                    + pixelIndexVerticalOffset
+                                    + pixelIndexHorizontalOffset;
+                    int byteOffsetForRow = NUM_BYTES_PER_BGRA_PIXEL * pixelIndexForStartOfRow;
+                    bb.position(byteOffsetForRow);
+                    for (int c = x; c < header.getNppbh(); c++) {
+                        byte b = blockBytes[r * header.getNppbh() + c];
+                        if (header.getAbpp() != 8) {
+                            b = (byte) (b << (8 - header.getAbpp()));
+                        }
+                        // BGRA format
+                        bb.put(b);
+                        bb.put(b);
+                        bb.put(b);
+                        bb.put((byte) 0xFF);
+                    }
                 }
-                bb.put(b);
-                bb.put(b);
-                bb.put(b);
-                bb.put((byte) 0xFF);
             }
         }
     }
