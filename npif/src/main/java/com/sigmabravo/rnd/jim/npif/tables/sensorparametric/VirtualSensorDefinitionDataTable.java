@@ -51,4 +51,98 @@ public class VirtualSensorDefinitionDataTable extends DataTable {
     private int receiveAntenna1SensorNumber;
     private int receiveAntenna2SensorNumber;
     private int combinationOperation;
+
+    public int getSensorId() {
+        return (getHeader().getSourceAddress() & 0x3F);
+    }
+
+    public double getTransmitPhaseDifference() {
+        return transmitPhaseDifference;
+    }
+
+    public void setTransmitPhaseDifference(double transmitPhaseDifference) {
+        this.transmitPhaseDifference = transmitPhaseDifference;
+    }
+
+    public double getReceivePhaseDifference() {
+        return receivePhaseDifference;
+    }
+
+    public void setReceivePhaseDifference(double receivePhaseDifference) {
+        this.receivePhaseDifference = receivePhaseDifference;
+    }
+
+    public int getTransmitAntenna1SensorNumber() {
+        return transmitAntenna1SensorNumber;
+    }
+
+    public String getTransmitAntenna1SensorNumberAsText() {
+        return formatAntennaSensorNumber(getTransmitAntenna1SensorNumber());
+    }
+
+    private String formatAntennaSensorNumber(int number) {
+        if ((number & 0xFFFF) == 0xFFFF) {
+            return "Not in use";
+        }
+        return String.format("%d", number);
+    }
+
+    public void setTransmitAntenna1SensorNumber(int transmitAntenna1SensorNumber) {
+        this.transmitAntenna1SensorNumber = transmitAntenna1SensorNumber;
+    }
+
+    public int getTransmitAntenna2SensorNumber() {
+        return transmitAntenna2SensorNumber;
+    }
+
+    public String getTransmitAntenna2SensorNumberAsText() {
+        return formatAntennaSensorNumber(getTransmitAntenna2SensorNumber());
+    }
+
+    public void setTransmitAntenna2SensorNumber(int transmitAntenna2SensorNumber) {
+        this.transmitAntenna2SensorNumber = transmitAntenna2SensorNumber;
+    }
+
+    public int getReceiveAntenna1SensorNumber() {
+        return receiveAntenna1SensorNumber;
+    }
+
+    public String getReceiveAntenna1SensorNumberAsText() {
+        return formatAntennaSensorNumber(getReceiveAntenna1SensorNumber());
+    }
+
+    public void setReceiveAntenna1SensorNumber(int receiveAntenna1SensorNumber) {
+        this.receiveAntenna1SensorNumber = receiveAntenna1SensorNumber;
+    }
+
+    public int getReceiveAntenna2SensorNumber() {
+        return receiveAntenna2SensorNumber;
+    }
+
+    public String getReceiveAntenna2SensorNumberAsText() {
+        return formatAntennaSensorNumber(getReceiveAntenna2SensorNumber());
+    }
+
+    public void setReceiveAntenna2SensorNumber(int receiveAntenna2SensorNumber) {
+        this.receiveAntenna2SensorNumber = receiveAntenna2SensorNumber;
+    }
+
+    public int getCombinationOperation() {
+        return combinationOperation;
+    }
+
+    public String getCombinationOperationAsText() {
+        switch (this.getCombinationOperation()) {
+            case 0x00:
+                return "Addition";
+            case 0x01:
+                return "Subtraction";
+            default:
+                return "Unknown combination operation (" + getCombinationOperation() + ")";
+        }
+    }
+
+    public void setCombinationOperation(int combinationOperation) {
+        this.combinationOperation = combinationOperation;
+    }
 }

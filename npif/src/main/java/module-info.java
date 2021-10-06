@@ -36,6 +36,7 @@ module STANAG7023TableExtractorValidatorAndEditorSTEVE {
                     .MinimumSensorAttitudeDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensorparametric
                     .ComprehensiveSensorAttitudeDataTableParser,
+            com.sigmabravo.rnd.jim.npif.tables.sensorparametric.GimbalsPositionDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensorparametric
                     .MinimumGimbalsAttitudeDataTableParser,
             com.sigmabravo.rnd.jim.npif.tables.sensorparametric

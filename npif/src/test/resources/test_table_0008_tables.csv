@@ -2,7 +2,7 @@ Overview of all tables:
 For flags data (F1; F2; F3) order is: Compression; CRC; Pre/Postamble ('1' indicates on; '0' indicates off)
 DFA is Data File Address as an integer
 Count,Source,Table,SA,DFA,F1,F2,F3,Size,Segment,Number,Time Tag,Sync Type,Edition
-0,Sensor Parametric,Gimbals Position Data Table,80,83,0,0,0,24,2,238,305419896,INACTIVE,4
+0,Sensor Parametric,Gimbals Position,80,83,0,0,0,24,2,238,305419896,INACTIVE,4
 --,Sensor ID Number:,16
 --,Gimbal ID Number:,3
 --,X vector component:,11.0
