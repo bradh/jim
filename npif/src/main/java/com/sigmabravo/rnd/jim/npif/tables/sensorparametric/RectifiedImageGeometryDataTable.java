@@ -2,83 +2,8 @@ package com.sigmabravo.rnd.jim.npif.tables.sensorparametric;
 
 import com.sigmabravo.rnd.jim.npif.tables.DataTable;
 
-/*
-	The sensor number is encoded into the Source Address. The binary form of the Source Address is: 01xxxxxx, where xxxxxx is the sensor number.
-	Depression Angle for     Depression Angle for
-	Near Range Point         Far Range Point
-	h
-	Pat
-	gh t
-	Fli
-	Swath
-	Flat Plane
-	Figure A-16 – Diagram of Depression Angle.
-	Projection datum
-	All projections are done relative to the WGS84.
-	Each kind of projection has its own set of parameters. The STANAG uses projection types and datum commonly used in geography, except for the Cartesian plane
-	projection designed for basic corrections of raw images.
-	$01 = Cartesian plane projection
-	This is not a standard projection used for cartography. The plane is described by a point, centre of the cartographic referential, and its normal vector.
-	Data 1 : Latitude of a point of the projection plane (radian)
-	Data 2 : Longitude of a point of the projection plane (radian)
-	Data 3 : Elevation of a point of the projection plane (usually zero metre)
-	Data 4 : the geodesic azimuth (radian, usually zero so that Yc is North and Xc is East, π/2 means Yc is East and Xc South)
-	Data 5 : angle of sight (usually π/2, so that the plane is tangent to the ellipsoid)
-	Data 6 : azimuth of the normal vector of the projection plane (not of use if Data 5 = π/2)
-	Origin of the resulting cartographic referential is the point used to define the plane.
-	$02 = Stereographic (oblique on a sphere)
-	The plane is described by the point of tangency. It shall be assumed that the tangent plane lies at zero elevation.
-	Data 1 : Latitude of the point of tangency of the tangent projection plane (radian)
-	Data 2 : Longitude of the point of tangency of the tangent projection plane (radian)
-	Data 3 : sphere radius (metre)
-	Data 4 : Xc origin (metre, usually zero)
-	Data 5 : Yc origin (metre, usually zero)
-	Origin of the resulting cartographic referential is the point of tangency, with the specified offsets.
-	$03 = Transverse Mercator
-	Projection onto a cylinder whose axis is in the equatorial plane. General description is preferred, even if the only true parameter is the meridian of tangency, all other
-	parameters being conventionally set :
-	Data 1 : the meridian (longitude) of tangency (radian)
-	Data 2 : the latitude of tangency (radian; it is usually the equator, zero)
-	Data 3 : Xc origin (it is usually an offset of 500,000 metre from the meridian of tangency)
-	Data 4 : Yc origin (it is usually on the equator, i. e. zero metre, but often fits the latitude, like 4,500,000 in Europe)
-	Data 5 : scale (usually 1 or 0.9996)
-	Origin of the resulting cartographic referential is described with an offset in metre from the crossing of this meridian and the equator.
-	UTM projections are Transverse Mercator projections, numbered UTM 1 to UTM 60, used to that cover 6 degree lunes. If F refers to the UTM number, then UTM F
-	is typically used to cover longitude [6(F-31), 6(F-30)] and Data 1 is 6(F-31)+ 3 (to convert in radian).
-	$04 = Mercator
-	Projection onto a cylinder whose axis is in the equatorial plane. General description is preferred, even if the only true parameter is the meridian of tangency, all other
-	parameters being conventionally set :
-	Data 1 : the meridian (longitude) of tangency (radian)
-	Data 2 : the latitude of tangency (radian)
-	Data 3 : the geodesic azimuth (radian)
-	Data 4 : angle of rotation of the Xc, Yc axes (radian, usually zero)
-	Data 5 : sphere radius (metre)
-	Data 6 : Xc origin (metre)
-	Data 7 : Yc origin (metre)
-	Image referential
-	The rectified image does not need to be rotated to fit the cartographic axes defined by the projection. The coordinates of an y pixel of the rectified image into the
-	cartographic referential (defined by the projection) is described by the function :
-	 Xc  Axx      Axy   X  Cx 
-	 Yc    Ayx                 
-	Ayy   Y  Cy 
-	  
-	where :
-	(X, Y) are the coordinates of the pixel in the rectified image referential,
-	(Xc, Yc) are the coordinates in the cartographic referential (usually Xc axis is heading East and Yc axis is heading North),
-	[C] holds the translation (such that (- Cx,- Cy) are the cartographic coordinates in metres of the pixel (0,0))
-	[A] matrix holds the rotation of the image in the cartographic referential, it scales and when necessary flips coefficients.
-	Y
-	Yc
-	North
-	X
-	Xc
-	East
-	Figure A-17 – Coordinates.
-	Image bounding box
-	Even in a non-rotated rectified image referential, there may be some undefined pixels. It is up to the producing system to define invalid data pixels (defined in the
-	RADAR Element Data Table) to determine the exact boundary of the valid pixels.
-*/
 public class RectifiedImageGeometryDataTable extends DataTable {
+
     private double axx;
     private double axy;
     private double ayx;
@@ -86,4 +11,309 @@ public class RectifiedImageGeometryDataTable extends DataTable {
     private double cx;
     private double cy;
     private double data1;
+    private double data2;
+    private double data3;
+    private double data4;
+    private double data5;
+    private double data6;
+    private double data7;
+    private double data8;
+    private double data9;
+    private double data10;
+    private double data11;
+    private double data12;
+    private double data13;
+    private double data14;
+    private double data15;
+    private double data16;
+    private double data17;
+    private double data18;
+    private double data19;
+    private double data20;
+    private double nearRangePointDepressionAngle;
+    private double farRangePointDepressionAngle;
+    private int projectionType;
+    private int terrainModel;
+
+    public int getSensorId() {
+        return (getHeader().getSourceAddress() & 0x3F);
+    }
+
+    public double getAxx() {
+        return axx;
+    }
+
+    public void setAxx(double axx) {
+        this.axx = axx;
+    }
+
+    public double getAxy() {
+        return axy;
+    }
+
+    public void setAxy(double axy) {
+        this.axy = axy;
+    }
+
+    public double getAyx() {
+        return ayx;
+    }
+
+    public void setAyx(double ayx) {
+        this.ayx = ayx;
+    }
+
+    public double getAyy() {
+        return ayy;
+    }
+
+    public void setAyy(double ayy) {
+        this.ayy = ayy;
+    }
+
+    public double getCx() {
+        return cx;
+    }
+
+    public void setCx(double cx) {
+        this.cx = cx;
+    }
+
+    public double getCy() {
+        return cy;
+    }
+
+    public void setCy(double cy) {
+        this.cy = cy;
+    }
+
+    public double getData1() {
+        return data1;
+    }
+
+    public void setData1(double data1) {
+        this.data1 = data1;
+    }
+
+    public double getData2() {
+        return data2;
+    }
+
+    public void setData2(double data2) {
+        this.data2 = data2;
+    }
+
+    public double getData3() {
+        return data3;
+    }
+
+    public void setData3(double data3) {
+        this.data3 = data3;
+    }
+
+    public double getData4() {
+        return data4;
+    }
+
+    public void setData4(double data4) {
+        this.data4 = data4;
+    }
+
+    public double getData5() {
+        return data5;
+    }
+
+    public void setData5(double data5) {
+        this.data5 = data5;
+    }
+
+    public double getData6() {
+        return data6;
+    }
+
+    public void setData6(double data6) {
+        this.data6 = data6;
+    }
+
+    public double getData7() {
+        return data7;
+    }
+
+    public void setData7(double data7) {
+        this.data7 = data7;
+    }
+
+    public double getData8() {
+        return data8;
+    }
+
+    public void setData8(double data8) {
+        this.data8 = data8;
+    }
+
+    public double getData9() {
+        return data9;
+    }
+
+    public void setData9(double data9) {
+        this.data9 = data9;
+    }
+
+    public double getData10() {
+        return data10;
+    }
+
+    public void setData10(double data10) {
+        this.data10 = data10;
+    }
+
+    public double getData11() {
+        return data11;
+    }
+
+    public void setData11(double data11) {
+        this.data11 = data11;
+    }
+
+    public double getData12() {
+        return data12;
+    }
+
+    public void setData12(double data12) {
+        this.data12 = data12;
+    }
+
+    public double getData13() {
+        return data13;
+    }
+
+    public void setData13(double data13) {
+        this.data13 = data13;
+    }
+
+    public double getData14() {
+        return data14;
+    }
+
+    public void setData14(double data14) {
+        this.data14 = data14;
+    }
+
+    public double getData15() {
+        return data15;
+    }
+
+    public void setData15(double data15) {
+        this.data15 = data15;
+    }
+
+    public double getData16() {
+        return data16;
+    }
+
+    public void setData16(double data16) {
+        this.data16 = data16;
+    }
+
+    public double getData17() {
+        return data17;
+    }
+
+    public void setData17(double data17) {
+        this.data17 = data17;
+    }
+
+    public double getData18() {
+        return data18;
+    }
+
+    public void setData18(double data18) {
+        this.data18 = data18;
+    }
+
+    public double getData19() {
+        return data19;
+    }
+
+    public void setData19(double data19) {
+        this.data19 = data19;
+    }
+
+    public double getData20() {
+        return data20;
+    }
+
+    public void setData20(double data20) {
+        this.data20 = data20;
+    }
+
+    public double getNearRangePointDepressionAngle() {
+        return nearRangePointDepressionAngle;
+    }
+
+    public double getNearRangePointDepressionAngleDegrees() {
+        return radiansToDegrees(getNearRangePointDepressionAngle());
+    }
+
+    public void setNearRangePointDepressionAngle(double nearRangePointDepressionAngle) {
+        this.nearRangePointDepressionAngle = nearRangePointDepressionAngle;
+    }
+
+    public double getFarRangePointDepressionAngle() {
+        return farRangePointDepressionAngle;
+    }
+
+    public double getFarRangePointDepressionAngleDegrees() {
+        return radiansToDegrees(getFarRangePointDepressionAngle());
+    }
+
+    public void setFarRangePointDepressionAngle(double farRangePointDepressionAngle) {
+        this.farRangePointDepressionAngle = farRangePointDepressionAngle;
+    }
+
+    public int getProjectionType() {
+        return projectionType;
+    }
+
+    public String getProjectionTypeAsText() {
+        switch (getProjectionType()) {
+            case 0x00:
+                return "Unused";
+            case 0x01:
+                return "Cartesian plane projection";
+            case 0x02:
+                return "Stereographic";
+            case 0x03:
+                return "Transverse Mercator";
+            case 0x04:
+                return "Mercator";
+            default:
+                return "Unknown projection type (" + getProjectionType() + ")";
+        }
+    }
+
+    public void setProjectionType(int projectionType) {
+        this.projectionType = projectionType;
+    }
+
+    public int getTerrainModel() {
+        return terrainModel;
+    }
+
+    public String getTerrainModelAsText() {
+        switch (getTerrainModel()) {
+            case 0x00:
+                return "No DTM used";
+            case 0x01:
+                return "DTED";
+            case 0xFF:
+                return "other DTM used";
+            default:
+                return "Unknown terrain model (" + getTerrainModel() + ")";
+        }
+    }
+
+    public void setTerrainModel(int terrainModel) {
+        this.terrainModel = terrainModel;
+    }
 }
