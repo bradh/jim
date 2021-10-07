@@ -13,8 +13,26 @@ public class SyncHierarchyAndImageBuildDataTableParser
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Sync Hierarchy and Image Build Data Table");
-        return new DataTable();
+        SyncHierarchyAndImageBuildDataTable dataTable = new SyncHierarchyAndImageBuildDataTable();
+        dataTable.setName("Sync Hierarchy and Image Build");
+        dataTable.setSourceFile("Sensor Parametric");
+        dataTable.setSuperFrameHierarchy(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setFrameHierarchy(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setFieldHierarchy(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setSwathHierarchy(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setTileHierarchy(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setLineHierarchy(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setBuildDirectionOfTileImageComponents(
+                readUnsignedBinary(mappedByteBuffer, offset, 1));
+        offset += 1;
+        dataTable.setFrameCoverageRelationship(readUnsignedBinary(mappedByteBuffer, offset, 1));
+        return dataTable;
     }
 
     @Override
