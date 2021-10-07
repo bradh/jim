@@ -15,7 +15,7 @@ public class ManifestReadTest extends TestSupport {
     @Test
     public void mie4nitfManifest() throws IOException {
         Reader reader = new Reader(getMIE4NITFManifestTestData());
-        assertTrue(reader.isNitf());
+        assertTrue(reader.isNITF());
         assertEquals(reader.getCLEVEL(), 3);
         assertEquals(reader.getOSTAID(), "MRDC      ");
         assertEquals(reader.getFileDateTime(), "20181101160919");
