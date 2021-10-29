@@ -79,6 +79,17 @@ public class ReaderTest extends TestSupport {
     }
 
     @Test
+    public void goldenFrame10() throws IOException {
+        if (haveGoldenFiles()) {
+            Reader reader = new Reader(getGoldenFile("frame-10"));
+            assertNotNull(reader);
+            assertEquals(reader.getTableTables().size(), 628);
+            WritableImage image = render(reader.getTableTables());
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", new File("frame-10.png"));
+        }
+    }
+
+    @Test
     public void goldenPushbroom10() throws IOException {
         if (haveGoldenFiles()) {
             Reader reader = new Reader(getGoldenFile("pushbroom-10"));
