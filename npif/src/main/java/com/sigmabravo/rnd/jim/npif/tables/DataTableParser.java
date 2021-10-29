@@ -27,7 +27,7 @@ public abstract class DataTableParser {
         int day = mappedByteBuffer.get();
         int hour = mappedByteBuffer.get();
         int min = mappedByteBuffer.get();
-        int milliseconds = mappedByteBuffer.getShort();
+        int milliseconds = mappedByteBuffer.getShort() & 0xFFFF;
         if ((year == 0)
                 && (month == 0)
                 && (day == 0)
@@ -37,6 +37,9 @@ public abstract class DataTableParser {
             return null;
         }
         int sec = milliseconds / 1000;
+        if (sec < 0) {
+            System.out.println("bad sec");
+        }
         int millis = milliseconds % 1000;
 
         ZonedDateTime zdt =

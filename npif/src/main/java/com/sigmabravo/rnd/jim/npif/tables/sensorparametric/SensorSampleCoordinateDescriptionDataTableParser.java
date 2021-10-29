@@ -13,7 +13,11 @@ public class SensorSampleCoordinateDescriptionDataTableParser
 
     @Override
     public DataTable parse(MappedByteBuffer mappedByteBuffer, int offset, Header header) {
-        System.out.println("Sensor Sample Coordinate Description Data Table");
+        SensorSampleCoordinateDescriptionDataTable dataTable =
+                new SensorSampleCoordinateDescriptionDataTable();
+        dataTable.setName("Sensor Sample Coordinate Description");
+        dataTable.setSourceFile("Sensor Parametric");
+        // TODO: need to parse properly
         return new DataTable();
     }
 

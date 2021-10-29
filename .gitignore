@@ -1,6 +1,7 @@
 target/
 mie4nitf/src/test/resources/wpr-h264.r0t0q0c0i0.NTF
 nitf/src/test/resources/07APR2005_Hyperion_331406N0442000E_SWIR172_001_L1R-01B-BIB-GLAS.ntf
+npif/src/test/resources/goldenfiles/
 ui/Codice/
 ui/Jpeg2000/
 ui/Nitfv1_1/

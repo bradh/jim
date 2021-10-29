@@ -44,6 +44,11 @@ public class TestSupport {
         return getPathFromResourceName(fileName);
     }
 
+    Path getGoldenFile(String file) {
+        String fileName = "goldenfiles/" + file + ".7023";
+        return getPathFromResourceName(fileName);
+    }
+
     protected Path getPathFromResourceName(String fileName) {
         ClassLoader classLoader = getClass().getClassLoader();
         return Paths.get(classLoader.getResource(fileName).getPath());

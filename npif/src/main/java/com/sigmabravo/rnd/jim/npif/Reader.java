@@ -92,6 +92,7 @@ public class Reader {
                 DataTable dataTable = dtParser.parse(mappedByteBuffer, offset, header);
                 dataTable.setHeader(header);
                 dataTables.add(dataTable);
+                System.out.println(dataTable.getName());
             }
             offset += header.getDataFileSize();
         }

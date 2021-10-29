@@ -1,6 +1,8 @@
 module STANAG7023TableExtractorValidatorAndEditorSTEVE {
     exports com.sigmabravo.rnd.jim.npif;
 
+    requires java.desktop;
+
     uses com.sigmabravo.rnd.jim.npif.tables.DataTableParser;
 
     provides com.sigmabravo.rnd.jim.npif.tables.DataTableParser with
