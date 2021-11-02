@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 
-/** @author bradh */
 public class TREParserManager {
 
     private final ServiceLoader<AbstractTREParser> loader;
