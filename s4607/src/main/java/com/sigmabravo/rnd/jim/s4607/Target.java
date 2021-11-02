@@ -96,6 +96,10 @@ public class Target {
         return targetClassification;
     }
 
+    public String getTargetClassificationAsText() {
+        return TargetClassificationLookupTable.getValue(targetClassification);
+    }
+
     public void setTargetClassification(Integer targetClassification) {
         this.targetClassification = targetClassification;
     }

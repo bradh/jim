@@ -1,15 +1,17 @@
 package com.sigmabravo.rnd.jim.s4607;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ExerciseIndicatorLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();
+    private final Logger LOG = LoggerFactory.getLogger(ExerciseIndicatorLookupTable.class);
 
     private ExerciseIndicatorLookupTable() {
         Properties prop = new Properties();
@@ -23,12 +25,8 @@ public class ExerciseIndicatorLookupTable {
                                 int key = Integer.parseInt((String) entry.getKey());
                                 enumerationLookup.put(key, (String) entry.getValue());
                             });
-        } catch (FileNotFoundException e) {
-            // TODO: LOG
-            e.printStackTrace(System.out);
         } catch (IOException e) {
-            // TODO: LOG
-            e.printStackTrace(System.out);
+            LOG.error(e.getMessage());
         }
     }
 

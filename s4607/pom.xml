@@ -12,6 +12,10 @@
     <description>STANAG 4607 GMTI Radar support for JIM</description>
     <dependencies>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <type>jar</type>

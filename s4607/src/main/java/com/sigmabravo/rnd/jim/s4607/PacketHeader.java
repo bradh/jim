@@ -41,7 +41,7 @@ public class PacketHeader {
     }
 
     public String getClassificationAsText() {
-        return ClassificationLookupTable.getValue(classification);
+        return SecurityClassificationLookupTable.getValue(classification);
     }
 
     public void setClassification(int classification) {

@@ -1,21 +1,23 @@
 package com.sigmabravo.rnd.jim.s4607;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class ClassificationLookupTable {
+public class TargetClassificationLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();
+    private final Logger LOG = LoggerFactory.getLogger(TargetClassificationLookupTable.class);
 
-    private ClassificationLookupTable() {
+    private TargetClassificationLookupTable() {
         Properties prop = new Properties();
         try (InputStream inputStream =
-                ClassificationLookupTable.class.getResourceAsStream(
-                        "/PacketSecurityClassification.properties")) {
+                TargetClassificationLookupTable.class.getResourceAsStream(
+                        "/TargetClassification.properties")) {
             prop.load(inputStream);
             prop.entrySet()
                     .forEach(
@@ -23,29 +25,26 @@ public class ClassificationLookupTable {
                                 int key = Integer.parseInt((String) entry.getKey());
                                 enumerationLookup.put(key, (String) entry.getValue());
                             });
-        } catch (FileNotFoundException e) {
-            // TODO: LOG
-            e.printStackTrace(System.out);
         } catch (IOException e) {
-            // TODO: LOG
-            e.printStackTrace(System.out);
+            LOG.error(e.getMessage());
         }
     }
 
     private String getKeyForValue(int key) {
-        return getInstance().enumerationLookup.getOrDefault(key, "UNKNOWN");
+        return getInstance().enumerationLookup.getOrDefault(key, "Available for Future Use");
     }
 
     public static String getValue(int key) {
         return getInstance().getKeyForValue(key);
     }
 
-    public static ClassificationLookupTable getInstance() {
-        return ClassificationLookupTableHolder.INSTANCE;
+    public static TargetClassificationLookupTable getInstance() {
+        return TargetClassificationLookupTableHolder.INSTANCE;
     }
 
-    private static class ClassificationLookupTableHolder {
+    private static class TargetClassificationLookupTableHolder {
 
-        private static final ClassificationLookupTable INSTANCE = new ClassificationLookupTable();
+        private static final TargetClassificationLookupTable INSTANCE =
+                new TargetClassificationLookupTable();
     }
 }

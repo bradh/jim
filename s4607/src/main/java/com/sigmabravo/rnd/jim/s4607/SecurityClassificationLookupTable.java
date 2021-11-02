@@ -8,15 +8,16 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PlatformTypeLookupTable {
+public class SecurityClassificationLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();
-    private final Logger LOG = LoggerFactory.getLogger(PlatformTypeLookupTable.class);
+    private final Logger LOG = LoggerFactory.getLogger(SecurityClassificationLookupTable.class);
 
-    private PlatformTypeLookupTable() {
+    private SecurityClassificationLookupTable() {
         Properties prop = new Properties();
         try (InputStream inputStream =
-                PlatformTypeLookupTable.class.getResourceAsStream("/PlatformType.properties")) {
+                SecurityClassificationLookupTable.class.getResourceAsStream(
+                        "/PacketSecurityClassification.properties")) {
             prop.load(inputStream);
             prop.entrySet()
                     .forEach(
@@ -30,19 +31,20 @@ public class PlatformTypeLookupTable {
     }
 
     private String getKeyForValue(int key) {
-        return getInstance().enumerationLookup.getOrDefault(key, "Available for Future Use");
+        return getInstance().enumerationLookup.getOrDefault(key, "UNKNOWN");
     }
 
     public static String getValue(int key) {
         return getInstance().getKeyForValue(key);
     }
 
-    public static PlatformTypeLookupTable getInstance() {
-        return PlatformTypeLookupTableHolder.INSTANCE;
+    public static SecurityClassificationLookupTable getInstance() {
+        return SecurityClassificationLookupTableHolder.INSTANCE;
     }
 
-    private static class PlatformTypeLookupTableHolder {
+    private static class SecurityClassificationLookupTableHolder {
 
-        private static final PlatformTypeLookupTable INSTANCE = new PlatformTypeLookupTable();
+        private static final SecurityClassificationLookupTable INSTANCE =
+                new SecurityClassificationLookupTable();
     }
 }

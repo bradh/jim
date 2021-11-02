@@ -99,8 +99,7 @@ public class BasicReaderTest extends TestSupport {
         assertEquals((int) target.getTargetWrapVelocity(), 40000);
         assertEquals((int) target.getTargetSNR(), -128);
         assertEquals((int) target.getTargetClassification(), 10);
-        // TODO
-        // assertEquals((int) target.getTargetClassificationAsText(), "Vehicle, Live Target");
+        assertEquals(target.getTargetClassificationAsText(), "Vehicle, Live Target");
         assertEquals((int) target.getTargetClassificationProbability(), 90);
         assertEquals((int) target.getTargetMeasurementUncertaintySlantRange(), 1000);
         assertEquals((int) target.getTargetMeasurementUncertaintyCrossRange(), 2000);
