@@ -20,6 +20,7 @@
         <module>nitf</module>
         <module>ccinfa</module>
         <module>npif</module>
+        <module>s4607</module>
     </modules>
     <properties>
         <coveralls.version>4.3.0</coveralls.version>
