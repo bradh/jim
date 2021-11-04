@@ -21,6 +21,7 @@
         <module>ccinfa</module>
         <module>npif</module>
         <module>s4607</module>
+        <module>s4676</module>
     </modules>
     <properties>
         <coveralls.version>4.3.0</coveralls.version>
@@ -173,6 +174,23 @@
                             <goal>sort</goal>
                         </goals>
                         <phase>verify</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <quiet>true</quiet>
+                    <source>11</source>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

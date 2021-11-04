@@ -199,6 +199,18 @@ public class Reader {
         }
     }
 
+    private double readSA16() {
+        long i = readI16();
+        boolean negative = (i & 0x8000) == 0x8000;
+        int magnitude = (int) (i & 0x7FFF);
+        double d = magnitude * 1.40625 / Math.pow(2, 16 - 7);
+        if (negative) {
+            return d * -1.0;
+        } else {
+            return d;
+        }
+    }
+
     private PacketHeader readPacketHeader() {
         PacketHeader ph = new PacketHeader();
         ph.setVersionId(readASCII(2));
@@ -219,11 +231,16 @@ public class Reader {
         SegmentType segmentType = SegmentType.lookupByIdent(readE8());
         long segmentSize = readI32();
         SegmentHeader segmentHeader = new SegmentHeader(segmentType, segmentSize);
+        // TODO: switch this to a loader + factory
         switch (segmentHeader.getSegmentType()) {
             case MissionSegment:
                 return parseMissionSegment(segmentHeader);
             case DwellSegment:
                 return parseDwellSegment(segmentHeader);
+            case FreeTextSegment:
+                return parseFreeTextSegment(segmentHeader);
+            case JobDefinitionSegment:
+                return parseJobDefinitionSegment(segmentHeader);
             default:
                 throw new IllegalArgumentException("TODO");
         }
@@ -268,7 +285,48 @@ public class Reader {
         if ((existenceMask & D9_EXISTENCE_MASK) == D9_EXISTENCE_MASK) {
             dwellSegment.setSensorAltitude(readS32());
         }
-        // TODO: many missing here
+        if ((existenceMask & D10_EXISTENCE_MASK) == D10_EXISTENCE_MASK) {
+            dwellSegment.setScaleFactorLatScale(readSA32());
+        }
+        if ((existenceMask & D11_EXISTENCE_MASK) == D11_EXISTENCE_MASK) {
+            dwellSegment.setScaleFactorLonScale(readBA32());
+        }
+        if ((existenceMask & D12_EXISTENCE_MASK) == D12_EXISTENCE_MASK) {
+            throw new IllegalArgumentException("TODO: D12");
+        }
+        if ((existenceMask & D13_EXISTENCE_MASK) == D13_EXISTENCE_MASK) {
+            throw new IllegalArgumentException("TODO: D13");
+        }
+        if ((existenceMask & D14_EXISTENCE_MASK) == D14_EXISTENCE_MASK) {
+            throw new IllegalArgumentException("TODO: D14");
+        }
+        if ((existenceMask & D15_EXISTENCE_MASK) == D15_EXISTENCE_MASK) {
+            dwellSegment.setSensorTrack(readBA16());
+        }
+        if ((existenceMask & D16_EXISTENCE_MASK) == D16_EXISTENCE_MASK) {
+            dwellSegment.setSensorSpeed((int) readI32());
+        }
+        if ((existenceMask & D17_EXISTENCE_MASK) == D17_EXISTENCE_MASK) {
+            dwellSegment.setSensorVerticalVelocity(readS8());
+        }
+        if ((existenceMask & D18_EXISTENCE_MASK) == D18_EXISTENCE_MASK) {
+            throw new IllegalArgumentException("TODO: D18");
+        }
+        if ((existenceMask & D19_EXISTENCE_MASK) == D19_EXISTENCE_MASK) {
+            throw new IllegalArgumentException("TODO: D19");
+        }
+        if ((existenceMask & D20_EXISTENCE_MASK) == D20_EXISTENCE_MASK) {
+            throw new IllegalArgumentException("TODO: D20");
+        }
+        if ((existenceMask & D21_EXISTENCE_MASK) == D21_EXISTENCE_MASK) {
+            dwellSegment.setPlatformOrientationHeading(readBA16());
+        }
+        if ((existenceMask & D22_EXISTENCE_MASK) == D22_EXISTENCE_MASK) {
+            dwellSegment.setPlatformOrientationPitch(readSA16());
+        }
+        if ((existenceMask & D23_EXISTENCE_MASK) == D23_EXISTENCE_MASK) {
+            dwellSegment.setPlatformOrientationRoll(readSA16());
+        }
         if ((existenceMask & D24_EXISTENCE_MASK) == D24_EXISTENCE_MASK) {
             dwellSegment.setDwellCentreLatitude(readSA32());
         }
@@ -340,5 +398,57 @@ public class Reader {
             dwellSegment.addTarget(target);
         }
         return dwellSegment;
+    }
+
+    private Segment parseFreeTextSegment(SegmentHeader segmentHeader) {
+        FreeTextSegment freeTextSegment = new FreeTextSegment(segmentHeader);
+        freeTextSegment.setOriginatorId(readASCII(10));
+        freeTextSegment.setRecipientId(readASCII(10));
+        int remainingBytes = (int) (segmentHeader.getSegmentSize() - 25);
+        freeTextSegment.setFreeText(readASCII(remainingBytes));
+        return freeTextSegment;
+    }
+
+    private Segment parseJobDefinitionSegment(SegmentHeader segmentHeader) {
+        JobDefinitionSegment jobSegment = new JobDefinitionSegment(segmentHeader);
+        jobSegment.setJobId(readI32());
+        jobSegment.setSensorIdType(readE8());
+        jobSegment.setSensorIdModel(readASCII(6));
+        jobSegment.setTargetFilteringFlag(readFL8());
+        jobSegment.setPriority(readI8());
+        jobSegment.setBoundingArea(parseBoundingArea());
+        jobSegment.setRadarMode(readE8());
+        jobSegment.setNominalRevisitInterval(readI16());
+        jobSegment.setAlongTrackUncertainty(readI16());
+        jobSegment.setCrossTrackUncertainty(readI16());
+        jobSegment.setAltitudeUncertainty(readI16());
+        jobSegment.setTrackHeadingUncertainty(readI8());
+        jobSegment.setSensorSpeedUncertainty(readI16());
+        jobSegment.setSlantRangeStandardDeviation(readI16());
+        jobSegment.setCrossRangeStandardDeviation(readBA16());
+        jobSegment.setTargetVelocityLineOfSightStandardDeviation(readI16());
+        jobSegment.setMdv(readI8());
+        jobSegment.setDetectionProbability(readI8());
+        jobSegment.setFalseAlarmDensity(readI8());
+        jobSegment.setTerrainElevationModelUsed(readE8());
+        jobSegment.setGeoidModelUsed(readE8());
+
+        return jobSegment;
+    }
+
+    private BoundingArea parseBoundingArea() {
+        BoundingArea boundingArea = new BoundingArea();
+        boundingArea.setPointA(readPoint());
+        boundingArea.setPointB(readPoint());
+        boundingArea.setPointC(readPoint());
+        boundingArea.setPointD(readPoint());
+        return boundingArea;
+    }
+
+    private Point readPoint() {
+        Point point = new Point();
+        point.setLatitude(readSA32());
+        point.setLongitude(readBA32());
+        return point;
     }
 }

@@ -13,6 +13,17 @@ public class DwellSegment extends Segment {
     private double sensorLatitude;
     private double sensorLongitude;
     private int sensorAltitude;
+    private Double scaleFactorLatScale;
+    private Double scaleFactorLonScale;
+
+    private Double sensorTrack;
+    private Integer sensorSpeed;
+    private int sensorVerticalVelocity;
+
+    private double platformOrientationHeading;
+    private double platformOrientationPitch;
+    private double platformOrientationRoll;
+
     private double dwellCentreLatitude;
     private double dwellCentreLongitude;
     private double dwellAreaRangeHalfExtent;
@@ -85,6 +96,70 @@ public class DwellSegment extends Segment {
 
     public void setSensorAltitude(int sensorAltitude) {
         this.sensorAltitude = sensorAltitude;
+    }
+
+    public Double getScaleFactorLatScale() {
+        return scaleFactorLatScale;
+    }
+
+    public void setScaleFactorLatScale(Double scaleFactorLatScale) {
+        this.scaleFactorLatScale = scaleFactorLatScale;
+    }
+
+    public Double getScaleFactorLonScale() {
+        return scaleFactorLonScale;
+    }
+
+    public void setScaleFactorLonScale(Double scaleFactorLonScale) {
+        this.scaleFactorLonScale = scaleFactorLonScale;
+    }
+
+    public Double getSensorTrack() {
+        return sensorTrack;
+    }
+
+    public void setSensorTrack(double sensorTrack) {
+        this.sensorTrack = sensorTrack;
+    }
+
+    public Integer getSensorSpeed() {
+        return sensorSpeed;
+    }
+
+    public void setSensorSpeed(Integer sensorSpeed) {
+        this.sensorSpeed = sensorSpeed;
+    }
+
+    public int getSensorVerticalVelocity() {
+        return sensorVerticalVelocity;
+    }
+
+    public void setSensorVerticalVelocity(int sensorVerticalVelocity) {
+        this.sensorVerticalVelocity = sensorVerticalVelocity;
+    }
+
+    public double getPlatformOrientationHeading() {
+        return platformOrientationHeading;
+    }
+
+    public void setPlatformOrientationHeading(double platformOrientationHeading) {
+        this.platformOrientationHeading = platformOrientationHeading;
+    }
+
+    public double getPlatformOrientationPitch() {
+        return platformOrientationPitch;
+    }
+
+    public void setPlatformOrientationPitch(double platformOrientationPitch) {
+        this.platformOrientationPitch = platformOrientationPitch;
+    }
+
+    public double getPlatformOrientationRoll() {
+        return platformOrientationRoll;
+    }
+
+    public void setPlatformOrientationRoll(double platformOrientationRoll) {
+        this.platformOrientationRoll = platformOrientationRoll;
     }
 
     public double getDwellCentreLatitude() {
