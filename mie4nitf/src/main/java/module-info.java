@@ -1,14 +1,14 @@
-module com.sigmabravo.rnd.jim.mie4nitf {
+module net.frogmouth.rnd.jim.mie4nitf {
     requires javafx.controls;
-    requires com.sigmabravo.rnd.jim.nitf;
+    requires net.frogmouth.rnd.jim.nitf;
 
-    uses com.sigmabravo.rnd.jim.nitf.tre.AbstractTREParser;
+    uses net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
 
-    provides com.sigmabravo.rnd.jim.nitf.tre.AbstractTREParser with
-            com.sigmabravo.rnd.jim.mie4nitf.tre.camsda.CAMSDAParser,
-            com.sigmabravo.rnd.jim.mie4nitf.tre.fsynwa.FSYNWAParser,
-            com.sigmabravo.rnd.jim.mie4nitf.tre.mimcsa.MIMCSAParser,
-            com.sigmabravo.rnd.jim.mie4nitf.tre.mtimfa.MTIMFAParser,
-            com.sigmabravo.rnd.jim.mie4nitf.tre.mtimsa.MTIMSAParser,
-            com.sigmabravo.rnd.jim.mie4nitf.tre.tminta.TMINTAParser;
+    provides net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser with
+            net.frogmouth.rnd.jim.mie4nitf.tre.camsda.CAMSDAParser,
+            net.frogmouth.rnd.jim.mie4nitf.tre.fsynwa.FSYNWAParser,
+            net.frogmouth.rnd.jim.mie4nitf.tre.mimcsa.MIMCSAParser,
+            net.frogmouth.rnd.jim.mie4nitf.tre.mtimfa.MTIMFAParser,
+            net.frogmouth.rnd.jim.mie4nitf.tre.mtimsa.MTIMSAParser,
+            net.frogmouth.rnd.jim.mie4nitf.tre.tminta.TMINTAParser;
 }

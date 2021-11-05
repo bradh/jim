@@ -1,9 +1,9 @@
-module com.sigmabravo.rnd.jim.ccinfa {
+module net.frogmouth.rnd.jim.ccinfa {
     requires javafx.controls;
-    requires com.sigmabravo.rnd.jim.nitf;
+    requires net.frogmouth.rnd.jim.nitf;
 
-    uses com.sigmabravo.rnd.jim.nitf.tre.AbstractTREParser;
+    uses net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
 
-    provides com.sigmabravo.rnd.jim.nitf.tre.AbstractTREParser with
-            com.sigmabravo.rnd.jim.ccinfa.tre.CCINFAParser;
+    provides net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser with
+            net.frogmouth.rnd.jim.ccinfa.tre.CCINFAParser;
 }

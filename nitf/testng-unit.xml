@@ -4,8 +4,8 @@
 <suite name="BasicTests">
     <test name="basic-unit">
         <packages>
-            <package name="com.sigmabravo.rnd.jim.nitf"/>
-            <package name="com.sigmabravo.rnd.jim.nitf.*"/>
+            <package name="net.frogmouth.rnd.jim.nitf"/>
+            <package name="net.frogmouth.rnd.jim.nitf.*"/>
         </packages>
     </test>
 </suite>

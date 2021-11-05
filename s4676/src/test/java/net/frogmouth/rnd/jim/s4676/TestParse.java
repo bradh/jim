@@ -1,0 +1,33 @@
+package net.frogmouth.rnd.jim.s4676;
+
+import static org.testng.Assert.*;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import org.testng.annotations.Test;
+
+public class TestParse {
+
+    public TestParse() {}
+
+    @Test
+    public void testTagTrack() throws IOException {
+        Parser parser = new Parser();
+        String xml =
+                new String(
+                        getClass()
+                                .getClassLoader()
+                                .getResourceAsStream("tagtrack_2021_10_11.xml")
+                                .readAllBytes());
+        NitsRoot rootElement = parser.parse(xml);
+        assertEquals(rootElement.getProfile(), "STANDALONE");
+        assertEquals(rootElement.getNitsVersion(), "B.1");
+        ZonedDateTime expectedDateTime =
+                ZonedDateTime.of(
+                        LocalDateTime.of(2021, 10, 10, 22, 24, 33, 733000000), ZoneId.of("UTC"));
+        assertEquals(rootElement.getMsgCreatedTime(), expectedDateTime);
+        System.out.println(parser.serialise(rootElement));
+    }
+}

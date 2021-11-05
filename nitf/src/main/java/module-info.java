@@ -1,16 +1,16 @@
-module com.sigmabravo.rnd.jim.nitf {
+module net.frogmouth.rnd.jim.nitf {
     requires javafx.controls;
 
-    exports com.sigmabravo.rnd.jim.nitf;
-    exports com.sigmabravo.rnd.jim.nitf.tre;
-    exports com.sigmabravo.rnd.jim.nitf.image;
-    exports com.sigmabravo.rnd.jim.nitf.text;
+    exports net.frogmouth.rnd.jim.nitf;
+    exports net.frogmouth.rnd.jim.nitf.tre;
+    exports net.frogmouth.rnd.jim.nitf.image;
+    exports net.frogmouth.rnd.jim.nitf.text;
 
-    uses com.sigmabravo.rnd.jim.nitf.tre.AbstractTREParser;
+    uses net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
 
-    provides com.sigmabravo.rnd.jim.nitf.tre.AbstractTREParser with
-            com.sigmabravo.rnd.jim.nitf.tre.blocka.BLOCKAParser,
-            com.sigmabravo.rnd.jim.nitf.tre.engrda.ENGRDAParser,
-            com.sigmabravo.rnd.jim.nitf.tre.illumb.ILLUMBParser,
-            com.sigmabravo.rnd.jim.nitf.tre.matesa.MATESAParser;
+    provides net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser with
+            net.frogmouth.rnd.jim.nitf.tre.blocka.BLOCKAParser,
+            net.frogmouth.rnd.jim.nitf.tre.engrda.ENGRDAParser,
+            net.frogmouth.rnd.jim.nitf.tre.illumb.ILLUMBParser,
+            net.frogmouth.rnd.jim.nitf.tre.matesa.MATESAParser;
 }
