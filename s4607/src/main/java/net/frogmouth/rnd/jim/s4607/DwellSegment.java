@@ -15,20 +15,27 @@ public class DwellSegment extends Segment {
     private int sensorAltitude;
     private Double scaleFactorLatScale;
     private Double scaleFactorLonScale;
-
+    private Integer sensorPositionUncertaintyAlongTrack;
+    private Integer sensorPositionUncertaintyCrossTrack;
+    private Integer sensorPositionUncertaintyAltitude;
     private Double sensorTrack;
     private Integer sensorSpeed;
-    private int sensorVerticalVelocity;
-
-    private double platformOrientationHeading;
-    private double platformOrientationPitch;
-    private double platformOrientationRoll;
-
+    private Integer sensorVerticalVelocity;
+    private Integer sensorTrackUncertainty;
+    private Integer sensorSpeedUncertainty;
+    private Integer sensorVerticalVelocityUncertainty;
+    private Double platformOrientationHeading;
+    private Double platformOrientationPitch;
+    private Double platformOrientationRoll;
     private double dwellCentreLatitude;
     private double dwellCentreLongitude;
     private double dwellAreaRangeHalfExtent;
     private double dwellAreaDwellAngleHalfExtent;
-    private List<Target> targets = new ArrayList<>();
+    private Double sensorOrientationHeading;
+    private Double sensorOrientationPitch;
+    private Double sensorOrientationRoll;
+    private Integer minimumDetectableVelocity;
+    private final List<Target> targets = new ArrayList<>();
 
     DwellSegment(SegmentHeader segmentHeader) {
         super(segmentHeader);
@@ -114,11 +121,36 @@ public class DwellSegment extends Segment {
         this.scaleFactorLonScale = scaleFactorLonScale;
     }
 
+    public Integer getSensorPositionUncertaintyAlongTrack() {
+        return sensorPositionUncertaintyAlongTrack;
+    }
+
+    public void setSensorPositionUncertaintyAlongTrack(
+            Integer sensorPositionUncertaintyAlongTrack) {
+        this.sensorPositionUncertaintyAlongTrack = sensorPositionUncertaintyAlongTrack;
+    }
+
+    public Integer getSensorPositionUncertaintyCrossTrack() {
+        return sensorPositionUncertaintyCrossTrack;
+    }
+
+    public void setSensorPositionUncertaintyCrossTrack(Integer sensorPositionUncertaintyCrossrack) {
+        this.sensorPositionUncertaintyCrossTrack = sensorPositionUncertaintyCrossrack;
+    }
+
+    public Integer getSensorPositionUncertaintyAltitude() {
+        return sensorPositionUncertaintyAltitude;
+    }
+
+    public void setSensorPositionUncertaintyAltitude(Integer sensorPositionUncertaintyAltitude) {
+        this.sensorPositionUncertaintyAltitude = sensorPositionUncertaintyAltitude;
+    }
+
     public Double getSensorTrack() {
         return sensorTrack;
     }
 
-    public void setSensorTrack(double sensorTrack) {
+    public void setSensorTrack(Double sensorTrack) {
         this.sensorTrack = sensorTrack;
     }
 
@@ -130,35 +162,59 @@ public class DwellSegment extends Segment {
         this.sensorSpeed = sensorSpeed;
     }
 
-    public int getSensorVerticalVelocity() {
+    public Integer getSensorVerticalVelocity() {
         return sensorVerticalVelocity;
     }
 
-    public void setSensorVerticalVelocity(int sensorVerticalVelocity) {
+    public void setSensorVerticalVelocity(Integer sensorVerticalVelocity) {
         this.sensorVerticalVelocity = sensorVerticalVelocity;
     }
 
-    public double getPlatformOrientationHeading() {
+    public Integer getSensorTrackUncertainty() {
+        return sensorTrackUncertainty;
+    }
+
+    public void setSensorTrackUncertainty(Integer sensorTrackUncertainty) {
+        this.sensorTrackUncertainty = sensorTrackUncertainty;
+    }
+
+    public Integer getSensorSpeedUncertainty() {
+        return sensorSpeedUncertainty;
+    }
+
+    public void setSensorSpeedUncertainty(Integer sensorSpeedUncertainty) {
+        this.sensorSpeedUncertainty = sensorSpeedUncertainty;
+    }
+
+    public Integer getSensorVerticalVelocityUncertainty() {
+        return sensorVerticalVelocityUncertainty;
+    }
+
+    public void setSensorVerticalVelocityUncertainty(Integer sensorVerticalVelocityUncertainty) {
+        this.sensorVerticalVelocityUncertainty = sensorVerticalVelocityUncertainty;
+    }
+
+    public Double getPlatformOrientationHeading() {
         return platformOrientationHeading;
     }
 
-    public void setPlatformOrientationHeading(double platformOrientationHeading) {
+    public void setPlatformOrientationHeading(Double platformOrientationHeading) {
         this.platformOrientationHeading = platformOrientationHeading;
     }
 
-    public double getPlatformOrientationPitch() {
+    public Double getPlatformOrientationPitch() {
         return platformOrientationPitch;
     }
 
-    public void setPlatformOrientationPitch(double platformOrientationPitch) {
+    public void setPlatformOrientationPitch(Double platformOrientationPitch) {
         this.platformOrientationPitch = platformOrientationPitch;
     }
 
-    public double getPlatformOrientationRoll() {
+    public Double getPlatformOrientationRoll() {
         return platformOrientationRoll;
     }
 
-    public void setPlatformOrientationRoll(double platformOrientationRoll) {
+    public void setPlatformOrientationRoll(Double platformOrientationRoll) {
         this.platformOrientationRoll = platformOrientationRoll;
     }
 
@@ -192,6 +248,38 @@ public class DwellSegment extends Segment {
 
     public void setDwellAreaDwellAngleHalfExtent(double dwellAreaDwellAngleHalfExtent) {
         this.dwellAreaDwellAngleHalfExtent = dwellAreaDwellAngleHalfExtent;
+    }
+
+    public Double getSensorOrientationHeading() {
+        return sensorOrientationHeading;
+    }
+
+    public void setSensorOrientationHeading(Double sensorOrientationHeading) {
+        this.sensorOrientationHeading = sensorOrientationHeading;
+    }
+
+    public Double getSensorOrientationPitch() {
+        return sensorOrientationPitch;
+    }
+
+    public void setSensorOrientationPitch(Double sensorOrientationPitch) {
+        this.sensorOrientationPitch = sensorOrientationPitch;
+    }
+
+    public Double getSensorOrientationRoll() {
+        return sensorOrientationRoll;
+    }
+
+    public void setSensorOrientationRoll(Double sensorOrientationRoll) {
+        this.sensorOrientationRoll = sensorOrientationRoll;
+    }
+
+    public Integer getMinimumDetectableVelocity() {
+        return minimumDetectableVelocity;
+    }
+
+    public void setMinimumDetectableVelocity(Integer minimumDetectableVelocity) {
+        this.minimumDetectableVelocity = minimumDetectableVelocity;
     }
 
     public List<Target> getTargets() {

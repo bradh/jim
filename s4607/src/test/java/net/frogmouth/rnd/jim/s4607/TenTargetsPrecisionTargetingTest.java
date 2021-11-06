@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.util.List;
 import org.testng.annotations.Test;
 
-public class TenTargetsSATest extends TestSupport {
+public class TenTargetsPrecisionTargetingTest extends TestSupport {
 
-    public TenTargetsSATest() {}
+    public TenTargetsPrecisionTargetingTest() {}
 
     @Test
     public void instantiate() {
@@ -18,7 +18,7 @@ public class TenTargetsSATest extends TestSupport {
 
     @Test
     public void read() throws IOException {
-        Reader reader = new Reader(get10TargetsSA());
+        Reader reader = new Reader(get10TargetsPrecisionTargeting());
         List<Packet> packets = reader.getPackets();
         assertEquals(packets.size(), 194);
         checkPacket0(packets.get(0));
@@ -67,7 +67,7 @@ public class TenTargetsSATest extends TestSupport {
     private void checkPacket193(Packet packet) {
         PacketHeader packetHeader = packet.getPacketHeader();
         assertEquals(packetHeader.getVersionId(), "30");
-        assertEquals(packetHeader.getPacketSize(), 134);
+        assertEquals(packetHeader.getPacketSize(), 211);
         assertEquals(packetHeader.getNationality(), "US");
         assertEquals(packetHeader.getClassification(), 5);
         assertEquals(packetHeader.getClassificationAsText(), "UNCLASSIFIED");
@@ -92,19 +92,17 @@ public class TenTargetsSATest extends TestSupport {
         assertEquals((double) dwellSegment.getSensorLatitude(), 40.49005958251655, 0.00000000001);
         assertEquals((double) dwellSegment.getSensorLongitude(), 245.52190052345395, 0.00000000001);
         assertEquals(dwellSegment.getSensorAltitude(), 427076);
-        assertEquals(
-                (double) dwellSegment.getScaleFactorLatScale(), 4.882458597421646e-5, 0.0000001);
-        assertEquals(
-                (double) dwellSegment.getScaleFactorLonScale(), 4.886649549007416e-5, 0.0000001);
-        assertNull(dwellSegment.getSensorPositionUncertaintyAlongTrack());
-        assertNull(dwellSegment.getSensorPositionUncertaintyCrossTrack());
-        assertNull(dwellSegment.getSensorPositionUncertaintyAltitude());
+        assertNull(dwellSegment.getScaleFactorLatScale());
+        assertNull(dwellSegment.getScaleFactorLonScale());
+        assertEquals((int) dwellSegment.getSensorPositionUncertaintyAlongTrack(), 0);
+        assertEquals((int) dwellSegment.getSensorPositionUncertaintyCrossTrack(), 0);
+        assertEquals((int) dwellSegment.getSensorPositionUncertaintyAltitude(), 0);
         assertEquals(dwellSegment.getSensorTrack(), 317.3291015625, 0.0000001);
         assertEquals((int) dwellSegment.getSensorSpeed(), 72021);
         assertEquals((int) dwellSegment.getSensorVerticalVelocity(), -2);
-        assertNull(dwellSegment.getSensorTrackUncertainty());
-        assertNull(dwellSegment.getSensorSpeedUncertainty());
-        assertNull(dwellSegment.getSensorVerticalVelocityUncertainty());
+        assertEquals((int) dwellSegment.getSensorTrackUncertainty(), 0);
+        assertEquals((int) dwellSegment.getSensorSpeedUncertainty(), 0);
+        assertEquals((int) dwellSegment.getSensorVerticalVelocityUncertainty(), 0);
         assertEquals(
                 (double) dwellSegment.getPlatformOrientationHeading(), 317.3291015625, 0.00000001);
         assertEquals((double) dwellSegment.getPlatformOrientationPitch(), 0.0, 0.00000000001);
@@ -115,70 +113,70 @@ public class TenTargetsSATest extends TestSupport {
                 (double) dwellSegment.getDwellCentreLongitude(), 246.15377473644912, 0.00000000001);
         assertEquals(dwellSegment.getDwellAreaRangeHalfExtent(), 6.65625, 0.000001);
         assertEquals(dwellSegment.getDwellAreaDwellAngleHalfExtent(), 0.999755859375, 0.000001);
-        assertNull(dwellSegment.getSensorOrientationHeading());
-        assertNull(dwellSegment.getSensorOrientationPitch());
-        assertNull(dwellSegment.getSensorOrientationRoll());
-        assertNull(dwellSegment.getMinimumDetectableVelocity());
+        assertEquals(dwellSegment.getSensorOrientationHeading(), 293.3734130859375, 0.00000000001);
+        assertEquals(dwellSegment.getSensorOrientationPitch(), 0.0, 0.00000001);
+        assertEquals(dwellSegment.getSensorOrientationRoll(), 0.0, 0.00000001);
+        assertEquals((int) dwellSegment.getMinimumDetectableVelocity(), 10);
         assertEquals(dwellSegment.getTargets().size(), 3);
         Target target1 = dwellSegment.getTargets().get(0);
         assertEquals((int) target1.getMtiReportIndex(), 0);
-        assertNull(target1.getTargetLocationLatitude());
-        assertNull(target1.getTargetLocationLongitude());
-        assertEquals((int) target1.getTargetLocationDeltaLatitude(), 54);
-        assertEquals((int) target1.getTargetLocationDeltaLongitude(), 268);
-        assertNull(target1.getTargetLocationGeodeticHeight());
-        assertNull(target1.getTargetVelocityLineOfSightComponent());
-        assertNull(target1.getTargetWrapVelocity());
-        assertNull(target1.getTargetSNR());
-        assertNull(target1.getTargetClassification());
-        assertEquals(target1.getTargetClassificationAsText(), "[Not Provided]");
-        assertNull(target1.getTargetClassificationProbability());
-        assertNull(target1.getTargetMeasurementUncertaintySlantRange());
-        assertNull(target1.getTargetMeasurementUncertaintyCrossRange());
-        assertNull(target1.getTargetMeasurementUncertaintyHeight());
-        assertNull(target1.getTargetMeasurementUncertaintyRadialVelocity());
+        assertEquals(target1.getTargetLocationLatitude(), 40.66204060334712, 0.000000000001);
+        assertEquals(target1.getTargetLocationLongitude(), 246.16688629612327, 0.00000000001);
+        assertNull(target1.getTargetLocationDeltaLatitude());
+        assertNull(target1.getTargetLocationDeltaLongitude());
+        assertEquals((int) target1.getTargetLocationGeodeticHeight(), -2);
+        assertEquals((int) target1.getTargetVelocityLineOfSightComponent(), 760);
+        assertEquals((int) target1.getTargetWrapVelocity(), 0);
+        assertEquals((int) target1.getTargetSNR(), 12);
+        assertEquals((int) target1.getTargetClassification(), 255);
+        assertEquals(target1.getTargetClassificationAsText(), "Unknown, Simulated Target");
+        assertEquals((int) target1.getTargetClassificationProbability(), 0);
+        assertEquals((int) target1.getTargetMeasurementUncertaintySlantRange(), 1000);
+        assertEquals((int) target1.getTargetMeasurementUncertaintyCrossRange(), 580);
+        assertEquals((int) target1.getTargetMeasurementUncertaintyHeight(), 0);
+        assertEquals((int) target1.getTargetMeasurementUncertaintyRadialVelocity(), 200);
         assertEquals((int) target1.getTruthTagApplication(), 1);
         assertEquals((long) target1.getTruthTagEntity(), 1);
-        assertNull(target1.getTargetRadarCrossSection());
+        assertEquals((int) target1.getTargetRadarCrossSection(), 10);
         Target target2 = dwellSegment.getTargets().get(1);
         assertEquals((int) target2.getMtiReportIndex(), 1);
-        assertNull(target2.getTargetLocationLatitude());
-        assertNull(target2.getTargetLocationLongitude());
-        assertEquals((int) target2.getTargetLocationDeltaLatitude(), 263);
-        assertEquals((int) target2.getTargetLocationDeltaLongitude(), 273);
-        assertNull(target2.getTargetLocationGeodeticHeight());
-        assertNull(target2.getTargetVelocityLineOfSightComponent());
-        assertNull(target2.getTargetWrapVelocity());
-        assertNull(target2.getTargetSNR());
-        assertNull(target2.getTargetClassification());
-        assertEquals(target2.getTargetClassificationAsText(), "[Not Provided]");
-        assertNull(target2.getTargetClassificationProbability());
-        assertNull(target2.getTargetMeasurementUncertaintySlantRange());
-        assertNull(target2.getTargetMeasurementUncertaintyCrossRange());
-        assertNull(target2.getTargetMeasurementUncertaintyHeight());
-        assertNull(target2.getTargetMeasurementUncertaintyRadialVelocity());
+        assertEquals(target2.getTargetLocationLatitude(), 40.67227038089186, 0.000000000001);
+        assertEquals(target2.getTargetLocationLongitude(), 246.167107578367, 0.00000000001);
+        assertNull(target2.getTargetLocationDeltaLatitude());
+        assertNull(target2.getTargetLocationDeltaLongitude());
+        assertEquals((int) target2.getTargetLocationGeodeticHeight(), -1);
+        assertEquals((int) target2.getTargetVelocityLineOfSightComponent(), 660);
+        assertEquals((int) target2.getTargetWrapVelocity(), 0);
+        assertEquals((int) target2.getTargetSNR(), 12);
+        assertEquals((int) target2.getTargetClassification(), 255);
+        assertEquals(target2.getTargetClassificationAsText(), "Unknown, Simulated Target");
+        assertEquals((int) target2.getTargetClassificationProbability(), 0);
+        assertEquals((int) target2.getTargetMeasurementUncertaintySlantRange(), 1000);
+        assertEquals((int) target2.getTargetMeasurementUncertaintyCrossRange(), 584);
+        assertEquals((int) target2.getTargetMeasurementUncertaintyHeight(), 0);
+        assertEquals((int) target2.getTargetMeasurementUncertaintyRadialVelocity(), 200);
         assertEquals((int) target2.getTruthTagApplication(), 1);
         assertEquals((long) target2.getTruthTagEntity(), 4);
-        assertNull(target2.getTargetRadarCrossSection());
+        assertEquals((int) target2.getTargetRadarCrossSection(), 10);
         Target target3 = dwellSegment.getTargets().get(2);
         assertEquals((int) target3.getMtiReportIndex(), 2);
-        assertNull(target3.getTargetLocationLatitude());
-        assertNull(target3.getTargetLocationLongitude());
-        assertEquals((int) target3.getTargetLocationDeltaLatitude(), -48);
-        assertEquals((int) target3.getTargetLocationDeltaLongitude(), 268);
-        assertNull(target3.getTargetLocationGeodeticHeight());
-        assertNull(target3.getTargetVelocityLineOfSightComponent());
-        assertNull(target3.getTargetWrapVelocity());
-        assertNull(target3.getTargetSNR());
-        assertNull(target3.getTargetClassification());
-        assertEquals(target3.getTargetClassificationAsText(), "[Not Provided]");
-        assertNull(target3.getTargetClassificationProbability());
-        assertNull(target3.getTargetMeasurementUncertaintySlantRange());
-        assertNull(target3.getTargetMeasurementUncertaintyCrossRange());
-        assertNull(target3.getTargetMeasurementUncertaintyHeight());
-        assertNull(target3.getTargetMeasurementUncertaintyRadialVelocity());
+        assertEquals(target3.getTargetLocationLatitude(), 40.65702189691365, 0.000000000001);
+        assertEquals(target3.getTargetLocationLongitude(), 246.16688671521842, 0.00000000001);
+        assertNull(target3.getTargetLocationDeltaLatitude());
+        assertNull(target3.getTargetLocationDeltaLongitude());
+        assertEquals((int) target3.getTargetLocationGeodeticHeight(), 0);
+        assertEquals((int) target3.getTargetVelocityLineOfSightComponent(), -434);
+        assertEquals((int) target3.getTargetWrapVelocity(), 0);
+        assertEquals((int) target3.getTargetSNR(), 12);
+        assertEquals((int) target3.getTargetClassification(), 255);
+        assertEquals(target3.getTargetClassificationAsText(), "Unknown, Simulated Target");
+        assertEquals((int) target3.getTargetClassificationProbability(), 0);
+        assertEquals((int) target3.getTargetMeasurementUncertaintySlantRange(), 1000);
+        assertEquals((int) target3.getTargetMeasurementUncertaintyCrossRange(), 578);
+        assertEquals((int) target3.getTargetMeasurementUncertaintyHeight(), 0);
+        assertEquals((int) target3.getTargetMeasurementUncertaintyRadialVelocity(), 200);
         assertEquals((int) target3.getTruthTagApplication(), 1);
         assertEquals((long) target3.getTruthTagEntity(), 10);
-        assertNull(target3.getTargetRadarCrossSection());
+        assertEquals((int) target3.getTargetRadarCrossSection(), 10);
     }
 }

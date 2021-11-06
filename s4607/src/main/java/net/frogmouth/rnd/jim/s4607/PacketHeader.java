@@ -80,8 +80,9 @@ public class PacketHeader {
         return platformId;
     }
 
-    public void setPlatformId(String platformId) {
-        this.platformId = platformId;
+    public void setPlatformId(String id) {
+        // Some data has embedded nulls at the end (instead of BCS spaces).
+        this.platformId = String.format("%-10s", id.trim());
     }
 
     public long getMissionId() {

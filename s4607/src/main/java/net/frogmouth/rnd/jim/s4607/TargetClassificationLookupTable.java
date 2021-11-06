@@ -34,7 +34,10 @@ public class TargetClassificationLookupTable {
         return getInstance().enumerationLookup.getOrDefault(key, "Available for Future Use");
     }
 
-    public static String getValue(int key) {
+    public static String getValue(Integer key) {
+        if (key == null) {
+            return "[Not Provided]";
+        }
         return getInstance().getKeyForValue(key);
     }
 

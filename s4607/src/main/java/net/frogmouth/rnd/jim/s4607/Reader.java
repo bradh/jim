@@ -112,7 +112,16 @@ public class Reader {
 
     private String readASCII(int numBytes) {
         byte[] bytes = getBytes(numBytes);
-        return new String(bytes, StandardCharsets.US_ASCII);
+        int indexOfLastValidByte = 0;
+        for (int i = 0; i < bytes.length; ++i) {
+            if (bytes[i] == 0x00) {
+                break;
+            }
+            indexOfLastValidByte = i;
+        }
+        String cleanString =
+                new String(bytes, 0, indexOfLastValidByte + 1, StandardCharsets.US_ASCII);
+        return String.format("%-" + numBytes + "s", cleanString);
     }
 
     private long readI32() {
@@ -292,13 +301,13 @@ public class Reader {
             dwellSegment.setScaleFactorLonScale(readBA32());
         }
         if ((existenceMask & D12_EXISTENCE_MASK) == D12_EXISTENCE_MASK) {
-            throw new IllegalArgumentException("TODO: D12");
+            dwellSegment.setSensorPositionUncertaintyAlongTrack((int) readI32());
         }
         if ((existenceMask & D13_EXISTENCE_MASK) == D13_EXISTENCE_MASK) {
-            throw new IllegalArgumentException("TODO: D13");
+            dwellSegment.setSensorPositionUncertaintyCrossTrack((int) readI32());
         }
         if ((existenceMask & D14_EXISTENCE_MASK) == D14_EXISTENCE_MASK) {
-            throw new IllegalArgumentException("TODO: D14");
+            dwellSegment.setSensorPositionUncertaintyAltitude(readI16());
         }
         if ((existenceMask & D15_EXISTENCE_MASK) == D15_EXISTENCE_MASK) {
             dwellSegment.setSensorTrack(readBA16());
@@ -310,13 +319,13 @@ public class Reader {
             dwellSegment.setSensorVerticalVelocity(readS8());
         }
         if ((existenceMask & D18_EXISTENCE_MASK) == D18_EXISTENCE_MASK) {
-            throw new IllegalArgumentException("TODO: D18");
+            dwellSegment.setSensorTrackUncertainty(readI8());
         }
         if ((existenceMask & D19_EXISTENCE_MASK) == D19_EXISTENCE_MASK) {
-            throw new IllegalArgumentException("TODO: D19");
+            dwellSegment.setSensorSpeedUncertainty(readI16());
         }
         if ((existenceMask & D20_EXISTENCE_MASK) == D20_EXISTENCE_MASK) {
-            throw new IllegalArgumentException("TODO: D20");
+            dwellSegment.setSensorVerticalVelocityUncertainty(readI16());
         }
         if ((existenceMask & D21_EXISTENCE_MASK) == D21_EXISTENCE_MASK) {
             dwellSegment.setPlatformOrientationHeading(readBA16());
@@ -338,6 +347,18 @@ public class Reader {
         }
         if ((existenceMask & D27_EXISTENCE_MASK) == D27_EXISTENCE_MASK) {
             dwellSegment.setDwellAreaDwellAngleHalfExtent(readBA16());
+        }
+        if ((existenceMask & D28_EXISTENCE_MASK) == D28_EXISTENCE_MASK) {
+            dwellSegment.setSensorOrientationHeading(readBA16());
+        }
+        if ((existenceMask & D29_EXISTENCE_MASK) == D29_EXISTENCE_MASK) {
+            dwellSegment.setSensorOrientationPitch(readSA16());
+        }
+        if ((existenceMask & D30_EXISTENCE_MASK) == D30_EXISTENCE_MASK) {
+            dwellSegment.setSensorOrientationRoll(readSA16());
+        }
+        if ((existenceMask & D31_EXISTENCE_MASK) == D31_EXISTENCE_MASK) {
+            dwellSegment.setMinimumDetectableVelocity(readI8());
         }
         for (int i = 0; i < dwellSegment.getTargetReportCount(); i++) {
             Target target = new Target();
