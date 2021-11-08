@@ -4,6 +4,8 @@ import static org.testng.Assert.*;
 
 import java.io.IOException;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4607.Packet.Packet;
+import net.frogmouth.rnd.jim.s4607.Packet.PacketHeader;
 import org.testng.annotations.Test;
 
 public class BasicWriterTest extends TestSupport {

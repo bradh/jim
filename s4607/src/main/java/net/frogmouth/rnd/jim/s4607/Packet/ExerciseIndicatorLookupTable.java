@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.Packet;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,16 +8,16 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TargetClassificationLookupTable {
+public class ExerciseIndicatorLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();
-    private final Logger LOG = LoggerFactory.getLogger(TargetClassificationLookupTable.class);
+    private final Logger LOG = LoggerFactory.getLogger(ExerciseIndicatorLookupTable.class);
 
-    private TargetClassificationLookupTable() {
+    private ExerciseIndicatorLookupTable() {
         Properties prop = new Properties();
         try (InputStream inputStream =
-                TargetClassificationLookupTable.class.getResourceAsStream(
-                        "/TargetClassification.properties")) {
+                ExerciseIndicatorLookupTable.class.getResourceAsStream(
+                        "/ExerciseIndicator.properties")) {
             prop.load(inputStream);
             prop.entrySet()
                     .forEach(
@@ -31,23 +31,20 @@ public class TargetClassificationLookupTable {
     }
 
     private String getKeyForValue(int key) {
-        return getInstance().enumerationLookup.getOrDefault(key, "Available for Future Use");
+        return getInstance().enumerationLookup.getOrDefault(key, "UNKNOWN");
     }
 
-    public static String getValue(Integer key) {
-        if (key == null) {
-            return "[Not Provided]";
-        }
+    public static String getValue(int key) {
         return getInstance().getKeyForValue(key);
     }
 
-    public static TargetClassificationLookupTable getInstance() {
-        return TargetClassificationLookupTableHolder.INSTANCE;
+    public static ExerciseIndicatorLookupTable getInstance() {
+        return ExerciseIndicatorLookupTableHolder.INSTANCE;
     }
 
-    private static class TargetClassificationLookupTableHolder {
+    private static class ExerciseIndicatorLookupTableHolder {
 
-        private static final TargetClassificationLookupTable INSTANCE =
-                new TargetClassificationLookupTable();
+        private static final ExerciseIndicatorLookupTable INSTANCE =
+                new ExerciseIndicatorLookupTable();
     }
 }

@@ -1,7 +1,9 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.DwellSegment;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4607.Segment.Segment;
+import net.frogmouth.rnd.jim.s4607.Segment.SegmentHeader;
 
 public class DwellSegment extends Segment {
 

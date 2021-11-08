@@ -4,6 +4,13 @@ import static org.testng.Assert.*;
 
 import java.io.IOException;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4607.DwellSegment.DwellSegment;
+import net.frogmouth.rnd.jim.s4607.DwellSegment.Target;
+import net.frogmouth.rnd.jim.s4607.FreeTextSegment.FreeTextSegment;
+import net.frogmouth.rnd.jim.s4607.MissionSegment.MissionSegment;
+import net.frogmouth.rnd.jim.s4607.Packet.Packet;
+import net.frogmouth.rnd.jim.s4607.Packet.PacketHeader;
+import net.frogmouth.rnd.jim.s4607.Segment.Segment;
 import org.testng.annotations.Test;
 
 public class TenTargetsPrecisionTargetingTest extends TestSupport {

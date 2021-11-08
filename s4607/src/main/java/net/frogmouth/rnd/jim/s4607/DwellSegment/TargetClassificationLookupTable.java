@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.DwellSegment;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,15 +8,16 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PlatformTypeLookupTable {
+public class TargetClassificationLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();
-    private final Logger LOG = LoggerFactory.getLogger(PlatformTypeLookupTable.class);
+    private final Logger LOG = LoggerFactory.getLogger(TargetClassificationLookupTable.class);
 
-    private PlatformTypeLookupTable() {
+    private TargetClassificationLookupTable() {
         Properties prop = new Properties();
         try (InputStream inputStream =
-                PlatformTypeLookupTable.class.getResourceAsStream("/PlatformType.properties")) {
+                TargetClassificationLookupTable.class.getResourceAsStream(
+                        "/TargetClassification.properties")) {
             prop.load(inputStream);
             prop.entrySet()
                     .forEach(
@@ -33,16 +34,20 @@ public class PlatformTypeLookupTable {
         return getInstance().enumerationLookup.getOrDefault(key, "Available for Future Use");
     }
 
-    public static String getValue(int key) {
+    public static String getValue(Integer key) {
+        if (key == null) {
+            return "[Not Provided]";
+        }
         return getInstance().getKeyForValue(key);
     }
 
-    public static PlatformTypeLookupTable getInstance() {
-        return PlatformTypeLookupTableHolder.INSTANCE;
+    public static TargetClassificationLookupTable getInstance() {
+        return TargetClassificationLookupTableHolder.INSTANCE;
     }
 
-    private static class PlatformTypeLookupTableHolder {
+    private static class TargetClassificationLookupTableHolder {
 
-        private static final PlatformTypeLookupTable INSTANCE = new PlatformTypeLookupTable();
+        private static final TargetClassificationLookupTable INSTANCE =
+                new TargetClassificationLookupTable();
     }
 }

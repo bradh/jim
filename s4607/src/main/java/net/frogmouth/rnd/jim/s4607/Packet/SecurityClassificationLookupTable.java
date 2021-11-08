@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.Packet;
 
 import java.io.IOException;
 import java.io.InputStream;

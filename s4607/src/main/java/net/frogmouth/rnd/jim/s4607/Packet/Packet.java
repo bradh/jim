@@ -1,22 +1,23 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.Packet;
 
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4607.Segment.Segment;
 
 public class Packet {
     private PacketHeader packetHeader;
-    private List<Segment> segments = new ArrayList<>();
+    private final List<Segment> segments = new ArrayList<>();
 
     public PacketHeader getPacketHeader() {
-        return packetHeader;
+        return new PacketHeader(packetHeader);
     }
 
     public void setPacketHeader(PacketHeader packetHeader) {
-        this.packetHeader = packetHeader;
+        this.packetHeader = new PacketHeader(packetHeader);
     }
 
     public List<Segment> getSegments() {
-        return segments;
+        return new ArrayList<>(segments);
     }
 
     public void addSegment(Segment segment) {

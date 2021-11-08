@@ -1,6 +1,8 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.FreeTextSegment;
 
 import java.nio.charset.StandardCharsets;
+import net.frogmouth.rnd.jim.s4607.Segment.Segment;
+import net.frogmouth.rnd.jim.s4607.Segment.SegmentHeader;
 
 /**
  * Free Text Segment.
@@ -138,13 +140,6 @@ public class FreeTextSegment extends Segment {
         }
         for (int i = 0; i < bytes.length; i++) {
             byte charval = bytes[i];
-            if (charval == 0x00) {
-                continue;
-            }
-            if (charval > 0x7F) {
-                throw new IllegalArgumentException(
-                        "Only BCS characters are allowed, got " + stringToValidate);
-            }
             if (charval < 0x0A) {
                 throw new IllegalArgumentException(
                         "Only BCS characters are allowed, got " + stringToValidate);

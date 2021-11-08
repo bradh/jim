@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.MissionSegment;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,16 +8,15 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExerciseIndicatorLookupTable {
+public class PlatformTypeLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();
-    private final Logger LOG = LoggerFactory.getLogger(ExerciseIndicatorLookupTable.class);
+    private final Logger LOG = LoggerFactory.getLogger(PlatformTypeLookupTable.class);
 
-    private ExerciseIndicatorLookupTable() {
+    private PlatformTypeLookupTable() {
         Properties prop = new Properties();
         try (InputStream inputStream =
-                ExerciseIndicatorLookupTable.class.getResourceAsStream(
-                        "/ExerciseIndicator.properties")) {
+                PlatformTypeLookupTable.class.getResourceAsStream("/PlatformType.properties")) {
             prop.load(inputStream);
             prop.entrySet()
                     .forEach(
@@ -31,20 +30,19 @@ public class ExerciseIndicatorLookupTable {
     }
 
     private String getKeyForValue(int key) {
-        return getInstance().enumerationLookup.getOrDefault(key, "UNKNOWN");
+        return getInstance().enumerationLookup.getOrDefault(key, "Available for Future Use");
     }
 
     public static String getValue(int key) {
         return getInstance().getKeyForValue(key);
     }
 
-    public static ExerciseIndicatorLookupTable getInstance() {
-        return ExerciseIndicatorLookupTableHolder.INSTANCE;
+    public static PlatformTypeLookupTable getInstance() {
+        return PlatformTypeLookupTableHolder.INSTANCE;
     }
 
-    private static class ExerciseIndicatorLookupTableHolder {
+    private static class PlatformTypeLookupTableHolder {
 
-        private static final ExerciseIndicatorLookupTable INSTANCE =
-                new ExerciseIndicatorLookupTable();
+        private static final PlatformTypeLookupTable INSTANCE = new PlatformTypeLookupTable();
     }
 }

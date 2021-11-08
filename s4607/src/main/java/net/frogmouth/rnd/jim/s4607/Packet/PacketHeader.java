@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.Packet;
 
 public class PacketHeader {
     private String versionId;
@@ -11,6 +11,21 @@ public class PacketHeader {
     private String platformId;
     private long missionId;
     private long jobId;
+
+    public PacketHeader() {}
+
+    PacketHeader(PacketHeader other) {
+        this.versionId = other.getVersionId();
+        this.packetSize = other.getPacketSize();
+        this.nationality = other.getNationality();
+        this.classification = other.getClassification();
+        this.classificationSystem = other.getClassificationSystem();
+        this.classificationCodeFlags = other.getClassificationCodeFlags();
+        this.exerciseIndicator = other.getExerciseIndicator();
+        this.platformId = other.getPlatformId();
+        this.missionId = other.getMissionId();
+        this.jobId = other.getJobId();
+    }
 
     public String getVersionId() {
         return versionId;

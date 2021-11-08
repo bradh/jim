@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.Segment;
 
 public enum SegmentType {
     Unknown(0, "Unknown"),

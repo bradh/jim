@@ -1,4 +1,7 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.JobDefinitionSegment;
+
+import net.frogmouth.rnd.jim.s4607.Segment.Segment;
+import net.frogmouth.rnd.jim.s4607.Segment.SegmentHeader;
 
 public class JobDefinitionSegment extends Segment {
 
@@ -85,11 +88,11 @@ public class JobDefinitionSegment extends Segment {
     }
 
     public BoundingArea getBoundingArea() {
-        return boundingArea;
+        return new BoundingArea(boundingArea);
     }
 
     public void setBoundingArea(BoundingArea boundingArea) {
-        this.boundingArea = boundingArea;
+        this.boundingArea = new BoundingArea(boundingArea);
     }
 
     public int getRadarMode() {

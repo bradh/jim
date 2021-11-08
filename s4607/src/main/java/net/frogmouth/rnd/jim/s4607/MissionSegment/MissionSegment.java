@@ -1,4 +1,7 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.MissionSegment;
+
+import net.frogmouth.rnd.jim.s4607.Segment.Segment;
+import net.frogmouth.rnd.jim.s4607.Segment.SegmentHeader;
 
 public class MissionSegment extends Segment {
     private String missionPlan;

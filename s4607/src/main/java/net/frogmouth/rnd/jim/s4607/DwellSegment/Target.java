@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4607;
+package net.frogmouth.rnd.jim.s4607.DwellSegment;
 
 public class Target {
     private Integer mtiReportIndex;
