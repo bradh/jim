@@ -4,21 +4,16 @@ import static net.frogmouth.rnd.jim.s4607.SegmentType.DwellSegment;
 import static net.frogmouth.rnd.jim.s4607.SegmentType.MissionSegment;
 
 import java.io.IOException;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 
 /** STANAG 4607 / AEDP-7 GMTI Reader. */
 public class Reader {
 
-    private final MappedByteBuffer mappedByteBuffer;
+    private ParseContext context;
     private List<Packet> packets = new ArrayList<>();
     private static final long D2_EXISTENCE_MASK = 0x8000000000000000L;
     private static final long D3_EXISTENCE_MASK = 0x4000000000000000L;
@@ -73,21 +68,15 @@ public class Reader {
         this(Paths.get(filename));
     }
 
-    public Reader(Path nitfToRead) throws IOException {
-        try (FileChannel fileChannel =
-                (FileChannel)
-                        Files.newByteChannel(nitfToRead, EnumSet.of(StandardOpenOption.READ))) {
-            mappedByteBuffer =
-                    fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size());
-        }
+    public Reader(Path path) throws IOException {
+        context = new ParseContext(path);
         int packetStartOffset = 0;
 
-        while (mappedByteBuffer.hasRemaining()) {
+        while (context.hasRemaining()) {
             Packet packet = new Packet();
             PacketHeader packetHeader = readPacketHeader();
             packet.setPacketHeader(packetHeader);
-            while (mappedByteBuffer.position()
-                    < (packetStartOffset + packetHeader.getPacketSize())) {
+            while (context.position() < (packetStartOffset + packetHeader.getPacketSize())) {
                 packet.addSegment(readSegment());
             }
             packets.add(packet);
@@ -99,14 +88,9 @@ public class Reader {
         return new ArrayList<>(packets);
     }
 
-    private byte[] getBytesAt(int offset, int len) {
-        mappedByteBuffer.position(offset);
-        return getBytes(len);
-    }
-
     private byte[] getBytes(int len) {
         byte[] dest = new byte[len];
-        mappedByteBuffer.get(dest);
+        context.get(dest);
         return dest;
     }
 
@@ -125,50 +109,50 @@ public class Reader {
     }
 
     private long readI32() {
-        long i32 = mappedByteBuffer.getInt() & 0x00FFFFFFFFl;
+        long i32 = context.getInt() & 0x00FFFFFFFFl;
         return i32;
     }
 
     private int readS32() {
-        int s32 = mappedByteBuffer.getInt();
+        int s32 = context.getInt();
         return s32;
     }
 
     private int readI16() {
-        int i16 = mappedByteBuffer.getShort() & 0x0000FFFF;
+        int i16 = context.getShort() & 0x0000FFFF;
         return i16;
     }
 
     private int readS16() {
-        int s16 = mappedByteBuffer.getShort();
+        int s16 = context.getShort();
         return s16;
     }
 
     private int readI8() {
-        int i8 = mappedByteBuffer.get() & 0x00FF;
+        int i8 = context.get() & 0x00FF;
         return i8;
     }
 
     private int readS8() {
-        int s8 = mappedByteBuffer.get();
+        int s8 = context.get();
         return s8;
     }
 
     private int readE8() {
-        int e8 = mappedByteBuffer.get() & 0x00FF;
+        int e8 = context.get() & 0x00FF;
         return e8;
     }
 
     private long readFL64() {
-        return mappedByteBuffer.getLong();
+        return context.getLong();
     }
 
     private int readFL16() {
-        return mappedByteBuffer.getShort() & 0x0000FFFF;
+        return context.getShort() & 0x0000FFFF;
     }
 
     private int readFL8() {
-        return mappedByteBuffer.get() & 0x00FF;
+        return context.get() & 0x00FF;
     }
 
     private double readBA32() {
