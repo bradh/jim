@@ -6,4 +6,8 @@ public abstract class Segment {
     public Segment(SegmentHeader header) {
         this.header = header;
     }
+
+    public SegmentHeader getSegmentHeader() {
+        return header;
+    }
 }

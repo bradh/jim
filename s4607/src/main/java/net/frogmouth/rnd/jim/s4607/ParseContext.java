@@ -164,4 +164,9 @@ public class ParseContext {
             return d;
         }
     }
+
+    public void skipBytes(long bytesToSkip) {
+        long currentPosition = mappedByteBuffer.position();
+        mappedByteBuffer.position((int) (currentPosition + bytesToSkip));
+    }
 }

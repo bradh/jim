@@ -3,9 +3,9 @@ package net.frogmouth.rnd.jim.s4607;
 import static org.testng.Assert.*;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4607.Packet.Packet;
-import net.frogmouth.rnd.jim.s4607.Packet.PacketHeader;
 import org.testng.annotations.Test;
 
 public class BasicWriterTest extends TestSupport {
@@ -13,14 +13,16 @@ public class BasicWriterTest extends TestSupport {
     public BasicWriterTest() {}
 
     @Test
-    public void read() throws IOException {
+    public void write() throws IOException {
         Reader reader = new Reader(getList1());
         List<Packet> packets = reader.getPackets();
         assertEquals(packets.size(), 2);
-        Packet packet0 = packets.get(0);
-        PacketHeader packetHeader = packet0.getPacketHeader();
         Writer writer = new Writer();
-        // TODO: check the results
-        writer.writePacketHeader(packetHeader);
+        for (Packet packet : packets) {
+            writer.writePacket(packet);
+        }
+        byte[] bytes = writer.getBytes();
+        byte[] referenceBytes = Files.readAllBytes(getList1());
+        assertEquals(bytes, referenceBytes);
     }
 }

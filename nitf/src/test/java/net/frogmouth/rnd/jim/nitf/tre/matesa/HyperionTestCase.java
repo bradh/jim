@@ -151,7 +151,7 @@ public class HyperionTestCase {
         validateHyperionMATESA(matesa);
     }
 
-    private void validateHyperionMATESA(MATESA tre) {
+    public static void validateHyperionMATESA(MATESA tre) {
         assertEquals(tre.getTag(), "MATESA");
         assertEquals(tre.getTreeItemLabel(), "MATESA");
         assertEquals(tre.getCur_source().trim(), "EO-1_HYPERION");

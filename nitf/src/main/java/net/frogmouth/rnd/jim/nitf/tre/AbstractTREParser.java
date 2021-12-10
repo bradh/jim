@@ -65,4 +65,49 @@ public abstract class AbstractTREParser {
         }
         return val;
     }
+
+    protected double readBCSNLatitude(byte[] bytes, int offset, int len) {
+        double latitude = readDoubleFromBCSN(bytes, offset, len);
+        return latitude;
+    }
+
+    protected double readBCSNLongitude(byte[] bytes, int offset, int len) {
+        double longitude = readDoubleFromBCSN(bytes, offset, len);
+        return longitude;
+    }
+
+    protected double readBCSNHeight(byte[] bytes, int offset, int len) {
+        double ht = readDoubleFromBCSN(bytes, offset, len);
+        return ht;
+    }
+
+    protected Double readECEF(byte[] bytes, int offset, int len) {
+        double v = readDoubleOrNullFromBCSN(bytes, offset, len);
+        return v;
+    }
+
+    protected Integer readIntegerOrNullFromBCSN(byte[] bytes, int offset, int len)
+            throws NumberFormatException {
+        String s = new String(bytes, offset, len, StandardCharsets.US_ASCII);
+        if (s.isBlank()) {
+            return null;
+        }
+        return Integer.parseInt(s);
+    }
+
+    protected Double readDoubleOrNullFromBCSN(byte[] bytes, int offset, int len)
+            throws NumberFormatException {
+        String s = new String(bytes, offset, len, StandardCharsets.US_ASCII);
+        if (s.isBlank()) {
+            return null;
+        }
+        return Double.parseDouble(s);
+    }
+
+    protected double readDoubleFromBCSN(byte[] bytes, int offset, int len)
+            throws NumberFormatException {
+        String s = new String(bytes, offset, len, StandardCharsets.US_ASCII);
+        double latitude = Double.parseDouble(s);
+        return latitude;
+    }
 }

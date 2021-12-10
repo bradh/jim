@@ -21,8 +21,8 @@ public class SegmentParserManager {
     }
 
     public SegmentParser getParser(SegmentType segmentType) {
-        // TODO: default parser
-        SegmentParser segmentParser = parsers.getOrDefault(segmentType, null);
+        SegmentParser segmentParser =
+                parsers.getOrDefault(segmentType, new FallbackSegmentParser());
         return segmentParser;
     }
 

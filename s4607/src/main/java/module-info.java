@@ -13,4 +13,10 @@ module net.frogmouth.rnd.jim.brian {
             net.frogmouth.rnd.jim.s4607.FreeTextSegment.FreeTextSegmentParser,
             net.frogmouth.rnd.jim.s4607.JobDefinitionSegment.JobDefinitionSegmentParser,
             net.frogmouth.rnd.jim.s4607.MissionSegment.MissionSegmentParser;
+
+    uses net.frogmouth.rnd.jim.s4607.Segment.AbstractSegmentSerialiser;
+
+    provides net.frogmouth.rnd.jim.s4607.Segment.AbstractSegmentSerialiser with
+            net.frogmouth.rnd.jim.s4607.DwellSegment.DwellSegmentSerialiser,
+            net.frogmouth.rnd.jim.s4607.MissionSegment.MissionSegmentSerialiser;
 }
