@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import net.frogmouth.rnd.jim.s4607.Segment.AbstractSegmentSerialiser;
 import net.frogmouth.rnd.jim.s4607.Segment.Segment;
 import net.frogmouth.rnd.jim.s4607.Segment.SegmentType;
+import net.frogmouth.rnd.jim.s4607.SerialisationContext;
 
 public class DwellSegmentSerialiser extends AbstractSegmentSerialiser {
 
@@ -13,7 +14,7 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser {
     }
 
     @Override
-    public byte[] serialise(Segment segment) {
+    public byte[] serialise(Segment segment, SerialisationContext serialisationText) {
         DwellSegment dwell = (DwellSegment) segment;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.writeBytes(getExistenceMask(dwell));

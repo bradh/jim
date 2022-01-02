@@ -1,12 +1,13 @@
 package net.frogmouth.rnd.jim.s4607.Segment;
 
 import java.nio.ByteBuffer;
+import net.frogmouth.rnd.jim.s4607.SerialisationContext;
 
 public abstract class AbstractSegmentSerialiser {
 
     public abstract SegmentType getSegmentType();
 
-    public abstract byte[] serialise(Segment segment);
+    public abstract byte[] serialise(Segment segment, SerialisationContext serialisationText);
 
     protected static byte[] writeE8(int enumvalue) {
         ByteBuffer bb = ByteBuffer.allocate(1);
@@ -30,6 +31,10 @@ public abstract class AbstractSegmentSerialiser {
         ByteBuffer bb = ByteBuffer.allocate(1);
         bb.put((byte) value);
         return bb.array();
+    }
+
+    protected static byte[] writeFL8(int flags) {
+        return new byte[] {(byte) flags};
     }
 
     protected static byte[] writeFL8(boolean b) {

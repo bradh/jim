@@ -20,7 +20,7 @@ public class AbstractSegmentSerialiserTest {
         }
 
         @Override
-        public byte[] serialise(Segment segment) {
+        public byte[] serialise(Segment segment, SerialisationContext serialisationText) {
             throw new UnsupportedOperationException("Should not be called.");
         }
 

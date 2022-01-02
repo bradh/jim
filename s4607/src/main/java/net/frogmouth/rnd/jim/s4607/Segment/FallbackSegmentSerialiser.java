@@ -1,5 +1,7 @@
 package net.frogmouth.rnd.jim.s4607.Segment;
 
+import net.frogmouth.rnd.jim.s4607.SerialisationContext;
+
 public class FallbackSegmentSerialiser extends AbstractSegmentSerialiser {
 
     public FallbackSegmentSerialiser() {}
@@ -12,7 +14,7 @@ public class FallbackSegmentSerialiser extends AbstractSegmentSerialiser {
     }
 
     @Override
-    public byte[] serialise(Segment segment) {
+    public byte[] serialise(Segment segment, SerialisationContext serialisationText) {
         return new byte[] {};
     }
 }

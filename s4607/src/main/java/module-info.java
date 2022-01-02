@@ -18,5 +18,7 @@ module net.frogmouth.rnd.jim.brian {
 
     provides net.frogmouth.rnd.jim.s4607.Segment.AbstractSegmentSerialiser with
             net.frogmouth.rnd.jim.s4607.DwellSegment.DwellSegmentSerialiser,
+            net.frogmouth.rnd.jim.s4607.FreeTextSegment.FreeTextSegmentSerialiser,
+            net.frogmouth.rnd.jim.s4607.JobDefinitionSegment.JobDefinitionSegmentSerialiser,
             net.frogmouth.rnd.jim.s4607.MissionSegment.MissionSegmentSerialiser;
 }

@@ -18,12 +18,17 @@ public class Writer {
     }
 
     void writePacket(Packet packet) {
+        this.writePacket(packet, new SerialisationContext());
+    }
+
+    void writePacket(Packet packet, SerialisationContext serialisationContext) {
         PacketHeader packetHeader = packet.getPacketHeader();
-        byte[] packetHeaderBytes = PacketHeaderSerialiser.serialise(packetHeader);
+        byte[] packetHeaderBytes =
+                PacketHeaderSerialiser.serialise(packetHeader, serialisationContext);
         int packetLength = packetHeaderBytes.length;
         List<byte[]> bytesList = new ArrayList<>();
         for (Segment segment : packet.getSegments()) {
-            byte[] segmentBytes = SegmentSerialiser.serialise(segment);
+            byte[] segmentBytes = SegmentSerialiser.serialise(segment, serialisationContext);
             packetLength += segmentBytes.length;
             bytesList.add(segmentBytes);
         }
