@@ -55,6 +55,14 @@ public class ParseContext {
         return dest;
     }
 
+    public byte[] peekBytes(int len) {
+        byte[] dest = new byte[len];
+        int mark = mappedByteBuffer.position();
+        get(dest);
+        mappedByteBuffer.position(mark);
+        return dest;
+    }
+
     public String readASCII(int numBytes) {
         byte[] bytes = getBytes(numBytes);
         int indexOfLastValidByte = 0;

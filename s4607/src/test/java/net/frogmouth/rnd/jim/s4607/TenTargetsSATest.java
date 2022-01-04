@@ -7,6 +7,7 @@ import java.util.List;
 import net.frogmouth.rnd.jim.s4607.DwellSegment.DwellSegment;
 import net.frogmouth.rnd.jim.s4607.DwellSegment.Target;
 import net.frogmouth.rnd.jim.s4607.FreeTextSegment.FreeTextSegment;
+import net.frogmouth.rnd.jim.s4607.JobDefinitionSegment.JobDefinitionSegment;
 import net.frogmouth.rnd.jim.s4607.MissionSegment.MissionSegment;
 import net.frogmouth.rnd.jim.s4607.Packet.Packet;
 import net.frogmouth.rnd.jim.s4607.Packet.PacketHeader;
@@ -29,6 +30,8 @@ public class TenTargetsSATest extends TestSupport {
         List<Packet> packets = reader.getPackets();
         assertEquals(packets.size(), 194);
         checkPacket0(packets.get(0));
+        checkPacket1(packets.get(1));
+        checkPacket2(packets.get(2));
         checkPacket193(packets.get(193));
     }
 
@@ -69,6 +72,140 @@ public class TenTargetsSATest extends TestSupport {
         assertEquals(freeTextSegment.getOriginatorId(), "Test Data ");
         assertEquals(freeTextSegment.getRecipientId(), "Test Data ");
         assertEquals(freeTextSegment.getFreeText(), "Example free-text message.");
+    }
+
+    private void checkPacket1(Packet packet) {
+        PacketHeader packetHeader = packet.getPacketHeader();
+        assertEquals(packetHeader.getVersionId(), "30");
+        assertEquals(packetHeader.getPacketSize(), 105);
+        assertEquals(packetHeader.getNationality(), "US");
+        assertEquals(packetHeader.getClassification(), 5);
+        assertEquals(packetHeader.getClassificationAsText(), "UNCLASSIFIED");
+        assertEquals(packetHeader.getClassificationSystem(), "US");
+        assertEquals(packetHeader.getClassificationCodeFlags(), 0);
+        assertEquals(packetHeader.getExerciseIndicator(), 129);
+        assertEquals(packetHeader.getExerciseIndicatorAsText(), "Exercise, Simulated Data");
+        assertEquals(packetHeader.getPlatformId(), "Test Data ");
+        assertEquals(packetHeader.getPlatformId().trim(), "Test Data");
+        assertEquals(packetHeader.getMissionId(), 1);
+        assertEquals(packetHeader.getJobId(), 1);
+        List<Segment> segments = packet.getSegments();
+        assertEquals(segments.size(), 1);
+        Segment segment0 = segments.get(0);
+        assertTrue(segment0 instanceof JobDefinitionSegment);
+        JobDefinitionSegment jobDefinitionSegment = (JobDefinitionSegment) segment0;
+        assertEquals(jobDefinitionSegment.getJobId(), 1);
+        assertEquals(jobDefinitionSegment.getSensorIdType(), 255);
+        assertEquals(jobDefinitionSegment.getSensorIdModel(), "NORMAL");
+        assertEquals(jobDefinitionSegment.getTargetFilteringFlag(), 0);
+        assertEquals(jobDefinitionSegment.getPriority(), 1);
+        assertEquals(
+                jobDefinitionSegment.getBoundingArea().getPointA().getLatitude(),
+                40.7425354141742,
+                0.00000000001);
+        assertEquals(
+                jobDefinitionSegment.getBoundingArea().getPointA().getLongitude(),
+                246.0727079026401,
+                0.00000000001);
+        assertEquals(
+                jobDefinitionSegment.getBoundingArea().getPointB().getLatitude(),
+                40.74239652603865,
+                0.00000000001);
+        assertEquals(
+                jobDefinitionSegment.getBoundingArea().getPointB().getLongitude(),
+                246.19107336737216,
+                0.00000000001);
+        assertEquals(
+                jobDefinitionSegment.getBoundingArea().getPointC().getLatitude(),
+                40.65235870890319,
+                0.00000000001);
+        assertEquals(
+                jobDefinitionSegment.getBoundingArea().getPointC().getLongitude(),
+                246.19082333520055,
+                0.00000000001);
+        assertEquals(
+                jobDefinitionSegment.getBoundingArea().getPointD().getLatitude(),
+                40.65249768085778,
+                0.00000000001);
+        assertEquals(
+                jobDefinitionSegment.getBoundingArea().getPointD().getLongitude(),
+                246.07259684242308,
+                0.00000000001);
+        assertEquals(jobDefinitionSegment.getRadarMode(), 1);
+        assertEquals(jobDefinitionSegment.getNominalRevisitInterval(), 300);
+        assertEquals(jobDefinitionSegment.getAlongTrackUncertainty(), 65535);
+        assertEquals(jobDefinitionSegment.getCrossTrackUncertainty(), 65535);
+        assertEquals(jobDefinitionSegment.getAltitudeUncertainty(), 65535);
+        assertEquals(jobDefinitionSegment.getTrackHeadingUncertainty(), 255);
+        assertEquals(jobDefinitionSegment.getSensorSpeedUncertainty(), 65535);
+        assertEquals(jobDefinitionSegment.getSlantRangeStandardDeviation(), 65535);
+        assertEquals(jobDefinitionSegment.getCrossRangeStandardDeviation(), 180.0);
+        assertEquals(jobDefinitionSegment.getTargetVelocityLineOfSightStandardDeviation(), 0);
+        assertEquals(jobDefinitionSegment.getMdv(), 255);
+        assertEquals(jobDefinitionSegment.getDetectionProbability(), 0);
+        assertEquals(jobDefinitionSegment.getFalseAlarmDensity(), 255);
+        assertEquals(jobDefinitionSegment.getTerrainElevationModelUsed(), 2);
+        assertEquals(jobDefinitionSegment.getGeoidModelUsed(), 0);
+    }
+
+    private void checkPacket2(Packet packet) {
+        PacketHeader packetHeader = packet.getPacketHeader();
+        assertEquals(packetHeader.getVersionId(), "30");
+        assertEquals(packetHeader.getPacketSize(), 101);
+        assertEquals(packetHeader.getNationality(), "US");
+        assertEquals(packetHeader.getClassification(), 5);
+        assertEquals(packetHeader.getClassificationAsText(), "UNCLASSIFIED");
+        assertEquals(packetHeader.getClassificationSystem(), "US");
+        assertEquals(packetHeader.getClassificationCodeFlags(), 0);
+        assertEquals(packetHeader.getExerciseIndicator(), 129);
+        assertEquals(packetHeader.getExerciseIndicatorAsText(), "Exercise, Simulated Data");
+        assertEquals(packetHeader.getPlatformId(), "Test Data ");
+        assertEquals(packetHeader.getPlatformId().trim(), "Test Data");
+        assertEquals(packetHeader.getMissionId(), 1);
+        assertEquals(packetHeader.getJobId(), 1);
+        List<Segment> segments = packet.getSegments();
+        assertEquals(segments.size(), 1);
+        Segment segment0 = segments.get(0);
+        assertTrue(segment0 instanceof DwellSegment);
+        DwellSegment dwellSegment = (DwellSegment) segment0;
+        assertEquals((int) dwellSegment.getRevisitIndex(), 0);
+        assertEquals((int) dwellSegment.getDwellIndex(), 0);
+        assertFalse(dwellSegment.getLastDwellOfRevisit());
+        assertEquals((int) dwellSegment.getTargetReportCount(), 0);
+        assertEquals((long) dwellSegment.getDwellTime(), 28802150);
+        assertEquals((double) dwellSegment.getSensorLatitude(), 40.21105238702148, 0.00000000001);
+        assertEquals((double) dwellSegment.getSensorLongitude(), 245.86506988853216, 0.00000000001);
+        assertEquals(dwellSegment.getSensorAltitude(), 426688);
+        assertEquals(
+                (double) dwellSegment.getScaleFactorLatScale(), 4.882458597421646e-5, 0.0000001);
+        assertEquals(
+                (double) dwellSegment.getScaleFactorLonScale(), 4.886649549007416e-5, 0.0000001);
+        assertNull(dwellSegment.getSensorPositionUncertaintyAlongTrack());
+        assertNull(dwellSegment.getSensorPositionUncertaintyCrossTrack());
+        assertNull(dwellSegment.getSensorPositionUncertaintyAltitude());
+        assertEquals(dwellSegment.getSensorTrack(), 315.3515625, 0.0000001);
+        assertEquals((int) dwellSegment.getSensorSpeed(), 72021);
+        assertEquals((int) dwellSegment.getSensorVerticalVelocity(), 0);
+        assertNull(dwellSegment.getSensorTrackUncertainty());
+        assertNull(dwellSegment.getSensorSpeedUncertainty());
+        assertNull(dwellSegment.getSensorVerticalVelocityUncertainty());
+        assertEquals(
+                (double) dwellSegment.getPlatformOrientationHeading(),
+                315.5877685546875,
+                0.00000001);
+        assertEquals((double) dwellSegment.getPlatformOrientationPitch(), 0.0, 0.00000000001);
+        assertEquals((double) dwellSegment.getPlatformOrientationRoll(), 0.0, 0.00000000001);
+        assertEquals(
+                (double) dwellSegment.getDwellCentreLatitude(), 40.714164935052395, 0.00000000001);
+        assertEquals(
+                (double) dwellSegment.getDwellCentreLongitude(), 246.07425411231816, 0.00000000001);
+        assertEquals(dwellSegment.getDwellAreaRangeHalfExtent(), 6.53125, 0.000001);
+        assertEquals(dwellSegment.getDwellAreaDwellAngleHalfExtent(), 0.999755859375, 0.000001);
+        assertNull(dwellSegment.getSensorOrientationHeading());
+        assertNull(dwellSegment.getSensorOrientationPitch());
+        assertNull(dwellSegment.getSensorOrientationRoll());
+        assertNull(dwellSegment.getMinimumDetectableVelocity());
+        assertEquals(dwellSegment.getTargets().size(), 0);
     }
 
     private void checkPacket193(Packet packet) {

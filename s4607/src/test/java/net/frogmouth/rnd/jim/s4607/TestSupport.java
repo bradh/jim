@@ -18,6 +18,11 @@ public class TestSupport {
         return getPathFromResourceName(fileName);
     }
 
+    Path get10TargetsSACleaned() {
+        String fileName = "pr_scenario_10tgts_situationAwarenessMask_cleaned.4607";
+        return getPathFromResourceName(fileName);
+    }
+
     Path get10TargetsPrecisionTargeting() {
         String fileName = "pr_scenario_10tgts_precisionTargetingMaskPlusRCS.4607";
         return getPathFromResourceName(fileName);
