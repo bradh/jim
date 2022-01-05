@@ -93,7 +93,6 @@ public abstract class AbstractSegmentSerialiser {
             enc[0] |= (byte) (0x80);
         }
         return enc;
-        // TODO: write tests
     }
 
     protected static byte[] writeS8(int value) {

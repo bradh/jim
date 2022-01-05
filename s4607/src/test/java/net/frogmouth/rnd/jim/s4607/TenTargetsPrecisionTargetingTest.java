@@ -29,6 +29,7 @@ public class TenTargetsPrecisionTargetingTest extends TestSupport {
         List<Packet> packets = reader.getPackets();
         assertEquals(packets.size(), 194);
         checkPacket0(packets.get(0));
+        checkPacket2(packets.get(2));
         checkPacket193(packets.get(193));
     }
 
@@ -69,6 +70,64 @@ public class TenTargetsPrecisionTargetingTest extends TestSupport {
         assertEquals(freeTextSegment.getOriginatorId(), "Test Data ");
         assertEquals(freeTextSegment.getRecipientId(), "Test Data ");
         assertEquals(freeTextSegment.getFreeText(), "Example free-text message.");
+    }
+
+    private void checkPacket2(Packet packet) {
+        PacketHeader packetHeader = packet.getPacketHeader();
+        assertEquals(packetHeader.getVersionId(), "30");
+        assertEquals(packetHeader.getPacketSize(), 115);
+        assertEquals(packetHeader.getNationality(), "US");
+        assertEquals(packetHeader.getClassification(), 5);
+        assertEquals(packetHeader.getClassificationAsText(), "UNCLASSIFIED");
+        assertEquals(packetHeader.getClassificationSystem(), "US");
+        assertEquals(packetHeader.getClassificationCodeFlags(), 0);
+        assertEquals(packetHeader.getExerciseIndicator(), 129);
+        assertEquals(packetHeader.getExerciseIndicatorAsText(), "Exercise, Simulated Data");
+        assertEquals(packetHeader.getPlatformId(), "Test Data ");
+        assertEquals(packetHeader.getPlatformId().trim(), "Test Data");
+        assertEquals(packetHeader.getMissionId(), 1);
+        assertEquals(packetHeader.getJobId(), 1);
+        List<Segment> segments = packet.getSegments();
+        assertEquals(segments.size(), 1);
+        Segment segment0 = segments.get(0);
+        assertTrue(segment0 instanceof DwellSegment);
+        DwellSegment dwellSegment = (DwellSegment) segment0;
+        assertEquals((int) dwellSegment.getRevisitIndex(), 0);
+        assertEquals((int) dwellSegment.getDwellIndex(), 0);
+        assertFalse(dwellSegment.getLastDwellOfRevisit());
+        assertEquals((int) dwellSegment.getTargetReportCount(), 0);
+        assertEquals((long) dwellSegment.getDwellTime(), 28802150);
+        assertEquals((double) dwellSegment.getSensorLatitude(), 40.21105238702148, 0.00000000001);
+        assertEquals((double) dwellSegment.getSensorLongitude(), 245.86506988853216, 0.00000000001);
+        assertEquals(dwellSegment.getSensorAltitude(), 426688);
+        assertNull(dwellSegment.getScaleFactorLatScale());
+        assertNull(dwellSegment.getScaleFactorLonScale());
+        assertEquals((int) dwellSegment.getSensorPositionUncertaintyAlongTrack(), 0);
+        assertEquals((int) dwellSegment.getSensorPositionUncertaintyCrossTrack(), 0);
+        assertEquals((int) dwellSegment.getSensorPositionUncertaintyAltitude(), 0);
+        assertEquals(dwellSegment.getSensorTrack(), 315.3515625, 0.0000001);
+        assertEquals((int) dwellSegment.getSensorSpeed(), 72021);
+        assertEquals((int) dwellSegment.getSensorVerticalVelocity(), 0);
+        assertEquals((int) dwellSegment.getSensorTrackUncertainty(), 0);
+        assertEquals((int) dwellSegment.getSensorSpeedUncertainty(), 0);
+        assertEquals((int) dwellSegment.getSensorVerticalVelocityUncertainty(), 0);
+        assertEquals(
+                (double) dwellSegment.getPlatformOrientationHeading(),
+                315.5877685546875,
+                0.00000001);
+        assertEquals((double) dwellSegment.getPlatformOrientationPitch(), 0.0, 0.00000000001);
+        assertEquals((double) dwellSegment.getPlatformOrientationRoll(), 0.0, 0.00000000001);
+        assertEquals(
+                (double) dwellSegment.getDwellCentreLatitude(), 40.714164935052395, 0.00000000001);
+        assertEquals(
+                (double) dwellSegment.getDwellCentreLongitude(), 246.07425411231816, 0.00000000001);
+        assertEquals(dwellSegment.getDwellAreaRangeHalfExtent(), 6.53125, 0.000001);
+        assertEquals(dwellSegment.getDwellAreaDwellAngleHalfExtent(), 0.999755859375, 0.000001);
+        assertEquals(dwellSegment.getSensorOrientationHeading(), 242.501220703125, 0.00000000001);
+        assertEquals(dwellSegment.getSensorOrientationPitch(), 0.0, 0.00000001);
+        assertEquals(dwellSegment.getSensorOrientationRoll(), 0.0, 0.00000001);
+        assertEquals((int) dwellSegment.getMinimumDetectableVelocity(), 10);
+        assertEquals(dwellSegment.getTargets().size(), 0);
     }
 
     private void checkPacket193(Packet packet) {

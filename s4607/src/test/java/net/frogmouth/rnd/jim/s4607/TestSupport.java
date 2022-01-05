@@ -28,6 +28,11 @@ public class TestSupport {
         return getPathFromResourceName(fileName);
     }
 
+    Path get10TargetsPrecisionTargetingCleaned() {
+        String fileName = "pr_scenario_10tgts_precisionTargetingMaskPlusRCS_cleaned.4607";
+        return getPathFromResourceName(fileName);
+    }
+
     protected Path getPathFromResourceName(String fileName) {
         ClassLoader classLoader = getClass().getClassLoader();
         return Paths.get(classLoader.getResource(fileName).getPath());

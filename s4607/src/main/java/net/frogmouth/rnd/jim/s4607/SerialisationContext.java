@@ -5,6 +5,16 @@ import java.util.Arrays;
 
 public class SerialisationContext {
     private static final byte SPACE = 0x20;
+    private boolean useSAProfileForEmptyDwellTargetMask;
+
+    public boolean isUseSAProfileForEmptyDwellTargetMask() {
+        return useSAProfileForEmptyDwellTargetMask;
+    }
+
+    public void setUseSAProfileForEmptyDwellTargetMask(
+            boolean useSAProfileForEmptyDwellTargetMask) {
+        this.useSAProfileForEmptyDwellTargetMask = useSAProfileForEmptyDwellTargetMask;
+    }
 
     public byte[] padString(String s, int length) {
         byte[] stringBytes = s.trim().getBytes(StandardCharsets.US_ASCII);

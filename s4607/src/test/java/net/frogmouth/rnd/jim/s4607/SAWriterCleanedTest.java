@@ -8,6 +8,13 @@ import java.util.List;
 import net.frogmouth.rnd.jim.s4607.Packet.Packet;
 import org.testng.annotations.Test;
 
+/**
+ * Test for writing a file.
+ *
+ * <p>This uses a cleaned-up version of the AFRL "Ten Targets Situational Awareness" test data. The
+ * cleaning fixes some strings that are not appropriately padded (e.g. uses nulls instead of
+ * spaces).
+ */
 public class SAWriterCleanedTest extends TestSupport {
 
     public SAWriterCleanedTest() {}
@@ -17,9 +24,11 @@ public class SAWriterCleanedTest extends TestSupport {
         Reader reader = new Reader(get10TargetsSACleaned());
         List<Packet> packets = reader.getPackets();
         assertEquals(packets.size(), 194);
+        SerialisationContext serialisationContext = new SerialisationContext();
+        serialisationContext.setUseSAProfileForEmptyDwellTargetMask(true);
         Writer writer = new Writer();
         for (Packet packet : packets) {
-            writer.writePacket(packet);
+            writer.writePacket(packet, serialisationContext);
         }
         byte[] bytes = writer.getBytes();
         byte[] referenceBytes = Files.readAllBytes(get10TargetsSACleaned());

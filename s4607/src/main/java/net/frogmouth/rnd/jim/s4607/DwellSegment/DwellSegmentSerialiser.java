@@ -18,7 +18,7 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser {
     public byte[] serialise(Segment segment, SerialisationContext serialisationText) {
         DwellSegment dwell = (DwellSegment) segment;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        baos.writeBytes(getExistenceMask(dwell));
+        baos.writeBytes(getExistenceMask(dwell, serialisationText));
         if (dwell.getRevisitIndex() != null) {
             baos.writeBytes(writeI16(dwell.getRevisitIndex()));
         }
@@ -61,8 +61,14 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser {
         if (dwell.getSensorVerticalVelocity() != null) {
             baos.writeBytes(writeS8(dwell.getSensorVerticalVelocity()));
         }
+        if (dwell.getSensorTrackUncertainty() != null) {
+            baos.writeBytes(writeI8(dwell.getSensorTrackUncertainty()));
+        }
+        if (dwell.getSensorSpeedUncertainty() != null) {
+            baos.writeBytes(writeI16(dwell.getSensorSpeedUncertainty()));
+        }
         if (dwell.getSensorVerticalVelocityUncertainty() != null) {
-            baos.writeBytes(writeI8(dwell.getSensorVerticalVelocityUncertainty()));
+            baos.writeBytes(writeI16(dwell.getSensorVerticalVelocityUncertainty()));
         }
         if (dwell.getPlatformOrientationHeading() != null) {
             baos.writeBytes(writeBA16(dwell.getPlatformOrientationHeading()));
@@ -77,6 +83,15 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser {
         baos.writeBytes(writeBA32(dwell.getDwellCentreLongitude()));
         baos.writeBytes(writeB16(dwell.getDwellAreaRangeHalfExtent()));
         baos.writeBytes(writeBA16(dwell.getDwellAreaDwellAngleHalfExtent()));
+        if (dwell.getSensorOrientationHeading() != null) {
+            baos.writeBytes(writeBA16(dwell.getSensorOrientationHeading()));
+        }
+        if (dwell.getSensorOrientationPitch() != null) {
+            baos.writeBytes(writeSA16(dwell.getSensorOrientationPitch()));
+        }
+        if (dwell.getSensorOrientationRoll() != null) {
+            baos.writeBytes(writeSA16(dwell.getSensorOrientationRoll()));
+        }
         if (dwell.getMinimumDetectableVelocity() != null) {
             baos.writeBytes(writeI8(dwell.getMinimumDetectableVelocity()));
         }
@@ -139,7 +154,8 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser {
         return baos.toByteArray();
     }
 
-    private static byte[] getExistenceMask(DwellSegment dwell) {
+    private static byte[] getExistenceMask(
+            DwellSegment dwell, SerialisationContext serialisationContext) {
         long mask = 0;
         if (dwell.getRevisitIndex() != null) {
             mask |= DwellSegmentConstants.D2_EXISTENCE_MASK;
@@ -276,12 +292,31 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser {
                 mask |= DwellSegmentConstants.D32_18_EXISTENCE_MASK;
             }
         } else {
-            // This apparently random selection is chosen to match the AFRL test data.
-            mask |= DwellSegmentConstants.D32_1_EXISTENCE_MASK;
-            mask |= DwellSegmentConstants.D32_4_EXISTENCE_MASK;
-            mask |= DwellSegmentConstants.D32_5_EXISTENCE_MASK;
-            mask |= DwellSegmentConstants.D32_16_EXISTENCE_MASK;
-            mask |= DwellSegmentConstants.D32_17_EXISTENCE_MASK;
+            // These apparently random selections are chosen to match the AFRL test data.
+            if (serialisationContext.isUseSAProfileForEmptyDwellTargetMask()) {
+                mask |= DwellSegmentConstants.D32_1_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_4_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_5_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_16_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_17_EXISTENCE_MASK;
+            } else {
+                mask |= DwellSegmentConstants.D32_1_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_2_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_3_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_6_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_7_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_8_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_9_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_10_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_11_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_12_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_13_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_14_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_15_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_16_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_17_EXISTENCE_MASK;
+                mask |= DwellSegmentConstants.D32_18_EXISTENCE_MASK;
+            }
         }
         ByteBuffer bb = ByteBuffer.allocate(Long.BYTES);
         bb.putLong(mask);
