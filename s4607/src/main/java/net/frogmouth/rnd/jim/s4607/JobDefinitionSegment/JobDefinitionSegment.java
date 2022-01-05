@@ -3,6 +3,23 @@ package net.frogmouth.rnd.jim.s4607.JobDefinitionSegment;
 import net.frogmouth.rnd.jim.s4607.Segment.Segment;
 import net.frogmouth.rnd.jim.s4607.Segment.SegmentHeader;
 
+/**
+ * Job Definition Segment.
+ *
+ * <p>The Job Definition Segment provides the means for the platform to pass information pertaining
+ * to the sensor job that will be performed and details of the location parameters (terrain
+ * elevation model and geoid model) used in the measurement.
+ *
+ * <p>It includes a definition of the geographic area for sensor service, the Bounding Area, which
+ * is defined as a four-corner polygon, with the four points of the polygon chosen to define a
+ * convex quadrilateral. The Job Definition Segment is sent before the first visit of a job with the
+ * bounding area representing the tasked area, and is updated and resent with the bounding area set
+ * to represent the actual scanned area when the scanned area differs from the area sent in the
+ * previous Job Definition Segment. The Job Definition Segment is sent periodically at least once
+ * every 30 seconds thereafter.
+ *
+ * <p>All fields in the Job Definition Segment are mandatory.
+ */
 public class JobDefinitionSegment extends Segment {
 
     private long jobId;
@@ -32,8 +49,8 @@ public class JobDefinitionSegment extends Segment {
     }
 
     /**
-     * A platform assigned number identifying the specific request or task to which the dwell
-     * pertains.
+     * Job ID (J1). A platform assigned number identifying the specific request or task to which the
+     * dwell pertains.
      *
      * @return job number, in the range 1 to 4294967295
      */
@@ -42,8 +59,8 @@ public class JobDefinitionSegment extends Segment {
     }
 
     /**
-     * Set the platform assigned number identifying the specific request or task to which the dwell
-     * pertains.
+     * Job ID (J1). Set the platform assigned number identifying the specific request or task to
+     * which the dwell pertains.
      *
      * @param jobId job number, in the range 1 to 4294967295
      */

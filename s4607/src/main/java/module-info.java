@@ -1,10 +1,12 @@
 module net.frogmouth.rnd.jim.brian {
     requires org.slf4j;
 
-    exports net.frogmouth.rnd.jim.s4607.Segment;
     exports net.frogmouth.rnd.jim.s4607.DwellSegment;
+    exports net.frogmouth.rnd.jim.s4607.FreeTextSegment;
     exports net.frogmouth.rnd.jim.s4607.JobDefinitionSegment;
     exports net.frogmouth.rnd.jim.s4607.MissionSegment;
+    exports net.frogmouth.rnd.jim.s4607.Packet;
+    exports net.frogmouth.rnd.jim.s4607.Segment;
 
     uses net.frogmouth.rnd.jim.s4607.Segment.SegmentParser;
 
