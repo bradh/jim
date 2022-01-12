@@ -10,6 +10,7 @@ import net.frogmouth.rnd.jim.s4607.Packet.PacketHeaderSerialiser;
 import net.frogmouth.rnd.jim.s4607.Segment.Segment;
 import net.frogmouth.rnd.jim.s4607.Segment.SegmentSerialiser;
 
+/** STANAG 4607 / AEDP-7 GMTI Writer. */
 public class Writer {
     private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 

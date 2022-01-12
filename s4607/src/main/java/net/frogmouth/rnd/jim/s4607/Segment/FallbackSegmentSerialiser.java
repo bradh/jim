@@ -8,9 +8,7 @@ public class FallbackSegmentSerialiser extends AbstractSegmentSerialiser {
 
     @Override
     public SegmentType getSegmentType() {
-        throw new UnsupportedOperationException(
-                "Not supported yet."); // To change body of generated methods, choose Tools |
-        // Templates.
+        throw new UnsupportedOperationException("Should never be called");
     }
 
     @Override

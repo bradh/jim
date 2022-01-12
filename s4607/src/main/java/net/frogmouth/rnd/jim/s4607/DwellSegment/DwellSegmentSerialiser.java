@@ -17,6 +17,7 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser {
     @Override
     public byte[] serialise(Segment segment, SerialisationContext serialisationText) {
         DwellSegment dwell = (DwellSegment) segment;
+        dwell.setTargetReportCount(dwell.getTargets().size());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.writeBytes(getExistenceMask(dwell, serialisationText));
         if (dwell.getRevisitIndex() != null) {
