@@ -11,7 +11,7 @@ public class FallbackSegmentParser extends SegmentParser {
 
     @Override
     public Segment parse(SegmentHeader segmentHeader) {
-        FallbackSegment segment = new FallbackSegment(segmentHeader);
+        FallbackSegment segment = new FallbackSegment();
         context.skipBytes(segmentHeader.getSegmentSize() - 5);
         return segment;
     }

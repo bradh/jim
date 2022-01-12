@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4607.Segment.Segment;
 
+/**
+ * Model for a GMTI Packet.
+ *
+ * <p>The packet conceptually consistents of a header, and a number of segments.
+ */
 public class Packet {
     private PacketHeader packetHeader;
     private final List<Segment> segments = new ArrayList<>();

@@ -1,8 +1,7 @@
 package net.frogmouth.rnd.jim.s4607.FreeTextSegment;
 
-import java.nio.charset.StandardCharsets;
 import net.frogmouth.rnd.jim.s4607.Segment.Segment;
-import net.frogmouth.rnd.jim.s4607.Segment.SegmentHeader;
+import net.frogmouth.rnd.jim.s4607.Segment.SegmentType;
 
 /**
  * Free Text Segment.
@@ -39,13 +38,12 @@ public class FreeTextSegment extends Segment {
     private String recipientId;
     private String freeText;
 
-    /**
-     * Constructor.
-     *
-     * @param segmentHeader the segment header for this free text segment.
-     */
-    FreeTextSegment(SegmentHeader segmentHeader) {
-        super(segmentHeader);
+    /** Constructor. */
+    public FreeTextSegment() {}
+
+    @Override
+    public SegmentType getSegmentType() {
+        return SegmentType.FreeTextSegment;
     }
 
     /**
@@ -128,26 +126,5 @@ public class FreeTextSegment extends Segment {
     public void setFreeText(String freeText) {
         validateBCS(recipientId, 66515);
         this.freeText = freeText;
-    }
-
-    private void validateBCS(String stringToValidate, int maxLength) {
-        byte[] bytes = stringToValidate.getBytes(StandardCharsets.UTF_8);
-        if (bytes.length > maxLength) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "String is too long for specified field. Max is %d, got %d",
-                            maxLength, bytes.length));
-        }
-        for (int i = 0; i < bytes.length; i++) {
-            byte charval = bytes[i];
-            if (charval < 0x0A) {
-                throw new IllegalArgumentException(
-                        "Only BCS characters are allowed, got " + stringToValidate);
-            }
-            if ((charval > 0x0D) && (charval < 0x20)) {
-                throw new IllegalArgumentException(
-                        "Only BCS characters are allowed, got " + stringToValidate);
-            }
-        }
     }
 }

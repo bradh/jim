@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4607.MissionSegment;
+package net.frogmouth.rnd.jim.s4607.JobDefinitionSegment;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,20 +9,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Platform Type lookup table.
+ * Sensor Type lookup table.
  *
- * <p>This singleton class provides a mapping between the enumeration values (number) for Platform
- * Type used within the Mission Segment, and text labels.
+ * <p>This singleton class provides a mapping between the enumeration values (number) for Sensor
+ * Type used within the Job Definition Segment, and text labels.
  */
-public class PlatformTypeLookupTable {
+public class SensorTypeLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();
-    private final Logger LOG = LoggerFactory.getLogger(PlatformTypeLookupTable.class);
+    private final Logger LOG = LoggerFactory.getLogger(SensorTypeLookupTable.class);
 
-    private PlatformTypeLookupTable() {
+    private SensorTypeLookupTable() {
         Properties prop = new Properties();
         try (InputStream inputStream =
-                PlatformTypeLookupTable.class.getResourceAsStream("/PlatformType.properties")) {
+                SensorTypeLookupTable.class.getResourceAsStream("/SensorType.properties")) {
             prop.load(inputStream);
             prop.entrySet()
                     .forEach(
@@ -42,7 +42,7 @@ public class PlatformTypeLookupTable {
     /**
      * Get the value for a given enumeration value.
      *
-     * <p>For example, passing {@code 23} would return "Paul Revere".
+     * <p>For example, passing {@code 22} would return "LSRS Sensor".
      *
      * @param key the enumeration value.
      * @return corresponding text label for the provided key, as a String.
@@ -56,11 +56,11 @@ public class PlatformTypeLookupTable {
      *
      * @return the singleton instance.
      */
-    public static PlatformTypeLookupTable getInstance() {
-        return PlatformTypeLookupTableHolder.INSTANCE;
+    public static SensorTypeLookupTable getInstance() {
+        return SensorTypeLookupTableHolder.INSTANCE;
     }
 
-    private static class PlatformTypeLookupTableHolder {
-        private static final PlatformTypeLookupTable INSTANCE = new PlatformTypeLookupTable();
+    private static class SensorTypeLookupTableHolder {
+        private static final SensorTypeLookupTable INSTANCE = new SensorTypeLookupTable();
     }
 }

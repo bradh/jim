@@ -16,7 +16,7 @@ public class DwellSegmentParser extends SegmentParser {
 
     @Override
     public Segment parse(SegmentHeader segmentHeader) {
-        DwellSegment dwellSegment = new DwellSegment(segmentHeader);
+        DwellSegment dwellSegment = new DwellSegment();
         long existenceMask = context.readFL64();
         if ((existenceMask & DwellSegmentConstants.D2_EXISTENCE_MASK)
                 == DwellSegmentConstants.D2_EXISTENCE_MASK) {

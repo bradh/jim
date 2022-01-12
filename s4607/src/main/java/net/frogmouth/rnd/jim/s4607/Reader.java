@@ -59,7 +59,6 @@ public class Reader {
     }
 
     private Segment readSegment() {
-
         SegmentType segmentType = SegmentType.lookupByIdent(context.readE8());
         long segmentSize = context.readI32();
         SegmentHeader segmentHeader = new SegmentHeader(segmentType, segmentSize);

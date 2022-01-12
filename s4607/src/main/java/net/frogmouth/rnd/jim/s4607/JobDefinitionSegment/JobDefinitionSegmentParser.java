@@ -16,7 +16,7 @@ public class JobDefinitionSegmentParser extends SegmentParser {
 
     @Override
     public Segment parse(SegmentHeader segmentHeader) {
-        JobDefinitionSegment jobSegment = new JobDefinitionSegment(segmentHeader);
+        JobDefinitionSegment jobSegment = new JobDefinitionSegment();
         jobSegment.setJobId(context.readI32());
         jobSegment.setSensorIdType(context.readE8());
         jobSegment.setSensorIdModel(context.readASCII(6));

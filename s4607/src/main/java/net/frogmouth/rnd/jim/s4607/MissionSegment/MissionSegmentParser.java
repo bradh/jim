@@ -5,9 +5,13 @@ import net.frogmouth.rnd.jim.s4607.Segment.SegmentHeader;
 import net.frogmouth.rnd.jim.s4607.Segment.SegmentParser;
 import net.frogmouth.rnd.jim.s4607.Segment.SegmentType;
 
+/**
+ * Parser for {@link MissionSegment}.
+ *
+ * <p>This is normally invoked by the parent parsing code (e.g. from a packet parser), and is not
+ * typically created directly.
+ */
 public class MissionSegmentParser extends SegmentParser {
-
-    public MissionSegmentParser() {}
 
     @Override
     public SegmentType getSegmentType() {
@@ -16,7 +20,7 @@ public class MissionSegmentParser extends SegmentParser {
 
     @Override
     public Segment parse(SegmentHeader segmentHeader) {
-        MissionSegment missionSegment = new MissionSegment(segmentHeader);
+        MissionSegment missionSegment = new MissionSegment();
         missionSegment.setMissionPlan(context.readASCII(12));
         missionSegment.setFlightPlan(context.readASCII(12));
         missionSegment.setPlatformType(context.readE8());

@@ -3,7 +3,7 @@ package net.frogmouth.rnd.jim.s4607.DwellSegment;
 import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4607.Segment.Segment;
-import net.frogmouth.rnd.jim.s4607.Segment.SegmentHeader;
+import net.frogmouth.rnd.jim.s4607.Segment.SegmentType;
 
 /**
  * Dwell Segment.
@@ -49,8 +49,17 @@ public class DwellSegment extends Segment {
     private Integer minimumDetectableVelocity;
     private final List<Target> targets = new ArrayList<>();
 
-    DwellSegment(SegmentHeader segmentHeader) {
-        super(segmentHeader);
+    /**
+     * Constructor.
+     *
+     * <p>Note that the Dwell Segment has mandatory elements that need to be set, as noted in the
+     * setter javadoc.
+     */
+    public DwellSegment() {}
+
+    @Override
+    public SegmentType getSegmentType() {
+        return SegmentType.DwellSegment;
     }
 
     /**
