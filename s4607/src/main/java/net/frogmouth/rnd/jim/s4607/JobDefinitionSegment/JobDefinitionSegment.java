@@ -45,20 +45,9 @@ public class JobDefinitionSegment extends Segment {
     private int geoidModelUsed;
 
     /**
-     * Job Definition Segment.
+     * Constructor.
      *
-     * <p>The Job Definition Segment provides the means for the platform to pass information
-     * pertaining to the sensor job that will be performed and details of the location parameters
-     * (terrain elevation model and geoid model) used in the measurement. It includes a definition
-     * of the geographic area for sensor service, the Bounding Area, which is defined as a
-     * four-corner polygon, with the four points of the polygon chosen to define a convex
-     * quadrilateral. The Job Definition Segment shall be sent before the first visit of a job with
-     * the bounding area representing the tasked area, and shall be updated and resent with the
-     * bounding area set to represent the actual scanned area when the scanned area differs from the
-     * area sent in the previous Job Definition Segment. The Job Definition Segment shall be sent
-     * periodically at least once every 30 seconds thereafter.
-     *
-     * <p>All elements of the Job Definition Segment are mandatory.
+     * <p>Note that all elements of the Job Definition Segment are mandatory.
      */
     public JobDefinitionSegment() {}
 
@@ -333,7 +322,7 @@ public class JobDefinitionSegment extends Segment {
      * Sub-Segment, when the sensor computes them and the communication bandwidth permits the more
      * frequent reporting.)
      *
-     * @return the nominal position uncertainty in decimeters.
+     * @return the nominal position uncertainty in decimeters (or 65535 for no-statement).
      */
     public int getAlongTrackUncertainty() {
         return alongTrackUncertainty;
@@ -352,40 +341,155 @@ public class JobDefinitionSegment extends Segment {
      * Sub-Segment, when the sensor computes them and the communication bandwidth permits the more
      * frequent reporting.)
      *
-     * @param alongTrackUncertainty the nominal position uncertainty in decimeters.
+     * @param alongTrackUncertainty the nominal position uncertainty in decimeters, in the range [0,
+     *     10000], or 65535 for no-statement.
      */
     public void setAlongTrackUncertainty(int alongTrackUncertainty) {
         this.alongTrackUncertainty = alongTrackUncertainty;
     }
 
+    /**
+     * Nominal Sensor Position Uncertainty - Cross Track (J17).
+     *
+     * <p>Nominal estimate of the standard deviation in the estimated horizontal sensor location,
+     * measured orthogonal to the track direction, expressed in decimeters. The No-Statement value
+     * is sent when the sensor is unable or unwilling to provide a value. (NOTE: The Nominal fields
+     * in the Job Definition Segment provide a means for reporting nominal standard deviations and
+     * uncertainty values, and are to be used when values are not received from the sensor. More
+     * precise values of these or related estimates may be reported in the appropriate fields in
+     * either the Dwell Segment or the Target Report Sub-Segment, when the sensor computes them and
+     * the communication bandwidth permits the more frequent reporting.)
+     *
+     * @return the nominal position uncertainty in decimeters (or 65535 for no-statement).
+     */
     public int getCrossTrackUncertainty() {
         return crossTrackUncertainty;
     }
 
+    /**
+     * Set the Nominal Sensor Position Uncertainty - Cross Track (J17).
+     *
+     * <p>Nominal estimate of the standard deviation in the estimated horizontal sensor location,
+     * measured orthogonal to the track direction, expressed in decimeters. The No-Statement value
+     * is sent when the sensor is unable or unwilling to provide a value. (NOTE: The Nominal fields
+     * in the Job Definition Segment provide a means for reporting nominal standard deviations and
+     * uncertainty values, and are to be used when values are not received from the sensor. More
+     * precise values of these or related estimates may be reported in the appropriate fields in
+     * either the Dwell Segment or the Target Report Sub-Segment, when the sensor computes them and
+     * the communication bandwidth permits the more frequent reporting.)
+     *
+     * @param crossTrackUncertainty the nominal position uncertainty in decimeters, in the range [0,
+     *     10000], or 65535 for no-statement.
+     */
     public void setCrossTrackUncertainty(int crossTrackUncertainty) {
         this.crossTrackUncertainty = crossTrackUncertainty;
     }
 
+    /**
+     * Nominal Sensor Position Uncertainty – Altitude (J18).
+     *
+     * <p>Nominal estimate of the standard deviation of the measured sensor altitude (field D11),
+     * expressed in decimeters. The No-Statement value is sent when the sensor is unable or
+     * unwilling to provide a value. (NOTE: The Nominal fields in the Job Definition Segment provide
+     * a means for reporting nominal standard deviations and uncertainty values, and are to be used
+     * when values are not received from the sensor. More precise values of these or related
+     * estimates may be reported in the appropriate fields in either the Dwell Segment or the Target
+     * Report Sub-Segment, when the sensor computes them and the communication bandwidth permits the
+     * more frequent reporting.)
+     *
+     * @return the nominal altitude uncertainty in decimeters (or 65535 for no-statement).
+     */
     public int getAltitudeUncertainty() {
         return altitudeUncertainty;
     }
 
+    /**
+     * Set the Nominal Sensor Position Uncertainty – Altitude (J18).
+     *
+     * <p>Nominal estimate of the standard deviation of the measured sensor altitude (field D11),
+     * expressed in decimeters. The No-Statement value is sent when the sensor is unable or
+     * unwilling to provide a value. (NOTE: The Nominal fields in the Job Definition Segment provide
+     * a means for reporting nominal standard deviations and uncertainty values, and are to be used
+     * when values are not received from the sensor. More precise values of these or related
+     * estimates may be reported in the appropriate fields in either the Dwell Segment or the Target
+     * Report Sub-Segment, when the sensor computes them and the communication bandwidth permits the
+     * more frequent reporting.)
+     *
+     * @param altitudeUncertainty the nominal position uncertainty in decimeters, in the range [0,
+     *     20000], or 65535 for no-statement.
+     */
     public void setAltitudeUncertainty(int altitudeUncertainty) {
         this.altitudeUncertainty = altitudeUncertainty;
     }
 
+    /**
+     * Nominal Sensor Position Uncertainty – Track Heading (J19).
+     *
+     * <p>Nominal standard deviation of the estimate of sensor track heading, expressed in degrees.
+     * The No-Statement value is sent when the sensor is unable or unwilling to provide a value.
+     * (NOTE: The Nominal fields in the Job Definition Segment provide a means for reporting nominal
+     * standard deviations and uncertainty values, and are to be used when values are not received
+     * from the sensor. More precise values of these or related estimates may be reported in the
+     * appropriate fields in either the Dwell Segment or the Target Report Sub-Segment, when the
+     * sensor computes them and the communication bandwidth permits the more frequent reporting.)
+     *
+     * @return the sensor track uncertainty, in degrees (255 for no-statement).
+     */
     public int getTrackHeadingUncertainty() {
         return trackHeadingUncertainty;
     }
 
+    /**
+     * Set the Nominal Sensor Position Uncertainty – Track Heading (J19).
+     *
+     * <p>Nominal standard deviation of the estimate of sensor track heading, expressed in degrees.
+     * The No-Statement value is sent when the sensor is unable or unwilling to provide a value.
+     * (NOTE: The Nominal fields in the Job Definition Segment provide a means for reporting nominal
+     * standard deviations and uncertainty values, and are to be used when values are not received
+     * from the sensor. More precise values of these or related estimates may be reported in the
+     * appropriate fields in either the Dwell Segment or the Target Report Sub-Segment, when the
+     * sensor computes them and the communication bandwidth permits the more frequent reporting.)
+     *
+     * @param trackHeadingUncertainty the sensor track uncertainty, in degrees with a valid range of
+     *     [0, 45] or 255 for no-statement.
+     */
     public void setTrackHeadingUncertainty(int trackHeadingUncertainty) {
         this.trackHeadingUncertainty = trackHeadingUncertainty;
     }
 
+    /**
+     * Nominal Sensor Position Uncertainty – Sensor Speed (J20).
+     *
+     * <p>Nominal standard deviation of the estimate of sensor speed, expressed in millimeters per
+     * second. The No-Statement value is sent when the sensor is unable or unwilling to provide a
+     * value.(NOTE: The Nominal fields in the Job Definition Segment provide a means for reporting
+     * nominal standard deviations and uncertainty values, and are to be used when values are not
+     * received from the sensor. More precise values of these or related estimates may be reported
+     * in the appropriate fields in either the Dwell Segment or the Target Report Sub-Segment, when
+     * the sensor computes them and the communication bandwidth permits the more frequent
+     * reporting.)
+     *
+     * @return the sensor speed uncertainty in millimeters per second (65535 for no-statement)
+     */
     public int getSensorSpeedUncertainty() {
         return sensorSpeedUncertainty;
     }
 
+    /**
+     * Set the Nominal Sensor Position Uncertainty – Sensor Speed (J20).
+     *
+     * <p>Nominal standard deviation of the estimate of sensor speed, expressed in millimeters per
+     * second. The No-Statement value is sent when the sensor is unable or unwilling to provide a
+     * value.(NOTE: The Nominal fields in the Job Definition Segment provide a means for reporting
+     * nominal standard deviations and uncertainty values, and are to be used when values are not
+     * received from the sensor. More precise values of these or related estimates may be reported
+     * in the appropriate fields in either the Dwell Segment or the Target Report Sub-Segment, when
+     * the sensor computes them and the communication bandwidth permits the more frequent
+     * reporting.)
+     *
+     * @param sensorSpeedUncertainty the sensor speed uncertainty in millimeters per second (65535
+     *     for no-statement)
+     */
     public void setSensorSpeedUncertainty(int sensorSpeedUncertainty) {
         this.sensorSpeedUncertainty = sensorSpeedUncertainty;
     }
@@ -416,26 +520,118 @@ public class JobDefinitionSegment extends Segment {
                 targetVelocityLineOfSightStandardDeviation;
     }
 
+    /**
+     * Nominal Sensor Value – MDV (J24).
+     *
+     * <p>Nominal minimum velocity component along the line of sight, which can be detected by the
+     * sensor, expressed in decimeters per second. The No-Statement value is sent when the sensor is
+     * unable or unwilling to provide a value. (NOTE: The Nominal fields in the Job Definition
+     * Segment provide a means for reporting nominal sensor values, and are to be used when values
+     * are not received from the sensor. More precise values of these or related estimates may be
+     * reported in the appropriate fields in either the Dwell Segment or the Target Report
+     * Sub-Segment, when the sensor computes them and the communication bandwidth permits the more
+     * frequent reporting.)
+     *
+     * @return the nominal minimum detectable velocity in decimeters per second (or 255 for
+     *     no-statement).
+     */
     public int getMdv() {
         return mdv;
     }
 
+    /**
+     * Set the Nominal Sensor Value – MDV (J24).
+     *
+     * <p>Nominal minimum velocity component along the line of sight, which can be detected by the
+     * sensor, expressed in decimeters per second. The No-Statement value is sent when the sensor is
+     * unable or unwilling to provide a value. (NOTE: The Nominal fields in the Job Definition
+     * Segment provide a means for reporting nominal sensor values, and are to be used when values
+     * are not received from the sensor. More precise values of these or related estimates may be
+     * reported in the appropriate fields in either the Dwell Segment or the Target Report
+     * Sub-Segment, when the sensor computes them and the communication bandwidth permits the more
+     * frequent reporting.)
+     *
+     * @param mdv the nominal minimum detectable velocity in decimeters per second with a valid
+     *     range of [0,254] or 255 for no-statement.
+     */
     public void setMdv(int mdv) {
         this.mdv = mdv;
     }
 
+    /**
+     * Nominal Sensor Value – Detection Probability (J25).
+     *
+     * <p>Nominal probability that an unobscured ten square-meter target will be detected within the
+     * given area of surveillance, assuming the Swerling model appropriate for the particular radar
+     * target. The No-Statement value is sent when the sensor is unable or unwilling to provide a
+     * value. (NOTE: The Nominal fields in the Job Definition Segment provide a means for reporting
+     * nominal sensor values, and are to be used when values are not received from the sensor. More
+     * precise values of these or related estimates may be reported in the appropriate fields in
+     * either the Dwell Segment or the Target Report Sub-Segment, when the sensor computes them and
+     * the communication bandwidth permits the more frequent reporting.)
+     *
+     * @return the detection probability as a percentage, or 255 for no-statement
+     */
     public int getDetectionProbability() {
         return detectionProbability;
     }
 
+    /**
+     * Set the Nominal Sensor Value – Detection Probability (J25).
+     *
+     * <p>Nominal probability that an unobscured ten square-meter target will be detected within the
+     * given area of surveillance, assuming the Swerling model appropriate for the particular radar
+     * target. The No-Statement value is sent when the sensor is unable or unwilling to provide a
+     * value. (NOTE: The Nominal fields in the Job Definition Segment provide a means for reporting
+     * nominal sensor values, and are to be used when values are not received from the sensor. More
+     * precise values of these or related estimates may be reported in the appropriate fields in
+     * either the Dwell Segment or the Target Report Sub-Segment, when the sensor computes them and
+     * the communication bandwidth permits the more frequent reporting.)
+     *
+     * @param detectionProbability the detection probability as a percentage in the valid range
+     *     [0,100], or 255 for no-statement.
+     */
     public void setDetectionProbability(int detectionProbability) {
         this.detectionProbability = detectionProbability;
     }
 
+    /**
+     * Nominal Sensor Value – False Alarm Density (J26).
+     *
+     * <p>The expected density of False Alarms (FA), expressed as the negative of the decibel value
+     * ( 10 log<sub>10</sub> d, where d is in FA per square meter). Zero decibels (0 dB) represents
+     * 1 FA/m<sup>2</sup> and 60 dB represents 10<sup>-6</sup> FA/m<sup>2</sup> (i.e. 1
+     * FA/km<sup>2</sup>). GMTI data with a False Alarm Density greater than one (FA/m<sup>2</sup>
+     * &gt; 1) is of no operational value and is range limited to 0 dB.(NOTE: The Nominal fields in
+     * the Job Definition Segment provide a means for reporting nominal sensor values, and are to be
+     * used when values are not received from the sensor. More precise values of these or related
+     * estimates may be reported in the appropriate fields in either the Dwell Segment or the Target
+     * Report Sub-Segment, when the sensor computes them and the communication bandwidth permits the
+     * more frequent reporting.)
+     *
+     * @return the nominal false alarm density in (negative) dB, or 255 for no-statement.
+     */
     public int getFalseAlarmDensity() {
         return falseAlarmDensity;
     }
 
+    /**
+     * Set the Nominal Sensor Value – False Alarm Density (J26).
+     *
+     * <p>The expected density of False Alarms (FA), expressed as the negative of the decibel value
+     * ( 10 log<sub>10</sub> d, where d is in FA per square meter). Zero decibels (0 dB) represents
+     * 1 FA/m<sup>2</sup> and 60 dB represents 10<sup>-6</sup> FA/m<sup>2</sup> (i.e. 1
+     * FA/km<sup>2</sup>). GMTI data with a False Alarm Density greater than one (FA/m<sup>2</sup>
+     * &gt; 1) is of no operational value and is range limited to 0 dB.(NOTE: The Nominal fields in
+     * the Job Definition Segment provide a means for reporting nominal sensor values, and are to be
+     * used when values are not received from the sensor. More precise values of these or related
+     * estimates may be reported in the appropriate fields in either the Dwell Segment or the Target
+     * Report Sub-Segment, when the sensor computes them and the communication bandwidth permits the
+     * more frequent reporting.)
+     *
+     * @param falseAlarmDensity the nominal false alarm density in (negative) dB (valid range 0 to
+     *     254), or 255 for no-statement.
+     */
     public void setFalseAlarmDensity(int falseAlarmDensity) {
         this.falseAlarmDensity = falseAlarmDensity;
     }
