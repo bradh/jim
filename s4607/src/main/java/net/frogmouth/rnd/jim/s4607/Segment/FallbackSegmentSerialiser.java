@@ -4,6 +4,7 @@ import net.frogmouth.rnd.jim.s4607.SerialisationContext;
 
 public class FallbackSegmentSerialiser extends AbstractSegmentSerialiser {
 
+    /** Constructor. */
     public FallbackSegmentSerialiser() {}
 
     @Override

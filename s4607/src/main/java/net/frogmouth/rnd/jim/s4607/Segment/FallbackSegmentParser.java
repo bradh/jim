@@ -2,6 +2,7 @@ package net.frogmouth.rnd.jim.s4607.Segment;
 
 public class FallbackSegmentParser extends SegmentParser {
 
+    /** Constructor. */
     public FallbackSegmentParser() {}
 
     @Override

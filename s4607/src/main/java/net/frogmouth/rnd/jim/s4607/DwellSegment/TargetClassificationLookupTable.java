@@ -34,6 +34,12 @@ public class TargetClassificationLookupTable {
         return getInstance().enumerationLookup.getOrDefault(key, "Available for Future Use");
     }
 
+    /**
+     * Get the text description of a given enumeration value.
+     *
+     * @param key the enumeration value as an integer.
+     * @return the corresponding text description.
+     */
     public static String getValue(Integer key) {
         if (key == null) {
             return "[Not Provided]";
@@ -41,6 +47,11 @@ public class TargetClassificationLookupTable {
         return getInstance().getKeyForValue(key);
     }
 
+    /**
+     * Get an instance of the singleton.
+     *
+     * @return the lookup table instance.
+     */
     public static TargetClassificationLookupTable getInstance() {
         return TargetClassificationLookupTableHolder.INSTANCE;
     }

@@ -19,10 +19,22 @@ public class Reader {
     private ParseContext context;
     private List<Packet> packets = new ArrayList<>();
 
+    /**
+     * Constructor.
+     *
+     * @param filename the file name to read from
+     * @throws IOException if parsing of the file fails
+     */
     public Reader(String filename) throws IOException {
         this(Paths.get(filename));
     }
 
+    /**
+     * Constructor.
+     *
+     * @param path the path to the file to read from
+     * @throws IOException if parsing of the file fails
+     */
     public Reader(Path path) throws IOException {
         context = new ParseContext(path);
         int packetStartOffset = 0;
@@ -39,6 +51,14 @@ public class Reader {
         }
     }
 
+    /**
+     * Get the packets that were read from the file.
+     *
+     * <p>Each packet will consist of zero or more Segments, which is usually what you are looking
+     * for.
+     *
+     * @return the list of packets.
+     */
     public List<Packet> getPackets() {
         return new ArrayList<>(packets);
     }

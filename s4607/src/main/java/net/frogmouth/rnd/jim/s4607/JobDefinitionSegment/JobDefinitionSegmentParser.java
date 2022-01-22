@@ -7,6 +7,7 @@ import net.frogmouth.rnd.jim.s4607.Segment.SegmentType;
 
 public class JobDefinitionSegmentParser extends SegmentParser {
 
+    /** Constructor. */
     public JobDefinitionSegmentParser() {}
 
     @Override

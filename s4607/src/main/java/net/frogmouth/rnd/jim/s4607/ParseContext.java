@@ -33,12 +33,12 @@ public class ParseContext {
         mappedByteBuffer.get(dest);
     }
 
-    int getInt() {
-        return mappedByteBuffer.getInt();
-    }
-
     int get() {
         return mappedByteBuffer.get();
+    }
+
+    int getInt() {
+        return mappedByteBuffer.getInt();
     }
 
     long getLong() {
@@ -78,7 +78,7 @@ public class ParseContext {
     }
 
     public long readI32() {
-        long i32 = getInt() & 0x00FFFFFFFFl;
+        long i32 = getInt() & 0x00FFFFFFFFL;
         return i32;
     }
 

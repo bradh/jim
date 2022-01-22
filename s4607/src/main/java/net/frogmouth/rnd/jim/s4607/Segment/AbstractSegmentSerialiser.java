@@ -3,11 +3,32 @@ package net.frogmouth.rnd.jim.s4607.Segment;
 import java.nio.ByteBuffer;
 import net.frogmouth.rnd.jim.s4607.SerialisationContext;
 
+/**
+ * Abstract serialiser for a given kind of Segment.
+ *
+ * <p>The segment serialiser is responsible for converting the segment into a byte array.
+ *
+ * <p>This will need to be sub-classed and implemented if a new Segment type is added. Instances of
+ * concrete sub-classes are usually created by the serialisation code, and it should not be
+ * necessary to instantiate these from user code.
+ */
 public abstract class AbstractSegmentSerialiser {
 
+    /**
+     * Get the segment type supported by the serialiser.
+     *
+     * @return the segment type (enumeration value).
+     */
     public abstract SegmentType getSegmentType();
 
-    public abstract byte[] serialise(Segment segment, SerialisationContext serialisationText);
+    /**
+     * Serialise the segment to a byte array.
+     *
+     * @param segment the segment to serialise
+     * @param serialisationContext the context providing configuration information.
+     * @return byte array corresponding the body of the segment (not the header).
+     */
+    public abstract byte[] serialise(Segment segment, SerialisationContext serialisationContext);
 
     protected static byte[] writeE8(int enumvalue) {
         ByteBuffer bb = ByteBuffer.allocate(1);

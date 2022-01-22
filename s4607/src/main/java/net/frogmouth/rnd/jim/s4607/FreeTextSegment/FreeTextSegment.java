@@ -58,6 +58,7 @@ public class FreeTextSegment extends Segment {
     public String getOriginatorId() {
         return originatorId;
     }
+
     /**
      * Originator ID (F1).
      *
