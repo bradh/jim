@@ -4,6 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 
+/**
+ * Singleton manager for Segment parsing.
+ *
+ * <p>All Segment parsers are registered with this manager, and can be looked up by segment type.
+ *
+ * <p>This is normally only used by the parsing code, and should not be necessary to directly use
+ * this code.
+ */
 public class SegmentParserManager {
 
     private final ServiceLoader<SegmentParser> loader;

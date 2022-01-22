@@ -23,11 +23,10 @@ public class MissionSegmentSerialiser extends AbstractSegmentSerialiser {
     public byte[] serialise(Segment segment, SerialisationContext serialisationContext) {
         MissionSegment missionSegment = (MissionSegment) segment;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        baos.writeBytes(serialisationContext.padString(missionSegment.getMissionPlan(), 12));
-        baos.writeBytes(serialisationContext.padString(missionSegment.getFlightPlan(), 12));
+        baos.writeBytes(padString(missionSegment.getMissionPlan(), 12));
+        baos.writeBytes(padString(missionSegment.getFlightPlan(), 12));
         baos.writeBytes(writeE8(missionSegment.getPlatformType()));
-        baos.writeBytes(
-                serialisationContext.padString(missionSegment.getPlatformConfiguration(), 10));
+        baos.writeBytes(padString(missionSegment.getPlatformConfiguration(), 10));
         baos.writeBytes(writeI16(missionSegment.getYear()));
         baos.writeBytes(writeI8(missionSegment.getMonth()));
         baos.writeBytes(writeI8(missionSegment.getDay()));

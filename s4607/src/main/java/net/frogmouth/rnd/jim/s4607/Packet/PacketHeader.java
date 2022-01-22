@@ -1,5 +1,11 @@
 package net.frogmouth.rnd.jim.s4607.Packet;
 
+/**
+ * Packet Header.
+ *
+ * <p>The packet header provides packet-level shared metadata. An instance of this class models that
+ * information for a single packet.
+ */
 public class PacketHeader {
     private String versionId;
     private long packetSize;

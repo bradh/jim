@@ -8,6 +8,15 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Target Classification lookup table.
+ *
+ * <p>This singleton class provides a mapping between the enumeration values (number) for Target
+ * Classification used within the Target part of the Dwell Segment, and text labels.
+ *
+ * <p>Classification in this context is the kind of target, and is unrelated to security
+ * classification.
+ */
 public class TargetClassificationLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();

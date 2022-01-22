@@ -1,5 +1,11 @@
 package net.frogmouth.rnd.jim.s4607.Segment;
 
+/**
+ * Parser for unknown segments.
+ *
+ * <p>This is used when no other parser matches. It does not produce a valid segment, and should not
+ * be created manually.
+ */
 public class FallbackSegmentParser extends SegmentParser {
 
     /** Constructor. */
@@ -7,7 +13,7 @@ public class FallbackSegmentParser extends SegmentParser {
 
     @Override
     public SegmentType getSegmentType() {
-        return SegmentType.FreeTextSegment;
+        return SegmentType.Unknown;
     }
 
     @Override

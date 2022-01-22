@@ -24,8 +24,8 @@ public class FreeTextSegmentSerialiser extends AbstractSegmentSerialiser {
     public byte[] serialise(Segment segment, SerialisationContext serialisationContext) {
         FreeTextSegment freeTextSegment = (FreeTextSegment) segment;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        baos.writeBytes(serialisationContext.padString(freeTextSegment.getOriginatorId(), 10));
-        baos.writeBytes(serialisationContext.padString(freeTextSegment.getRecipientId(), 10));
+        baos.writeBytes(padString(freeTextSegment.getOriginatorId(), 10));
+        baos.writeBytes(padString(freeTextSegment.getRecipientId(), 10));
         baos.writeBytes(freeTextSegment.getFreeText().trim().getBytes(StandardCharsets.US_ASCII));
         return baos.toByteArray();
     }

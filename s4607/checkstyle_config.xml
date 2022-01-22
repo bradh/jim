@@ -343,7 +343,6 @@
                                    COMPACT_CTOR_DEF"/>
     </module>
     -->
-    <!-- TODO
     <module name="MissingJavadocType">
       <property name="scope" value="protected"/>
       <property name="tokens"
@@ -351,7 +350,6 @@
                       RECORD_DEF, ANNOTATION_DEF"/>
       <property name="excludeScope" value="nothing"/>
     </module>
-    -->
     <module name="MethodName">
       <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9_]*$"/>
       <message key="name.invalidPattern"

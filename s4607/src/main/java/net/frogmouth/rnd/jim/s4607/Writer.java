@@ -7,8 +7,9 @@ import java.util.List;
 import net.frogmouth.rnd.jim.s4607.Packet.Packet;
 import net.frogmouth.rnd.jim.s4607.Packet.PacketHeader;
 import net.frogmouth.rnd.jim.s4607.Packet.PacketHeaderSerialiser;
+import net.frogmouth.rnd.jim.s4607.Segment.AbstractSegmentSerialiser;
 import net.frogmouth.rnd.jim.s4607.Segment.Segment;
-import net.frogmouth.rnd.jim.s4607.Segment.SegmentSerialiser;
+import net.frogmouth.rnd.jim.s4607.Segment.SegmentSerialiserManager;
 
 /** STANAG 4607 / AEDP-7 GMTI Writer. */
 public class Writer {
@@ -29,7 +30,7 @@ public class Writer {
         int packetLength = packetHeaderBytes.length;
         List<byte[]> bytesList = new ArrayList<>();
         for (Segment segment : packet.getSegments()) {
-            byte[] segmentBytes = SegmentSerialiser.serialise(segment, serialisationContext);
+            byte[] segmentBytes = serialise(segment, serialisationContext);
             packetLength += segmentBytes.length;
             bytesList.add(segmentBytes);
         }
@@ -40,5 +41,24 @@ public class Writer {
                 segmentBytes -> {
                     baos.writeBytes(segmentBytes);
                 });
+    }
+
+    /**
+     * Serialise the segment.
+     *
+     * @param segment the segment to serialise
+     * @param serialisationContext the context providing configuration.
+     * @return the byte array corresponding to the Segment.
+     */
+    static byte[] serialise(Segment segment, SerialisationContext serialisationContext) {
+        AbstractSegmentSerialiser serialiser =
+                SegmentSerialiserManager.getInstance().getParser(segment.getSegmentType());
+        byte[] segmentBytesWithoutHeader = serialiser.serialise(segment, serialisationContext);
+        int len = segmentBytesWithoutHeader.length + 5;
+        ByteBuffer bb = ByteBuffer.allocate(len);
+        bb.put((byte) segment.getSegmentType().getTag());
+        bb.putInt(len);
+        bb.put(segmentBytesWithoutHeader, 0, segmentBytesWithoutHeader.length);
+        return bb.array();
     }
 }

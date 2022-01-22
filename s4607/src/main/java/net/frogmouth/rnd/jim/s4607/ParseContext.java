@@ -9,6 +9,11 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.EnumSet;
 
+/**
+ * Parsing context.
+ *
+ * <p>This is used to provide state between parsing stages.
+ */
 public class ParseContext {
 
     private final MappedByteBuffer mappedByteBuffer;

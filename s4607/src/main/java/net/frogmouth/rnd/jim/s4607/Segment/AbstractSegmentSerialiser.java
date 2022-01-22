@@ -1,6 +1,8 @@
 package net.frogmouth.rnd.jim.s4607.Segment;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import net.frogmouth.rnd.jim.s4607.SerialisationContext;
 
 /**
@@ -13,6 +15,8 @@ import net.frogmouth.rnd.jim.s4607.SerialisationContext;
  * necessary to instantiate these from user code.
  */
 public abstract class AbstractSegmentSerialiser {
+
+    private static final byte SPACE = 0x20;
 
     /**
      * Get the segment type supported by the serialiser.
@@ -118,5 +122,14 @@ public abstract class AbstractSegmentSerialiser {
 
     protected static byte[] writeS8(int value) {
         return new byte[] {(byte) value};
+    }
+
+    protected static byte[] padString(String s, int length) {
+        byte[] stringBytes = s.trim().getBytes(StandardCharsets.US_ASCII);
+        // TODO: check length
+        byte[] stringBytesPadded = new byte[length];
+        Arrays.fill(stringBytesPadded, SPACE);
+        System.arraycopy(stringBytes, 0, stringBytesPadded, 0, stringBytes.length);
+        return stringBytesPadded;
     }
 }

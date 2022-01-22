@@ -5,6 +5,12 @@ import net.frogmouth.rnd.jim.s4607.Segment.SegmentHeader;
 import net.frogmouth.rnd.jim.s4607.Segment.SegmentParser;
 import net.frogmouth.rnd.jim.s4607.Segment.SegmentType;
 
+/**
+ * Parser for {@link JobDefinitionSegment}.
+ *
+ * <p>This is normally invoked by the parent parsing code (e.g. from a packet parser), and is not
+ * typically created directly.
+ */
 public class JobDefinitionSegmentParser extends SegmentParser {
 
     /** Constructor. */

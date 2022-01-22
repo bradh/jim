@@ -1,5 +1,14 @@
 package net.frogmouth.rnd.jim.s4607.DwellSegment;
 
+/**
+ * GMTI Target.
+ *
+ * <p>Each Dwell Segment report can contain zero or more radar "hits", which are called targets. The
+ * information about a single target is represented by an instance of this class.
+ *
+ * <p>Target in this context is from the name Ground Moving Target Indicator, and does not
+ * necessarily represent a valid target in a targeting sense.
+ */
 public class Target {
     private Integer mtiReportIndex;
     private Double targetLocationLatitude;

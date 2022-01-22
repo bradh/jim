@@ -6,6 +6,12 @@ import net.frogmouth.rnd.jim.s4607.Segment.Segment;
 import net.frogmouth.rnd.jim.s4607.Segment.SegmentType;
 import net.frogmouth.rnd.jim.s4607.SerialisationContext;
 
+/**
+ * Serialiser for {@link JobDefinitionSegment}.
+ *
+ * <p>This is normally invoked by the parent serialisation code (e.g. from a packet serialiser), and
+ * is not typically created directly.
+ */
 public class JobDefinitionSegmentSerialiser extends AbstractSegmentSerialiser {
     public JobDefinitionSegmentSerialiser() {}
 
@@ -20,7 +26,7 @@ public class JobDefinitionSegmentSerialiser extends AbstractSegmentSerialiser {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.writeBytes(writeI32(jobDefinitionSegment.getJobId()));
         baos.writeBytes(writeE8(jobDefinitionSegment.getSensorIdType()));
-        baos.writeBytes(serialisationText.padString(jobDefinitionSegment.getSensorIdModel(), 6));
+        baos.writeBytes(padString(jobDefinitionSegment.getSensorIdModel(), 6));
         baos.writeBytes(writeFL8(jobDefinitionSegment.getTargetFilteringFlag()));
         baos.writeBytes(writeI8(jobDefinitionSegment.getPriority()));
         writeBoundingArea(jobDefinitionSegment.getBoundingArea(), baos);

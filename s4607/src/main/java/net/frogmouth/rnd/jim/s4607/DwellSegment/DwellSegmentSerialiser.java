@@ -7,6 +7,12 @@ import net.frogmouth.rnd.jim.s4607.Segment.Segment;
 import net.frogmouth.rnd.jim.s4607.Segment.SegmentType;
 import net.frogmouth.rnd.jim.s4607.SerialisationContext;
 
+/**
+ * Serialiser for {@link DwellSegment}.
+ *
+ * <p>This is normally invoked by the parent serialisation code (e.g. from a packet serialiser), and
+ * is not typically created directly.
+ */
 public class DwellSegmentSerialiser extends AbstractSegmentSerialiser {
 
     @Override

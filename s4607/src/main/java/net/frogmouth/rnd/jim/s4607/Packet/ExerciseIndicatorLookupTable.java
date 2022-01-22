@@ -8,6 +8,12 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Exercise Indicator lookup table.
+ *
+ * <p>This singleton class provides a mapping between the enumeration values (number) for Exercise
+ * Indicator used within the Packet Header, and text labels.
+ */
 public class ExerciseIndicatorLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();

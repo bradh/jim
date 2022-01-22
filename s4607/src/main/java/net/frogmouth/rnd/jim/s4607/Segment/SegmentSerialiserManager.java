@@ -4,6 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 
+/**
+ * Singleton manager for Segment serialisation.
+ *
+ * <p>All Segment serialisers are registered with this manager, and can be looked up by segment
+ * type.
+ *
+ * <p>This is normally only used by the serialisation code, and should not be necessary to directly
+ * use this code.
+ */
 public class SegmentSerialiserManager {
 
     private final ServiceLoader<AbstractSegmentSerialiser> loader;

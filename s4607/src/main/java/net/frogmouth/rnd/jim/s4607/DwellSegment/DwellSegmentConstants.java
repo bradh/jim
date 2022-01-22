@@ -1,6 +1,7 @@
 package net.frogmouth.rnd.jim.s4607.DwellSegment;
 
-public class DwellSegmentConstants {
+/** Constant values used in {@link DwellSegment}. */
+class DwellSegmentConstants {
 
     static final long D2_EXISTENCE_MASK = 0x8000000000000000L;
     static final long D3_EXISTENCE_MASK = 0x4000000000000000L;
