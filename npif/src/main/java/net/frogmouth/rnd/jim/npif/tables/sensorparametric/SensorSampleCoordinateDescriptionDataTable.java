@@ -1,5 +1,6 @@
 package net.frogmouth.rnd.jim.npif.tables.sensorparametric;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.frogmouth.rnd.jim.npif.tables.DataTable;
 
 /*
@@ -16,6 +17,7 @@ import net.frogmouth.rnd.jim.npif.tables.DataTable;
 	The coordinate system for vector modelling is the sensor coordinate system. Its origin (0, 0, 0) is the optical centre of the sensor. The x-axis is the pointing direction
 	of the sensor, which, in general falls together with the optical axis of the sensor.
 */
+@SuppressFBWarnings
 public class SensorSampleCoordinateDescriptionDataTable extends DataTable {
     private int vectorModel;
     private int sizeOfXVectorComponent;

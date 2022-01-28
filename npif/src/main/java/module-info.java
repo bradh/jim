@@ -76,4 +76,6 @@ module STANAG7023TableExtractorValidatorAndEditorSTEVE {
             net.frogmouth.rnd.jim.npif.tables.sensordata.S4607GMTIDataTableParser,
             net.frogmouth.rnd.jim.npif.tables.sensordata.S4609MotionImageryDataTableParser,
             net.frogmouth.rnd.jim.npif.tables.sensordata.RangeFinderDataTableParser;
+
+    requires com.github.spotbugs.annotations;
 }

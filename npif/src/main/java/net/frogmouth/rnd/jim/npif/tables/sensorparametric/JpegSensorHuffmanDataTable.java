@@ -1,5 +1,6 @@
 package net.frogmouth.rnd.jim.npif.tables.sensorparametric;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.frogmouth.rnd.jim.npif.tables.DataTable;
 
 /*
@@ -87,6 +88,7 @@ import net.frogmouth.rnd.jim.npif.tables.DataTable;
 	Bit rate                0.125 bpp                    0.25 bpp                      0.5 bpp                      Final rate
 	Figure A-7 - Example of a LRCP Bitstream (with 4 layers and one component where the information is first ordered by quality
 */
+@SuppressFBWarnings
 public class JpegSensorHuffmanDataTable extends DataTable {
     private int dHT;
     private int lh;

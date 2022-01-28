@@ -1,5 +1,6 @@
 package net.frogmouth.rnd.jim.npif.tables.sensorparametric;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.frogmouth.rnd.jim.npif.tables.DataTable;
 
 /*
@@ -24,6 +25,7 @@ import net.frogmouth.rnd.jim.npif.tables.DataTable;
 	   the timing of each sample of the same pixel is assumed to be identical and shall not be repeated for each sample, i.e. the Sensor Sample Timing Data Table is
 	treated alike to single element sensor data.
 */
+@SuppressFBWarnings
 public class SensorSampleTimingDescriptionDataTable extends DataTable {
     private int timingModel;
     private int timingAccuracy;

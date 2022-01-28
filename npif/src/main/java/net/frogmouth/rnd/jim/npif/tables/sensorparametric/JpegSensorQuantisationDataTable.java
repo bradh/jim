@@ -1,5 +1,6 @@
 package net.frogmouth.rnd.jim.npif.tables.sensorparametric;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import net.frogmouth.rnd.jim.npif.tables.DataTable;
 
 /*
@@ -23,6 +24,7 @@ import net.frogmouth.rnd.jim.npif.tables.DataTable;
 	overwritten by a custom table during the mission. Once any of the four Quantisation Tables are overwritten by a custom table that table shall be permanently valid
 	unless it is overwritten by a new custom table later in the mission.
 */
+@SuppressFBWarnings
 public class JpegSensorQuantisationDataTable extends DataTable {
     private int dQT;
     private int lq;
