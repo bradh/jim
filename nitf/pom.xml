@@ -17,8 +17,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>16-ea+7</version>
-            <type>jar</type>
+            <version>17.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
