@@ -10,6 +10,10 @@
     <packaging>jar</packaging>
     <name>STDI-0002 CCINFA Ontology Term Translator (SCOTT)</name>
     <description>Support for country code interpretation and translation.</description>
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>

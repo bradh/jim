@@ -8,7 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.IOException;
 
 public class Parser {
-    private XmlMapper mapper;
+    private final XmlMapper mapper;
 
     public Parser() {
         mapper =
@@ -16,6 +16,7 @@ public class Parser {
                         .defaultUseWrapper(false)
                         .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                         .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                        .enable(SerializationFeature.INDENT_OUTPUT)
                         .build();
         mapper.registerModule(new JavaTimeModule());
     }
