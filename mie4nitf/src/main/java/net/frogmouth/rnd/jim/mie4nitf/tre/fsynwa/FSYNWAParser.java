@@ -12,9 +12,6 @@ public class FSYNWAParser extends AbstractTREParser {
     private static final int END_FRAME_NUMBER_LEN = 9;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "FSYNWA";
     }

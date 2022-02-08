@@ -1,6 +1,5 @@
 package net.frogmouth.rnd.jim.mie4nitf.tre.mtimfa;
 
-import net.frogmouth.rnd.jim.mie4nitf.tre.mtimfa.MTIMFAParser;
 import net.frogmouth.rnd.jim.nitf.tre.TREParserManager;
 import static org.testng.Assert.assertTrue;
 

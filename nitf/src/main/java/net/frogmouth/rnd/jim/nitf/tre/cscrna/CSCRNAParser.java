@@ -11,9 +11,6 @@ public class CSCRNAParser extends AbstractTREParser {
     private static final int HT_LEN = 8;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "CSCRNA";
     }

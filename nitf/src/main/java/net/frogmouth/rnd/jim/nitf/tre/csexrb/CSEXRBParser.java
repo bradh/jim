@@ -2,7 +2,6 @@ package net.frogmouth.rnd.jim.nitf.tre.csexrb;
 
 import java.util.UUID;
 import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
-import net.frogmouth.rnd.jim.nitf.tre.csdida.*;
 
 /** CSEXRB TRE Parser. */
 public class CSEXRBParser extends AbstractTREParser {
@@ -51,9 +50,6 @@ public class CSEXRBParser extends AbstractTREParser {
     private static final int ROLLING_SHUTTER_FLAG_LEN = 1;
     private static final int UE_TIME_FLAG_LEN = 1;
     private static final int RESERVED_LEN_LEN = 5;
-
-    @Override
-    public void init() {}
 
     @Override
     public String getTag() {

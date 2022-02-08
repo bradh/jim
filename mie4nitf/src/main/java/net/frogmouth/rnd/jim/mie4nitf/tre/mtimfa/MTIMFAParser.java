@@ -13,10 +13,7 @@ public class MTIMFAParser extends AbstractTREParser {
     private static final int NUM_TEMP_BLOCKS_LEN = 3;
     private static final int IMAGE_SEG_INDEX_LEN = 3;
     public static final int IMAGE_SEG_INDEX_UNUSED = -1;
-
-    @Override
-    public void init() {}
-
+    
     @Override
     public String getTag() {
         return "MTIMFA";

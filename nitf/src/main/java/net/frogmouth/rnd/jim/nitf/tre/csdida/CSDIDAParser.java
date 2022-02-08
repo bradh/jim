@@ -21,9 +21,6 @@ public class CSDIDAParser extends AbstractTREParser {
     private static final int SOFTWARE_VERSION_NUMBER_LEN = 10;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "CSDIDA";
     }

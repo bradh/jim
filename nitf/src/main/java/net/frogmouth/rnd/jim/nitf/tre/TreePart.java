@@ -8,10 +8,25 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import javafx.scene.control.TreeItem;
 
+/**
+ * Abstract element of something that can appear in the tree display.
+ *
+ * <p>This includes all TREs, but can include nested structures too.
+ */
 public abstract class TreePart {
 
+    /**
+     * Get the label for this tree part.
+     *
+     * @return human readable label for this tree part.
+     */
     protected abstract String getTreeItemLabel();
 
+    /**
+     * Convert this item into a TreeItem.
+     *
+     * @return a TreeItem for this part.
+     */
     public TreeItem<String> toTreeItem() {
         TreeItem<String> treeItem = new TreeItem<>(getTreeItemLabel());
         // System.out.println(getTreeItemLabel());

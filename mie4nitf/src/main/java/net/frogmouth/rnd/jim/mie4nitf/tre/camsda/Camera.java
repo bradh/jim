@@ -17,32 +17,56 @@ public class Camera extends TreePart {
     private int nrows;
     private int ncols;
 
+    /**
+     * Get the camera identifier.
+     * @return the camera identifier as a UUID.
+     */
     @TREField(label = "CAMERA_ID")
     @TREOrder(order = 1)
     public UUID getCamera_id() {
         return camera_id;
     }
 
+    /**
+     * Set the camera identifier
+     * @param camera_id the camera identifier as a UUID.
+     */
     public void setCamera_id(UUID camera_id) {
         this.camera_id = camera_id;
     }
 
+    /**
+     * Get the camera description.
+     * @return the camera description as a String.
+     */
     @TREField(label = "CAMERA_DESC")
     @TREOrder(order = 2)
     public String getCamera_desc() {
         return camera_desc;
     }
 
+    /**
+     * Set the camera description.
+     * @param camera_desc the camera description as a String, 80 bytes maximum.
+     */
     public void setCamera_desc(String camera_desc) {
         this.camera_desc = camera_desc;
     }
 
+    /**
+     * Get the layer identifier for this camera.
+     * @return the layer identifier as a String.
+     */
     @TREField(label = "LAYER_ID")
     @TREOrder(order = 3)
     public String getLayer_id() {
         return layer_id;
     }
 
+    /**
+     * Set the layer identifier for this camera.
+     * @param layer_id the layer identifier as a String, 36 bytes maximum.
+     */
     public void setLayer_id(String layer_id) {
         this.layer_id = layer_id;
     }

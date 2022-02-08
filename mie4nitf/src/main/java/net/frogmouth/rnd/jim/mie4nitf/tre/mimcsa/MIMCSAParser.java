@@ -13,9 +13,6 @@ public class MIMCSAParser extends AbstractTREParser {
     private static final int MI_REQ_LEVEL_LEN = 6;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "MIMCSA";
     }

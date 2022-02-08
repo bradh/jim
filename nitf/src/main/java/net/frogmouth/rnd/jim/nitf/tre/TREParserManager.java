@@ -12,7 +12,6 @@ public class TREParserManager {
     private TREParserManager() {
         loader = ServiceLoader.load(AbstractTREParser.class);
         for (AbstractTREParser factory : loader) {
-            factory.init();
             parsers.put(factory.getTag(), factory);
         }
     }

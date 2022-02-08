@@ -16,9 +16,6 @@ public class MATESAParser extends AbstractTREParser {
     private static final int MATE_ID_LEN_LEN = 4;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "MATESA";
     }

@@ -19,9 +19,6 @@ public class BLOCKAParser extends AbstractTREParser {
     private static final int RESERVED_002_LEN = 5;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "BLOCKA";
     }

@@ -30,12 +30,24 @@ public class MTIMFA extends TRE {
         this.layer_id = layer_id;
     }
 
+    /**
+     * Get the camera set index.
+     * 
+     * <p>This corresponds to CAMERA_SET_INDEX in the TRE definition.
+     * @return camera set index as an integer value.
+     */
     @TREOrder(order = 2)
     @TREField(label = "CAMERA_SET_INDEX")
     public int getCamera_set_index() {
         return camera_set_index;
     }
 
+    /**
+     * Set the camera set index.
+     * 
+     * <p>This corresponds to CAMERA_SET_INDEX in the TRE definition.
+     * @param camera_set_index camera set index as an integer value.
+     */
     public void setCamera_set_index(int camera_set_index) {
         this.camera_set_index = camera_set_index;
     }

@@ -20,9 +20,6 @@ public class MTIMSAParser extends AbstractTREParser {
     private static final int NUMBER_DT_LEN = 4;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "MTIMSA";
     }

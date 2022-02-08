@@ -30,6 +30,13 @@ public class CAMSDA extends TRE {
         return numCameraSets;
     }
 
+        /**
+     * Set the total number of Camera Sets in the collection.
+     *
+     * <p>It can be more than the number in this TRE instance.
+     *
+     * @param numCameraSets number of camera sets in collection.
+     */
     public void setNumCameraSets(int numCameraSets) {
         this.numCameraSets = numCameraSets;
     }
@@ -44,6 +51,7 @@ public class CAMSDA extends TRE {
         cameraSets.add(cameraSet);
     }
 
+    @Override
     public String getTreeItemLabel() {
         return "CAMSDA";
     }

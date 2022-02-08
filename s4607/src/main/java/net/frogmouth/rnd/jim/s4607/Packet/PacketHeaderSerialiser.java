@@ -11,6 +11,18 @@ public class PacketHeaderSerialiser {
 
     private static final byte SPACE = 0x20;
 
+    /**
+     * Serialise the packet header to a byte array.
+     *
+     * <p>This static method provides encoding of a packet header to a byte array.
+     *
+     * <p>Note that the packet header includes a packet length (i.e. length is not known when the
+     * header is serialised), and this needs to be overwritten when available.
+     *
+     * @param packetHeader the packet header to serialise.
+     * @param serialisationContext the serialisation context to use.
+     * @return byte array containing the serialised packet header.
+     */
     public static byte[] serialise(
             PacketHeader packetHeader, SerialisationContext serialisationContext) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -46,7 +58,7 @@ public class PacketHeaderSerialiser {
         return bb.array();
     }
 
-    protected static byte[] padString(String s, int length) {
+    private static byte[] padString(String s, int length) {
         byte[] stringBytes = s.trim().getBytes(StandardCharsets.US_ASCII);
         // TODO: check length
         byte[] stringBytesPadded = new byte[length];

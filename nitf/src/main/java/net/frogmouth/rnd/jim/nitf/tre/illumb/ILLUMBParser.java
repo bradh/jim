@@ -72,9 +72,6 @@ public class ILLUMBParser extends AbstractTREParser {
     private static final int ART_ILLUM_MAX_LEN = 16;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "ILLUMB";
     }

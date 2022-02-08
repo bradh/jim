@@ -17,9 +17,6 @@ public class ENGRDAParser extends AbstractTREParser {
     private static final int ENGDATC_LEN = 8;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "ENGRDA";
     }

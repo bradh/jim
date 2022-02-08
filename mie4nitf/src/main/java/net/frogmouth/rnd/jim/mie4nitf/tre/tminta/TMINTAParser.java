@@ -10,9 +10,6 @@ public class TMINTAParser extends AbstractTREParser {
     private static final int TIME_INTERVAL_INDEX_LEN = 6;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "TMINTA";
     }

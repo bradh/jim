@@ -21,9 +21,6 @@ public class CAMSDAParser extends AbstractTREParser {
     private static final int NCOLS_LEN = 8;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "CAMSDA";
     }

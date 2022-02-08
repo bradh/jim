@@ -14,9 +14,6 @@ public class CCINFAParser extends AbstractTREParser {
     private static final int DETAIL_CMPR_LEN = 1;
 
     @Override
-    public void init() {}
-
-    @Override
     public String getTag() {
         return "CCINFA";
     }

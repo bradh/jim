@@ -7,6 +7,7 @@ import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREParser;
 import net.frogmouth.rnd.jim.nitf.utils.ReaderUtils;
 
+/** Image Segment Header. */
 public class ImageSegmentHeader {
 
     private static final int IM_OFFSET = 0;
@@ -53,35 +54,35 @@ public class ImageSegmentHeader {
     // TODO: NBANDS onwards
 
     private final byte[] subheaderBytes;
-    private String iid1;
-    private String imageDateTime;
-    private String tgtid;
-    private String iid2;
-    private String isource;
-    private int nrows;
-    private int ncols;
-    private String pvtype;
-    private String irep;
-    private String icat;
-    private int abpp;
-    private String pjust;
-    private String icords;
+    private final String iid1;
+    private final String imageDateTime;
+    private final String tgtid;
+    private final String iid2;
+    private final String isource;
+    private final int nrows;
+    private final int ncols;
+    private final String pvtype;
+    private final String irep;
+    private final String icat;
+    private final int abpp;
+    private final String pjust;
+    private final String icords;
     private String igeolo; // this needs to change
-    private List<String> imageComments = new ArrayList<>();
-    private String ic;
-    private String comrat;
-    private List<ImageHeaderBandInfo> bandInfos = new ArrayList<>();
-    private int isync;
-    private String imode;
-    private int nbpr;
-    private int nbpc;
-    private int nppbh;
-    private int nppbv;
-    private int nbpp;
-    private int idlvl;
-    private int ialvl;
-    private int iloc;
-    private double imag;
+    private final List<String> imageComments = new ArrayList<>();
+    private final String ic;
+    private final String comrat;
+    private final List<ImageHeaderBandInfo> bandInfos = new ArrayList<>();
+    private final int isync;
+    private final String imode;
+    private final int nbpr;
+    private final int nbpc;
+    private final int nppbh;
+    private final int nppbv;
+    private final int nbpp;
+    private final int idlvl;
+    private final int ialvl;
+    private final int iloc;
+    private final double imag;
 
     private int udofl = 0;
     private int udidOffset = -1;
@@ -142,6 +143,8 @@ public class ImageSegmentHeader {
         if (!(ic.equals("NC") || ic.equals("NM"))) {
             comrat = ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, COMRAT_LEN);
             offset += COMRAT_LEN;
+        } else {
+            comrat = "";
         }
         int bands = ReaderUtils.convertByteArrayToBCS_NPI(subheaderBytes, offset, NBANDS_LEN);
         offset += NBANDS_LEN;

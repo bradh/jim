@@ -11,10 +11,22 @@ public abstract class AbstractTREParser {
     protected static final int CETAG_LEN = 6;
     protected static final int CEL_LEN = 5;
 
-    public abstract void init();
-
+    /**
+     * Get the TRE tag that is supported by this parser.
+     *
+     * <p>This includes the version / revision. So for the BLOCKA TRE, this is "BLOCKA".
+     *
+     * @return the TRE tag as a String.
+     */
     public abstract String getTag();
 
+    /**
+     * Parse the TRE from the given byte array.
+     *
+     * @param tag the TRE tag.
+     * @param bytes the byte array (not including the tag and length fields)
+     * @return the TRE parsed from the byte array.
+     */
     public abstract TRE parse(String tag, byte[] bytes);
 
     protected int readBCSN(byte[] bytes, int offset, int len) {

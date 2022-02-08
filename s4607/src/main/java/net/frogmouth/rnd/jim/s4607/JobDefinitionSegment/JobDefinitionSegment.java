@@ -487,33 +487,92 @@ public class JobDefinitionSegment extends Segment {
      * the sensor computes them and the communication bandwidth permits the more frequent
      * reporting.)
      *
-     * @param sensorSpeedUncertainty the sensor speed uncertainty in millimeters per second (65535
+     * @param sensorSpeedUncertainty the sensor speed uncertainty in millimetres per second (65535
      *     for no-statement)
      */
     public void setSensorSpeedUncertainty(int sensorSpeedUncertainty) {
         this.sensorSpeedUncertainty = sensorSpeedUncertainty;
     }
 
+    /**
+     * Get the Nominal Sensor Value – Slant Range Standard Deviation (J21).
+     *
+     * <p>Nominal standard deviation of the slant range of the reported detection, expressed in
+     * centimetres. The No-Statement value is sent when the sensor is unable or unwilling to provide
+     * a value.
+     *
+     * @return slant range standard deviation in centimetres (65535 for no-statement).
+     */
     public int getSlantRangeStandardDeviation() {
         return slantRangeStandardDeviation;
     }
 
+    /**
+     * Set the Nominal Sensor Value – Slant Range Standard Deviation (J21).
+     *
+     * <p>Nominal standard deviation of the slant range of the reported detection, expressed in
+     * centimetres. The No-Statement value is sent when the sensor is unable or unwilling to provide
+     * a value.
+     *
+     * @param slantRangeStandardDeviation slant range standard deviation in centimetres (65535 for
+     *     no-statement).
+     */
     public void setSlantRangeStandardDeviation(int slantRangeStandardDeviation) {
         this.slantRangeStandardDeviation = slantRangeStandardDeviation;
     }
 
+    /**
+     * Get the Nominal Sensor Value – Cross Range Standard Deviation (J22).
+     *
+     * <p>Nominal standard deviation of the measured cross angle to the reported detection,
+     * expressed in degrees as a 16-bit unsigned binary angle. A No-Statement value is sent when the
+     * sensor is unable or unwilling to provide a value.
+     *
+     * @return cross range standard deviation in degrees (&ge; 180.0 for no-statement).
+     */
     public double getCrossRangeStandardDeviation() {
         return crossRangeStandardDeviation;
     }
 
+    /**
+     * Set the Nominal Sensor Value – Cross Range Standard Deviation (J22).
+     *
+     * <p>Nominal standard deviation of the measured cross angle to the reported detection,
+     * expressed in degrees as a 16-bit unsigned binary angle. A No-Statement value is sent when the
+     * sensor is unable or unwilling to provide a value.
+     *
+     * @param crossRangeStandardDeviation cross range standard deviation in degrees (&ge; 180.0 for
+     *     no-statement).
+     */
     public void setCrossRangeStandardDeviation(double crossRangeStandardDeviation) {
         this.crossRangeStandardDeviation = crossRangeStandardDeviation;
     }
 
+    /**
+     * Get the Nominal Sensor Value – Target Velocity Line-of-Sight Component Standard Deviation
+     * (J23).
+     *
+     * <p>Nominal standard deviation of the velocity line-of-sight component reported in field
+     * D32.7, expressed in centimetres per second. The No-Statement value is sent when the sensor is
+     * unable or unwilling to provide a value.
+     *
+     * @return targe velocity line of sight standard deviation in cm/s (65535 for no-statement).
+     */
     public int getTargetVelocityLineOfSightStandardDeviation() {
         return targetVelocityLineOfSightStandardDeviation;
     }
 
+    /**
+     * Set the Nominal Sensor Value – Target Velocity Line-of-Sight Component Standard Deviation
+     * (J23).
+     *
+     * <p>Nominal standard deviation of the velocity line-of-sight component reported in field
+     * D32.7, expressed in centimetres per second. The No-Statement value is sent when the sensor is
+     * unable or unwilling to provide a value.
+     *
+     * @param targetVelocityLineOfSightStandardDeviation target velocity line of sight standard
+     *     deviation in cm/s (65535 for no-statement).
+     */
     public void setTargetVelocityLineOfSightStandardDeviation(
             int targetVelocityLineOfSightStandardDeviation) {
         this.targetVelocityLineOfSightStandardDeviation =
