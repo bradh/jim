@@ -15,7 +15,7 @@ import java.util.ServiceLoader;
 public class SegmentParserManager {
 
     private final ServiceLoader<SegmentParser> loader;
-    protected final Map<SegmentType, SegmentParser> parsers = new HashMap<>();
+    private final Map<SegmentType, SegmentParser> parsers = new HashMap<>();
 
     private SegmentParserManager() {
         loader = ServiceLoader.load(SegmentParser.class);
@@ -24,10 +24,21 @@ public class SegmentParserManager {
         }
     }
 
+    /**
+     * Get singleton instance.
+     *
+     * @return the singleton instance of this parser manager.
+     */
     public static SegmentParserManager getInstance() {
         return SegmentParserManagerHolder.INSTANCE;
     }
 
+    /**
+     * Get a parser for the specified segment type.
+     *
+     * @param segmentType the segment type
+     * @return the corresponding parser, or a fallback parser if no match.
+     */
     public SegmentParser getParser(SegmentType segmentType) {
         SegmentParser segmentParser =
                 parsers.getOrDefault(segmentType, new FallbackSegmentParser());

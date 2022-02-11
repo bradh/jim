@@ -5,6 +5,8 @@ package net.frogmouth.rnd.jim.s4607.Packet;
  *
  * <p>The packet header provides packet-level shared metadata. An instance of this class models that
  * information for a single packet.
+ *
+ * <p>All fields in the packet header are mandatory.
  */
 public class PacketHeader {
 
@@ -19,8 +21,14 @@ public class PacketHeader {
     private long missionId;
     private long jobId;
 
+    /** Constructor. */
     public PacketHeader() {}
 
+    /**
+     * Copy Constructor.
+     *
+     * @param other the packet header to copy values from.
+     */
     PacketHeader(PacketHeader other) {
         this.versionId = other.getVersionId();
         this.packetSize = other.getPacketSize();
@@ -155,6 +163,7 @@ public class PacketHeader {
     public String getClassificationAsText() {
         return SecurityClassificationLookupTable.getValue(classification);
     }
+
     /**
      * Set the classification (P4).
      *
@@ -210,22 +219,229 @@ public class PacketHeader {
         this.classificationSystem = classificationSystem;
     }
 
+    /**
+     * Packet Security – Code (P6).
+     *
+     * <p>A two-byte flag field that indicates additional control and/or handling instructions
+     * associated with the GMTI data. A value of 0 (hex 0x00) indicates there are no additional
+     * security codes that apply to the GMTI data. Each bit of the field, when set to a binary “1”,
+     * indicates that the corresponding security code applies to the data. This field allows
+     * multiple security codes to be associated with the GMTI data.
+     *
+     * <table border="1">
+     * <caption>Packet Security Codes</caption>
+     * <thead>
+     * <tr><td>VALUE (HEX)</td><td>CODEWORD</td></tr>
+     * </thead>
+     * <tbody>
+     * <tr><td>0x0000</td><td>NONE (NO-STATEMENT VALUE)</td></tr>
+     * <tr><td>0x0001</td><td>REL TO USA, GBR</td></tr>
+     * <tr><td>0x0002</td><td>ORCON</td></tr>
+     * <tr><td>0x0004</td><td>PROPIN</td></tr>
+     * <tr><td>0x0008</td><td>REL 5-EYES (AUS, CAN, GBR, NZL, USA)</td></tr>
+     * <tr><td>0x0010</td><td>NATIONAL ONLY</td></tr>
+     * <tr><td>0x0020</td><td>LIMDIS</td></tr>
+     * <tr><td>0x0040</td><td>CUI (Controlled Unclassified Information)</td></tr>
+     * <tr><td>0x0080</td><td>EFTO</td></tr>
+     * <tr>
+     * <td>0x0100</td>
+     * <td>COMPLETE CODEWORD or CAVEAT STATEMENT PROVIDED IN FREE TEXT SEGMENT</td>
+     * </tr>
+     * <tr><td>0x0200</td><td>NONCOMPARTMENT</td></tr>
+     * <tr><td>0x0400</td><td>SPECIAL CONTROL</td></tr>
+     * <tr><td>0x0800</td><td>SPECIAL INTEL</td></tr>
+     * <tr>
+     * <td>0x1000</td>
+     * <td>WARNING NOTICE – SECURITY CLASSIFICATION IS BASED ON THE FACT
+     * OF EXISTENCE AND AVAIL OF THIS DATA</td>
+     * </tr>
+     * <tr>
+     * <td>0x2000</td>
+     * <td>REL NATO (ALB, BEL, BGR, CAN, HRV, CZE, DNK, EST, FRA, DEU, GRC, HUN,
+     * ISL, ITA, LVA, LTU, LUX, MKD, MNE, NLD, NOR, POL, PRT, ROU, SVK, SVN, ESP,
+     * TUR, GBR, USA)</td>
+     * </tr>
+     * <tr><td>0x4000</td><td>REL 4-EYES (AUS, CAN, GBR, USA)</td></tr>
+     * <tr><td>0x8000</td><td>REL 9-EYES (CAN, FRA, DEU, ITA, NLD, NOR, ESP, GBR, USA)</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * <p>NOTE: This table is representative, based on US security handling codes, and is not an
+     * exhaustive list of all allowable codes. Each nation shall be responsible for developing and
+     * publishing their own packet security handling codes as required.
+     *
+     * <p>US implementation guidance: when the packet security field in the packet header contains
+     * the code {@code 0x0100}, the first segment contained in the packet shall be a free text
+     * segment (6) with all control markings appropriate for the packet provided in Field 3 (Free
+     * Text). Field 3 shall contain no other text. All other usage of free-text segments shall be
+     * separate subsequent segments. Multiple codes are allowed that do not contradict the
+     * information provided in the Free Text Segment, but are not required. The information in the
+     * free text segment is assumed to be complete for the packet. The text shall be formatted in
+     * accordance with DoD manual 5200.01, Volume 2, February 24, 2012 “DoD Information Security
+     * Program: Marking of Information.”
+     *
+     * @return the code flags for this packet.
+     */
     public int getClassificationCodeFlags() {
         return classificationCodeFlags;
     }
 
+    /**
+     * Set the Packet Security – Code (P6).
+     *
+     * <p>A two-byte flag field that indicates additional control and/or handling instructions
+     * associated with the GMTI data. A value of 0 (hex 0x00) indicates there are no additional
+     * security codes that apply to the GMTI data. Each bit of the field, when set to a binary “1”,
+     * indicates that the corresponding security code applies to the data. This field allows
+     * multiple security codes to be associated with the GMTI data.
+     *
+     * <table border="1">
+     * <caption>Packet Security Codes</caption>
+     * <thead>
+     * <tr><td>VALUE (HEX)</td><td>CODEWORD</td></tr>
+     * </thead>
+     * <tbody>
+     * <tr><td>0x0000</td><td>NONE (NO-STATEMENT VALUE)</td></tr>
+     * <tr><td>0x0001</td><td>REL TO USA, GBR</td></tr>
+     * <tr><td>0x0002</td><td>ORCON</td></tr>
+     * <tr><td>0x0004</td><td>PROPIN</td></tr>
+     * <tr><td>0x0008</td><td>REL 5-EYES (AUS, CAN, GBR, NZL, USA)</td></tr>
+     * <tr><td>0x0010</td><td>NATIONAL ONLY</td></tr>
+     * <tr><td>0x0020</td><td>LIMDIS</td></tr>
+     * <tr><td>0x0040</td><td>CUI (Controlled Unclassified Information)</td></tr>
+     * <tr><td>0x0080</td><td>EFTO</td></tr>
+     * <tr>
+     * <td>0x0100</td>
+     * <td>COMPLETE CODEWORD or CAVEAT STATEMENT PROVIDED IN FREE TEXT SEGMENT</td>
+     * </tr>
+     * <tr><td>0x0200</td><td>NONCOMPARTMENT</td></tr>
+     * <tr><td>0x0400</td><td>SPECIAL CONTROL</td></tr>
+     * <tr><td>0x0800</td><td>SPECIAL INTEL</td></tr>
+     * <tr>
+     * <td>0x1000</td>
+     * <td>WARNING NOTICE – SECURITY CLASSIFICATION IS BASED ON THE FACT
+     * OF EXISTENCE AND AVAIL OF THIS DATA</td>
+     * </tr>
+     * <tr>
+     * <td>0x2000</td>
+     * <td>REL NATO (ALB, BEL, BGR, CAN, HRV, CZE, DNK, EST, FRA, DEU, GRC, HUN,
+     * ISL, ITA, LVA, LTU, LUX, MKD, MNE, NLD, NOR, POL, PRT, ROU, SVK, SVN, ESP,
+     * TUR, GBR, USA)</td>
+     * </tr>
+     * <tr><td>0x4000</td><td>REL 4-EYES (AUS, CAN, GBR, USA)</td></tr>
+     * <tr><td>0x8000</td><td>REL 9-EYES (CAN, FRA, DEU, ITA, NLD, NOR, ESP, GBR, USA)</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * <p>NOTE: This table is representative, based on US security handling codes, and is not an
+     * exhaustive list of all allowable codes. Each nation shall be responsible for developing and
+     * publishing their own packet security handling codes as required.
+     *
+     * <p>US implementation guidance: when the packet security field in the packet header contains
+     * the code {@code 0x0100}, the first segment contained in the packet shall be a free text
+     * segment (6) with all control markings appropriate for the packet provided in Field 3 (Free
+     * Text). Field 3 shall contain no other text. All other usage of free-text segments shall be
+     * separate subsequent segments. Multiple codes are allowed that do not contradict the
+     * information provided in the Free Text Segment, but are not required. The information in the
+     * free text segment is assumed to be complete for the packet. The text shall be formatted in
+     * accordance with DoD manual 5200.01, Volume 2, February 24, 2012 “DoD Information Security
+     * Program: Marking of Information.”
+     *
+     * @param classificationCodeFlags the code flags for this packet.
+     */
     public void setClassificationCodeFlags(int classificationCodeFlags) {
         this.classificationCodeFlags = classificationCodeFlags;
     }
 
+    /**
+     * Exercise Indicator (P7).
+     *
+     * <p>An enumeration indicating whether the data contained in this packet is from a real- world
+     * military operation or from an exercise, and whether the data is real (originates from
+     * live-fly or other non-simulated operational sources), simulated (originates from target
+     * simulator sources), or synthesized (a mix of real and simulated data).
+     *
+     * <table border="1">
+     * <caption>Exercise Indicator</caption>
+     * <thead>
+     * <tr><td>VALUE</td><td>Definition</td></tr>
+     * </thead>
+     * <tbody>
+     * <tr><td>0</td><td>Operation, Real Data</td></tr>
+     * <tr><td>1</td><td>Operation, Simulated Data</td></tr>
+     * <tr><td>2</td><td>Operation, Synthesized Data</td></tr>
+     * <tr><td>3-127</td><td>Reserved</td></tr>
+     * <tr><td>128</td><td>Exercise, Real Data</td></tr>
+     * <tr><td>129</td><td>Exercise, Simulated Data</td></tr>
+     * <tr><td>130</td><td>Exercise, Synthesized Data</td></tr>
+     * <tr><td>131-255</td><td>Reserved</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @return the enumeration value as an integer
+     */
     public int getExerciseIndicator() {
         return exerciseIndicator;
     }
 
+    /**
+     * Exercise Indicator - Text(P7).
+     *
+     * <p>An enumeration indicating whether the data contained in this packet is from a real- world
+     * military operation or from an exercise, and whether the data is real (originates from
+     * live-fly or other non-simulated operational sources), simulated (originates from target
+     * simulator sources), or synthesized (a mix of real and simulated data).
+     *
+     * <table border="1">
+     * <caption>Exercise Indicator</caption>
+     * <thead>
+     * <tr><td>VALUE</td><td>Definition</td></tr>
+     * </thead>
+     * <tbody>
+     * <tr><td>0</td><td>Operation, Real Data</td></tr>
+     * <tr><td>1</td><td>Operation, Simulated Data</td></tr>
+     * <tr><td>2</td><td>Operation, Synthesized Data</td></tr>
+     * <tr><td>3-127</td><td>Reserved</td></tr>
+     * <tr><td>128</td><td>Exercise, Real Data</td></tr>
+     * <tr><td>129</td><td>Exercise, Simulated Data</td></tr>
+     * <tr><td>130</td><td>Exercise, Synthesized Data</td></tr>
+     * <tr><td>131-255</td><td>Reserved</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @return the enumeration value as an text string.
+     */
     public String getExerciseIndicatorAsText() {
         return ExerciseIndicatorLookupTable.getValue(exerciseIndicator);
     }
 
+    /**
+     * Set the Exercise Indicator (P7).
+     *
+     * <p>An enumeration indicating whether the data contained in this packet is from a real- world
+     * military operation or from an exercise, and whether the data is real (originates from
+     * live-fly or other non-simulated operational sources), simulated (originates from target
+     * simulator sources), or synthesized (a mix of real and simulated data).
+     *
+     * <table border="1">
+     * <caption>Exercise Indicator</caption>
+     * <thead>
+     * <tr><td>VALUE</td><td>Definition</td></tr>
+     * </thead>
+     * <tbody>
+     * <tr><td>0</td><td>Operation, Real Data</td></tr>
+     * <tr><td>1</td><td>Operation, Simulated Data</td></tr>
+     * <tr><td>2</td><td>Operation, Synthesized Data</td></tr>
+     * <tr><td>3-127</td><td>Reserved</td></tr>
+     * <tr><td>128</td><td>Exercise, Real Data</td></tr>
+     * <tr><td>129</td><td>Exercise, Simulated Data</td></tr>
+     * <tr><td>130</td><td>Exercise, Synthesized Data</td></tr>
+     * <tr><td>131-255</td><td>Reserved</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param exerciseIndicator the enumeration value as an integer
+     */
     public void setExerciseIndicator(int exerciseIndicator) {
         this.exerciseIndicator = exerciseIndicator;
     }

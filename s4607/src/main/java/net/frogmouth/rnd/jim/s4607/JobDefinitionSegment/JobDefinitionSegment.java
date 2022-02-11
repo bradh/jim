@@ -695,18 +695,134 @@ public class JobDefinitionSegment extends Segment {
         this.falseAlarmDensity = falseAlarmDensity;
     }
 
+    /**
+     * Terrain Elevation Model Used (J27).
+     *
+     * <p>An enumeration field indicating the terrain elevation model used for developing the target
+     * reports.
+     *
+     * <table border="1">
+     * <caption>Terrain Elevation Model</caption>
+     * <thead>
+     * <tr><td>Value</td><td>Terrain Elevation Model</td></tr>
+     * </thead>
+     * <tbody>
+     * <tr><td>0</td><td>None Specified</td></tr>
+     * <tr><td>1</td><td>DTED0 (Digital Terrain Elevation Data, Level 0)</td></tr>
+     * <tr><td>2</td><td>DTED1 (Digital Terrain Elevation Data, Level 1)</td></tr>
+     * <tr><td>3</td><td>DTED2 (Digital Terrain Elevation Data, Level 2)</td></tr>
+     * <tr><td>4</td><td>DTED3 (Digital Terrain Elevation Data, Level 3)</td></tr>
+     * <tr><td>5</td><td>DTED4 (Digital Terrain Elevation Data, Level 4)</td></tr>
+     * <tr><td>6</td><td>DTED5 (Digital Terrain Elevation Data, Level 5)</td></tr>
+     * <tr><td>7</td><td>SRTM1 (Shuttle Radar Topography Mission, Level 1)</td></tr>
+     * <tr><td>8</td><td>SRTM2 (Shuttle Radar Topography Mission, Level 2)</td></tr>
+     * <tr><td>9</td><td>DGM50 M745 (Digitales Gelandemodell 1:50 000)</td></tr>
+     * <tr><td>10</td><td>DGM250 (Digitales Gelandemodell 1:250 000)</td></tr>
+     * <tr><td>11</td><td>ITHD (Interferometric Terrain Data Height)</td></tr>
+     * <tr><td>12</td><td>STHD (Stereometric Terrain Data Height)</td></tr>
+     * <tr><td>13</td><td>SEDRIS (SEDRIS Reference Model, ISO/IEC 18026</td></tr>
+     * <tr><td>14-255</td><td>Reserved</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @return the terrain elevation model as an integer value
+     */
     public int getTerrainElevationModelUsed() {
         return terrainElevationModelUsed;
     }
 
+    /**
+     * Set the Terrain Elevation Model Used (J27).
+     *
+     * <p>An enumeration field indicating the terrain elevation model used for developing the target
+     * reports.
+     *
+     * <table border="1">
+     * <caption>Terrain Elevation Model</caption>
+     * <thead>
+     * <tr><td>Value</td><td>Terrain Elevation Model</td></tr>
+     * </thead>
+     * <tbody>
+     * <tr><td>0</td><td>None Specified</td></tr>
+     * <tr><td>1</td><td>DTED0 (Digital Terrain Elevation Data, Level 0)</td></tr>
+     * <tr><td>2</td><td>DTED1 (Digital Terrain Elevation Data, Level 1)</td></tr>
+     * <tr><td>3</td><td>DTED2 (Digital Terrain Elevation Data, Level 2)</td></tr>
+     * <tr><td>4</td><td>DTED3 (Digital Terrain Elevation Data, Level 3)</td></tr>
+     * <tr><td>5</td><td>DTED4 (Digital Terrain Elevation Data, Level 4)</td></tr>
+     * <tr><td>6</td><td>DTED5 (Digital Terrain Elevation Data, Level 5)</td></tr>
+     * <tr><td>7</td><td>SRTM1 (Shuttle Radar Topography Mission, Level 1)</td></tr>
+     * <tr><td>8</td><td>SRTM2 (Shuttle Radar Topography Mission, Level 2)</td></tr>
+     * <tr><td>9</td><td>DGM50 M745 (Digitales Gelandemodell 1:50 000)</td></tr>
+     * <tr><td>10</td><td>DGM250 (Digitales Gelandemodell 1:250 000)</td></tr>
+     * <tr><td>11</td><td>ITHD (Interferometric Terrain Data Height)</td></tr>
+     * <tr><td>12</td><td>STHD (Stereometric Terrain Data Height)</td></tr>
+     * <tr><td>13</td><td>SEDRIS (SEDRIS Reference Model, ISO/IEC 18026</td></tr>
+     * <tr><td>14-255</td><td>Reserved</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param terrainElevationModelUsed the terrain elevation model as an integer value
+     */
     public void setTerrainElevationModelUsed(int terrainElevationModelUsed) {
         this.terrainElevationModelUsed = terrainElevationModelUsed;
     }
 
+    /**
+     * Geoid Model Used (J28).
+     *
+     * <p>An enumeration field indicating the geoid model used for developing the target reports.
+     * The geoid model gives an estimate of mean sea level via a model for the difference between
+     * the earth's zero-altitude gravity potential and the WGS 84 ellipsoid. Note that no DTED earth
+     * model will be specified in Field J27 when the Geoid Model Used in field J28 is selected to be
+     * Flat Earth. Refer to Para. 4.0 of Annex B to STANAG 4607 for further details of Geoid Models
+     * and Coordinate Systems.
+     *
+     * <table border="1">
+     * <caption>Geoid Models</caption>
+     * <thead>
+     * <tr><td>Value</td><td>Terrain Elevation Model</td></tr>
+     * </thead>
+     * <tbody>
+     * <tr><td>0</td><td>None Specified</td></tr>
+     * <tr><td>1</td><td>EGM96 (Earth Gravitational Model, Version 1996)</td></tr>
+     * <tr><td>2</td><td>GEO96 (Geoid Gravitational Model, Version 1996)</td></tr>
+     * <tr><td>3</td><td>Flat Earth</td></tr>
+     * <tr><td>4-255</td><td>Reserved</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @return the geoid model used as an integer
+     */
     public int getGeoidModelUsed() {
         return geoidModelUsed;
     }
 
+    /**
+     * Geoid Model Used (J28).
+     *
+     * <p>An enumeration field indicating the geoid model used for developing the target reports.
+     * The geoid model gives an estimate of mean sea level via a model for the difference between
+     * the earth's zero-altitude gravity potential and the WGS 84 ellipsoid. Note that no DTED earth
+     * model will be specified in Field J27 when the Geoid Model Used in field J28 is selected to be
+     * Flat Earth. Refer to Para. 4.0 of Annex B to STANAG 4607 for further details of Geoid Models
+     * and Coordinate Systems.
+     *
+     * <table border="1">
+     * <caption>Geoid Models</caption>
+     * <thead>
+     * <tr><td>Value</td><td>Terrain Elevation Model</td></tr>
+     * </thead>
+     * <tbody>
+     * <tr><td>0</td><td>None Specified</td></tr>
+     * <tr><td>1</td><td>EGM96 (Earth Gravitational Model, Version 1996)</td></tr>
+     * <tr><td>2</td><td>GEO96 (Geoid Gravitational Model, Version 1996)</td></tr>
+     * <tr><td>3</td><td>Flat Earth</td></tr>
+     * <tr><td>4-255</td><td>Reserved</td></tr>
+     * </tbody>
+     * </table>
+     *
+     * @param geoidModelUsed the geoid model value as an integer
+     */
     public void setGeoidModelUsed(int geoidModelUsed) {
         this.geoidModelUsed = geoidModelUsed;
     }

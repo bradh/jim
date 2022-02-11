@@ -40,10 +40,23 @@ public class ExerciseIndicatorLookupTable {
         return getInstance().enumerationLookup.getOrDefault(key, "UNKNOWN");
     }
 
+    /**
+     * Look up an Exercise Indicator value by key.
+     *
+     * <p>For example, looking up 128 will return "Exercise, Real Data".
+     *
+     * @param key the integer key
+     * @return the corresponding String description.
+     */
     public static String getValue(int key) {
         return getInstance().getKeyForValue(key);
     }
 
+    /**
+     * Get the singleton instance of this lookup table.
+     *
+     * @return instance value
+     */
     public static ExerciseIndicatorLookupTable getInstance() {
         return ExerciseIndicatorLookupTableHolder.INSTANCE;
     }

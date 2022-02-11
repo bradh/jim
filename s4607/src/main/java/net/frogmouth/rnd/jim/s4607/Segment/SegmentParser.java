@@ -14,6 +14,7 @@ import net.frogmouth.rnd.jim.s4607.ParseContext;
  */
 public abstract class SegmentParser {
 
+    /** The parse context to operate on. */
     protected ParseContext context;
 
     /**

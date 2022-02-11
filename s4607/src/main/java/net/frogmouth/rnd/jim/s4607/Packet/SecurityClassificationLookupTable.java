@@ -40,10 +40,23 @@ public class SecurityClassificationLookupTable {
         return getInstance().enumerationLookup.getOrDefault(key, "UNKNOWN");
     }
 
+    /**
+     * Look up a Security Classification value by key.
+     *
+     * <p>For example, looking up 5 will return "Unclassified".
+     *
+     * @param key the integer key
+     * @return the corresponding String description.
+     */
     public static String getValue(int key) {
         return getInstance().getKeyForValue(key);
     }
 
+    /**
+     * Get the singleton instance of this lookup table.
+     *
+     * @return instance value
+     */
     public static SecurityClassificationLookupTable getInstance() {
         return SecurityClassificationLookupTableHolder.INSTANCE;
     }

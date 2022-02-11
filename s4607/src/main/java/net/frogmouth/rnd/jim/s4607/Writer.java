@@ -52,7 +52,7 @@ public class Writer {
      */
     static byte[] serialise(Segment segment, SerialisationContext serialisationContext) {
         AbstractSegmentSerialiser serialiser =
-                SegmentSerialiserManager.getInstance().getParser(segment.getSegmentType());
+                SegmentSerialiserManager.getInstance().getSerialiser(segment.getSegmentType());
         byte[] segmentBytesWithoutHeader = serialiser.serialise(segment, serialisationContext);
         int len = segmentBytesWithoutHeader.length + 5;
         ByteBuffer bb = ByteBuffer.allocate(len);

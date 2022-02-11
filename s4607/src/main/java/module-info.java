@@ -1,3 +1,10 @@
+/**
+ * STANAG 4607 Binary Radar Information Analyser and Navigator (BRIAN).
+ *
+ * <p>This module provide parsing and serialisation for AEDP-07 / AEDP-4607 formatted files.
+ *
+ * <p>It primarily aims at version 4, although there is some backwards compatibility.
+ */
 module net.frogmouth.rnd.jim.brian {
     requires org.slf4j;
 

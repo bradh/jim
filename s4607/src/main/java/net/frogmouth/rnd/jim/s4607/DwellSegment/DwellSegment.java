@@ -460,18 +460,48 @@ public class DwellSegment extends Segment {
         this.sensorOrientationRoll = sensorOrientationRoll;
     }
 
+    /**
+     * Minimum Detectable Velocity, MDV (D31).
+     *
+     * <p>The minimum velocity component, along the line of sight, which can be detected by the
+     * sensor; expressed in decimetres per second.
+     *
+     * <p>Minimum Detectable Velocity is optional.
+     *
+     * @return the minimum detectable velocity in decimetres per second.
+     */
     public Integer getMinimumDetectableVelocity() {
         return minimumDetectableVelocity;
     }
 
-    public void setMinimumDetectableVelocity(Integer minimumDetectableVelocity) {
+    /**
+     * Set the Minimum Detectable Velocity, MDV (D31).
+     *
+     * <p>The minimum velocity component, along the line of sight, which can be detected by the
+     * sensor; expressed in decimetres per second.
+     *
+     * <p>Minimum Detectable Velocity is optional.
+     *
+     * @param minimumDetectableVelocity the minimum detectable velocity in decimetres per second.
+     */
+    public void setMinimumDetectableVelocity(int minimumDetectableVelocity) {
         this.minimumDetectableVelocity = minimumDetectableVelocity;
     }
 
+    /**
+     * Get the list of targets in this dwell segment.
+     *
+     * @return copy of the list of targets.
+     */
     public List<Target> getTargets() {
         return new ArrayList<>(targets);
     }
 
+    /**
+     * Add a target to the target list in this dwell segment.
+     *
+     * @param target the target to add.
+     */
     public void addTarget(Target target) {
         // TODO: probably needs to copy
         this.targets.add(target);

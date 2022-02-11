@@ -13,6 +13,8 @@ import net.frogmouth.rnd.jim.s4607.SerialisationContext;
  * is not typically created directly.
  */
 public class JobDefinitionSegmentSerialiser extends AbstractSegmentSerialiser {
+
+    /** Constructor. */
     public JobDefinitionSegmentSerialiser() {}
 
     @Override
