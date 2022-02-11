@@ -291,172 +291,691 @@ public class DwellSegment extends Segment {
         this.sensorAltitude = sensorAltitude;
     }
 
+    /**
+     * Scale Factor – Latitude Scale (D10).
+     *
+     * <p>A factor which modifies the value of the reported target latitude (Delta Latitude, field
+     * D32.4) when it is necessary to send the reduced bandwidth version of the Target Report. The
+     * Latitude Scale factor and Delta Latitude are used in conjunction with the Dwell Area Center
+     * Latitude (field D24) to recover the target latitude as follows:
+     *
+     * <p>Latitude = [(Delta Lat) x (Lat Scale)] + (Center Lat)
+     *
+     * <p>The Latitude Scale shall be chosen in accordance with the guidance given in the AEDP for
+     * STANAG 4607.
+     *
+     * <p>Field D10 is Conditional and is always sent with field D11. They are sent if and only if
+     * the optional difference fields Delta Latitude (D32.4) and Delta Longitude (D32.5) are sent in
+     * the Target Report.
+     *
+     * @return the scale factor value, or null if not set.
+     */
     public Double getScaleFactorLatScale() {
         return scaleFactorLatScale;
     }
 
-    public void setScaleFactorLatScale(Double scaleFactorLatScale) {
+    /**
+     * Set the Scale Factor – Latitude Scale (D10).
+     *
+     * <p>A factor which modifies the value of the reported target latitude (Delta Latitude, field
+     * D32.4) when it is necessary to send the reduced bandwidth version of the Target Report. The
+     * Latitude Scale factor and Delta Latitude are used in conjunction with the Dwell Area Center
+     * Latitude (field D24) to recover the target latitude as follows:
+     *
+     * <p>Latitude = [(Delta Lat) x (Lat Scale)] + (Center Lat)
+     *
+     * <p>The Latitude Scale shall be chosen in accordance with the guidance given in the AEDP for
+     * STANAG 4607.
+     *
+     * <p>Field D10 is Conditional and is always sent with field D11. They are sent if and only if
+     * the optional difference fields Delta Latitude (D32.4) and Delta Longitude (D32.5) are sent in
+     * the Target Report.
+     *
+     * @param scaleFactorLatScale the scale factor value
+     */
+    public void setScaleFactorLatScale(double scaleFactorLatScale) {
         this.scaleFactorLatScale = scaleFactorLatScale;
     }
 
+    /**
+     * Scale Factor – Longitude Scale (D11).
+     *
+     * <p>A factor which modifies the value of the reported target longitude (Delta Longitude, field
+     * D32.5) when it is necessary to send the reduced bandwidth version of the Target Report. The
+     * Longitude Scale factor and Delta Longitude are used in conjunction with the Dwell Area Center
+     * Longitude (field D25) to recover the target latitude as follows:
+     *
+     * <p>Longitude = [(Delta Long) x (Long Scale)] + (Center Long)
+     *
+     * <p>The Longitude Scale shall be chosen in accordance with the guidance given in the AEDP for
+     * STANAG 4607.
+     *
+     * <p>Field D11 is Conditional and is always sent with field D10. They are sent if and only if
+     * the optional difference fields Delta Latitude (D32.4) and Delta Longitude (D32.5) are sent in
+     * the Target Report).
+     *
+     * @return the scale factor value, or null if not set.
+     */
     public Double getScaleFactorLonScale() {
         return scaleFactorLonScale;
     }
 
+    /**
+     * Set the Scale Factor – Longitude Scale (D11).
+     *
+     * <p>A factor which modifies the value of the reported target longitude (Delta Longitude, field
+     * D32.5) when it is necessary to send the reduced bandwidth version of the Target Report. The
+     * Longitude Scale factor and Delta Longitude are used in conjunction with the Dwell Area Center
+     * Longitude (field D25) to recover the target latitude as follows:
+     *
+     * <p>Longitude = [(Delta Long) x (Long Scale)] + (Center Long)
+     *
+     * <p>The Longitude Scale shall be chosen in accordance with the guidance given in the AEDP for
+     * STANAG 4607.
+     *
+     * <p>Field D11 is Conditional and is always sent with field D10. They are sent if and only if
+     * the optional difference fields Delta Latitude (D32.4) and Delta Longitude (D32.5) are sent in
+     * the Target Report).
+     *
+     * @param scaleFactorLonScale the scale factor value, or null if not set.
+     */
     public void setScaleFactorLonScale(Double scaleFactorLonScale) {
         this.scaleFactorLonScale = scaleFactorLonScale;
     }
 
+    /**
+     * Sensor Position Uncertainty – Along Track (D12).
+     *
+     * <p>Estimate of the standard deviation in the estimated horizontal sensor location at the time
+     * of the dwell, measured along the sensor track direction (field D15), expressed in
+     * centimetres.
+     *
+     * <p>Field D12 is Optional. It is always sent with fields D13 and D14.
+     *
+     * @return the sensor position uncertainty in centimetres, or null if not set.
+     */
     public Integer getSensorPositionUncertaintyAlongTrack() {
         return sensorPositionUncertaintyAlongTrack;
     }
 
-    public void setSensorPositionUncertaintyAlongTrack(
-            Integer sensorPositionUncertaintyAlongTrack) {
-        this.sensorPositionUncertaintyAlongTrack = sensorPositionUncertaintyAlongTrack;
+    /**
+     * Set the Sensor Position Uncertainty – Along Track (D12).
+     *
+     * <p>Estimate of the standard deviation in the estimated horizontal sensor location at the time
+     * of the dwell, measured along the sensor track direction (field D15), expressed in
+     * centimetres.
+     *
+     * <p>Field D12 is Optional. It is always sent with fields D13 and D14.
+     *
+     * @param uncertainty the sensor position uncertainty in centimetres, or null if not set.
+     */
+    public void setSensorPositionUncertaintyAlongTrack(int uncertainty) {
+        this.sensorPositionUncertaintyAlongTrack = uncertainty;
     }
 
+    /**
+     * Sensor Position Uncertainty – Cross-Track (D13).
+     *
+     * <p>Estimate of the standard deviation in the estimated horizontal sensor location at the time
+     * of the dwell, measured orthogonal to the sensor track direction (field D15), expressed in
+     * centimetres.
+     *
+     * <p>Field D13 is Optional. It is always sent with fields D12 and D14.
+     *
+     * @return the sensor position uncertainty in centimetres, or null if not set.
+     */
     public Integer getSensorPositionUncertaintyCrossTrack() {
         return sensorPositionUncertaintyCrossTrack;
     }
 
-    public void setSensorPositionUncertaintyCrossTrack(Integer sensorPositionUncertaintyCrossrack) {
-        this.sensorPositionUncertaintyCrossTrack = sensorPositionUncertaintyCrossrack;
+    /**
+     * Set the Sensor Position Uncertainty – Cross-Track (D13).
+     *
+     * <p>Estimate of the standard deviation in the estimated horizontal sensor location at the time
+     * of the dwell, measured orthogonal to the sensor track direction (field D15), expressed in
+     * centimetres.
+     *
+     * <p>Field D13 is Optional. It is always sent with fields D12 and D14.
+     *
+     * @param uncertainty the sensor position uncertainty in centimetres, or null if not set.
+     */
+    public void setSensorPositionUncertaintyCrossTrack(int uncertainty) {
+        this.sensorPositionUncertaintyCrossTrack = uncertainty;
     }
 
+    /**
+     * Sensor Position Uncertainty – Altitude (D14).
+     *
+     * <p>Standard deviation of the sensor altitude estimate (field D9), expressed in centimetres.
+     *
+     * <p>Field D14 is Optional. It is always sent with fields D12 and D13
+     *
+     * @return the sensor position uncertainty in centimetres, or null if not set
+     */
     public Integer getSensorPositionUncertaintyAltitude() {
         return sensorPositionUncertaintyAltitude;
     }
 
-    public void setSensorPositionUncertaintyAltitude(Integer sensorPositionUncertaintyAltitude) {
-        this.sensorPositionUncertaintyAltitude = sensorPositionUncertaintyAltitude;
+    /**
+     * Set the Sensor Position Uncertainty – Altitude (D14).
+     *
+     * <p>Standard deviation of the sensor altitude estimate (field D9), expressed in centimetres.
+     *
+     * <p>Field D14 is Optional. It is always sent with fields D12 and D13
+     *
+     * @param uncertainty the sensor position uncertainty in centimetres, or null if not set
+     */
+    public void setSensorPositionUncertaintyAltitude(Integer uncertainty) {
+        this.sensorPositionUncertaintyAltitude = uncertainty;
     }
 
+    /**
+     * Sensor Track (D15).
+     *
+     * <p>The ground track of the sensor at the time of the dwell, expressed as the angle in degrees
+     * (clockwise) from True North.
+     *
+     * <p>Field D15 is Conditional and is always sent with fields D16 and D17. They are sent only
+     * when the sensor system provides these parameters.
+     *
+     * @return sensor track in degrees from true north, or null if not set
+     */
     public Double getSensorTrack() {
         return sensorTrack;
     }
 
-    public void setSensorTrack(Double sensorTrack) {
+    /**
+     * Set the Sensor Track (D15).
+     *
+     * <p>The ground track of the sensor at the time of the dwell, expressed as the angle in degrees
+     * (clockwise) from True North.
+     *
+     * <p>Field D15 is Conditional and is always sent with fields D16 and D17. They are sent only
+     * when the sensor system provides these parameters.
+     *
+     * @param sensorTrack sensor track in degrees from true north
+     */
+    public void setSensorTrack(double sensorTrack) {
         this.sensorTrack = sensorTrack;
     }
 
+    /**
+     * Sensor Speed (D16).
+     *
+     * <p>The ground speed of the sensor at the time of the dwell, expressed as millimetres per
+     * second.
+     *
+     * <p>Field D16 is Conditional and is always sent with fields D15 and D17. They are sent only
+     * when the sensor system provides these parameters.
+     *
+     * @return sensor speed in millimetres per second, or null if not set.
+     */
     public Integer getSensorSpeed() {
         return sensorSpeed;
     }
 
-    public void setSensorSpeed(Integer sensorSpeed) {
+    /**
+     * Set the Sensor Speed (D16).
+     *
+     * <p>The ground speed of the sensor at the time of the dwell, expressed as millimetres per
+     * second.
+     *
+     * <p>Field D16 is Conditional and is always sent with fields D15 and D17. They are sent only
+     * when the sensor system provides these parameters.
+     *
+     * @param sensorSpeed sensor speed in millimetres per second.
+     */
+    public void setSensorSpeed(int sensorSpeed) {
         this.sensorSpeed = sensorSpeed;
     }
 
+    /**
+     * Sensor Vertical Velocity (D17).
+     *
+     * <p>The velocity of the sensor in the vertical direction, expressed as decimetres per second.
+     *
+     * <p>Field D17 is Conditional and is always sent with fields D15 and D16. They are sent only
+     * when the sensor system provides these parameters.
+     *
+     * @return sensor vertical velocity in decimetres per second, or null if not set
+     */
     public Integer getSensorVerticalVelocity() {
         return sensorVerticalVelocity;
     }
 
-    public void setSensorVerticalVelocity(Integer sensorVerticalVelocity) {
+    /**
+     * Set the Sensor Vertical Velocity (D17).
+     *
+     * <p>The velocity of the sensor in the vertical direction, expressed as decimetres per second.
+     *
+     * <p>Field D17 is Conditional and is always sent with fields D15 and D16. They are sent only
+     * when the sensor system provides these parameters.
+     *
+     * @param sensorVerticalVelocity sensor vertical velocity in decimetres per second
+     */
+    public void setSensorVerticalVelocity(int sensorVerticalVelocity) {
         this.sensorVerticalVelocity = sensorVerticalVelocity;
     }
 
+    /**
+     * Sensor Track Uncertainty (D18).
+     *
+     * <p>The standard deviation of the estimate of the sensor track along the ground, expressed in
+     * degrees.
+     *
+     * <p>Field D18 is Optional. It is always sent with fields D19 and D20.
+     *
+     * @return sensor track uncertainty in degrees, or null if not set.
+     */
     public Integer getSensorTrackUncertainty() {
         return sensorTrackUncertainty;
     }
 
-    public void setSensorTrackUncertainty(Integer sensorTrackUncertainty) {
+    /**
+     * Set the Sensor Track Uncertainty (D18).
+     *
+     * <p>The standard deviation of the estimate of the sensor track along the ground, expressed in
+     * degrees.
+     *
+     * <p>Field D18 is Optional. It is always sent with fields D19 and D20.
+     *
+     * @param sensorTrackUncertainty sensor track uncertainty in degrees.
+     */
+    public void setSensorTrackUncertainty(int sensorTrackUncertainty) {
         this.sensorTrackUncertainty = sensorTrackUncertainty;
     }
 
+    /**
+     * Sensor Speed Uncertainty (D19).
+     *
+     * <p>The standard deviation of estimate of the sensor speed, expressed in millimetres per
+     * second.
+     *
+     * <p>Field D19 is Optional. It is always sent with fields D18 and D20.
+     *
+     * @return sensor speed uncertainty in millimetres per second, or null if not set
+     */
     public Integer getSensorSpeedUncertainty() {
         return sensorSpeedUncertainty;
     }
 
+    /**
+     * Set the Sensor Speed Uncertainty (D19).
+     *
+     * <p>The standard deviation of estimate of the sensor speed, expressed in millimetres per
+     * second.
+     *
+     * <p>Field D19 is Optional. It is always sent with fields D18 and D20.
+     *
+     * @param sensorSpeedUncertainty sensor speed uncertainty in millimetres per second.
+     */
     public void setSensorSpeedUncertainty(Integer sensorSpeedUncertainty) {
         this.sensorSpeedUncertainty = sensorSpeedUncertainty;
     }
 
+    /**
+     * Sensor Vertical Velocity Uncertainty (D20).
+     *
+     * <p>The standard deviation of estimate of the sensor vertical velocity, expressed in
+     * centimetres per second.
+     *
+     * <p>Field D20 is Optional. It is always sent with fields D18 and D19.
+     *
+     * @return sensor vertical velocity in centimetres per second, or null if not set.
+     */
     public Integer getSensorVerticalVelocityUncertainty() {
         return sensorVerticalVelocityUncertainty;
     }
 
-    public void setSensorVerticalVelocityUncertainty(Integer sensorVerticalVelocityUncertainty) {
+    /**
+     * Set the Sensor Vertical Velocity Uncertainty (D20).
+     *
+     * <p>The standard deviation of estimate of the sensor vertical velocity, expressed in
+     * centimetres per second.
+     *
+     * <p>Field D20 is Optional. It is always sent with fields D18 and D19.
+     *
+     * @param sensorVerticalVelocityUncertainty sensor vertical velocity in centimetres per second.
+     */
+    public void setSensorVerticalVelocityUncertainty(int sensorVerticalVelocityUncertainty) {
         this.sensorVerticalVelocityUncertainty = sensorVerticalVelocityUncertainty;
     }
 
+    /**
+     * Platform Orientation - Heading (D21).
+     *
+     * <p>The heading of the platform at the time of the dwell, expressed as the angle in degrees
+     * (clockwise) from True North to the roll axis of the platform.
+     *
+     * <p>Field D21 is Conditional and is always sent with fields D22 and D23. They are sent only
+     * when the platform provides these parameters.
+     *
+     * @return platform heading in degrees from true north, or null if not set.
+     */
     public Double getPlatformOrientationHeading() {
         return platformOrientationHeading;
     }
 
-    public void setPlatformOrientationHeading(Double platformOrientationHeading) {
+    /**
+     * Set the Platform Orientation - Heading (D21).
+     *
+     * <p>The heading of the platform at the time of the dwell, expressed as the angle in degrees
+     * (clockwise) from True North to the roll axis of the platform.
+     *
+     * <p>Field D21 is Conditional and is always sent with fields D22 and D23. They are sent only
+     * when the platform provides these parameters.
+     *
+     * @param platformOrientationHeading platform heading in degrees from true north
+     */
+    public void setPlatformOrientationHeading(double platformOrientationHeading) {
         this.platformOrientationHeading = platformOrientationHeading;
     }
 
+    /**
+     * Platform Orientation - Pitch (D22).
+     *
+     * <p>The pitch angle of the platform at the time of the dwell, expressed as the angle in
+     * degrees of the rotation of the platform about its pitch axis, where a positive angle is an
+     * upward attitude of the nose of the platform.
+     *
+     * <p>Field D22 is Conditional and is always sent with fields D21 and D23. They are sent only
+     * when the platform provides these parameters.
+     *
+     * @return the platform pitch angle in degrees, or null if not set
+     */
     public Double getPlatformOrientationPitch() {
         return platformOrientationPitch;
     }
 
-    public void setPlatformOrientationPitch(Double platformOrientationPitch) {
+    /**
+     * Platform Orientation - Pitch (D22).
+     *
+     * <p>The pitch angle of the platform at the time of the dwell, expressed as the angle in
+     * degrees of the rotation of the platform about its pitch axis, where a positive angle is an
+     * upward attitude of the nose of the platform.
+     *
+     * <p>Field D22 is Conditional and is always sent with fields D21 and D23. They are sent only
+     * when the platform provides these parameters.
+     *
+     * @param platformOrientationPitch the platform pitch angle in degrees.
+     */
+    public void setPlatformOrientationPitch(double platformOrientationPitch) {
         this.platformOrientationPitch = platformOrientationPitch;
     }
 
+    /**
+     * Platform Orientation - Roll (D23).
+     *
+     * <p>The roll angle of the platform at the time of the dwell, expressed as the angle in degrees
+     * of the rotation of the platform about its roll axis, where a positive angle is the clockwise
+     * direction as viewed from the rear of the platform. (NOTE: The term "Platform Bank Angle" is
+     * synonymous with the term "Platform Roll Angle".)
+     *
+     * <p>Field D23 is Conditional and is always sent with fields D21 and D22. They are sent only
+     * when the platform provides these parameters.
+     *
+     * @return platform roll angle in degrees, or null if not set.
+     */
     public Double getPlatformOrientationRoll() {
         return platformOrientationRoll;
     }
 
+    /**
+     * Set the Platform Orientation - Roll (D23).
+     *
+     * <p>The roll angle of the platform at the time of the dwell, expressed as the angle in degrees
+     * of the rotation of the platform about its roll axis, where a positive angle is the clockwise
+     * direction as viewed from the rear of the platform. (NOTE: The term "Platform Bank Angle" is
+     * synonymous with the term "Platform Roll Angle".)
+     *
+     * <p>Field D23 is Conditional and is always sent with fields D21 and D22. They are sent only
+     * when the platform provides these parameters.
+     *
+     * @param platformOrientationRoll platform roll angle in degrees, or null if not set.
+     */
     public void setPlatformOrientationRoll(Double platformOrientationRoll) {
         this.platformOrientationRoll = platformOrientationRoll;
     }
 
+    /**
+     * Dwell Area – Centre Latitude (D24).
+     *
+     * <p>The North-South position of the centre of the dwell area, expressed as degrees North
+     * (positive) or South (negative) of the Equator.
+     *
+     * <p>This field is mandatory.
+     *
+     * @return the latitude in degrees
+     */
     public double getDwellCentreLatitude() {
         return dwellCentreLatitude;
     }
 
+    /**
+     * Set the Dwell Area – Centre Latitude (D24).
+     *
+     * <p>The North-South position of the centre of the dwell area, expressed as degrees North
+     * (positive) or South (negative) of the Equator.
+     *
+     * <p>This field is mandatory.
+     *
+     * @param dwellCentreLatitude the latitude in degrees
+     */
     public void setDwellCentreLatitude(double dwellCentreLatitude) {
         this.dwellCentreLatitude = dwellCentreLatitude;
     }
 
+    /**
+     * Dwell Area – Centre Longitude (D25).
+     *
+     * <p>The East-West position of the centre of the dwell area, expressed as degrees East
+     * (positive) of the Prime Meridian.
+     *
+     * <p>This field is mandatory.
+     *
+     * @return the longitude in degrees.
+     */
     public double getDwellCentreLongitude() {
         return dwellCentreLongitude;
     }
 
+    /**
+     * Set the Dwell Area – Centre Longitude (D25).
+     *
+     * <p>The East-West position of the centre of the dwell area, expressed as degrees East
+     * (positive) of the Prime Meridian.
+     *
+     * <p>This field is mandatory.
+     *
+     * @param dwellCentreLongitude the longitude in degrees.
+     */
     public void setDwellCentreLongitude(double dwellCentreLongitude) {
         this.dwellCentreLongitude = dwellCentreLongitude;
     }
 
+    /**
+     * Dwell Area – Range Half Extent (D26).
+     *
+     * <p>The distance on the earth surface, expressed in kilometres, from the near edge to the
+     * centre of the dwell area.
+     *
+     * <p>This field is mandatory.
+     *
+     * @return the dwell area range value in kilometres
+     */
     public double getDwellAreaRangeHalfExtent() {
         return dwellAreaRangeHalfExtent;
     }
 
+    /**
+     * Set the Dwell Area – Range Half Extent (D26).
+     *
+     * <p>The distance on the earth surface, expressed in kilometres, from the near edge to the
+     * centre of the dwell area.
+     *
+     * <p>This field is mandatory.
+     *
+     * @param dwellAreaRangeHalfExtent the dwell area range value in kilometres
+     */
     public void setDwellAreaRangeHalfExtent(double dwellAreaRangeHalfExtent) {
         this.dwellAreaRangeHalfExtent = dwellAreaRangeHalfExtent;
     }
 
+    /**
+     * Dwell Area – Dwell Angle Half Extent (D27).
+     *
+     * <p>For dwell based radars, one-half of the 3-dB beamwidth, expressed in degrees. For
+     * non-dwell based radars, the angle between the beginning of the dwell to the centre of the
+     * dwell, as measured from the sensor’s position.
+     *
+     * <p>This field is mandatory.
+     *
+     * @return the dwell angle in degrees.
+     */
     public double getDwellAreaDwellAngleHalfExtent() {
         return dwellAreaDwellAngleHalfExtent;
     }
 
+    /**
+     * Set the Dwell Area – Dwell Angle Half Extent (D27).
+     *
+     * <p>For dwell based radars, one-half of the 3-dB beamwidth, expressed in degrees. For
+     * non-dwell based radars, the angle between the beginning of the dwell to the centre of the
+     * dwell, as measured from the sensor’s position.
+     *
+     * <p>This field is mandatory.
+     *
+     * @param dwellAreaDwellAngleHalfExtent the dwell angle in degrees.
+     */
     public void setDwellAreaDwellAngleHalfExtent(double dwellAreaDwellAngleHalfExtent) {
         this.dwellAreaDwellAngleHalfExtent = dwellAreaDwellAngleHalfExtent;
     }
 
+    /**
+     * Sensor Orientation – Heading (D28).
+     *
+     * <p>The rotation of the sensor broadside face about the local vertical axis of the platform,
+     * expressed in degrees clockwise when viewed from above. This is the first of three successive
+     * rotations from a hypothetical initial position in which the sensor broadside (normal to the
+     * sensor face) is in its normal “rest” position (i.e., along the platform roll axis for
+     * forward-looking sensors or along the platform pitch axis for side-looking sensors) and the
+     * sensor face is nominally level (i.e., the lateral axis of the face is level, pointing along
+     * the roll or pitch axis as applicable, and the yaw axis points along the direction of the
+     * local vertical). In the case where the sensor is an electronically steerable array (ESA),
+     * "Sensor Orientation - Heading" refers to the rotation of the radar beam about the local
+     * vertical axis of the platform, and is independent of any mechanical rotation of the sensor.
+     *
+     * <p>Field D28 is Optional. If at least one of fields D28, D29, or D30 is present, then any
+     * omitted field shall represent an angle of zero degrees.
+     *
+     * @return the orientation of the sensor, or null if not set.
+     */
     public Double getSensorOrientationHeading() {
         return sensorOrientationHeading;
     }
 
-    public void setSensorOrientationHeading(Double sensorOrientationHeading) {
+    /**
+     * Set the Sensor Orientation – Heading (D28).
+     *
+     * <p>The rotation of the sensor broadside face about the local vertical axis of the platform,
+     * expressed in degrees clockwise when viewed from above. This is the first of three successive
+     * rotations from a hypothetical initial position in which the sensor broadside (normal to the
+     * sensor face) is in its normal “rest” position (i.e., along the platform roll axis for
+     * forward-looking sensors or along the platform pitch axis for side-looking sensors) and the
+     * sensor face is nominally level (i.e., the lateral axis of the face is level, pointing along
+     * the roll or pitch axis as applicable, and the yaw axis points along the direction of the
+     * local vertical). In the case where the sensor is an electronically steerable array (ESA),
+     * "Sensor Orientation - Heading" refers to the rotation of the radar beam about the local
+     * vertical axis of the platform, and is independent of any mechanical rotation of the sensor.
+     *
+     * <p>Field D28 (this field) is Optional. If at least one of fields D28, D29, or D30 is present,
+     * then any omitted field shall represent an angle of zero degrees.
+     *
+     * @param sensorOrientationHeading the orientation of the sensor.
+     */
+    public void setSensorOrientationHeading(double sensorOrientationHeading) {
         this.sensorOrientationHeading = sensorOrientationHeading;
     }
 
+    /**
+     * Sensor Orientation – Pitch (D29).
+     *
+     * <p>The rotation angle of the sensor normal about the lateral axis of the sensor broadside,
+     * which is pointing in the direction defined by the sensor orientation heading angle. It is
+     * expressed in degrees, where an angle above the horizontal is positive. This is the second of
+     * three successive rotations from the hypothetical initial position of the sensor, as described
+     * above. In the case where the sensor is an electronically steerable array (ESA), 'Sensor
+     * Orientation - Pitch' refers to the rotation of the radar beam about the lateral axis of the
+     * platform, and is independent of any mechanical rotation of the sensor.
+     *
+     * <p>Field D29 (this field) is Optional. If at least one of fields D28, D29, or D30 is present,
+     * then any omitted field shall represent an angle of zero degrees.
+     *
+     * @return the orientation of the sensor, or null if not set.
+     */
     public Double getSensorOrientationPitch() {
         return sensorOrientationPitch;
     }
 
-    public void setSensorOrientationPitch(Double sensorOrientationPitch) {
+    /**
+     * Set the Sensor Orientation – Pitch (D29).
+     *
+     * <p>The rotation angle of the sensor normal about the lateral axis of the sensor broadside,
+     * which is pointing in the direction defined by the sensor orientation heading angle. It is
+     * expressed in degrees, where an angle above the horizontal is positive. This is the second of
+     * three successive rotations from the hypothetical initial position of the sensor, as described
+     * above. In the case where the sensor is an electronically steerable array (ESA), 'Sensor
+     * Orientation - Pitch' refers to the rotation of the radar beam about the lateral axis of the
+     * platform, and is independent of any mechanical rotation of the sensor.
+     *
+     * <p>Field D29 (this field) is Optional. If at least one of fields D28, D29, or D30 is present,
+     * then any omitted field shall represent an angle of zero degrees.
+     *
+     * @param sensorOrientationPitch the orientation of the sensor.
+     */
+    public void setSensorOrientationPitch(double sensorOrientationPitch) {
         this.sensorOrientationPitch = sensorOrientationPitch;
     }
 
+    /**
+     * Sensor Orientation – Roll (D30).
+     *
+     * <p>The rotation angle of the sensor about the transverse axis of the sensor broadside, which
+     * is pointing in the direction defined by the sensor orientation heading angle. It is expressed
+     * in degrees, where a clockwise rotation is positive, as seen from behind the face of the
+     * sensor. This is the third of three successive rotations from the hypothetical initial
+     * position of the sensor, as described above. In the case where the sensor is an electronically
+     * steerable array (ESA), 'Sensor Orientation - Roll' refers to the rotation of the radar beam
+     * about the transverse axis of the platform, and is independent of any mechanical rotation of
+     * the sensor.
+     *
+     * <p>Field D30 (this field) is Optional. If at least one of fields D28, D29, or D30 is present,
+     * then any omitted field shall represent an angle of zero degrees.
+     *
+     * @return the orientation of the sensor, or null if not set.
+     */
     public Double getSensorOrientationRoll() {
         return sensorOrientationRoll;
     }
 
-    public void setSensorOrientationRoll(Double sensorOrientationRoll) {
+    /**
+     * Set the Sensor Orientation – Roll (D30).
+     *
+     * <p>The rotation angle of the sensor about the transverse axis of the sensor broadside, which
+     * is pointing in the direction defined by the sensor orientation heading angle. It is expressed
+     * in degrees, where a clockwise rotation is positive, as seen from behind the face of the
+     * sensor. This is the third of three successive rotations from the hypothetical initial
+     * position of the sensor, as described above. In the case where the sensor is an electronically
+     * steerable array (ESA), 'Sensor Orientation - Roll' refers to the rotation of the radar beam
+     * about the transverse axis of the platform, and is independent of any mechanical rotation of
+     * the sensor.
+     *
+     * <p>Field D30 (this field) is Optional. If at least one of fields D28, D29, or D30 is present,
+     * then any omitted field shall represent an angle of zero degrees.
+     *
+     * @param sensorOrientationRoll the orientation of the sensor.
+     */
+    public void setSensorOrientationRoll(double sensorOrientationRoll) {
         this.sensorOrientationRoll = sensorOrientationRoll;
     }
 
