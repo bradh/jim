@@ -37,7 +37,7 @@ public class Reader {
      */
     public Reader(Path path) throws IOException {
         context = new ParseContext(path);
-        int packetStartOffset = 0;
+        long packetStartOffset = 0;
 
         while (context.hasRemaining()) {
             Packet packet = new Packet();
