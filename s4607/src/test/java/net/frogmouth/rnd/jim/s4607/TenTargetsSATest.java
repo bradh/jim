@@ -5,7 +5,7 @@ import static org.testng.Assert.*;
 import java.io.IOException;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4607.DwellSegment.DwellSegment;
-import net.frogmouth.rnd.jim.s4607.DwellSegment.Target;
+import net.frogmouth.rnd.jim.s4607.DwellSegment.TargetReport;
 import net.frogmouth.rnd.jim.s4607.FreeTextSegment.FreeTextSegment;
 import net.frogmouth.rnd.jim.s4607.JobDefinitionSegment.JobDefinitionSegment;
 import net.frogmouth.rnd.jim.s4607.MissionSegment.MissionSegment;
@@ -264,7 +264,7 @@ public class TenTargetsSATest extends TestSupport {
         assertNull(dwellSegment.getSensorOrientationRoll());
         assertNull(dwellSegment.getMinimumDetectableVelocity());
         assertEquals(dwellSegment.getTargets().size(), 3);
-        Target target1 = dwellSegment.getTargets().get(0);
+        TargetReport target1 = dwellSegment.getTargets().get(0);
         assertEquals((int) target1.getMtiReportIndex(), 0);
         assertNull(target1.getTargetLocationLatitude());
         assertNull(target1.getTargetLocationLongitude());
@@ -284,7 +284,7 @@ public class TenTargetsSATest extends TestSupport {
         assertEquals((int) target1.getTruthTagApplication(), 1);
         assertEquals((long) target1.getTruthTagEntity(), 1);
         assertNull(target1.getTargetRadarCrossSection());
-        Target target2 = dwellSegment.getTargets().get(1);
+        TargetReport target2 = dwellSegment.getTargets().get(1);
         assertEquals((int) target2.getMtiReportIndex(), 1);
         assertNull(target2.getTargetLocationLatitude());
         assertNull(target2.getTargetLocationLongitude());
@@ -304,7 +304,7 @@ public class TenTargetsSATest extends TestSupport {
         assertEquals((int) target2.getTruthTagApplication(), 1);
         assertEquals((long) target2.getTruthTagEntity(), 4);
         assertNull(target2.getTargetRadarCrossSection());
-        Target target3 = dwellSegment.getTargets().get(2);
+        TargetReport target3 = dwellSegment.getTargets().get(2);
         assertEquals((int) target3.getMtiReportIndex(), 2);
         assertNull(target3.getTargetLocationLatitude());
         assertNull(target3.getTargetLocationLongitude());

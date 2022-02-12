@@ -5,7 +5,7 @@ import static org.testng.Assert.*;
 import java.io.IOException;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4607.DwellSegment.DwellSegment;
-import net.frogmouth.rnd.jim.s4607.DwellSegment.Target;
+import net.frogmouth.rnd.jim.s4607.DwellSegment.TargetReport;
 import net.frogmouth.rnd.jim.s4607.FreeTextSegment.FreeTextSegment;
 import net.frogmouth.rnd.jim.s4607.MissionSegment.MissionSegment;
 import net.frogmouth.rnd.jim.s4607.Packet.Packet;
@@ -184,7 +184,7 @@ public class TenTargetsPrecisionTargetingTest extends TestSupport {
         assertEquals(dwellSegment.getSensorOrientationRoll(), 0.0, 0.00000001);
         assertEquals((int) dwellSegment.getMinimumDetectableVelocity(), 10);
         assertEquals(dwellSegment.getTargets().size(), 3);
-        Target target1 = dwellSegment.getTargets().get(0);
+        TargetReport target1 = dwellSegment.getTargets().get(0);
         assertEquals((int) target1.getMtiReportIndex(), 0);
         assertEquals(target1.getTargetLocationLatitude(), 40.66204060334712, 0.000000000001);
         assertEquals(target1.getTargetLocationLongitude(), 246.16688629612327, 0.00000000001);
@@ -204,7 +204,7 @@ public class TenTargetsPrecisionTargetingTest extends TestSupport {
         assertEquals((int) target1.getTruthTagApplication(), 1);
         assertEquals((long) target1.getTruthTagEntity(), 1);
         assertEquals((int) target1.getTargetRadarCrossSection(), 10);
-        Target target2 = dwellSegment.getTargets().get(1);
+        TargetReport target2 = dwellSegment.getTargets().get(1);
         assertEquals((int) target2.getMtiReportIndex(), 1);
         assertEquals(target2.getTargetLocationLatitude(), 40.67227038089186, 0.000000000001);
         assertEquals(target2.getTargetLocationLongitude(), 246.167107578367, 0.00000000001);
@@ -224,7 +224,7 @@ public class TenTargetsPrecisionTargetingTest extends TestSupport {
         assertEquals((int) target2.getTruthTagApplication(), 1);
         assertEquals((long) target2.getTruthTagEntity(), 4);
         assertEquals((int) target2.getTargetRadarCrossSection(), 10);
-        Target target3 = dwellSegment.getTargets().get(2);
+        TargetReport target3 = dwellSegment.getTargets().get(2);
         assertEquals((int) target3.getMtiReportIndex(), 2);
         assertEquals(target3.getTargetLocationLatitude(), 40.65702189691365, 0.000000000001);
         assertEquals(target3.getTargetLocationLongitude(), 246.16688671521842, 0.00000000001);

@@ -47,7 +47,7 @@ public class DwellSegment extends Segment {
     private Double sensorOrientationPitch;
     private Double sensorOrientationRoll;
     private Integer minimumDetectableVelocity;
-    private final List<Target> targets = new ArrayList<>();
+    private final List<TargetReport> targets = new ArrayList<>();
 
     /**
      * Constructor.
@@ -1012,7 +1012,7 @@ public class DwellSegment extends Segment {
      *
      * @return copy of the list of targets.
      */
-    public List<Target> getTargets() {
+    public List<TargetReport> getTargets() {
         return new ArrayList<>(targets);
     }
 
@@ -1021,7 +1021,7 @@ public class DwellSegment extends Segment {
      *
      * @param target the target to add.
      */
-    public void addTarget(Target target) {
+    public void addTarget(TargetReport target) {
         // TODO: probably needs to copy
         this.targets.add(target);
     }

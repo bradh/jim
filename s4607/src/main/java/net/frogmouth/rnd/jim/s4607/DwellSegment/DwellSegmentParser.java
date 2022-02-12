@@ -146,7 +146,7 @@ public class DwellSegmentParser extends SegmentParser {
             dwellSegment.setMinimumDetectableVelocity(context.readI8());
         }
         for (int i = 0; i < dwellSegment.getTargetReportCount(); i++) {
-            Target target = new Target();
+            TargetReport target = new TargetReport();
             if ((existenceMask & DwellSegmentConstants.D32_1_EXISTENCE_MASK)
                     == DwellSegmentConstants.D32_1_EXISTENCE_MASK) {
                 target.setMtiReportIndex(context.readI16());

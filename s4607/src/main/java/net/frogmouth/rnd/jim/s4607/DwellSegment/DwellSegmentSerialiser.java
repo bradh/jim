@@ -102,7 +102,7 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser {
         if (dwell.getMinimumDetectableVelocity() != null) {
             baos.writeBytes(writeI8(dwell.getMinimumDetectableVelocity()));
         }
-        for (Target target : dwell.getTargets()) {
+        for (TargetReport target : dwell.getTargets()) {
             if (target.getMtiReportIndex() != null) {
                 baos.writeBytes(writeI16(target.getMtiReportIndex()));
             }
@@ -243,7 +243,7 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser {
             mask |= DwellSegmentConstants.D31_EXISTENCE_MASK;
         }
         if (!dwell.getTargets().isEmpty()) {
-            Target target = dwell.getTargets().get(0);
+            TargetReport target = dwell.getTargets().get(0);
             if (target.getMtiReportIndex() != null) {
                 mask |= DwellSegmentConstants.D32_1_EXISTENCE_MASK;
             }

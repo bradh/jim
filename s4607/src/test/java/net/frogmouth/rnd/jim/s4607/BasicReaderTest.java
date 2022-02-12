@@ -5,7 +5,7 @@ import static org.testng.Assert.*;
 import java.io.IOException;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4607.DwellSegment.DwellSegment;
-import net.frogmouth.rnd.jim.s4607.DwellSegment.Target;
+import net.frogmouth.rnd.jim.s4607.DwellSegment.TargetReport;
 import net.frogmouth.rnd.jim.s4607.MissionSegment.MissionSegment;
 import net.frogmouth.rnd.jim.s4607.Packet.Packet;
 import net.frogmouth.rnd.jim.s4607.Packet.PacketHeader;
@@ -96,7 +96,7 @@ public class BasicReaderTest extends TestSupport {
         assertEquals(dwellSegment.getDwellAreaRangeHalfExtent(), 2.5, 0.0001);
         assertEquals(dwellSegment.getDwellAreaDwellAngleHalfExtent(), 22.5, 0.0001);
         assertEquals(dwellSegment.getTargets().size(), 1);
-        Target target = dwellSegment.getTargets().get(0);
+        TargetReport target = dwellSegment.getTargets().get(0);
         assertEquals((int) target.getMtiReportIndex(), 34);
         assertEquals(target.getTargetLocationLatitude(), 55.998699981719255, 0.00000000001);
         assertEquals(target.getTargetLocationLongitude(), 357.2900000307709, 0.00000000001);
