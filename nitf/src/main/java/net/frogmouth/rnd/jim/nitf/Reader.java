@@ -88,10 +88,10 @@ public class Reader {
     private int xhdOffset = -1;
     private int xhdLength = 0;
 
-    private final List<ImageSegmentInfo> imageSegments = new ArrayList<>();
-    private final List<SegmentInfo> graphicSegments = new ArrayList<>();
-    private final List<SegmentInfo> textSegments = new ArrayList<>();
-    private final List<SegmentInfo> dataExtensionSegments = new ArrayList<>();
+    private List<ImageSegmentInfo> imageSegments = new ArrayList<>();
+    private List<SegmentInfo> graphicSegments = new ArrayList<>();
+    private List<SegmentInfo> textSegments = new ArrayList<>();
+    private List<SegmentInfo> dataExtensionSegments = new ArrayList<>();
 
     public Reader(String filename) throws IOException {
         this(Paths.get(filename));
@@ -304,12 +304,6 @@ public class Reader {
         return dataExtensionSegments.size();
     }
 
-    /**
-     * Get the user defined header data (UDHD) from the file.
-     * 
-     * <p>This only applies to the NITF file header, not to any segment headers.
-     * @return the user defined header data, or a zero length byte array if no user defined header data is encoded.
-     */
     public byte[] getUserDefinedHeaderData() {
         if ((udhdOffset <= 0) || (udhdLength <= 0)) {
             return new byte[0];
@@ -324,7 +318,7 @@ public class Reader {
         return getBytesAt(xhdOffset, xhdLength);
     }
 
-    private byte[] getBytesAt(int offset, int len) {
+    public byte[] getBytesAt(int offset, int len) {
         mappedByteBuffer.position(offset);
         byte[] dest = new byte[len];
         mappedByteBuffer.get(dest);
