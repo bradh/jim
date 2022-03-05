@@ -9,26 +9,26 @@ module net.frogmouth.rnd.jim.brian {
     requires org.slf4j;
 
     exports net.frogmouth.rnd.jim.s4607;
-    exports net.frogmouth.rnd.jim.s4607.DwellSegment;
-    exports net.frogmouth.rnd.jim.s4607.FreeTextSegment;
-    exports net.frogmouth.rnd.jim.s4607.JobDefinitionSegment;
-    exports net.frogmouth.rnd.jim.s4607.MissionSegment;
-    exports net.frogmouth.rnd.jim.s4607.Packet;
-    exports net.frogmouth.rnd.jim.s4607.Segment;
+    exports net.frogmouth.rnd.jim.s4607.dwellsegment;
+    exports net.frogmouth.rnd.jim.s4607.freetext;
+    exports net.frogmouth.rnd.jim.s4607.jobdefinition;
+    exports net.frogmouth.rnd.jim.s4607.mission;
+    exports net.frogmouth.rnd.jim.s4607.packet;
+    exports net.frogmouth.rnd.jim.s4607.segment;
 
-    uses net.frogmouth.rnd.jim.s4607.Segment.SegmentParser;
+    uses net.frogmouth.rnd.jim.s4607.segment.SegmentParser;
 
-    provides net.frogmouth.rnd.jim.s4607.Segment.SegmentParser with
-            net.frogmouth.rnd.jim.s4607.DwellSegment.DwellSegmentParser,
-            net.frogmouth.rnd.jim.s4607.FreeTextSegment.FreeTextSegmentParser,
-            net.frogmouth.rnd.jim.s4607.JobDefinitionSegment.JobDefinitionSegmentParser,
-            net.frogmouth.rnd.jim.s4607.MissionSegment.MissionSegmentParser;
+    provides net.frogmouth.rnd.jim.s4607.segment.SegmentParser with
+            net.frogmouth.rnd.jim.s4607.dwellsegment.DwellSegmentParser,
+            net.frogmouth.rnd.jim.s4607.freetext.FreeTextSegmentParser,
+            net.frogmouth.rnd.jim.s4607.jobdefinition.JobDefinitionSegmentParser,
+            net.frogmouth.rnd.jim.s4607.mission.MissionSegmentParser;
 
-    uses net.frogmouth.rnd.jim.s4607.Segment.AbstractSegmentSerialiser;
+    uses net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentSerialiser;
 
-    provides net.frogmouth.rnd.jim.s4607.Segment.AbstractSegmentSerialiser with
-            net.frogmouth.rnd.jim.s4607.DwellSegment.DwellSegmentSerialiser,
-            net.frogmouth.rnd.jim.s4607.FreeTextSegment.FreeTextSegmentSerialiser,
-            net.frogmouth.rnd.jim.s4607.JobDefinitionSegment.JobDefinitionSegmentSerialiser,
-            net.frogmouth.rnd.jim.s4607.MissionSegment.MissionSegmentSerialiser;
+    provides net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentSerialiser with
+            net.frogmouth.rnd.jim.s4607.dwellsegment.DwellSegmentSerialiser,
+            net.frogmouth.rnd.jim.s4607.freetext.FreeTextSegmentSerialiser,
+            net.frogmouth.rnd.jim.s4607.jobdefinition.JobDefinitionSegmentSerialiser,
+            net.frogmouth.rnd.jim.s4607.mission.MissionSegmentSerialiser;
 }

@@ -5,7 +5,7 @@ import static org.testng.Assert.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
-import net.frogmouth.rnd.jim.s4607.Packet.Packet;
+import net.frogmouth.rnd.jim.s4607.packet.Packet;
 import org.testng.annotations.Test;
 
 /**

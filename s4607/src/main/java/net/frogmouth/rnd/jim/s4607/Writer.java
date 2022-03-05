@@ -4,12 +4,12 @@ import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
-import net.frogmouth.rnd.jim.s4607.Packet.Packet;
-import net.frogmouth.rnd.jim.s4607.Packet.PacketHeader;
-import net.frogmouth.rnd.jim.s4607.Packet.PacketHeaderSerialiser;
-import net.frogmouth.rnd.jim.s4607.Segment.AbstractSegmentSerialiser;
-import net.frogmouth.rnd.jim.s4607.Segment.Segment;
-import net.frogmouth.rnd.jim.s4607.Segment.SegmentSerialiserManager;
+import net.frogmouth.rnd.jim.s4607.packet.Packet;
+import net.frogmouth.rnd.jim.s4607.packet.PacketHeader;
+import net.frogmouth.rnd.jim.s4607.packet.PacketHeaderSerialiser;
+import net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentSerialiser;
+import net.frogmouth.rnd.jim.s4607.segment.Segment;
+import net.frogmouth.rnd.jim.s4607.segment.SegmentSerialiserManager;
 
 /** STANAG 4607 / AEDP-7 GMTI Writer. */
 public class Writer {

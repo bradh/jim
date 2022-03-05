@@ -4,14 +4,14 @@ import static org.testng.Assert.*;
 
 import java.io.IOException;
 import java.util.List;
-import net.frogmouth.rnd.jim.s4607.DwellSegment.DwellSegment;
-import net.frogmouth.rnd.jim.s4607.DwellSegment.TargetReport;
-import net.frogmouth.rnd.jim.s4607.FreeTextSegment.FreeTextSegment;
-import net.frogmouth.rnd.jim.s4607.JobDefinitionSegment.JobDefinitionSegment;
-import net.frogmouth.rnd.jim.s4607.MissionSegment.MissionSegment;
-import net.frogmouth.rnd.jim.s4607.Packet.Packet;
-import net.frogmouth.rnd.jim.s4607.Packet.PacketHeader;
-import net.frogmouth.rnd.jim.s4607.Segment.Segment;
+import net.frogmouth.rnd.jim.s4607.dwellsegment.DwellSegment;
+import net.frogmouth.rnd.jim.s4607.dwellsegment.TargetReport;
+import net.frogmouth.rnd.jim.s4607.freetext.FreeTextSegment;
+import net.frogmouth.rnd.jim.s4607.jobdefinition.JobDefinitionSegment;
+import net.frogmouth.rnd.jim.s4607.mission.MissionSegment;
+import net.frogmouth.rnd.jim.s4607.packet.Packet;
+import net.frogmouth.rnd.jim.s4607.packet.PacketHeader;
+import net.frogmouth.rnd.jim.s4607.segment.Segment;
 import org.testng.annotations.Test;
 
 public class TenTargetsSATest extends TestSupport {

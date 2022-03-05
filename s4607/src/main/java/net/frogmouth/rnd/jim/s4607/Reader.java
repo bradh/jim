@@ -5,13 +5,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import net.frogmouth.rnd.jim.s4607.Packet.Packet;
-import net.frogmouth.rnd.jim.s4607.Packet.PacketHeader;
-import net.frogmouth.rnd.jim.s4607.Segment.Segment;
-import net.frogmouth.rnd.jim.s4607.Segment.SegmentHeader;
-import net.frogmouth.rnd.jim.s4607.Segment.SegmentParser;
-import net.frogmouth.rnd.jim.s4607.Segment.SegmentParserManager;
-import net.frogmouth.rnd.jim.s4607.Segment.SegmentType;
+import net.frogmouth.rnd.jim.s4607.packet.Packet;
+import net.frogmouth.rnd.jim.s4607.packet.PacketHeader;
+import net.frogmouth.rnd.jim.s4607.segment.Segment;
+import net.frogmouth.rnd.jim.s4607.segment.SegmentHeader;
+import net.frogmouth.rnd.jim.s4607.segment.SegmentParser;
+import net.frogmouth.rnd.jim.s4607.segment.SegmentParserManager;
+import net.frogmouth.rnd.jim.s4607.segment.SegmentType;
 
 /** STANAG 4607 / AEDP-7 GMTI Reader. */
 public class Reader {
