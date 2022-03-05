@@ -30,7 +30,7 @@ public abstract class Segment {
      * @param maxLength the maximum number of characters allowed.
      */
     public void validateBCS(String stringToValidate, int maxLength) {
-        byte[] bytes = stringToValidate.getBytes(StandardCharsets.US_ASCII);
+        byte[] bytes = stringToValidate.getBytes(StandardCharsets.UTF_8);
         if (bytes.length > maxLength) {
             throw new IllegalArgumentException(
                     String.format(
@@ -40,6 +40,7 @@ public abstract class Segment {
         for (int i = 0; i < bytes.length; i++) {
             byte charval = bytes[i];
             if (charval < 0x0A) {
+                // This also picks up cases where > 0x7F, because its a signed byte
                 throw new IllegalArgumentException(
                         "Only BCS characters are allowed, got " + stringToValidate);
             }

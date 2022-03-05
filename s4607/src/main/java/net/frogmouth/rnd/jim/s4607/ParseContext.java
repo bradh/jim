@@ -110,23 +110,6 @@ public class ParseContext {
     }
 
     /**
-     * Look-ahead a specified number of bytes.
-     *
-     * <p>This is like {@link getBytes}, but doesn't change the current offset.
-     *
-     * @param len the number of bytes to read
-     * @return byte array corresponding to the bytes read.
-     */
-    // TODO: we possibly don't need this - maybe remove.
-    public byte[] peekBytes(int len) {
-        byte[] dest = new byte[len];
-        int mark = mappedByteBuffer.position();
-        get(dest);
-        mappedByteBuffer.position(mark);
-        return dest;
-    }
-
-    /**
      * Read a specified number of bytes as an ASCII string.
      *
      * <p>If there is an embedded null (0x00), the reading stops, and the remaining bytes are space

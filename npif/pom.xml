@@ -17,7 +17,7 @@
         <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs-annotations</artifactId>
-            <version>4.5.2</version>
+            <version>${spotbugs.version}</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>

@@ -1,8 +1,7 @@
-package net.frogmouth.rnd.jim.s4607.segment;
+package net.frogmouth.rnd.jim.s4607.Segment;
 
 import static org.testng.Assert.*;
 
-import net.frogmouth.rnd.jim.s4607.Segment.SegmentType;
 import org.testng.annotations.Test;
 
 /** Unit tests for {@link SegmentType}. */

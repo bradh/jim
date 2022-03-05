@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public class ExerciseIndicatorLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();
-    private final Logger LOG = LoggerFactory.getLogger(ExerciseIndicatorLookupTable.class);
+    private final Logger logger = LoggerFactory.getLogger(ExerciseIndicatorLookupTable.class);
 
     private ExerciseIndicatorLookupTable() {
         Properties prop = new Properties();
@@ -32,7 +32,7 @@ public class ExerciseIndicatorLookupTable {
                                 enumerationLookup.put(key, (String) entry.getValue());
                             });
         } catch (IOException e) {
-            LOG.error(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 

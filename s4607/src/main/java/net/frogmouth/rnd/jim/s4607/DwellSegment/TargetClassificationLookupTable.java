@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 public class TargetClassificationLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();
-    private final Logger LOG = LoggerFactory.getLogger(TargetClassificationLookupTable.class);
+    private final Logger logger = LoggerFactory.getLogger(TargetClassificationLookupTable.class);
 
     private TargetClassificationLookupTable() {
         Properties prop = new Properties();
@@ -35,7 +35,7 @@ public class TargetClassificationLookupTable {
                                 enumerationLookup.put(key, (String) entry.getValue());
                             });
         } catch (IOException e) {
-            LOG.error(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 

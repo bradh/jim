@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public class PlatformTypeLookupTable {
 
     private final Map<Integer, String> enumerationLookup = new HashMap<>();
-    private final Logger LOG = LoggerFactory.getLogger(PlatformTypeLookupTable.class);
+    private final Logger logger = LoggerFactory.getLogger(PlatformTypeLookupTable.class);
 
     private PlatformTypeLookupTable() {
         Properties prop = new Properties();
@@ -31,7 +31,7 @@ public class PlatformTypeLookupTable {
                                 enumerationLookup.put(key, (String) entry.getValue());
                             });
         } catch (IOException e) {
-            LOG.error(e.getMessage());
+            logger.error(e.getMessage());
         }
     }
 
