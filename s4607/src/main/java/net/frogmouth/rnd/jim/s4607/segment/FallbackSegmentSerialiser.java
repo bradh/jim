@@ -20,7 +20,7 @@ public class FallbackSegmentSerialiser extends AbstractSegmentSerialiser {
 
     @Override
     public byte[] serialise(Segment segment, SerialisationContext serialisationText) {
-        // TODO: stash the byte array in the segment on parsing.
-        return new byte[] {};
+        FallbackSegment fallbackSegment = (FallbackSegment) segment;
+        return fallbackSegment.getUnparsedBytes();
     }
 }

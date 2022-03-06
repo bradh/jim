@@ -1,7 +1,5 @@
 package net.frogmouth.rnd.jim.s4607.segment;
 
-import static org.testng.Assert.*;
-
 import org.testng.annotations.Test;
 
 /** Unit tests for the (abstract) Segment class. */

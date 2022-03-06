@@ -60,7 +60,9 @@ public class PacketHeaderSerialiser {
 
     private static byte[] padString(String s, int length) {
         byte[] stringBytes = s.trim().getBytes(StandardCharsets.US_ASCII);
-        // TODO: check length
+        if (s.length() > length) {
+            throw new IllegalArgumentException("String is too long for specified length");
+        }
         byte[] stringBytesPadded = new byte[length];
         Arrays.fill(stringBytesPadded, SPACE);
         System.arraycopy(stringBytes, 0, stringBytesPadded, 0, stringBytes.length);
