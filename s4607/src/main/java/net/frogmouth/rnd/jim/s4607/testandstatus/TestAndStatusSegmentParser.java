@@ -1,6 +1,5 @@
 package net.frogmouth.rnd.jim.s4607.testandstatus;
 
-import net.frogmouth.rnd.jim.s4607.mission.*;
 import net.frogmouth.rnd.jim.s4607.segment.Segment;
 import net.frogmouth.rnd.jim.s4607.segment.SegmentHeader;
 import net.frogmouth.rnd.jim.s4607.segment.SegmentParser;
