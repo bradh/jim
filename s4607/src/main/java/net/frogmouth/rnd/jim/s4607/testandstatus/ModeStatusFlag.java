@@ -3,18 +3,24 @@ package net.frogmouth.rnd.jim.s4607.testandstatus;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Flag values for the Hardware Status (T5). */
-public enum HardwareStatusFlag {
-    /** Antenna Status. */
-    AntennaStatus(0x80, "Antenna Status"),
-    /** RF Electronics Status. */
-    RfElectronicsStatus(0x40, "RF Electronics Status"),
-    /** Processor Status. */
-    ProcessorStatus(0x20, "Processor Status"),
-    /** Datalink Status. */
-    DatalinkStatus(0x10, "Datalink Status"),
-    /** Calibration Mode Status. */
-    CalibrationModeStatus(0x08, "Calibration Mode Status"),
+/** Flag values for the Mode Status (T6). */
+public enum ModeStatusFlag {
+    /** Range Limit Exceeded. */
+    RangeLimitExceeded(0x80, "Range Limit Exceeded"),
+    /** Azimuth Limit Exceeded. */
+    AzimuthLimitExceeded(0x40, "Azimuth Limit Exceeded"),
+    /** Elevation Limit Exceeded. */
+    ElevationLimitExceeded(0x20, "Elevation Limit Exceeded"),
+    /** Temperature Limit Exceeded. */
+    TemperatureLimitExceeded(0x10, "Temperature Limit Exceeded"),
+    /**
+     * Spare E.
+     *
+     * <p>This is encoded bit "e" (0x08).
+     *
+     * <p>This is not a valid value, and should not be created.
+     */
+    SpareE(0x08, "Spare E"),
     /**
      * Spare F.
      *
@@ -43,15 +49,15 @@ public enum HardwareStatusFlag {
     private final int flagValue;
     private final String label;
 
-    private HardwareStatusFlag(int flagValue, String label) {
+    private ModeStatusFlag(int flagValue, String label) {
         this.flagValue = flagValue;
         this.label = label;
     }
 
-    private static final Map<Integer, HardwareStatusFlag> lookupTable = new HashMap<>();
+    private static final Map<Integer, ModeStatusFlag> lookupTable = new HashMap<>();
 
     static {
-        for (HardwareStatusFlag c : values()) {
+        for (ModeStatusFlag c : values()) {
             lookupTable.put(c.flagValue, c);
         }
     }
@@ -81,10 +87,10 @@ public enum HardwareStatusFlag {
      * @return the corresponding enumeration value
      * @throws IllegalArgumentException if the encoded value is not valid
      */
-    public static HardwareStatusFlag lookupValue(int value) {
+    public static ModeStatusFlag lookupValue(int value) {
         if (lookupTable.containsKey(value)) {
             return lookupTable.get(value);
         }
-        throw new IllegalArgumentException("Invalid Hardware Status Flag encoded value: " + value);
+        throw new IllegalArgumentException("Invalid Mode Status Flag encoded value: " + value);
     }
 }

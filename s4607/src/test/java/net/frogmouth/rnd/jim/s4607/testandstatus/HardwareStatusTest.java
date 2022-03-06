@@ -1,6 +1,6 @@
 package net.frogmouth.rnd.jim.s4607.testandstatus;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 import java.util.EnumSet;
 import org.testng.annotations.Test;

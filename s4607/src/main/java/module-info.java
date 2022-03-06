@@ -22,7 +22,8 @@ module net.frogmouth.rnd.jim.brian {
             net.frogmouth.rnd.jim.s4607.dwellsegment.DwellSegmentParser,
             net.frogmouth.rnd.jim.s4607.freetext.FreeTextSegmentParser,
             net.frogmouth.rnd.jim.s4607.jobdefinition.JobDefinitionSegmentParser,
-            net.frogmouth.rnd.jim.s4607.mission.MissionSegmentParser;
+            net.frogmouth.rnd.jim.s4607.mission.MissionSegmentParser,
+            net.frogmouth.rnd.jim.s4607.testandstatus.TestAndStatusSegmentParser;
 
     uses net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentSerialiser;
 
@@ -30,5 +31,6 @@ module net.frogmouth.rnd.jim.brian {
             net.frogmouth.rnd.jim.s4607.dwellsegment.DwellSegmentSerialiser,
             net.frogmouth.rnd.jim.s4607.freetext.FreeTextSegmentSerialiser,
             net.frogmouth.rnd.jim.s4607.jobdefinition.JobDefinitionSegmentSerialiser,
-            net.frogmouth.rnd.jim.s4607.mission.MissionSegmentSerialiser;
+            net.frogmouth.rnd.jim.s4607.mission.MissionSegmentSerialiser,
+            net.frogmouth.rnd.jim.s4607.testandstatus.TestAndStatusSegmentSerialiser;
 }

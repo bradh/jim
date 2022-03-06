@@ -18,6 +18,8 @@ public class TestAndStatusSegment extends Segment {
     private int revisitIndex;
     private int dwellIndex;
     private long dwellTime;
+    private HardwareStatus hardwareStatus;
+    private ModeStatus modeStatus;
 
     /** Constructor. */
     public TestAndStatusSegment() {}
@@ -121,5 +123,57 @@ public class TestAndStatusSegment extends Segment {
      */
     public void setDwellTime(long dwellTime) {
         this.dwellTime = dwellTime;
+    }
+
+    /**
+     * Hardware Status (T5).
+     *
+     * <p>A one-byte flag, where each flag bit indicates the status of a particular hardware
+     * parameter.
+     *
+     * @return the hardware status
+     */
+    public HardwareStatus getHardwareStatus() {
+        return hardwareStatus;
+    }
+
+    /**
+     * Set the Hardware Status (T5).
+     *
+     * <p>A one-byte flag, where each flag bit indicates the status of a particular hardware
+     * parameter.
+     *
+     * @param hardwareStatus the hardware status
+     */
+    public void setHardwareStatus(HardwareStatus hardwareStatus) {
+        this.hardwareStatus = hardwareStatus;
+    }
+
+    /**
+     * Mode Status (T6).
+     *
+     * <p>A one-byte flag, where each flag bit indicates the status of a particular sensor
+     * parameter, and where a binary 0 indicates the parameter is inside the operational limit tests
+     * and a binary 1 indicates the parameter is outside the operational limit tests. Unused or
+     * spare bits shall be set to binary 0.
+     *
+     * @return the mode status
+     */
+    public ModeStatus getModeStatus() {
+        return modeStatus;
+    }
+
+    /**
+     * Set the Mode Status (T6).
+     *
+     * <p>A one-byte flag, where each flag bit indicates the status of a particular sensor
+     * parameter, and where a binary 0 indicates the parameter is inside the operational limit tests
+     * and a binary 1 indicates the parameter is outside the operational limit tests. Unused or
+     * spare bits shall be set to binary 0.
+     *
+     * @param modeStatus the mode status
+     */
+    public void setModeStatus(ModeStatus modeStatus) {
+        this.modeStatus = modeStatus;
     }
 }
