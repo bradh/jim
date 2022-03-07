@@ -16,8 +16,8 @@ import net.frogmouth.rnd.jim.s4607.segment.SegmentType;
 /** STANAG 4607 / AEDP-7 GMTI Reader. */
 public class Reader {
 
-    private ParseContext context;
-    private List<Packet> packets = new ArrayList<>();
+    private IParseContext context;
+    private final List<Packet> packets = new ArrayList<>();
 
     /**
      * Constructor.
@@ -36,19 +36,37 @@ public class Reader {
      * @throws IOException if parsing of the file fails
      */
     public Reader(Path path) throws IOException {
-        context = new ParseContext(path);
-        long packetStartOffset = 0;
+        context = new MemoryMappedParseContext(path);
+        parsePackets();
+    }
 
+    /**
+     * Constructor.
+     *
+     * @param bytes the byte array to read from
+     */
+    public Reader(byte[] bytes) {
+        context = new ByteArrayParseContext(bytes);
+        parsePackets();
+    }
+
+    private void parsePackets() {
+        long packetStartOffset = 0;
         while (context.hasRemaining()) {
-            Packet packet = new Packet();
-            PacketHeader packetHeader = readPacketHeader();
-            packet.setPacketHeader(packetHeader);
-            while (context.position() < (packetStartOffset + packetHeader.getPacketSize())) {
-                packet.addSegment(readSegment());
-            }
-            packets.add(packet);
-            packetStartOffset += packetHeader.getPacketSize();
+            long packetSize = parsePacket(packetStartOffset);
+            packetStartOffset += packetSize;
         }
+    }
+
+    private long parsePacket(long packetStartOffset) {
+        Packet packet = new Packet();
+        PacketHeader packetHeader = readPacketHeader();
+        packet.setPacketHeader(packetHeader);
+        while (context.position() < (packetStartOffset + packetHeader.getPacketSize())) {
+            packet.addSegment(readSegment());
+        }
+        packets.add(packet);
+        return packetHeader.getPacketSize();
     }
 
     /**

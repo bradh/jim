@@ -1,6 +1,6 @@
 package net.frogmouth.rnd.jim.s4607.segment;
 
-import net.frogmouth.rnd.jim.s4607.ParseContext;
+import net.frogmouth.rnd.jim.s4607.IParseContext;
 
 /**
  * Abstract parser for a given kind of Segment.
@@ -15,14 +15,14 @@ import net.frogmouth.rnd.jim.s4607.ParseContext;
 public abstract class SegmentParser {
 
     /** The parse context to operate on. */
-    protected ParseContext context;
+    protected IParseContext context;
 
     /**
      * Set the parse context for the parser.
      *
      * @param context the context.
      */
-    public final void setParseContext(ParseContext context) {
+    public final void setParseContext(IParseContext context) {
         this.context = context;
     }
 

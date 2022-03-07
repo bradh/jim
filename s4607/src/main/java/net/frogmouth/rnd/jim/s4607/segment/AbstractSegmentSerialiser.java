@@ -26,6 +26,16 @@ public abstract class AbstractSegmentSerialiser {
     public abstract SegmentType getSegmentType();
 
     /**
+     * Serialise the segment to a byte array using default context.
+     *
+     * @param segment the segment to serialise
+     * @return byte array corresponding the body of the segment (not the header).
+     */
+    public byte[] serialise(Segment segment) {
+        return serialise(segment, new SerialisationContext());
+    }
+
+    /**
      * Serialise the segment to a byte array.
      *
      * @param segment the segment to serialise
