@@ -8,7 +8,8 @@ import net.frogmouth.rnd.jim.s4607.SerialisationContext;
  * <p>This is normally invoked by the parent serialisation code (e.g. from a packet serialiser), and
  * is not typically created directly.
  */
-public class FallbackSegmentSerialiser extends AbstractSegmentSerialiser {
+public class FallbackSegmentSerialiser extends AbstractSegmentSerialiser
+        implements ISegmentSerialiser {
 
     /** Constructor. */
     public FallbackSegmentSerialiser() {}

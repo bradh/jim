@@ -14,16 +14,9 @@ import net.frogmouth.rnd.jim.s4607.SerialisationContext;
  * concrete sub-classes are usually created by the serialisation code, and it should not be
  * necessary to instantiate these from user code.
  */
-public abstract class AbstractSegmentSerialiser {
+public abstract class AbstractSegmentSerialiser implements ISegmentSerialiser {
 
     private static final byte SPACE = 0x20;
-
-    /**
-     * Get the segment type supported by the serialiser.
-     *
-     * @return the segment type (enumeration value).
-     */
-    public abstract SegmentType getSegmentType();
 
     /**
      * Serialise the segment to a byte array using default context.
@@ -31,18 +24,10 @@ public abstract class AbstractSegmentSerialiser {
      * @param segment the segment to serialise
      * @return byte array corresponding the body of the segment (not the header).
      */
+    @Override
     public byte[] serialise(Segment segment) {
         return serialise(segment, new SerialisationContext());
     }
-
-    /**
-     * Serialise the segment to a byte array.
-     *
-     * @param segment the segment to serialise
-     * @param serialisationContext the context providing configuration information.
-     * @return byte array corresponding the body of the segment (not the header).
-     */
-    public abstract byte[] serialise(Segment segment, SerialisationContext serialisationContext);
 
     /**
      * Serialise out an 8-bit enumeration (E8) value.

@@ -15,12 +15,12 @@ import java.util.ServiceLoader;
  */
 public class SegmentSerialiserManager {
 
-    private final ServiceLoader<AbstractSegmentSerialiser> loader;
-    private final Map<SegmentType, AbstractSegmentSerialiser> serialisers = new HashMap<>();
+    private final ServiceLoader<ISegmentSerialiser> loader;
+    private final Map<SegmentType, ISegmentSerialiser> serialisers = new HashMap<>();
 
     private SegmentSerialiserManager() {
-        loader = ServiceLoader.load(AbstractSegmentSerialiser.class);
-        for (AbstractSegmentSerialiser factory : loader) {
+        loader = ServiceLoader.load(ISegmentSerialiser.class);
+        for (ISegmentSerialiser factory : loader) {
             serialisers.put(factory.getSegmentType(), factory);
         }
     }
@@ -40,8 +40,8 @@ public class SegmentSerialiserManager {
      * @param segmentType the segment type
      * @return the corresponding serialiser, or a fallback (no nothing) serialiser if no match.
      */
-    public AbstractSegmentSerialiser getSerialiser(SegmentType segmentType) {
-        AbstractSegmentSerialiser serialiser =
+    public ISegmentSerialiser getSerialiser(SegmentType segmentType) {
+        ISegmentSerialiser serialiser =
                 serialisers.getOrDefault(segmentType, new FallbackSegmentSerialiser());
         return serialiser;
     }
