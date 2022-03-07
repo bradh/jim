@@ -7,7 +7,7 @@ import java.util.List;
 import net.frogmouth.rnd.jim.s4607.packet.Packet;
 import net.frogmouth.rnd.jim.s4607.packet.PacketHeader;
 import net.frogmouth.rnd.jim.s4607.packet.PacketHeaderSerialiser;
-import net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentSerialiser;
+import net.frogmouth.rnd.jim.s4607.segment.ISegmentSerialiser;
 import net.frogmouth.rnd.jim.s4607.segment.Segment;
 import net.frogmouth.rnd.jim.s4607.segment.SegmentSerialiserManager;
 
@@ -51,7 +51,7 @@ public class Writer {
      * @return the byte array corresponding to the Segment.
      */
     static byte[] serialise(Segment segment, SerialisationContext serialisationContext) {
-        AbstractSegmentSerialiser serialiser =
+        ISegmentSerialiser serialiser =
                 SegmentSerialiserManager.getInstance().getSerialiser(segment.getSegmentType());
         byte[] segmentBytesWithoutHeader = serialiser.serialise(segment, serialisationContext);
         int len = segmentBytesWithoutHeader.length + 5;

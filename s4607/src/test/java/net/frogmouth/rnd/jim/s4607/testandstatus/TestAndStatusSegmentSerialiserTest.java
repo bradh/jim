@@ -3,7 +3,7 @@ package net.frogmouth.rnd.jim.s4607.testandstatus;
 import static org.testng.Assert.*;
 
 import java.util.EnumSet;
-import net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentSerialiser;
+import net.frogmouth.rnd.jim.s4607.segment.ISegmentSerialiser;
 import net.frogmouth.rnd.jim.s4607.segment.SegmentSerialiserManager;
 import org.testng.annotations.Test;
 
@@ -25,7 +25,7 @@ public class TestAndStatusSegmentSerialiserTest {
                 HardwareStatus.fromFlags(EnumSet.of(HardwareStatusFlag.DatalinkStatus)));
         testAndStatusSegment.setModeStatus(
                 ModeStatus.fromFlags(EnumSet.of(ModeStatusFlag.ElevationLimitExceeded)));
-        AbstractSegmentSerialiser serialiser =
+        ISegmentSerialiser serialiser =
                 SegmentSerialiserManager.getInstance()
                         .getSerialiser(testAndStatusSegment.getSegmentType());
         byte[] bytes = serialiser.serialise(testAndStatusSegment);
