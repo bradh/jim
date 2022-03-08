@@ -14,12 +14,12 @@ import java.util.ServiceLoader;
  */
 public class SegmentParserManager {
 
-    private final ServiceLoader<SegmentParser> loader;
-    private final Map<SegmentType, SegmentParser> parsers = new HashMap<>();
+    private final ServiceLoader<AbstractSegmentParser> loader;
+    private final Map<SegmentType, AbstractSegmentParser> parsers = new HashMap<>();
 
     private SegmentParserManager() {
-        loader = ServiceLoader.load(SegmentParser.class);
-        for (SegmentParser factory : loader) {
+        loader = ServiceLoader.load(AbstractSegmentParser.class);
+        for (AbstractSegmentParser factory : loader) {
             parsers.put(factory.getSegmentType(), factory);
         }
     }
@@ -39,8 +39,8 @@ public class SegmentParserManager {
      * @param segmentType the segment type
      * @return the corresponding parser, or a fallback parser if no match.
      */
-    public SegmentParser getParser(SegmentType segmentType) {
-        SegmentParser segmentParser =
+    public AbstractSegmentParser getParser(SegmentType segmentType) {
+        AbstractSegmentParser segmentParser =
                 parsers.getOrDefault(segmentType, new FallbackSegmentParser());
         return segmentParser;
     }

@@ -2,6 +2,7 @@ package net.frogmouth.rnd.jim.s4607.jobdefinition;
 
 import java.io.ByteArrayOutputStream;
 import net.frogmouth.rnd.jim.s4607.SerialisationContext;
+import net.frogmouth.rnd.jim.s4607.impl.SerialisationUtils;
 import net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentSerialiser;
 import net.frogmouth.rnd.jim.s4607.segment.ISegmentSerialiser;
 import net.frogmouth.rnd.jim.s4607.segment.Segment;
@@ -30,7 +31,7 @@ public class JobDefinitionSegmentSerialiser extends AbstractSegmentSerialiser
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.writeBytes(writeI32(jobDefinitionSegment.getJobId()));
         baos.writeBytes(writeE8(jobDefinitionSegment.getSensorIdType()));
-        baos.writeBytes(padString(jobDefinitionSegment.getSensorIdModel(), 6));
+        baos.writeBytes(SerialisationUtils.padString(jobDefinitionSegment.getSensorIdModel(), 6));
         baos.writeBytes(writeFL8(jobDefinitionSegment.getTargetFilteringFlag()));
         baos.writeBytes(writeI8(jobDefinitionSegment.getPriority()));
         writeBoundingArea(jobDefinitionSegment.getBoundingArea(), baos);

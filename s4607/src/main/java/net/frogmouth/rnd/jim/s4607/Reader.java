@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4607.packet.Packet;
 import net.frogmouth.rnd.jim.s4607.packet.PacketHeader;
+import net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentParser;
 import net.frogmouth.rnd.jim.s4607.segment.Segment;
 import net.frogmouth.rnd.jim.s4607.segment.SegmentHeader;
-import net.frogmouth.rnd.jim.s4607.segment.SegmentParser;
 import net.frogmouth.rnd.jim.s4607.segment.SegmentParserManager;
 import net.frogmouth.rnd.jim.s4607.segment.SegmentType;
 
@@ -100,7 +100,8 @@ public class Reader {
         SegmentType segmentType = SegmentType.lookupByIdent(context.readE8());
         long segmentSize = context.readI32();
         SegmentHeader segmentHeader = new SegmentHeader(segmentType, segmentSize);
-        SegmentParser segmentParser = SegmentParserManager.getInstance().getParser(segmentType);
+        AbstractSegmentParser segmentParser =
+                SegmentParserManager.getInstance().getParser(segmentType);
         segmentParser.setParseContext(context);
         return segmentParser.parse(segmentHeader);
     }

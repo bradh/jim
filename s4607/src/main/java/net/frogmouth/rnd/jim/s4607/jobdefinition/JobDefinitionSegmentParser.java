@@ -1,8 +1,8 @@
 package net.frogmouth.rnd.jim.s4607.jobdefinition;
 
+import net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentParser;
 import net.frogmouth.rnd.jim.s4607.segment.Segment;
 import net.frogmouth.rnd.jim.s4607.segment.SegmentHeader;
-import net.frogmouth.rnd.jim.s4607.segment.SegmentParser;
 import net.frogmouth.rnd.jim.s4607.segment.SegmentType;
 
 /**
@@ -11,7 +11,7 @@ import net.frogmouth.rnd.jim.s4607.segment.SegmentType;
  * <p>This is normally invoked by the parent parsing code (e.g. from a packet parser), and is not
  * typically created directly.
  */
-public class JobDefinitionSegmentParser extends SegmentParser {
+public class JobDefinitionSegmentParser extends AbstractSegmentParser {
 
     /** Constructor. */
     public JobDefinitionSegmentParser() {}

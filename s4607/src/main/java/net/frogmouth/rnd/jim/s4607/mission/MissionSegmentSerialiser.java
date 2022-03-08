@@ -2,6 +2,7 @@ package net.frogmouth.rnd.jim.s4607.mission;
 
 import java.io.ByteArrayOutputStream;
 import net.frogmouth.rnd.jim.s4607.SerialisationContext;
+import net.frogmouth.rnd.jim.s4607.impl.SerialisationUtils;
 import net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentSerialiser;
 import net.frogmouth.rnd.jim.s4607.segment.ISegmentSerialiser;
 import net.frogmouth.rnd.jim.s4607.segment.Segment;
@@ -25,10 +26,11 @@ public class MissionSegmentSerialiser extends AbstractSegmentSerialiser
     public byte[] serialise(Segment segment, SerialisationContext serialisationContext) {
         MissionSegment missionSegment = (MissionSegment) segment;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        baos.writeBytes(padString(missionSegment.getMissionPlan(), 12));
-        baos.writeBytes(padString(missionSegment.getFlightPlan(), 12));
+        baos.writeBytes(SerialisationUtils.padString(missionSegment.getMissionPlan(), 12));
+        baos.writeBytes(SerialisationUtils.padString(missionSegment.getFlightPlan(), 12));
         baos.writeBytes(writeE8(missionSegment.getPlatformType()));
-        baos.writeBytes(padString(missionSegment.getPlatformConfiguration(), 10));
+        baos.writeBytes(
+                SerialisationUtils.padString(missionSegment.getPlatformConfiguration(), 10));
         baos.writeBytes(writeI16(missionSegment.getYear()));
         baos.writeBytes(writeI8(missionSegment.getMonth()));
         baos.writeBytes(writeI8(missionSegment.getDay()));

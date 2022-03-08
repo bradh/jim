@@ -1,8 +1,6 @@
 package net.frogmouth.rnd.jim.s4607.segment;
 
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import net.frogmouth.rnd.jim.s4607.SerialisationContext;
 
 /**
@@ -201,27 +199,5 @@ public abstract class AbstractSegmentSerialiser implements ISegmentSerialiser {
      */
     protected static byte[] writeS8(int value) {
         return new byte[] {(byte) value};
-    }
-
-    /**
-     * Pad a string to a specified length.
-     *
-     * <p>If the string is longer than the specified length, it will be truncated to the specified
-     * length.
-     *
-     * @param s the string to pad
-     * @param length the length to pad to.
-     * @return the string padded with spaces to the required length
-     */
-    protected static byte[] padString(String s, final int length) {
-        byte[] stringBytes = s.trim().getBytes(StandardCharsets.US_ASCII);
-        int numBytesToCopy = stringBytes.length;
-        if (numBytesToCopy > length) {
-            numBytesToCopy = length;
-        }
-        byte[] stringBytesPadded = new byte[length];
-        Arrays.fill(stringBytesPadded, SPACE);
-        System.arraycopy(stringBytes, 0, stringBytesPadded, 0, numBytesToCopy);
-        return stringBytesPadded;
     }
 }

@@ -6,7 +6,7 @@ package net.frogmouth.rnd.jim.s4607.segment;
  * <p>This is used when no other parser matches. It does not produce a valid segment, and should not
  * be created manually.
  */
-public class FallbackSegmentParser extends SegmentParser {
+public class FallbackSegmentParser extends AbstractSegmentParser {
 
     /** Constructor. */
     public FallbackSegmentParser() {}

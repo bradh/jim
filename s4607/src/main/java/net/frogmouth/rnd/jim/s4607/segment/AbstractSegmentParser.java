@@ -12,7 +12,7 @@ import net.frogmouth.rnd.jim.s4607.IParseContext;
  * concrete sub-classes are usually created by the parsing code, and it should not be necessary to
  * instantiate these from user code.
  */
-public abstract class SegmentParser {
+public abstract class AbstractSegmentParser {
 
     /** The parse context to operate on. */
     protected IParseContext context;

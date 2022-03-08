@@ -84,7 +84,7 @@ public abstract class AbstractParseContext implements IParseContext {
     }
 
     /**
-     * Read a 32 bit (S32) encoded value from the parse context.
+     * Read a 32 bit (I32) encoded value from the parse context.
      *
      * @return the integer equivalent of the read value.
      */
@@ -248,15 +248,9 @@ public abstract class AbstractParseContext implements IParseContext {
      */
     @Override
     public double readSA32() {
-        long i = readI32();
-        boolean negative = (i & 0x80000000) == 0x80000000;
-        int magnitude = (int) (i & 0x7FFFFFFF);
-        double d = magnitude * 1.40625 / Math.pow(2, 32 - 7);
-        if (negative) {
-            return d * -1.0;
-        } else {
-            return d;
-        }
+        long i = readS32();
+        double d = i * 1.40625 / Math.pow(2, 32 - 7);
+        return d;
     }
 
     /**
@@ -268,14 +262,8 @@ public abstract class AbstractParseContext implements IParseContext {
      */
     @Override
     public double readSA16() {
-        long i = readI16();
-        boolean negative = (i & 0x8000) == 0x8000;
-        int magnitude = (int) (i & 0x7FFF);
-        double d = magnitude * 1.40625 / Math.pow(2, 16 - 7);
-        if (negative) {
-            return d * -1.0;
-        } else {
-            return d;
-        }
+        long i = readS16();
+        double d = i * 1.40625 / Math.pow(2, 16 - 7);
+        return d;
     }
 }
