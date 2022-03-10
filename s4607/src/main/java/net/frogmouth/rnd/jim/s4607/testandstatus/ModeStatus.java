@@ -22,7 +22,7 @@ public class ModeStatus {
      */
     public static ModeStatus fromByte(byte b) {
         EnumSet<ModeStatusFlag> statusFlags = EnumSet.noneOf(ModeStatusFlag.class);
-        for (int shift = 0; shift < 8; shift++) {
+        for (int shift = 0; shift < Byte.SIZE; shift++) {
             int flagValue = 1 << shift;
             if ((b & flagValue) == flagValue) {
                 ModeStatusFlag flag = ModeStatusFlag.lookupValue(flagValue);

@@ -22,7 +22,7 @@ public class HardwareStatus {
      */
     public static HardwareStatus fromByte(byte b) {
         EnumSet<HardwareStatusFlag> statusFlags = EnumSet.noneOf(HardwareStatusFlag.class);
-        for (int shift = 0; shift < 8; shift++) {
+        for (int shift = 0; shift < Byte.SIZE; shift++) {
             int flagValue = 1 << shift;
             if ((b & flagValue) == flagValue) {
                 HardwareStatusFlag flag = HardwareStatusFlag.lookupValue(flagValue);

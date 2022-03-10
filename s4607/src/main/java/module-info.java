@@ -16,6 +16,7 @@ module net.frogmouth.rnd.jim.s4607 {
     exports net.frogmouth.rnd.jim.s4607.mission;
     exports net.frogmouth.rnd.jim.s4607.packet;
     exports net.frogmouth.rnd.jim.s4607.platformlocation;
+    exports net.frogmouth.rnd.jim.s4607.processinghistory;
     exports net.frogmouth.rnd.jim.s4607.segment;
     exports net.frogmouth.rnd.jim.s4607.testandstatus;
 
@@ -27,6 +28,7 @@ module net.frogmouth.rnd.jim.s4607 {
             net.frogmouth.rnd.jim.s4607.jobdefinition.JobDefinitionSegmentParser,
             net.frogmouth.rnd.jim.s4607.mission.MissionSegmentParser,
             net.frogmouth.rnd.jim.s4607.platformlocation.PlatformLocationSegmentParser,
+            net.frogmouth.rnd.jim.s4607.processinghistory.ProcessingHistorySegmentParser,
             net.frogmouth.rnd.jim.s4607.testandstatus.TestAndStatusSegmentParser;
 
     uses net.frogmouth.rnd.jim.s4607.segment.ISegmentSerialiser;
@@ -37,5 +39,6 @@ module net.frogmouth.rnd.jim.s4607 {
             net.frogmouth.rnd.jim.s4607.jobdefinition.JobDefinitionSegmentSerialiser,
             net.frogmouth.rnd.jim.s4607.mission.MissionSegmentSerialiser,
             net.frogmouth.rnd.jim.s4607.platformlocation.PlatformLocationSegmentSerialiser,
+            net.frogmouth.rnd.jim.s4607.processinghistory.ProcessingHistorySegmentSerialiser,
             net.frogmouth.rnd.jim.s4607.testandstatus.TestAndStatusSegmentSerialiser;
 }
