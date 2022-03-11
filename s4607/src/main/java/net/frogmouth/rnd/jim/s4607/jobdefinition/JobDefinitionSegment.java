@@ -1,5 +1,7 @@
 package net.frogmouth.rnd.jim.s4607.jobdefinition;
 
+import net.frogmouth.rnd.jim.s4607.BoundingArea;
+import net.frogmouth.rnd.jim.s4607.impl.RadarModeLookupTable;
 import net.frogmouth.rnd.jim.s4607.segment.Segment;
 import net.frogmouth.rnd.jim.s4607.segment.SegmentType;
 
@@ -214,9 +216,9 @@ public class JobDefinitionSegment extends Segment {
     /**
      * Bounding area (J6 through J13).
      *
-     * <p>Bounding box for the the area for sensor service, expressed as. The four corners (J6
-     * through J13) of the bounding area, expressed as lat/long for each corner, are given in
-     * clockwise order (Points A, B, C, and D) and must form a convex quadrilateral.
+     * <p>Bounding box for the area for sensor service. The four corners (J6 through J13) of the
+     * bounding area, expressed as lat/long for each corner, are given in clockwise order (Points A,
+     * B, C, and D) and must form a convex quadrilateral.
      *
      * @return the bounding area.
      */
@@ -227,9 +229,9 @@ public class JobDefinitionSegment extends Segment {
     /**
      * Set the Bounding area (J6 through J13).
      *
-     * <p>Bounding box for the the area for sensor service, expressed as. The four corners (J6
-     * through J13) of the bounding area, expressed as lat/long for each corner, are given in
-     * clockwise order (Points A, B, C, and D) and must form a convex quadrilateral.
+     * <p>Bounding box for the area for sensor service. The four corners (J6 through J13) of the
+     * bounding area, expressed as lat/long for each corner, are given in clockwise order (Points A,
+     * B, C, and D) and must form a convex quadrilateral.
      *
      * @param boundingArea the boounding area.
      */

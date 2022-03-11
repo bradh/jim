@@ -1,5 +1,6 @@
 package net.frogmouth.rnd.jim.s4607.jobdefinition;
 
+import net.frogmouth.rnd.jim.s4607.impl.BoundingAreaParser;
 import net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentParser;
 import net.frogmouth.rnd.jim.s4607.segment.Segment;
 import net.frogmouth.rnd.jim.s4607.segment.SegmentHeader;
@@ -29,7 +30,7 @@ public class JobDefinitionSegmentParser extends AbstractSegmentParser {
         jobSegment.setSensorIdModel(context.readASCII(6));
         jobSegment.setTargetFilteringFlag(context.readFL8());
         jobSegment.setPriority(context.readI8());
-        jobSegment.setBoundingArea(parseBoundingArea());
+        jobSegment.setBoundingArea(BoundingAreaParser.parseBoundingArea(context));
         jobSegment.setRadarMode(context.readE8());
         jobSegment.setNominalRevisitInterval(context.readI16());
         jobSegment.setAlongTrackUncertainty(context.readI16());
@@ -47,21 +48,5 @@ public class JobDefinitionSegmentParser extends AbstractSegmentParser {
         jobSegment.setGeoidModelUsed(context.readE8());
 
         return jobSegment;
-    }
-
-    private BoundingArea parseBoundingArea() {
-        BoundingArea boundingArea = new BoundingArea();
-        boundingArea.setPointA(readPoint());
-        boundingArea.setPointB(readPoint());
-        boundingArea.setPointC(readPoint());
-        boundingArea.setPointD(readPoint());
-        return boundingArea;
-    }
-
-    private Point readPoint() {
-        Point point = new Point();
-        point.setLatitude(context.readSA32());
-        point.setLongitude(context.readBA32());
-        return point;
     }
 }

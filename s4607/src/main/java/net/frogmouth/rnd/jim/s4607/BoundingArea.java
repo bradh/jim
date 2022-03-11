@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4607.jobdefinition;
+package net.frogmouth.rnd.jim.s4607;
 
 /**
  * Bounding area.

@@ -2,6 +2,7 @@ package net.frogmouth.rnd.jim.s4607.jobdefinition;
 
 import java.io.ByteArrayOutputStream;
 import net.frogmouth.rnd.jim.s4607.SerialisationContext;
+import net.frogmouth.rnd.jim.s4607.impl.BoundingAreaSerialiser;
 import net.frogmouth.rnd.jim.s4607.impl.SerialisationUtils;
 import net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentSerialiser;
 import net.frogmouth.rnd.jim.s4607.segment.ISegmentSerialiser;
@@ -34,7 +35,7 @@ public class JobDefinitionSegmentSerialiser extends AbstractSegmentSerialiser
         baos.writeBytes(SerialisationUtils.padString(jobDefinitionSegment.getSensorIdModel(), 6));
         baos.writeBytes(writeFL8(jobDefinitionSegment.getTargetFilteringFlag()));
         baos.writeBytes(writeI8(jobDefinitionSegment.getPriority()));
-        writeBoundingArea(jobDefinitionSegment.getBoundingArea(), baos);
+        BoundingAreaSerialiser.writeBoundingArea(jobDefinitionSegment.getBoundingArea(), baos);
         baos.writeBytes(writeE8(jobDefinitionSegment.getRadarMode()));
         baos.writeBytes(writeI16(jobDefinitionSegment.getNominalRevisitInterval()));
         baos.writeBytes(writeI16(jobDefinitionSegment.getAlongTrackUncertainty()));
@@ -52,17 +53,5 @@ public class JobDefinitionSegmentSerialiser extends AbstractSegmentSerialiser
         baos.writeBytes(writeE8(jobDefinitionSegment.getTerrainElevationModelUsed()));
         baos.writeBytes(writeE8(jobDefinitionSegment.getGeoidModelUsed()));
         return baos.toByteArray();
-    }
-
-    private void writeBoundingArea(BoundingArea boundingArea, ByteArrayOutputStream baos) {
-        writePoint(boundingArea.getPointA(), baos);
-        writePoint(boundingArea.getPointB(), baos);
-        writePoint(boundingArea.getPointC(), baos);
-        writePoint(boundingArea.getPointD(), baos);
-    }
-
-    private void writePoint(Point point, ByteArrayOutputStream baos) {
-        baos.writeBytes(writeSA32(point.getLatitude()));
-        baos.writeBytes(writeBA32(point.getLongitude()));
     }
 }

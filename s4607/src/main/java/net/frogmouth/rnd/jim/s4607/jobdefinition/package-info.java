@@ -17,8 +17,5 @@
  * {@link JobDefinitionSegmentSerialiser}, however this is normally handled indirectly via {@link
  * net.frogmouth.rnd.jim.s4607.Reader} and {@link net.frogmouth.rnd.jim.s4607.Writer}. That is, the
  * Job Definition Segment is handled as for any other Segment within the Packet structure.
- *
- * <p>The Sensor Type (field J2) within the Job Definition Segment is an enumerated value. That is
- * supported via the {@link SensorTypeLookupTable} enumeration.
  */
 package net.frogmouth.rnd.jim.s4607.jobdefinition;

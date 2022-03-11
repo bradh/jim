@@ -3,6 +3,7 @@ package net.frogmouth.rnd.jim.s4607.dwellsegment;
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 import net.frogmouth.rnd.jim.s4607.SerialisationContext;
+import net.frogmouth.rnd.jim.s4607.impl.SerialisationUtils;
 import net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentSerialiser;
 import net.frogmouth.rnd.jim.s4607.segment.ISegmentSerialiser;
 import net.frogmouth.rnd.jim.s4607.segment.Segment;
@@ -43,14 +44,14 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser
         if (dwell.getDwellTime() != null) {
             baos.writeBytes(writeI32(dwell.getDwellTime()));
         }
-        baos.writeBytes(writeSA32(dwell.getSensorLatitude()));
-        baos.writeBytes(writeBA32(dwell.getSensorLongitude()));
-        baos.writeBytes(writeS32(dwell.getSensorAltitude()));
+        baos.writeBytes(SerialisationUtils.writeSA32(dwell.getSensorLatitude()));
+        baos.writeBytes(SerialisationUtils.writeBA32(dwell.getSensorLongitude()));
+        baos.writeBytes(SerialisationUtils.writeS32(dwell.getSensorAltitude()));
         if (dwell.getScaleFactorLatScale() != null) {
-            baos.writeBytes(writeSA32(dwell.getScaleFactorLatScale()));
+            baos.writeBytes(SerialisationUtils.writeSA32(dwell.getScaleFactorLatScale()));
         }
         if (dwell.getScaleFactorLonScale() != null) {
-            baos.writeBytes(writeBA32(dwell.getScaleFactorLonScale()));
+            baos.writeBytes(SerialisationUtils.writeBA32(dwell.getScaleFactorLonScale()));
         }
         if (dwell.getSensorPositionUncertaintyAlongTrack() != null) {
             baos.writeBytes(writeI32(dwell.getSensorPositionUncertaintyAlongTrack()));
@@ -88,8 +89,8 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser
         if (dwell.getPlatformOrientationRoll() != null) {
             baos.writeBytes(writeSA16(dwell.getPlatformOrientationRoll()));
         }
-        baos.writeBytes(writeSA32(dwell.getDwellCentreLatitude()));
-        baos.writeBytes(writeBA32(dwell.getDwellCentreLongitude()));
+        baos.writeBytes(SerialisationUtils.writeSA32(dwell.getDwellCentreLatitude()));
+        baos.writeBytes(SerialisationUtils.writeBA32(dwell.getDwellCentreLongitude()));
         baos.writeBytes(writeB16(dwell.getDwellAreaRangeHalfExtent()));
         baos.writeBytes(writeBA16(dwell.getDwellAreaDwellAngleHalfExtent()));
         if (dwell.getSensorOrientationHeading() != null) {
@@ -109,10 +110,10 @@ public class DwellSegmentSerialiser extends AbstractSegmentSerialiser
                 baos.writeBytes(writeI16(target.getMtiReportIndex()));
             }
             if (target.getTargetLocationLatitude() != null) {
-                baos.writeBytes(writeSA32(target.getTargetLocationLatitude()));
+                baos.writeBytes(SerialisationUtils.writeSA32(target.getTargetLocationLatitude()));
             }
             if (target.getTargetLocationLongitude() != null) {
-                baos.writeBytes(writeBA32(target.getTargetLocationLongitude()));
+                baos.writeBytes(SerialisationUtils.writeBA32(target.getTargetLocationLongitude()));
             }
             if (target.getTargetLocationDeltaLatitude() != null) {
                 baos.writeBytes(writeS16(target.getTargetLocationDeltaLatitude()));

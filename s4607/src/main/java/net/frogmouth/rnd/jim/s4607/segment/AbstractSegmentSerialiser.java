@@ -100,18 +100,6 @@ public abstract class AbstractSegmentSerialiser implements ISegmentSerialiser {
     }
 
     /**
-     * Serialise out a 32-bit binary angle (BA32) value.
-     *
-     * @param value the value to serialise.
-     * @return the value serialised in BA32 format.
-     */
-    protected static byte[] writeBA32(double value) {
-        double ba32 = value * 64.0 / 45.0 * Math.pow(2.0, 32 - 9);
-        int rounded = (int) Math.round(ba32);
-        return writeS32(rounded);
-    }
-
-    /**
      * Serialise out a 16-bit binary angle (BA16) value.
      *
      * @param value the value to serialise.
@@ -124,18 +112,6 @@ public abstract class AbstractSegmentSerialiser implements ISegmentSerialiser {
     }
 
     /**
-     * Serialise out a 32-bit signed angle (SA32) value.
-     *
-     * @param value the value to serialise.
-     * @return the value serialised in SA32 format.
-     */
-    protected static byte[] writeSA32(double value) {
-        double sa32 = value * 64.0 / 45.0 * Math.pow(2.0, 32 - 8);
-        int rounded = (int) Math.round(sa32);
-        return writeS32(rounded);
-    }
-
-    /**
      * Serialise out a 16-bit signed angle (SA16) value.
      *
      * @param value the value to serialise.
@@ -145,18 +121,6 @@ public abstract class AbstractSegmentSerialiser implements ISegmentSerialiser {
         double sa16 = value * 64.0 / 45.0 * Math.pow(2.0, 16 - 8);
         int rounded = (int) Math.round(sa16);
         return writeS16(rounded);
-    }
-
-    /**
-     * Serialise out a 32-bit signed (S32) integer value.
-     *
-     * @param value the value to serialise.
-     * @return the value serialised in S32 format.
-     */
-    protected static byte[] writeS32(int value) {
-        ByteBuffer bb = ByteBuffer.allocate(4);
-        bb.putInt(value);
-        return bb.array();
     }
 
     /**

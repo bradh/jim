@@ -13,6 +13,7 @@ module net.frogmouth.rnd.jim.s4607 {
     exports net.frogmouth.rnd.jim.s4607.dwellsegment;
     exports net.frogmouth.rnd.jim.s4607.freetext;
     exports net.frogmouth.rnd.jim.s4607.jobdefinition;
+    exports net.frogmouth.rnd.jim.s4607.jobrequest;
     exports net.frogmouth.rnd.jim.s4607.mission;
     exports net.frogmouth.rnd.jim.s4607.packet;
     exports net.frogmouth.rnd.jim.s4607.platformlocation;
@@ -26,6 +27,7 @@ module net.frogmouth.rnd.jim.s4607 {
             net.frogmouth.rnd.jim.s4607.dwellsegment.DwellSegmentParser,
             net.frogmouth.rnd.jim.s4607.freetext.FreeTextSegmentParser,
             net.frogmouth.rnd.jim.s4607.jobdefinition.JobDefinitionSegmentParser,
+            net.frogmouth.rnd.jim.s4607.jobrequest.JobRequestSegmentParser,
             net.frogmouth.rnd.jim.s4607.mission.MissionSegmentParser,
             net.frogmouth.rnd.jim.s4607.platformlocation.PlatformLocationSegmentParser,
             net.frogmouth.rnd.jim.s4607.processinghistory.ProcessingHistorySegmentParser,
@@ -37,6 +39,7 @@ module net.frogmouth.rnd.jim.s4607 {
             net.frogmouth.rnd.jim.s4607.dwellsegment.DwellSegmentSerialiser,
             net.frogmouth.rnd.jim.s4607.freetext.FreeTextSegmentSerialiser,
             net.frogmouth.rnd.jim.s4607.jobdefinition.JobDefinitionSegmentSerialiser,
+            net.frogmouth.rnd.jim.s4607.jobrequest.JobRequestSegmentSerialiser,
             net.frogmouth.rnd.jim.s4607.mission.MissionSegmentSerialiser,
             net.frogmouth.rnd.jim.s4607.platformlocation.PlatformLocationSegmentSerialiser,
             net.frogmouth.rnd.jim.s4607.processinghistory.ProcessingHistorySegmentSerialiser,
