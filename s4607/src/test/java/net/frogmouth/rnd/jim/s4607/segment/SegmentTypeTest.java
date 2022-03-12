@@ -33,7 +33,7 @@ public class SegmentTypeTest {
     @Test
     public void lookupJobAcknowledgementSegment() {
         SegmentType uut = SegmentType.lookupByIdent(102);
-        assertEquals(uut, SegmentType.JobAcknowledgementSegment);
+        assertEquals(uut, SegmentType.JobAcknowledgeSegment);
         assertEquals(uut.getTag(), 102);
         assertEquals(uut.getDisplayLabel(), "Job Acknowledge Segment");
     }

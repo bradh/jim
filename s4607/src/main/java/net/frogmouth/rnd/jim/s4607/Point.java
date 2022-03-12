@@ -54,7 +54,9 @@ public class Point {
     /**
      * Get the longitude value.
      *
-     * @return latitude as a floating point value (decimal degrees) - north positive.
+     * <p>Longitude values are in the range 0 to 360.0, degrees east of the prime meridian.
+     *
+     * @return longitude as a floating point value (decimal degrees).
      */
     public double getLongitude() {
         return longitude;
@@ -63,7 +65,9 @@ public class Point {
     /**
      * Set the longitude value.
      *
-     * @param longitude latitude as a floating point value (decimal degrees) - north positive.
+     * <p>Longitude values are in the range 0 to 360.0, degrees east of the prime meridian.
+     *
+     * @param longitude longitude as a floating point value (decimal degrees)
      */
     public void setLongitude(double longitude) {
         this.longitude = longitude;

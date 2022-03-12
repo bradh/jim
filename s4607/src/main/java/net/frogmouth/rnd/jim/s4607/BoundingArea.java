@@ -6,6 +6,9 @@ package net.frogmouth.rnd.jim.s4607;
  * <p>Bounding box for the the area for sensor service, expressed as. The four corners (J6 through
  * J13) of the bounding area, expressed as lat/long for each corner, are given in clockwise order
  * (Points A, B, C, and D) and must form a convex quadrilateral.
+ *
+ * <p>As noted in the {@link Point} documentation, longitude values are strictly positive (0 to
+ * 360.0).
  */
 public class BoundingArea {
     private Point pointA;

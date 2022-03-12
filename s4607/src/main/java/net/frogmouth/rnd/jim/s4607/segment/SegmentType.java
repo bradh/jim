@@ -124,7 +124,7 @@ public enum SegmentType {
      *
      * <p>This segment type is encoded as 102.
      */
-    JobAcknowledgementSegment(102, "Job Acknowledge Segment"),
+    JobAcknowledgeSegment(102, "Job Acknowledge Segment"),
     /**
      * Reserved for future use.
      *
