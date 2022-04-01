@@ -8,4 +8,4 @@
  * targets. Dwell Segments shall be sent for each logical grouping of target reports. A Dwell
  * Segment is transmitted even if no targets are observed.
  */
-package net.frogmouth.rnd.jim.s4607.dwellsegment;
+package net.frogmouth.rnd.jim.s4607.dwell;

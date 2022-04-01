@@ -240,6 +240,48 @@ public abstract class AbstractParseContext implements IParseContext {
     }
 
     /**
+     * Read a B32 encoded value from the parse context.
+     *
+     * <p>B32 is a 32 bit binary value (1 bit sign, 8 bit integer + 23 bit fraction).
+     *
+     * @return the decoded value
+     */
+    @Override
+    public double readB32() {
+        long i = readI32();
+        boolean negative = (i & 0x80000000L) == 0x80000000L;
+        int magnitude = (int) ((i & 0x7F800000L) >> 23);
+        int fraction = (int) (i & 0x7FFFFFL);
+        double d = magnitude + (fraction / Math.pow(2, 23));
+        if (negative) {
+            return d * -1.0;
+        } else {
+            return d;
+        }
+    }
+
+    /**
+     * Read a H32 encoded value from the parse context.
+     *
+     * <p>H32 is a 32 bit binary value (1 bit sign, 15 bit integer + 16 bit fraction).
+     *
+     * @return the decoded value
+     */
+    @Override
+    public double readH32() {
+        long i = readI32();
+        boolean negative = (i & 0x80000000L) == 0x80000000L;
+        int magnitude = (int) ((i & 0x7FFF0000L) >> 16);
+        int fraction = (int) (i & 0x00FFFF);
+        double d = magnitude + (fraction / Math.pow(2, 16));
+        if (negative) {
+            return d * -1.0;
+        } else {
+            return d;
+        }
+    }
+
+    /**
      * Read a SA32 encoded value from the parse context.
      *
      * <p>SA32 is a 32 bit binary signed angle value.

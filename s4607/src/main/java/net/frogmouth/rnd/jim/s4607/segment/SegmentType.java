@@ -21,12 +21,18 @@ public enum SegmentType {
      * Mission Segment.
      *
      * <p>This segment type is encoded as 1.
+     *
+     * <p>This segment type is implemented as {@link
+     * net.frogmouth.rnd.jim.s4607.mission.MissionSegment}.
      */
     MissionSegment(1, "Mission Segment"),
     /**
      * Dwell Segment.
      *
      * <p>This segment type is encoded as 2.
+     *
+     * <p>This segment type is implemented as {@link
+     * net.frogmouth.rnd.jim.s4607.dwell.DwellSegment}.
      */
     DwellSegment(2, "Dwell Segment"),
     /**
@@ -49,12 +55,18 @@ public enum SegmentType {
      * Job Definition Segment.
      *
      * <p>This segment type is encoded as 5.
+     *
+     * <p>This segment type is implemented as {@link
+     * net.frogmouth.rnd.jim.s4607.jobdefinition.JobDefinitionSegment}.
      */
     JobDefinitionSegment(5, "Job Definition Segment"),
     /**
      * Free Text Segment.
      *
      * <p>This segment type is encoded as 6.
+     *
+     * <p>This segment type is implemented as {@link
+     * net.frogmouth.rnd.jim.s4607.freetext.FreeTextSegment}.
      */
     FreeTextSegment(6, "Free Text Segment"),
     /**
@@ -85,6 +97,9 @@ public enum SegmentType {
      * Test and Status Segment.
      *
      * <p>This segment type is encoded as 10.
+     *
+     * <p>This segment type is implemented as {@link
+     * net.frogmouth.rnd.jim.s4607.testandstatus.TestAndStatusSegment}.
      */
     TestAndStatusSegment(10, "Test and Status Segment"),
     /**
@@ -99,12 +114,18 @@ public enum SegmentType {
      * Processing History Segment.
      *
      * <p>This segment type is encoded as 12.
+     *
+     * <p>This segment type is implemented as {@link
+     * net.frogmouth.rnd.jim.s4607.processinghistory.ProcessingHistorySegment}.
      */
     ProcessingHistorySegment(12, "Processing History Segment"),
     /**
      * Platform Location Segment.
      *
      * <p>This segment type is encoded as 13.
+     *
+     * <p>This segment type is implemented as {@link
+     * net.frogmouth.rnd.jim.s4607.platformlocation.PlatformLocationSegment}.
      */
     PlatformLocationSegment(13, "Platform Location Segment"),
     /**
@@ -117,12 +138,18 @@ public enum SegmentType {
      * Job Request Segment.
      *
      * <p>This segment type is encoded as 101.
+     *
+     * <p>This segment type is implemented as {@link
+     * net.frogmouth.rnd.jim.s4607.jobrequest.JobRequestSegment}.
      */
     JobRequestSegment(101, "Job Request Segment"),
     /**
      * Job Acknowledge Segment.
      *
      * <p>This segment type is encoded as 102.
+     *
+     * <p>This segment type is implemented as {@link
+     * net.frogmouth.rnd.jim.s4607.jobacknowledge.JobAcknowledgeSegment}.
      */
     JobAcknowledgeSegment(102, "Job Acknowledge Segment"),
     /**

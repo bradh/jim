@@ -36,6 +36,25 @@ public interface IParseContext {
     double readB16();
 
     /**
+     * Read a B32 encoded value from the parse context.
+     *
+     * <p>B32 is a 32 bit binary value (1 bit sign, 8 bit integer + 23 bit fraction)
+     *
+     * @return the decoded value
+     */
+    double readB32();
+
+    /**
+     * Read a H32 encoded value from the parse context.
+     *
+     * <p>H32 is a 32 bit binary value (1 bit sign, 15 bit integer + 16 bit fraction). This is only
+     * used for Doppler frequencies (hence "H" for Hertz).
+     *
+     * @return the decoded value
+     */
+    double readH32();
+
+    /**
      * Read a BA16 encoded value from the parse context.
      *
      * <p>BA16 is a 16 bit binary angle value.

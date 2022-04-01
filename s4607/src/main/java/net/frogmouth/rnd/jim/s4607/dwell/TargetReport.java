@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4607.dwellsegment;
+package net.frogmouth.rnd.jim.s4607.dwell;
 
 /**
  * GMTI Target Report.

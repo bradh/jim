@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4607.dwellsegment;
+package net.frogmouth.rnd.jim.s4607.dwell;
 
 import net.frogmouth.rnd.jim.s4607.segment.AbstractSegmentParser;
 import net.frogmouth.rnd.jim.s4607.segment.Segment;

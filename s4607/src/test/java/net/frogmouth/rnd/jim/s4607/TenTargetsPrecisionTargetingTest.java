@@ -4,8 +4,8 @@ import static org.testng.Assert.*;
 
 import java.io.IOException;
 import java.util.List;
-import net.frogmouth.rnd.jim.s4607.dwellsegment.DwellSegment;
-import net.frogmouth.rnd.jim.s4607.dwellsegment.TargetReport;
+import net.frogmouth.rnd.jim.s4607.dwell.DwellSegment;
+import net.frogmouth.rnd.jim.s4607.dwell.TargetReport;
 import net.frogmouth.rnd.jim.s4607.freetext.FreeTextSegment;
 import net.frogmouth.rnd.jim.s4607.mission.MissionSegment;
 import net.frogmouth.rnd.jim.s4607.packet.Packet;
