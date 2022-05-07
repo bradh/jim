@@ -1,11 +1,21 @@
 package net.frogmouth.rnd.jim.s4676;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import java.util.List;
 import java.util.UUID;
 
+/**
+ * Track Point.
+ *
+ * <p>The TrackPoint class specifies the position and movement of the tracked object for a single
+ * point in time. The values contained in the contents of this TrackPoint are valid for this and
+ * only for this TrackPoint, even if those values are provided only in a subset of the TrackPoints.
+ * For example, if the objects velocity is omitted from a TrackPoint, the data consumer shall not
+ * infer that the object is travelling at the same speed as it was at a previous point in time.
+ */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({
     "uid",
     "lid",
@@ -20,47 +30,41 @@ public class TrackPoint {
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "uid")
-    @JsonInclude(Include.NON_NULL)
     UUID uid;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "lid")
-    @JsonInclude(Include.NON_NULL)
     Long lid;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "relTime")
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     long relTime;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "dynSrcUID")
-    @JsonInclude(Include.NON_NULL)
     UUID dynamicSourceUID;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "dynSrcLID")
-    @JsonInclude(Include.NON_NULL)
     Long dynamicSourceLID;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "associatedDetection")
-    @JsonInclude(Include.NON_NULL)
     Boolean associatedDetection;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "processType")
-    @JsonInclude(Include.NON_NULL)
     ProcessType processType;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "dynamics")
-    // TODO: this needs to be a list
-    Dynamics dynamics;
+    List<Dynamics> dynamics;
 }

@@ -1,0 +1,25 @@
+<ns2:nitsRoot xmlns:ns2="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1" >
+    <ns2:profile>STANDALONE</ns2:profile>
+    <ns2:msgCreatedTime>2021-10-10T22:24:33.733Z</ns2:msgCreatedTime>
+    <ns2:nitsVersion>B.1</ns2:nitsVersion>
+    <ns2:message>
+        <ns2:baseTime>2021-10-10T22:24:33.688Z</ns2:baseTime>
+        <ns2:relTimeIncrement>0.001</ns2:relTimeIncrement>
+        <ns2:track>
+            <ns2:uid>DFjLwA22RXiKSAWh2eBOGQ==</ns2:uid>
+            <ns2:segment>
+                <ns2:tp>
+                    <ns2:dynamics cs="WGS_84">
+                        <ns2:pos>-35.37056 149.105 0.0</ns2:pos>
+                    </ns2:dynamics>
+                </ns2:tp>
+                <ns2:tp>
+                    <ns2:relTime>2800</ns2:relTime>
+                    <ns2:dynamics cs="WGS_84">
+                        <ns2:pos>-35.37056 149.10505 0.0</ns2:pos>
+                    </ns2:dynamics>
+                </ns2:tp>
+            </ns2:segment>
+        </ns2:track>
+    </ns2:message>
+</ns2:nitsRoot>
