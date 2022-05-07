@@ -1,6 +1,7 @@
 package net.frogmouth.rnd.jim.s4676;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * are tied together using the same UID and or LID.
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonPropertyOrder({"uid", "lid", "trackSource", "segment", "object"})
 public class TrackData {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private String uid;
@@ -44,5 +46,29 @@ public class TrackData {
      */
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    /**
+     * Track Segments.
+     *
+     * <p>Each track segment consists of zero or more track points that are adjacent in time. Note
+     * that it is not necessary for a track to consist of more than one track segment.
+     *
+     * @return the list of track segments
+     */
+    public List<TrackSegment> getSegments() {
+        return segments;
+    }
+
+    /**
+     * Set the Track Segments.
+     *
+     * <p>Each track segment consists of zero or more track points that are adjacent in time. Note
+     * that it is not necessary for a track to consist of more than one track segment.
+     *
+     * @param segments the list of track segments
+     */
+    public void setSegments(List<TrackSegment> segments) {
+        this.segments = segments;
     }
 }

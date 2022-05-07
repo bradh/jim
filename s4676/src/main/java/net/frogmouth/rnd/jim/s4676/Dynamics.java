@@ -1,6 +1,7 @@
 package net.frogmouth.rnd.jim.s4676;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 /**
@@ -14,7 +15,9 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
  * covariance in a local coordinate system.
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonPropertyOrder({"cs", "pos", "vel", "acc", "cov", "cftUID", "cftLID"})
 public class Dynamics {
+
     @JacksonXmlProperty(localName = "cs", isAttribute = true)
     // TODO: this should be an enumerated type
     private String coordinateSystem;

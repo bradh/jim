@@ -51,10 +51,13 @@ public class NitsRoot {
     private List<String> profile;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private ZonedDateTime msgCreatedTime;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private String nitsVersion;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    private ZonedDateTime msgCreatedTime;
+    private ProductIdentification product;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
@@ -155,6 +158,34 @@ public class NitsRoot {
      */
     public void setMsgCreatedTime(ZonedDateTime msgCreatedTime) {
         this.msgCreatedTime = msgCreatedTime;
+    }
+
+    /**
+     * Product identification.
+     *
+     * <p>Information that identifies this instance of NITSRoot as a specifically identified data
+     * product associated with a specific system or program.
+     *
+     * <p>This field is optional.
+     *
+     * @return the product identification.
+     */
+    public ProductIdentification getProduct() {
+        return product;
+    }
+
+    /**
+     * Set the product identification.
+     *
+     * <p>Information that identifies this instance of NITSRoot as a specifically identified data
+     * product associated with a specific system or program.
+     *
+     * <p>This field is optional.
+     *
+     * @param product the product identification.
+     */
+    public void setProduct(ProductIdentification product) {
+        this.product = product;
     }
 
     /**
