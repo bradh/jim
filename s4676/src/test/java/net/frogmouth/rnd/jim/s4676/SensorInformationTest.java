@@ -12,6 +12,7 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.common.IDData;
+import net.frogmouth.rnd.jim.s4676.enumeration.ModalityType;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
 
@@ -21,7 +22,7 @@ public class SensorInformationTest {
 
     @Test
     public void testSensorInformation() throws JsonProcessingException {
-        SensorInformation uut = new SensorInformation("sensor 3", "AIS");
+        SensorInformation uut = new SensorInformation("sensor 3", ModalityType.ADS_B);
         uut.setLid(29L);
         uut.setSensorID(new IDData("SENSOR 3  ", "AUS"));
         uut.setCollectionMode("Channel A only");
@@ -68,6 +69,7 @@ public class SensorInformationTest {
         assertEquals(sensor.getSensorID().getNationalityTrigraph(), "AUS");
         assertEquals(sensor.getName(), "sensor 3");
         assertEquals(sensor.getDescription(), "Fixed surface AIS receiver at Pt Barren.");
+        assertEquals(sensor.getModality(), ModalityType.ADS_B);
         assertEquals(sensor.getUrl(), "https://jericho.edgsespark.net/sensor3");
         assertEquals(sensor.getComment(), "Channel B antenna was offline for a while");
         assertEquals(sensor.getCollectionMode(), "Channel A only");

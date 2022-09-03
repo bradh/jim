@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import net.frogmouth.rnd.jim.s4676.common.IDData;
+import net.frogmouth.rnd.jim.s4676.enumeration.ModalityType;
 
 /**
  * Sensor Information.
@@ -66,8 +67,7 @@ public class SensorInformation {
     private String description;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    // TODO: this needs to be an enum.
-    private String modality;
+    private ModalityType modality;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private String url;
@@ -98,7 +98,7 @@ public class SensorInformation {
      * @param name the name
      * @param modality the modality
      */
-    public SensorInformation(String name, String modality) {
+    public SensorInformation(String name, ModalityType modality) {
         this.name = name;
         this.modality = modality;
     }
@@ -200,6 +200,28 @@ public class SensorInformation {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Get the sensor modality.
+     *
+     * <p>Category of the sensor according to the type of signal it can detect.
+     *
+     * @return the modality
+     */
+    public ModalityType getModality() {
+        return modality;
+    }
+
+    /**
+     * Set the sensor modality.
+     *
+     * <p>Category of the sensor according to the type of signal it can detect.
+     *
+     * @param modality the modality
+     */
+    public void setModality(ModalityType modality) {
+        this.modality = modality;
     }
 
     /**

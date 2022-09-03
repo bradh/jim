@@ -10,7 +10,7 @@
     </sensorID>
     <name>sensor 3</name>
     <description>Fixed surface AIS receiver at Pt Barren.</description>
-    <modality>AIS</modality>
+    <modality>ADS-B</modality>
     <url>https://jericho.edgsespark.net/sensor3</url>
     <collectionMode>Channel A only</collectionMode>
     <comment>Channel B antenna was offline for a while</comment>

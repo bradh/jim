@@ -2,5 +2,5 @@
     <ns2:profile>STANDALONE</ns2:profile>
     <ns2:profile>EXTENSION_ABCD</ns2:profile>
     <ns2:msgCreatedTime>2021-10-10T22:24:33.733Z</ns2:msgCreatedTime>
-    <ns2:nitsVersion>B.1</ns2:nitsVersion>
+    <ns2:nitsVersion>B.2</ns2:nitsVersion>
 </ns2:nitsRoot>
