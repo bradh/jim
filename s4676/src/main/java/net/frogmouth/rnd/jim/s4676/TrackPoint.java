@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
 import java.util.UUID;
+import net.frogmouth.rnd.jim.s4676.enumeration.ProcessType;
 
 /**
  * Track Point.

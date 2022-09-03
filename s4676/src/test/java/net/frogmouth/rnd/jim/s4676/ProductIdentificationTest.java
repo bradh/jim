@@ -13,9 +13,9 @@ import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
 
-public class TestProductIdentification {
+public class ProductIdentificationTest {
 
-    public TestProductIdentification() {}
+    public ProductIdentificationTest() {}
 
     @Test
     public void testProductIdentification() throws JsonProcessingException {

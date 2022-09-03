@@ -1,0 +1,11 @@
+<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1">
+  <profile>STANDALONE</profile>
+  <msgCreatedTime>2022-09-03T01:52:30Z</msgCreatedTime>
+  <nitsVersion>B.2</nitsVersion>
+  <collection>
+    <lid>8</lid>
+    <intent>ENGINEERING</intent>
+    <essence>SYNTHETIC</essence>
+    <targetId>Target1234-345</targetId>
+  </collection>
+</nitsRoot>

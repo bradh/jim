@@ -61,6 +61,21 @@ public class NitsRoot {
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "collection")
+    private List<CollectionInformation> collections;
+
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "sensor")
+    private List<SensorInformation> sensors;
+
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "tracker")
+    private List<TrackerInformation> trackers;
+
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "message")
     private List<Message> messages;
 
@@ -186,6 +201,86 @@ public class NitsRoot {
      */
     public void setProduct(ProductIdentification product) {
         this.product = product;
+    }
+
+    /**
+     * Add a collection.
+     *
+     * @param collection the collection information to add.
+     */
+    public void addCollection(CollectionInformation collection) {
+        if (this.collections == null) {
+            this.collections = new ArrayList<>();
+        }
+        this.collections.add(collection);
+    }
+
+    /**
+     * Collection Information.
+     *
+     * <p>Information specific to the collection(s) that only needs to be reported once per NITS
+     * product. If data from multiple collections were used to generate this NITF file, information
+     * about each collection must be recorded as a separate instance of the CollectionInformation
+     * class. For each collection, this currently includes the intent of the collection, the essence
+     * of the collection, and the targetID.
+     *
+     * @return List of collections.
+     */
+    @JsonIgnore
+    public List<CollectionInformation> getCollections() {
+        return collections;
+    }
+
+    /**
+     * Add a sensor.
+     *
+     * @param sensor the sensor information to add.
+     */
+    public void addSensor(SensorInformation sensor) {
+        if (this.sensors == null) {
+            this.sensors = new ArrayList<>();
+        }
+        this.sensors.add(sensor);
+    }
+
+    /**
+     * Sensor Information.
+     *
+     * <p>Top-level information specific to the sensor(s) used to detect track points. If a system
+     * has multiple sensors that are used to produce detections, each sensor's information must be
+     * recorded as a separate instance of the SensorInformation class.
+     *
+     * @return List of sensors.
+     */
+    @JsonIgnore
+    public List<SensorInformation> getSensors() {
+        return sensors;
+    }
+
+    /**
+     * Add a tracker.
+     *
+     * @param tracker the tracker information to add.
+     */
+    public void addTracker(TrackerInformation tracker) {
+        if (this.trackers == null) {
+            this.trackers = new ArrayList<>();
+        }
+        this.trackers.add(tracker);
+    }
+
+    /**
+     * Tracker Information.
+     *
+     * <p>Top-level information specific to the tracker(s) used to group detections into tracks. If
+     * a system has multiple trackers that are used to generate tracks, each tracker's information
+     * must be recorded as a separate instance of the TrackerInformation class.
+     *
+     * @return List of trackers.
+     */
+    @JsonIgnore
+    public List<TrackerInformation> getTrackers() {
+        return trackers;
     }
 
     /**

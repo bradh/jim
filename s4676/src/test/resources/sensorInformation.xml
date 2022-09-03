@@ -1,0 +1,18 @@
+<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1">
+  <profile>STANDALONE</profile>
+  <msgCreatedTime>2022-09-01T10:43:08Z</msgCreatedTime>
+  <nitsVersion>B.1</nitsVersion>
+  <sensor>
+    <lid>29</lid>
+    <sensorID>
+      <stationID>SENSOR 3  </stationID>
+      <nationalityTrigraph>AUS</nationalityTrigraph>
+    </sensorID>
+    <name>sensor 3</name>
+    <description>Fixed surface AIS receiver at Pt Barren.</description>
+    <modality>AIS</modality>
+    <url>https://jericho.edgsespark.net/sensor3</url>
+    <collectionMode>Channel A only</collectionMode>
+    <comment>Channel B antenna was offline for a while</comment>
+  </sensor>
+</nitsRoot>

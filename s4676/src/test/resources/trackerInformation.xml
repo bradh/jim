@@ -1,0 +1,20 @@
+<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1">
+  <profile>STANDALONE</profile>
+  <msgCreatedTime>2022-09-03T04:04:00Z</msgCreatedTime>
+  <nitsVersion>B.2</nitsVersion>
+  <tracker type="SEMIAUTOMATIC_TRACKER">
+    <lid>9</lid>
+    <trackerID>
+      <stationID>TRACKER 4 </stationID>
+      <nationalityTrigraph>AUS</nationalityTrigraph>
+    </trackerID>
+    <name>Tracker 4</name>
+    <description>Test description of tracker 4</description>
+    <version>0.1alpha</version>
+    <supplementaryData type="ILLUMINATION/SHADOW_MAP">
+      <name>Shadow map</name>
+      <version>0.3b</version>
+      <description>This is a demo shadow map entry</description>
+    </supplementaryData>
+  </tracker>
+</nitsRoot>

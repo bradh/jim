@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676;
+package net.frogmouth.rnd.jim.s4676.enumeration;
 
 /**
  * Track Point process type.
