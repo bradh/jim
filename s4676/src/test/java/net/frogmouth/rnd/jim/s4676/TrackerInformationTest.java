@@ -41,7 +41,7 @@ public class TrackerInformationTest {
                         LocalDateTime.of(2022, Month.SEPTEMBER, 3, 4, 4, 0), ZoneOffset.UTC));
         rootElement.setNitsVersion("B.2");
         String serialisedXml = new Parser().serialise(rootElement);
-        System.out.println(serialisedXml);
+        // System.out.println(serialisedXml);
         assertThat(
                 Input.fromString(serialisedXml),
                 isSimilarTo(
@@ -49,6 +49,39 @@ public class TrackerInformationTest {
                                         getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("trackerInformation.xml")))
+                        .ignoreWhitespace());
+    }
+
+    @Test
+    public void testTwoTrackerInformation() throws JsonProcessingException {
+        TrackerInformation trackerInfo1 =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "Tracker 4", "0.1alpha");
+        trackerInfo1.setLid(9L);
+        trackerInfo1.setDescription("Test description of tracker 4");
+        trackerInfo1.setTrackerID(new IDData("TRACKER 4 ", "AUS"));
+        SupplementaryData supplementaryData =
+                new SupplementaryData(
+                        SupplementaryDataType.ILLUMINATION_SHADOW_MAP, "Shadow map", "0.3b");
+        supplementaryData.setDescription("This is a demo shadow map entry");
+        trackerInfo1.addSupplementaryData(supplementaryData);
+        NitsRoot rootElement = new NitsRoot();
+        rootElement.addTracker(trackerInfo1);
+        rootElement.addTracker(
+                new TrackerInformation(TrackerType.AUTOMATIC_TRACKER, "Autotracker", "103.8"));
+        rootElement.addProfile("STANDALONE");
+        rootElement.setMsgCreatedTime(
+                ZonedDateTime.of(
+                        LocalDateTime.of(2022, Month.SEPTEMBER, 3, 4, 4, 0), ZoneOffset.UTC));
+        rootElement.setNitsVersion("B.2");
+        String serialisedXml = new Parser().serialise(rootElement);
+        // System.out.println(serialisedXml);
+        assertThat(
+                Input.fromString(serialisedXml),
+                isSimilarTo(
+                                Input.fromStream(
+                                        getClass()
+                                                .getClassLoader()
+                                                .getResourceAsStream("twoTrackerInformation.xml")))
                         .ignoreWhitespace());
     }
 

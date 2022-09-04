@@ -1,8 +1,11 @@
 package net.frogmouth.rnd.jim.s4676;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import java.nio.ByteBuffer;
+import java.util.UUID;
 import net.frogmouth.rnd.jim.s4676.common.IDData;
 import net.frogmouth.rnd.jim.s4676.enumeration.ModalityType;
 
@@ -51,7 +54,7 @@ import net.frogmouth.rnd.jim.s4676.enumeration.ModalityType;
 })
 public class SensorInformation {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    private String uid;
+    private byte[] uid;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     Long lid;
@@ -59,7 +62,6 @@ public class SensorInformation {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private IDData sensorID;
 
-    /** The name of the sensor. */
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private String name;
 
@@ -108,21 +110,71 @@ public class SensorInformation {
      *
      * <p>A UUID associated with a particular block of sensor information.
      *
-     * @return the unique identifier for this sensor information.
+     * @return the unique identifier for this sensor information as a byte array.
      */
-    public String getUid() {
+    public byte[] getUid() {
         return uid;
     }
 
+    /**
+     * Sensor Unique Identifier as a UUID.
+     *
+     * <p>A UUID associated with a particular block of sensor information.
+     *
+     * @return the unique identifier for this sensor information as a UUID.
+     */
+    @JsonIgnore
+    public UUID getUidAsUUID() {
+        return arrayToUuid(uid);
+    }
     /**
      * Set the Sensor Unique Identifier.
      *
      * <p>A UUID associated with a particular block of sensor information.
      *
-     * @param uid the unique identifier for this sensor information.
+     * @param uid the unique identifier for this sensor information as bytes.
      */
-    public void setUid(String uid) {
+    public void setUid(byte[] uid) {
         this.uid = uid;
+    }
+
+    /**
+     * Set the Sensor Unique Identifier from a UUID.
+     *
+     * <p>A UUID associated with a particular block of sensor information.
+     *
+     * @param uid the unique identifier for this sensor information as a UUID.
+     */
+    @JsonIgnore
+    public void setUidFromUUID(UUID uid) {
+        setUid(uuidToArray(uid));
+    }
+
+    /**
+     * Convert a byte array to a UUID.
+     *
+     * @param bytes the byte array
+     * @return UUID corresponding to the byte array
+     */
+    public static UUID arrayToUuid(byte[] bytes) {
+        if (16 != bytes.length) {
+            throw new IllegalArgumentException("Too few bytes available to read UUID");
+        }
+        ByteBuffer bb = ByteBuffer.wrap(bytes);
+        return new UUID(bb.getLong(), bb.getLong());
+    }
+
+    /**
+     * Get the content of a UUID as a byte array.
+     *
+     * @param uuid the UUID to convert
+     * @return the equivalent value as a byte array.
+     */
+    public static byte[] uuidToArray(UUID uuid) {
+        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+        bb.putLong(uuid.getMostSignificantBits());
+        bb.putLong(uuid.getLeastSignificantBits());
+        return bb.array();
     }
 
     /**

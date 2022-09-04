@@ -35,7 +35,7 @@ public class CollectionInformationTest {
                         LocalDateTime.of(2022, Month.SEPTEMBER, 3, 1, 52, 30), ZoneOffset.UTC));
         rootElement.setNitsVersion("B.2");
         String serialisedXml = new Parser().serialise(rootElement);
-        System.out.println(serialisedXml);
+        // System.out.println(serialisedXml);
         assertThat(
                 Input.fromString(serialisedXml),
                 isSimilarTo(
@@ -43,6 +43,39 @@ public class CollectionInformationTest {
                                         getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("collectionInformation.xml")))
+                        .ignoreWhitespace());
+    }
+
+    @Test
+    public void testTwoCollectionInformation() throws JsonProcessingException {
+        CollectionInformation collection1 =
+                new CollectionInformation(
+                        CollectionIntentType.ENGINEERING, CollectionEssenceType.SYNTHETIC);
+        collection1.setLid(8L);
+        collection1.setTargetId("Target1234-345");
+        NitsRoot rootElement = new NitsRoot();
+        rootElement.addCollection(collection1);
+        CollectionInformation collection2 =
+                new CollectionInformation(
+                        CollectionIntentType.ENGINEERING, CollectionEssenceType.SIMULATED);
+        collection2.setLid(80000L);
+        collection2.setTargetId("A different target");
+        rootElement.addCollection(collection2);
+        rootElement.addProfile("STANDALONE");
+        rootElement.setMsgCreatedTime(
+                ZonedDateTime.of(
+                        LocalDateTime.of(2022, Month.SEPTEMBER, 3, 1, 52, 30), ZoneOffset.UTC));
+        rootElement.setNitsVersion("B.2");
+        String serialisedXml = new Parser().serialise(rootElement);
+        // System.out.println(serialisedXml);
+        assertThat(
+                Input.fromString(serialisedXml),
+                isSimilarTo(
+                                Input.fromStream(
+                                        getClass()
+                                                .getClassLoader()
+                                                .getResourceAsStream(
+                                                        "twoCollectionInformation.xml")))
                         .ignoreWhitespace());
     }
 

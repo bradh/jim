@@ -4,9 +4,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.*;
 import static org.xmlunit.matchers.CompareMatcher.isSimilarTo;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
@@ -14,6 +17,28 @@ import org.xmlunit.builder.Input;
 public class MultiprofileTest {
 
     public MultiprofileTest() {}
+
+    @Test
+    public void testCreate() throws JsonProcessingException {
+        NitsRoot rootElement = new NitsRoot();
+        rootElement.addProfile("STANDALONE");
+        rootElement.addProfile("EXTENSION_ABCD");
+        rootElement.setMsgCreatedTime(
+                ZonedDateTime.of(
+                        LocalDateTime.of(2021, Month.OCTOBER, 10, 22, 24, 33, 733000000),
+                        ZoneOffset.UTC));
+        rootElement.setNitsVersion("B.2");
+        String serialisedXml = new Parser().serialise(rootElement);
+        // System.out.println(serialisedXml);
+        assertThat(
+                Input.fromString(serialisedXml),
+                isSimilarTo(
+                                Input.fromStream(
+                                        getClass()
+                                                .getClassLoader()
+                                                .getResourceAsStream("multiprofile.xml")))
+                        .ignoreWhitespace());
+    }
 
     @Test
     public void testParse() throws IOException {
