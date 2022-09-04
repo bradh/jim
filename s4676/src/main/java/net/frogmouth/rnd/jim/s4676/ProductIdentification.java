@@ -14,13 +14,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({"uid", "lid", "id", "name", "shortName", "effectivity"})
-public class ProductIdentification {
-    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    private String uid;
-
-    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    Long lid;
-
+public class ProductIdentification extends IdentifiedElement {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private String id;
 
@@ -61,50 +55,6 @@ public class ProductIdentification {
     public ProductIdentification(String id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    /**
-     * Product Unique Identifier.
-     *
-     * <p>A UUID associated with a particular block of product identification.
-     *
-     * @return the unique identifier for this product identification.
-     */
-    public String getUid() {
-        return uid;
-    }
-
-    /**
-     * Set the Product Unique Identifier.
-     *
-     * <p>A UUID associated with a particular block of product identification.
-     *
-     * @param uid the unique identifier for this product identification.
-     */
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    /**
-     * Product Local Identifier.
-     *
-     * <p>A local ID associated with a particular block of product identification.
-     *
-     * @return the local identifier for this product identification.
-     */
-    public Long getLid() {
-        return lid;
-    }
-
-    /**
-     * Set the Product Local Identifier.
-     *
-     * <p>A local ID associated with a particular block of product identification.
-     *
-     * @param lid the local identifier for this product identification.
-     */
-    public void setLid(Long lid) {
-        this.lid = lid;
     }
 
     /**

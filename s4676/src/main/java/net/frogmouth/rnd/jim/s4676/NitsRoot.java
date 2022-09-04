@@ -77,7 +77,7 @@ public class NitsRoot {
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "message")
-    private List<Message> messages;
+    private List<TrackMessage> messages;
 
     /**
      * Compliance Profile.
@@ -291,7 +291,7 @@ public class NitsRoot {
      * @return List of messages.
      */
     @JsonIgnore
-    public List<Message> getMessages() {
+    public List<TrackMessage> getMessages() {
         return messages;
     }
 
@@ -303,7 +303,7 @@ public class NitsRoot {
      *
      * @param messages list of messages.
      */
-    public void setMessage(List<Message> messages) {
+    public void setMessage(List<TrackMessage> messages) {
         this.messages = messages;
     }
 
@@ -312,7 +312,7 @@ public class NitsRoot {
      *
      * @param message the message to add.
      */
-    public void addMessage(Message message) {
+    public void addMessage(TrackMessage message) {
         if (this.messages == null) {
             this.messages = new ArrayList<>();
         }

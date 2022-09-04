@@ -33,16 +33,10 @@ import net.frogmouth.rnd.jim.s4676.enumeration.TrackerType;
     "version",
     "supplementaryData"
 })
-public class TrackerInformation {
+public class TrackerInformation extends IdentifiedElement {
 
     @JacksonXmlProperty(isAttribute = true)
     private TrackerType type;
-
-    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    private String uid;
-
-    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    Long lid;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private IDData trackerID;
@@ -111,50 +105,6 @@ public class TrackerInformation {
      */
     public void setType(TrackerType type) {
         this.type = type;
-    }
-
-    /**
-     * Tracker Unique Identifier.
-     *
-     * <p>A UUID associated with a particular block of tracker information.
-     *
-     * @return the unique identifier for this tracker information.
-     */
-    public String getUid() {
-        return uid;
-    }
-
-    /**
-     * Set the Tracker Unique Identifier.
-     *
-     * <p>A UUID associated with a particular block of tracker information.
-     *
-     * @param uid the unique identifier for this tracker information.
-     */
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    /**
-     * Version Local Identifier.
-     *
-     * <p>A local ID associated with a particular block of tracker information.
-     *
-     * @return the local identifier for this tracker information.
-     */
-    public Long getLid() {
-        return lid;
-    }
-
-    /**
-     * Set the Version Local Identifier.
-     *
-     * <p>A local ID associated with a particular block of tracker information.
-     *
-     * @param lid the local identifier for this tracker information.
-     */
-    public void setLid(Long lid) {
-        this.lid = lid;
     }
 
     /**

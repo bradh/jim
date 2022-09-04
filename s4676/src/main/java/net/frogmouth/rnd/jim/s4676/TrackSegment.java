@@ -1,5 +1,6 @@
 package net.frogmouth.rnd.jim.s4676;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  * <p>If the data producer deems it unnecessary to break a track into multiple track segments, then
  * all track points of the track can be included in a single TrackSegment object.
  */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({
     "uid",
     "lid",
@@ -29,7 +31,7 @@ import java.util.List;
     "terminationReason",
     "tp"
 })
-public class TrackSegment {
+public class TrackSegment extends IdentifiedElement {
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "tp")

@@ -14,12 +14,7 @@ import net.frogmouth.rnd.jim.s4676.enumeration.CollectionIntentType;
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({"uid", "lid", "id", "name", "shortName", "effectivity"})
-public class CollectionInformation {
-    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    private String uid;
-
-    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    Long lid;
+public class CollectionInformation extends IdentifiedElement {
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private CollectionIntentType intent;
@@ -54,50 +49,6 @@ public class CollectionInformation {
     public CollectionInformation(CollectionIntentType intent, CollectionEssenceType essence) {
         this.intent = intent;
         this.essence = essence;
-    }
-
-    /**
-     * Collection Unique Identifier.
-     *
-     * <p>A UUID associated with a particular block of collection information.
-     *
-     * @return the unique identifier for this collection information.
-     */
-    public String getUid() {
-        return uid;
-    }
-
-    /**
-     * Set the Collection Unique Identifier.
-     *
-     * <p>A UUID associated with a particular block of collection information
-     *
-     * @param uid the unique identifier for this collection information.
-     */
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    /**
-     * Collection Local Identifier.
-     *
-     * <p>A local ID associated with a particular block of collection information.
-     *
-     * @return the local identifier for this collection information.
-     */
-    public Long getLid() {
-        return lid;
-    }
-
-    /**
-     * Set the Collection Local Identifier.
-     *
-     * <p>A local ID associated with a particular block of collection information.
-     *
-     * @param lid the local identifier for this collection information.
-     */
-    public void setLid(Long lid) {
-        this.lid = lid;
     }
 
     /**

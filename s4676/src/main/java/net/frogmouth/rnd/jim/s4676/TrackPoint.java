@@ -27,16 +27,7 @@ import net.frogmouth.rnd.jim.s4676.enumeration.ProcessType;
     "processType",
     "dynamics"
 })
-public class TrackPoint {
-    @JacksonXmlProperty(
-            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
-            localName = "uid")
-    UUID uid;
-
-    @JacksonXmlProperty(
-            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
-            localName = "lid")
-    Long lid;
+public class TrackPoint extends IdentifiedElement {
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",

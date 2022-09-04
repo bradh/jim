@@ -43,8 +43,8 @@ public class TestMessage {
 
     @Test
     public void testMessageGeneration() throws JsonProcessingException {
-        Message uut =
-                new Message(
+        TrackMessage uut =
+                new TrackMessage(
                         ZonedDateTime.of(
                                 LocalDateTime.of(2022, Month.MAY, 6, 10, 28, 36), ZoneOffset.UTC),
                         0.001);
