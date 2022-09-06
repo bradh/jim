@@ -1,0 +1,20 @@
+<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1">
+    <profile>STANDALONE</profile>
+    <msgCreatedTime>2022-09-06T03:50:08Z</msgCreatedTime>
+    <nitsVersion>B.2</nitsVersion>
+    <message>
+        <baseTime>2022-01-01T00:00:00Z</baseTime>
+        <relTimeIncrement>0.001</relTimeIncrement>
+        <trackLinkage type="MERGE">
+            <lid>123</lid>
+            <relTime>21477000000</relTime>
+            <confidence type="PROBABILITY">
+                <value>80</value>
+            </confidence>
+            <preLID>80</preLID>
+            <preLID>82</preLID>
+            <postLID>162</postLID>
+        </trackLinkage>
+    </message>
+</nitsRoot>
+

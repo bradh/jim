@@ -3,17 +3,28 @@ package net.frogmouth.rnd.jim.s4676;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.IOException;
+import net.frogmouth.rnd.jim.s4676.collection.CollectionEssenceTypeDeserialiser;
+import net.frogmouth.rnd.jim.s4676.collection.CollectionIntentTypeDeserialiser;
+import net.frogmouth.rnd.jim.s4676.collection.ICollectionEssenceType;
+import net.frogmouth.rnd.jim.s4676.collection.ICollectionIntentType;
+import net.frogmouth.rnd.jim.s4676.message.tracklinkage.ITrackLinkageType;
+import net.frogmouth.rnd.jim.s4676.message.tracklinkage.TrackLinkageTypeDeserialiser;
+import net.frogmouth.rnd.jim.s4676.sensor.IModalityType;
+import net.frogmouth.rnd.jim.s4676.sensor.ModalityTypeDeserialiser;
+import net.frogmouth.rnd.jim.s4676.tracker.ISupplementaryDataType;
+import net.frogmouth.rnd.jim.s4676.tracker.ITrackerType;
+import net.frogmouth.rnd.jim.s4676.tracker.SupplementaryDataTypeDeserialiser;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerTypeDeserialiser;
 
 /**
  * Parser and Serialiser for AEDP-12 Edition B formatted files.
  *
  * <p>The concept is that you create the Parser, then provide either XML to parse into a NitsRoot
  * object, or provide a NitsRoot object to serialise out to XML.
- *
- * @author bradh
  */
 public class Parser {
     private final XmlMapper mapper;
@@ -28,6 +39,7 @@ public class Parser {
                         .enable(SerializationFeature.INDENT_OUTPUT)
                         .build();
         mapper.registerModule(new JavaTimeModule());
+        registerDeserialisers(mapper);
     }
 
     /**
@@ -52,5 +64,18 @@ public class Parser {
      */
     public String serialise(NitsRoot rootElement) throws JsonProcessingException {
         return mapper.writeValueAsString(rootElement);
+    }
+
+    private void registerDeserialisers(XmlMapper mapper) {
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(
+                ICollectionEssenceType.class, new CollectionEssenceTypeDeserialiser());
+        module.addDeserializer(ICollectionIntentType.class, new CollectionIntentTypeDeserialiser());
+        module.addDeserializer(IModalityType.class, new ModalityTypeDeserialiser());
+        module.addDeserializer(
+                ISupplementaryDataType.class, new SupplementaryDataTypeDeserialiser());
+        module.addDeserializer(ITrackLinkageType.class, new TrackLinkageTypeDeserialiser());
+        module.addDeserializer(ITrackerType.class, new TrackerTypeDeserialiser());
+        mapper.registerModule(module);
     }
 }

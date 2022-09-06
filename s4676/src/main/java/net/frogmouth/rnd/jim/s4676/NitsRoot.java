@@ -8,6 +8,10 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4676.collection.CollectionInformation;
+import net.frogmouth.rnd.jim.s4676.message.TrackMessage;
+import net.frogmouth.rnd.jim.s4676.sensor.SensorInformation;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerInformation;
 
 /**
  * NITS Root.
