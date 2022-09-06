@@ -171,11 +171,11 @@ public class TrackLinkage extends IdentifiedElement {
      * <p>Track local ID that exists prior to the relationship. The exact number of track UUIDs or
      * localIDs that must be reported depends upon the type of track linkage:
      *
-     * <p>SPLIT: [1]
-     *
-     * <p>MERGE: [2..*]
-     *
-     * <p>STITCH: [1]
+     * <ul>
+     *   <li>SPLIT: [1]
+     *   <li>MERGE: [2..*]
+     *   <li>STITCH: [1]
+     * </ul>
      *
      * @param lid the local identifier for the input track to add
      */
@@ -192,11 +192,11 @@ public class TrackLinkage extends IdentifiedElement {
      * <p>Track local IDs that exist prior to the relationship. The exact number of track UUIDs or
      * localIDs that must be reported depends upon the type of track linkage:
      *
-     * <p>SPLIT: [1]
-     *
-     * <p>MERGE: [2..*]
-     *
-     * <p>STITCH: [1]
+     * <ul>
+     *   <li>SPLIT: [1]
+     *   <li>MERGE: [2..*]
+     *   <li>STITCH: [1]
+     * </ul>
      *
      * @return the local identifiers
      */
@@ -211,11 +211,11 @@ public class TrackLinkage extends IdentifiedElement {
      * <p>Track local ID that exists after the relationship. The exact number of track UUIDs or
      * localIDs that must be reported depends upon the type of track linkage:
      *
-     * <p>SPLIT: [2..*]
-     *
-     * <p>MERGE: [1]
-     *
-     * <p>STITCH: [1]
+     * <ul>
+     *   <li>SPLIT: [2..*]
+     *   <li>MERGE: [1]
+     *   <li>STITCH: [1]
+     * </ul>
      *
      * @param lid the local identifier for the output track to add
      */
@@ -232,11 +232,11 @@ public class TrackLinkage extends IdentifiedElement {
      * <p>Track local IDs that exist after the relationship. The exact number of track UUIDs or
      * localIDs that must be reported depends upon the type of track linkage:
      *
-     * <p>SPLIT: [2..*]
-     *
-     * <p>MERGE: [1]
-     *
-     * <p>STITCH: [1]
+     * <ul>
+     *   <li>SPLIT: [2..*]
+     *   <li>MERGE: [1]
+     *   <li>STITCH: [1]
+     * </ul>
      *
      * @return the local identifiers
      */
