@@ -1,10 +1,12 @@
-package net.frogmouth.rnd.jim.s4676;
+package net.frogmouth.rnd.jim.s4676.message;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
 import java.util.UUID;
+import net.frogmouth.rnd.jim.s4676.Dynamics;
+import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.trackpoint.IProcessType;
 
 /**
@@ -28,6 +30,7 @@ import net.frogmouth.rnd.jim.s4676.trackpoint.IProcessType;
     "dynamics"
 })
 public class TrackPoint extends IdentifiedElement {
+    // TODO: missing sm, evidence
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
@@ -59,4 +62,8 @@ public class TrackPoint extends IdentifiedElement {
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "dynamics")
     List<Dynamics> dynamics;
+
+    // TODO: constructors
+
+    // TODO: getters and setters
 }

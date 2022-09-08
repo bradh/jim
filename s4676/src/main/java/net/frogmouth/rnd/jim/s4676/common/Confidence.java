@@ -29,7 +29,8 @@ public class Confidence {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private int value;
     // TODO: sourceReliability
-    // TODO: valid
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private boolean valid;
 
     /**
      * Constructor.
@@ -48,6 +49,7 @@ public class Confidence {
     public Confidence(CertaintyStatisticType statisticType, int value) {
         this.type = statisticType;
         this.value = value;
+        this.valid = true;
     }
 
     // TODO: getters and setters

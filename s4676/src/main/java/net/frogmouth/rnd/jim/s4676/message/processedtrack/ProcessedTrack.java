@@ -1,8 +1,10 @@
-package net.frogmouth.rnd.jim.s4676.message;
+package net.frogmouth.rnd.jim.s4676.message.processedtrack;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
+import net.frogmouth.rnd.jim.s4676.common.Confidence;
 
 /**
  * Processed Track.
@@ -27,11 +29,15 @@ import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 @JsonPropertyOrder({"uid", "lid", "confidence", "inputUID", "inputLID", "outputUID", "outputLID"})
 public class ProcessedTrack extends IdentifiedElement {
 
-    // TODO: ProcessedTrackType : type
-    // TODO:     "confidence",
+    @JacksonXmlProperty(isAttribute = true)
+    private IProcessedTrackType type;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Confidence confidence;
+
     // TODO:  "inputUID",
     // TODO: "inputLID",
     // TODO: "outputUID",
-    // TODO: "outputLID",
-
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Long outputLID;
 }

@@ -11,6 +11,10 @@ import net.frogmouth.rnd.jim.s4676.collection.CollectionEssenceTypeDeserialiser;
 import net.frogmouth.rnd.jim.s4676.collection.CollectionIntentTypeDeserialiser;
 import net.frogmouth.rnd.jim.s4676.collection.ICollectionEssenceType;
 import net.frogmouth.rnd.jim.s4676.collection.ICollectionIntentType;
+import net.frogmouth.rnd.jim.s4676.message.motionevent.IMotionEventType;
+import net.frogmouth.rnd.jim.s4676.message.motionevent.MotionEventTypeDeserialiser;
+import net.frogmouth.rnd.jim.s4676.message.processedtrack.IProcessedTrackType;
+import net.frogmouth.rnd.jim.s4676.message.processedtrack.ProcessedTrackTypeDeserialiser;
 import net.frogmouth.rnd.jim.s4676.message.tracklinkage.ITrackLinkageType;
 import net.frogmouth.rnd.jim.s4676.message.tracklinkage.TrackLinkageTypeDeserialiser;
 import net.frogmouth.rnd.jim.s4676.sensor.IModalityType;
@@ -72,6 +76,8 @@ public class Parser {
                 ICollectionEssenceType.class, new CollectionEssenceTypeDeserialiser());
         module.addDeserializer(ICollectionIntentType.class, new CollectionIntentTypeDeserialiser());
         module.addDeserializer(IModalityType.class, new ModalityTypeDeserialiser());
+        module.addDeserializer(IMotionEventType.class, new MotionEventTypeDeserialiser());
+        module.addDeserializer(IProcessedTrackType.class, new ProcessedTrackTypeDeserialiser());
         module.addDeserializer(
                 ISupplementaryDataType.class, new SupplementaryDataTypeDeserialiser());
         module.addDeserializer(ITrackLinkageType.class, new TrackLinkageTypeDeserialiser());

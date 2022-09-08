@@ -1,0 +1,120 @@
+package net.frogmouth.rnd.jim.s4676.message.motionevent;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
+import net.frogmouth.rnd.jim.s4676.common.Confidence;
+
+/**
+ * Motion Event.
+ *
+ * <p>The MotionEvent class specifies a particular manoeuvre involving one or more tracks that is of
+ * interest to the producer. Since the ability to measure these events is dependent upon the data
+ * producer’s capabilities, the definition of each motion event is largely left to the data producer
+ * (for example, what speed constitutes a “START” or “STOP” event).
+ */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonPropertyOrder({
+    "uid",
+    "lid",
+    "trackUID",
+    "trackLID",
+    "startRelTime",
+    "endRelTime",
+    "confidence",
+    "region",
+    "tripwire"
+})
+public class MotionEvent extends IdentifiedElement {
+
+    @JacksonXmlProperty(isAttribute = true)
+    private IMotionEventType type;
+
+    // TODO: "trackUID",
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Long trackLID;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private long startRelTime;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    private long endRelTime;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Confidence confidence;
+
+    // TODO: "region,
+    // TODO: tripwire"
+
+    /**
+     * Constructor.
+     *
+     * <p>This is only for the parser. Use the version that takes a motion event type.
+     */
+    private MotionEvent() {}
+
+    /**
+     * Constructor.
+     *
+     * <p>The Motion Event requires a mandatory motion event type and the start time.
+     *
+     * @param motionEventType the motion event type
+     * @param startRelTime the start time (relative to parent base time and relative increment)
+     */
+    public MotionEvent(IMotionEventType motionEventType, long startRelTime) {
+        this.type = motionEventType;
+        this.startRelTime = startRelTime;
+    }
+
+    /**
+     * Type of motion event.
+     *
+     * <p>The specific motion event.
+     *
+     * @return the type of motion event.
+     */
+    public IMotionEventType getType() {
+        return type;
+    }
+
+    /**
+     * Set the type of motion event.
+     *
+     * <p>The specific motion event.
+     *
+     * @param type the type of motion event.
+     */
+    public void setType(IMotionEventType type) {
+        this.type = type;
+    }
+
+    /**
+     * Confidence.
+     *
+     * <p>The producer’s estimate of the confidence in the fact of this motion event. Using this
+     * attribute and the uid/lid of this class allows the data producer to update
+     * previously-reported track motion events.
+     *
+     * @return confidence estimate
+     */
+    public Confidence getConfidence() {
+        return confidence;
+    }
+
+    /**
+     * Set the confidence.
+     *
+     * <p>The producer’s estimate of the confidence in the fact of this motion event. Using this
+     * attribute and the uid/lid of this class allows the data producer to update
+     * previously-reported track motion events.
+     *
+     * @param confidence the confidence estimate
+     */
+    public void setConfidence(Confidence confidence) {
+        this.confidence = confidence;
+    }
+}

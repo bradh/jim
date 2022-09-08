@@ -1,9 +1,10 @@
-package net.frogmouth.rnd.jim.s4676;
+package net.frogmouth.rnd.jim.s4676.message;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 
 /**
  * Track Segment.
@@ -37,6 +38,16 @@ public class TrackSegment extends IdentifiedElement {
             localName = "tp")
     private List<TrackPoint> trackPoints;
 
+    // TODO: "segmentSource",
+    // TODO "confidence",
+    // TODO: "comment",
+    // TODO: "status",
+    // TODO: "initiationReason",
+    // TODO: "terminationReason",
+
+    // TODO: constructors
+
+    // TODO: other getters and setters
     /**
      * Track Points.
      *

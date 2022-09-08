@@ -1,9 +1,11 @@
-package net.frogmouth.rnd.jim.s4676.message;
+package net.frogmouth.rnd.jim.s4676.message.detection;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
+import net.frogmouth.rnd.jim.s4676.common.Confidence;
+import net.frogmouth.rnd.jim.s4676.message.tracksource.TrackSource;
 
 /**
  * Detection.
@@ -50,12 +52,26 @@ public class Detection extends IdentifiedElement {
     private Long sensorLID;
 
     // TODO: "dynSrcUID",
-    // TODO: "dynSrcLID",
-    // TODO: "confidence",
-    // TODO: "source",
-    // TODO: "im",
-    // TODO: "esm",
-    // TODO: "radar",
-    // TODO: "sm"
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Long dynSrcLID;
 
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Confidence confidence;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private TrackSource source;
+
+    // TODO: "im",
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private ESM esm;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Radar4607 radar;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private SensorMeasurement sm;
+
+    // TODO: constructors
+
+    // TODO: getters and setters
 }

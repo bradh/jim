@@ -7,6 +7,10 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4676.message.detection.Detection;
+import net.frogmouth.rnd.jim.s4676.message.dynamicsourceinformation.DynamicSourceInformation;
+import net.frogmouth.rnd.jim.s4676.message.motionevent.MotionEvent;
+import net.frogmouth.rnd.jim.s4676.message.processedtrack.ProcessedTrack;
 import net.frogmouth.rnd.jim.s4676.message.tracklinkage.TrackLinkage;
 
 /**

@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.message;
+package net.frogmouth.rnd.jim.s4676.message.dynamicsourceinformation;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -54,6 +54,13 @@ public class DynamicSourceInformation extends IdentifiedElement {
 
     // TODO:     "dynCFT",
     // TODO: "sourceMI",
-    // TODO: "sourceRadar",
-    // TODO: "sourceESM"
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private ESMInformation sourceRadar;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private ESMInformation sourceESM;
+
+    // TODO: constructors
+
+    // TODO: getters and setters.
 }
