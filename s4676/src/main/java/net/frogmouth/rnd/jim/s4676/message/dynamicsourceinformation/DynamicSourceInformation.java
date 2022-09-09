@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
+import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
 
 /**
  * Dynamic Source Information.
@@ -41,7 +42,8 @@ public class DynamicSourceInformation extends IdentifiedElement {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Long sensorLID;
 
-    // TODO: sensor location
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private PositionPoints sensorLocation;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private String groupID;

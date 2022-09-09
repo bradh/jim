@@ -1,7 +1,6 @@
 package net.frogmouth.rnd.jim.s4676.message.motionevent;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import net.frogmouth.rnd.jim.s4676.message.tracklinkage.*;
 
 /**
  * Motion Event Type.

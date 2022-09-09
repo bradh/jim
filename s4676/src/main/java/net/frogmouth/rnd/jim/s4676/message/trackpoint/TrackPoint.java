@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.message;
+package net.frogmouth.rnd.jim.s4676.message.trackpoint;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

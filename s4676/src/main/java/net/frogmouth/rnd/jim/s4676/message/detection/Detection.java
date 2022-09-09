@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
+import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
 import net.frogmouth.rnd.jim.s4676.message.tracksource.TrackSource;
 
 /**
@@ -43,7 +44,9 @@ public class Detection extends IdentifiedElement {
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private long relativeTime;
 
-    // TODO: centroid",
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private PositionPoints centroid;
+
     // TODO: "outline",
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private byte[] sensorUID;
