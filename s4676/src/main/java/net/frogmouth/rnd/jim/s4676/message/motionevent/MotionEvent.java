@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
+import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
 
 /**
  * Motion Event.
@@ -48,7 +49,8 @@ public class MotionEvent extends IdentifiedElement {
     private Confidence confidence;
 
     // TODO: "region,
-    // TODO: tripwire"
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private PositionPoints tripwire;
 
     /**
      * Constructor.
@@ -116,5 +118,33 @@ public class MotionEvent extends IdentifiedElement {
      */
     public void setConfidence(Confidence confidence) {
         this.confidence = confidence;
+    }
+
+    /**
+     * Tripwire points.
+     *
+     * <p>If the motion event type involves specifying a tripwire, the tripwire positions should be
+     * detailed with this element. Note that a tripwire can consist of multiple points on the
+     * ground, and that it’s assumed that the end points in those positions do not form a closed
+     * polygon. The order of the vertices indicates how the tripwire should be drawn.
+     *
+     * @return tripwire position points
+     */
+    public PositionPoints getTripwire() {
+        return tripwire;
+    }
+
+    /**
+     * Set tripwire points.
+     *
+     * <p>If the motion event type involves specifying a tripwire, the tripwire positions should be
+     * detailed with this element. Note that a tripwire can consist of multiple points on the
+     * ground, and that it’s assumed that the end points in those positions do not form a closed
+     * polygon. The order of the vertices indicates how the tripwire should be drawn.
+     *
+     * @param tripwire tripwire position points
+     */
+    public void setTripwire(PositionPoints tripwire) {
+        this.tripwire = tripwire;
     }
 }

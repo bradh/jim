@@ -2,6 +2,7 @@ package net.frogmouth.rnd.jim.s4676.message.tracksource;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,16 @@ import java.util.List;
  * will not contain detailed information about these source products.
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-// TODO: order
+@JsonPropertyOrder({
+    "sensorUID",
+    "sensorLID",
+    "trackerUID",
+    "trackerLID",
+    "collectionUID",
+    "collectionLID",
+    "productUID",
+    "productLID"
+})
 public class TrackSource {
 
     // TODO: List<UUID> sensorUID

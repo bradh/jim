@@ -10,7 +10,6 @@
       <relTime>21477000000</relTime>
       <confidence type="PROBABILITY">
         <value>80</value>
-        <valid>true</valid>
       </confidence>
       <preLID>82</preLID>
       <postLID>42</postLID>

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
+import net.frogmouth.rnd.jim.s4676.common.Confidence;
 
 /**
  * Track Segment.
@@ -39,7 +40,8 @@ public class TrackSegment extends IdentifiedElement {
     private List<TrackPoint> trackPoints;
 
     // TODO: "segmentSource",
-    // TODO "confidence",
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Confidence confidence;
     // TODO: "comment",
     // TODO: "status",
     // TODO: "initiationReason",

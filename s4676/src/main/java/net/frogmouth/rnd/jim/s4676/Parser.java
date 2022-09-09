@@ -11,6 +11,8 @@ import net.frogmouth.rnd.jim.s4676.collection.CollectionEssenceTypeDeserialiser;
 import net.frogmouth.rnd.jim.s4676.collection.CollectionIntentTypeDeserialiser;
 import net.frogmouth.rnd.jim.s4676.collection.ICollectionEssenceType;
 import net.frogmouth.rnd.jim.s4676.collection.ICollectionIntentType;
+import net.frogmouth.rnd.jim.s4676.common.CoordinateSystemTypeDeserialiser;
+import net.frogmouth.rnd.jim.s4676.common.ICoordinateSystemType;
 import net.frogmouth.rnd.jim.s4676.message.motionevent.IMotionEventType;
 import net.frogmouth.rnd.jim.s4676.message.motionevent.MotionEventTypeDeserialiser;
 import net.frogmouth.rnd.jim.s4676.message.processedtrack.IProcessedTrackType;
@@ -75,6 +77,7 @@ public class Parser {
         module.addDeserializer(
                 ICollectionEssenceType.class, new CollectionEssenceTypeDeserialiser());
         module.addDeserializer(ICollectionIntentType.class, new CollectionIntentTypeDeserialiser());
+        module.addDeserializer(ICoordinateSystemType.class, new CoordinateSystemTypeDeserialiser());
         module.addDeserializer(IModalityType.class, new ModalityTypeDeserialiser());
         module.addDeserializer(IMotionEventType.class, new MotionEventTypeDeserialiser());
         module.addDeserializer(IProcessedTrackType.class, new ProcessedTrackTypeDeserialiser());
