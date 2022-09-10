@@ -19,6 +19,7 @@ import net.frogmouth.rnd.jim.s4676.common.Confidence;
 import net.frogmouth.rnd.jim.s4676.common.CoordinateSystemType;
 import net.frogmouth.rnd.jim.s4676.common.Dimensionality;
 import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
+import net.frogmouth.rnd.jim.s4676.common.shape.Polygon;
 import net.frogmouth.rnd.jim.s4676.message.TrackMessage;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
@@ -28,7 +29,7 @@ public class MotionEventTest {
     public MotionEventTest() {}
 
     @Test
-    public void testMotionEvent() throws JsonProcessingException {
+    public void testMotionEventWithTripwire() throws JsonProcessingException {
         MotionEvent uut = new MotionEvent(MotionEventType.CROSSING_TRIPWIRE, 21477000000L);
         uut.setLid(123L);
         uut.setConfidence(new Confidence(CertaintyStatisticType.PROBABILITY, 65));
@@ -49,7 +50,7 @@ public class MotionEventTest {
                         LocalDateTime.of(2022, Month.SEPTEMBER, 6, 3, 50, 8), ZoneOffset.UTC));
         rootElement.setNitsVersion("B.2");
         String serialisedXml = new Parser().serialise(rootElement);
-        System.out.println(serialisedXml);
+        // System.out.println(serialisedXml);
         assertThat(
                 Input.fromString(serialisedXml),
                 isSimilarTo(
@@ -57,6 +58,35 @@ public class MotionEventTest {
                                         getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("motionevent.xml")))
+                        .ignoreWhitespace());
+    }
+
+    @Test
+    public void testMotionEventWithROI() throws JsonProcessingException {
+        MotionEvent uut = new MotionEvent(MotionEventType.ENTERING_ROI, 21477000000L);
+        uut.setLid(123L);
+        uut.setConfidence(new Confidence(CertaintyStatisticType.PROBABILITY, 65));
+        Polygon polygon = new Polygon(Dimensionality.TWO_D, CoordinateSystemType.WGS_84);
+        uut.setRegion(polygon);
+        NitsRoot rootElement = new NitsRoot();
+        TrackMessage message =
+                new TrackMessage(ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC), 0.001);
+        message.addMotionEvent(uut);
+        rootElement.addMessage(message);
+        rootElement.addProfile("STANDALONE");
+        rootElement.setMsgCreatedTime(
+                ZonedDateTime.of(
+                        LocalDateTime.of(2022, Month.SEPTEMBER, 6, 3, 50, 8), ZoneOffset.UTC));
+        rootElement.setNitsVersion("B.2");
+        String serialisedXml = new Parser().serialise(rootElement);
+        System.out.println(serialisedXml);
+        assertThat(
+                Input.fromString(serialisedXml),
+                isSimilarTo(
+                                Input.fromStream(
+                                        getClass()
+                                                .getClassLoader()
+                                                .getResourceAsStream("motionevent_roi.xml")))
                         .ignoreWhitespace());
     }
 

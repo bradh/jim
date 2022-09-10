@@ -37,8 +37,9 @@ public class Parser {
 
     /** Constructor. */
     public Parser() {
+
         mapper =
-                XmlMapper.builder()
+                XmlMapper.builder(new NamespaceXmlFactory())
                         .defaultUseWrapper(false)
                         .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                         .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
 import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
+import net.frogmouth.rnd.jim.s4676.common.shape.Shape;
 
 /**
  * Motion Event.
@@ -48,7 +49,10 @@ public class MotionEvent extends IdentifiedElement {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Confidence confidence;
 
-    // TODO: "region,
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    // TODO: serialisation needs to specify what kind of shape
+    private Shape region;
+
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private PositionPoints tripwire;
 
@@ -118,6 +122,33 @@ public class MotionEvent extends IdentifiedElement {
      */
     public void setConfidence(Confidence confidence) {
         this.confidence = confidence;
+    }
+
+    /**
+     * Region of interest (ROI).
+     *
+     * <p>If the motion event type involves specifying a Region-of-Interest (ROI), that ROI should
+     * be detailed with this element.
+     *
+     * @return the region of interest
+     */
+    public Shape getRegion() {
+        return region;
+    }
+
+    /**
+     * Set the Region of interest (ROI).
+     *
+     * <p>If the motion event type involves specifying a Region-of-Interest (ROI), that ROI should
+     * be detailed with this element.
+     *
+     * <p>Note that Shape is an abstract class - typically the concrete instance is of Polygon,
+     * although Ellipsoid is also possible.
+     *
+     * @param region the region of interest
+     */
+    public void setRegion(Shape region) {
+        this.region = region;
     }
 
     /**

@@ -1,0 +1,17 @@
+<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <profile>STANDALONE</profile>
+    <msgCreatedTime>2022-09-06T03:50:08Z</msgCreatedTime>
+    <nitsVersion>B.2</nitsVersion>
+    <message>
+        <baseTime>2022-01-01T00:00:00Z</baseTime>
+        <relTimeIncrement>0.001</relTimeIncrement>
+        <motionEvent type="ENTERING_ROI">
+            <lid>123</lid>
+            <startRelTime>21477000000</startRelTime>
+            <confidence type="PROBABILITY">
+                <value>65</value>
+            </confidence>
+            <region xsi:type="Polygon" dims="2" cs="WGS_84"/>
+        </motionEvent>
+    </message>
+</nitsRoot>

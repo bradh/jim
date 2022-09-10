@@ -18,6 +18,7 @@ import java.util.List;
  * Position Points do not (by default) form a closed shape.
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
+// TODO: property order
 @JsonPropertyOrder({})
 public class PositionPoints {
     @JacksonXmlProperty(isAttribute = true)
