@@ -21,6 +21,11 @@ import net.frogmouth.rnd.jim.s4676.common.ICoordinateSystemType;
 })
 public abstract class Shape {
 
+    /**
+     * XSI type.
+     *
+     * <p>The name of the concrete instance of Shape, such as "Polygon" or "Ellipsoid".
+     */
     @JacksonXmlProperty(namespace = "http://www.w3.org/2001/XMLSchema-instance", isAttribute = true)
     protected String type;
 

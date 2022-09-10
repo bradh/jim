@@ -50,7 +50,6 @@ public class MotionEvent extends IdentifiedElement {
     private Confidence confidence;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    // TODO: serialisation needs to specify what kind of shape
     private Shape region;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
@@ -59,7 +58,8 @@ public class MotionEvent extends IdentifiedElement {
     /**
      * Constructor.
      *
-     * <p>This is only for the parser. Use the version that takes a motion event type.
+     * <p>This is only for the parser. Use the version that takes a motion event type and start
+     * time.
      */
     private MotionEvent() {}
 

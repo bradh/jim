@@ -7,10 +7,14 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/** Serialisation support for Position Points value. */
-public class PointsListSerialiser extends StdSerializer<List<Double>> {
+/**
+ * Serialisation support for Double List values.
+ *
+ * <p>This serialises the List as a space-separated body text.
+ */
+public class DoubleListSerialiser extends StdSerializer<List<Double>> {
     /** Constructor. */
-    public PointsListSerialiser() {
+    public DoubleListSerialiser() {
         this(null);
     }
 
@@ -19,7 +23,7 @@ public class PointsListSerialiser extends StdSerializer<List<Double>> {
      *
      * @param t type
      */
-    public PointsListSerialiser(Class<List<Double>> t) {
+    public DoubleListSerialiser(Class<List<Double>> t) {
         super(t);
     }
 

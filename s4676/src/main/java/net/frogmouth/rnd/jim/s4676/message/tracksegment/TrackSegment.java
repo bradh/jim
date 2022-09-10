@@ -59,7 +59,12 @@ public class TrackSegment extends IdentifiedElement {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private ITrackTerminationReason terminationReason;
 
-    // TODO: constructors
+    /**
+     * Constructor.
+     *
+     * <p>All values in the segment are optional, although that may not be a useful segment.
+     */
+    public TrackSegment() {}
 
     /**
      * Segment source.

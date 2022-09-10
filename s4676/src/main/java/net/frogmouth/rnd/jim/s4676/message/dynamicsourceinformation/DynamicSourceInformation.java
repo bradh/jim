@@ -55,7 +55,10 @@ public class DynamicSourceInformation extends IdentifiedElement {
     private Integer numReportedDetections;
 
     // TODO:     "dynCFT",
-    // TODO: "sourceMI",
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private MotionImageryInformation sourceMI;
+
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private ESMInformation sourceRadar;
 

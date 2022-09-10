@@ -10,7 +10,7 @@ import java.util.Map;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
-public class NamespaceXmlFactory extends XmlFactory {
+class NamespaceXmlFactory extends XmlFactory {
 
     private final String defaultNamespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1";
     private final Map<String, String> additionalNamespaces = new HashMap<>();

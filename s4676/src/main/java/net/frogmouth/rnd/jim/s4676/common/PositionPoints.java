@@ -18,8 +18,7 @@ import java.util.List;
  * Position Points do not (by default) form a closed shape.
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-// TODO: property order
-@JsonPropertyOrder({})
+@JsonPropertyOrder({"points", "cftUID", "cftLID"})
 public class PositionPoints {
     @JacksonXmlProperty(isAttribute = true)
     private Dimensionality dims;
@@ -28,7 +27,7 @@ public class PositionPoints {
     private ICoordinateSystemType cs;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    @JsonSerialize(using = PointsListSerialiser.class)
+    @JsonSerialize(using = DoubleListSerialiser.class)
     @JsonDeserialize(using = PointsListDeserialiser.class)
     private List<Double> points;
 
