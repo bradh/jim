@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.message;
+package net.frogmouth.rnd.jim.s4676.message.trackdata;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -18,12 +18,15 @@ import net.frogmouth.rnd.jim.s4676.message.tracksegment.TrackSegment;
 @JsonPropertyOrder({"uid", "lid", "trackSource", "segment", "object"})
 public class TrackData {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    // TODO: should be UUID.
     private String uid;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "segment")
     private List<TrackSegment> segments;
+
+    // TODO: missing fields - trackSource, lid, object
 
     /**
      * Universal identifier.

@@ -5,7 +5,8 @@
  *
  * <p>Other tracks are possible in the future.
  */
-module DynamicActivityReporterDAR {
+@SuppressWarnings("module") // That is not a version number - its a document number.
+module net.frogmouth.rnd.jim.s4676 {
     requires com.ctc.wstx;
     requires com.fasterxml.jackson.dataformat.xml;
     requires com.fasterxml.jackson.core;
@@ -13,4 +14,20 @@ module DynamicActivityReporterDAR {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires org.codehaus.stax2;
+
+    exports net.frogmouth.rnd.jim.s4676.collection;
+    exports net.frogmouth.rnd.jim.s4676.common;
+    exports net.frogmouth.rnd.jim.s4676.message;
+    exports net.frogmouth.rnd.jim.s4676.message.detection;
+    exports net.frogmouth.rnd.jim.s4676.message.dynamicsourceinformation;
+    exports net.frogmouth.rnd.jim.s4676.message.motionevent;
+    exports net.frogmouth.rnd.jim.s4676.message.processedtrack;
+    exports net.frogmouth.rnd.jim.s4676.message.trackdata;
+    exports net.frogmouth.rnd.jim.s4676.message.tracklinkage;
+    exports net.frogmouth.rnd.jim.s4676.message.trackpoint;
+    exports net.frogmouth.rnd.jim.s4676.message.tracksegment;
+    exports net.frogmouth.rnd.jim.s4676.message.tracksource;
+    exports net.frogmouth.rnd.jim.s4676.product;
+    exports net.frogmouth.rnd.jim.s4676.sensor;
+    exports net.frogmouth.rnd.jim.s4676.tracker;
 }

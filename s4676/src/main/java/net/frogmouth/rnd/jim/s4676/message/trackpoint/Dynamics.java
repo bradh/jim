@@ -1,8 +1,9 @@
-package net.frogmouth.rnd.jim.s4676;
+package net.frogmouth.rnd.jim.s4676.message.trackpoint;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import net.frogmouth.rnd.jim.s4676.common.CoordinateSystemType;
 
 /**
  * Dynamics.
@@ -19,8 +20,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class Dynamics {
 
     @JacksonXmlProperty(localName = "cs", isAttribute = true)
-    // TODO: this should be an enumerated type
-    private String coordinateSystem;
+    private CoordinateSystemType coordinateSystem;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
@@ -35,7 +35,7 @@ public class Dynamics {
      *
      * @return the coordinate system.
      */
-    public String getCoordinateSystem() {
+    public CoordinateSystemType getCoordinateSystem() {
         return coordinateSystem;
     }
 
@@ -46,7 +46,7 @@ public class Dynamics {
      *
      * @param coordinateSystem the coordinate system
      */
-    public void setCoordinateSystem(String coordinateSystem) {
+    public void setCoordinateSystem(CoordinateSystemType coordinateSystem) {
         this.coordinateSystem = coordinateSystem;
     }
 

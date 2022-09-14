@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.message.detection;
+package net.frogmouth.rnd.jim.s4676.message.sensormeasurement;
 
 /**
  * Measurement Method.

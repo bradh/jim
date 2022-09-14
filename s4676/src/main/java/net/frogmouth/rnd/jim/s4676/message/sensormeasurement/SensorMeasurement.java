@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.message.detection;
+package net.frogmouth.rnd.jim.s4676.message.sensormeasurement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;

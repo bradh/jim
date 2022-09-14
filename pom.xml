@@ -214,6 +214,7 @@
                 <configuration>
                     <quiet>true</quiet>
                     <source>17</source>
+                    <docfilessubdirs>true</docfilessubdirs>
                 </configuration>
                 <executions>
                     <execution>

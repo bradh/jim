@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
 import java.util.UUID;
-import net.frogmouth.rnd.jim.s4676.Dynamics;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
-import net.frogmouth.rnd.jim.s4676.trackpoint.IProcessType;
+import net.frogmouth.rnd.jim.s4676.common.Confidence;
+import net.frogmouth.rnd.jim.s4676.common.shape.Shape;
+import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.SensorMeasurement;
 
 /**
  * Track Point.
@@ -23,45 +24,74 @@ import net.frogmouth.rnd.jim.s4676.trackpoint.IProcessType;
     "uid",
     "lid",
     "relTime",
-    "dynamicSourceUID",
-    "dynamicSourceLID",
+    "dynSrcUID",
+    "dynSrcLID",
     "associatedDetection",
     "processType",
-    "dynamics"
+    "confidence",
+    "comment",
+    "outline",
+    "outlineObscured",
+    "nearestConfuser",
+    "nearestConfuserConfidence",
+    "dynamics",
+    "evidence",
+    "sm"
 })
 public class TrackPoint extends IdentifiedElement {
-    // TODO: missing sm, evidence, probably more
 
-    @JacksonXmlProperty(
-            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
-            localName = "relTime")
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    long relTime;
+    private long relTime;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "dynSrcUID")
-    UUID dynamicSourceUID;
+    private UUID dynamicSourceUID;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "dynSrcLID")
-    Long dynamicSourceLID;
+    private Long dynamicSourceLID;
 
-    @JacksonXmlProperty(
-            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
-            localName = "associatedDetection")
-    Boolean associatedDetection;
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Boolean associatedDetection;
 
-    @JacksonXmlProperty(
-            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
-            localName = "processType")
-    IProcessType processType;
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private IProcessType processType;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Confidence confidence;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private String comment;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Shape outline;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Shape outlineObscured;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Double nearestConfuser;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Confidence nearestConfuserConfidence;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "dynamics")
-    List<Dynamics> dynamics;
+    private List<Dynamics> dynamics;
+
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "evidence")
+    private List<Evidence> evidences;
+
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "sm")
+    private SensorMeasurement sensorMeasurements;
 
     // TODO: constructors
 

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.collection.CollectionInformation;
 import net.frogmouth.rnd.jim.s4676.message.TrackMessage;
+import net.frogmouth.rnd.jim.s4676.product.ProductIdentification;
 import net.frogmouth.rnd.jim.s4676.sensor.SensorInformation;
 import net.frogmouth.rnd.jim.s4676.tracker.TrackerInformation;
 

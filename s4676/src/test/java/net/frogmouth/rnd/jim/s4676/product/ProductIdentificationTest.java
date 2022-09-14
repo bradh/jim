@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 import java.util.UUID;
 import net.frogmouth.rnd.jim.s4676.NitsRoot;
 import net.frogmouth.rnd.jim.s4676.Parser;
-import net.frogmouth.rnd.jim.s4676.ProductIdentification;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
 
