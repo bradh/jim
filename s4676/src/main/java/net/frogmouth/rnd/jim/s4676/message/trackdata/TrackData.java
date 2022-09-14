@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.message.tracksegment.TrackSegment;
+import net.frogmouth.rnd.jim.s4676.message.tracksource.TrackSource;
 
 /**
  * Track Data.
@@ -16,41 +18,18 @@ import net.frogmouth.rnd.jim.s4676.message.tracksegment.TrackSegment;
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({"uid", "lid", "trackSource", "segment", "object"})
-public class TrackData {
-    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    // TODO: should be UUID.
-    private String uid;
+public class TrackData extends IdentifiedElement {
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "segment")
     private List<TrackSegment> segments;
 
-    // TODO: missing fields - trackSource, lid, object
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private TrackSource trackSource;
 
-    /**
-     * Universal identifier.
-     *
-     * <p>The UUID of the track. Each track is composed of one or more track segments, and each
-     * track segment is composed of one or more track points.
-     *
-     * @return the universal identifier
-     */
-    public String getUid() {
-        return uid;
-    }
-
-    /**
-     * Set the universal identifier.
-     *
-     * <p>The UUID of the track. Each track is composed of one or more track segments, and each
-     * track segment is composed of one or more track points.
-     *
-     * @param uid the universal identifier
-     */
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
+    // TODO: constructors
+    // TODO: private TrackedObject object
 
     /**
      * Track Segments.
@@ -64,6 +43,7 @@ public class TrackData {
         return segments;
     }
 
+    // TODO: convert this to be an adder
     /**
      * Set the Track Segments.
      *
@@ -75,4 +55,6 @@ public class TrackData {
     public void setSegments(List<TrackSegment> segments) {
         this.segments = segments;
     }
+
+    // TODO: missing getters and setters
 }
