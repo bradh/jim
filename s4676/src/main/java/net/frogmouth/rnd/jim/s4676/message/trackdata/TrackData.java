@@ -28,8 +28,10 @@ public class TrackData extends IdentifiedElement {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private TrackSource trackSource;
 
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private List<TrackedObject> object;
+
     // TODO: constructors
-    // TODO: private TrackedObject object
 
     /**
      * Track Segments.
@@ -56,5 +58,5 @@ public class TrackData extends IdentifiedElement {
         this.segments = segments;
     }
 
-    // TODO: missing getters and setters
+    // TODO: missing getters and setters/adders
 }
