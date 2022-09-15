@@ -23,6 +23,7 @@ module net.frogmouth.rnd.jim.s4676 {
     exports net.frogmouth.rnd.jim.s4676.message.motionevent;
     exports net.frogmouth.rnd.jim.s4676.message.processedtrack;
     exports net.frogmouth.rnd.jim.s4676.message.trackdata;
+    exports net.frogmouth.rnd.jim.s4676.message.trackdata.id1241;
     exports net.frogmouth.rnd.jim.s4676.message.tracklinkage;
     exports net.frogmouth.rnd.jim.s4676.message.trackpoint;
     exports net.frogmouth.rnd.jim.s4676.message.tracksegment;
