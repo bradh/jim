@@ -25,9 +25,7 @@ import net.frogmouth.rnd.jim.s4676.common.Confidence;
  * TrackPoint, and including a minimal Evidence object containing only an updated Confidence object.
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-@JsonPropertyOrder({"uid", "lid", "detectionUID", "detectionLID", "confidence"
-    // TODO: more
-})
+@JsonPropertyOrder({"uid", "lid", "detectionUID", "detectionLID", "confidence"})
 public class Evidence extends IdentifiedElement {
     @JacksonXmlProperty(isAttribute = true)
     private EvidenceType type;
@@ -44,7 +42,12 @@ public class Evidence extends IdentifiedElement {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Confidence confidence;
 
-    // TODO: constructors
+    /**
+     * Constructor.
+     *
+     * <p>No part of the Evidence is mandatory, however an empty Evidence instance may not be very
+     * useful.
+     */
 
     /**
      * Evidence type.
