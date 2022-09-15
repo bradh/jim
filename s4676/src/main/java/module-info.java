@@ -22,6 +22,7 @@ module net.frogmouth.rnd.jim.s4676 {
     exports net.frogmouth.rnd.jim.s4676.message.dynamicsourceinformation;
     exports net.frogmouth.rnd.jim.s4676.message.motionevent;
     exports net.frogmouth.rnd.jim.s4676.message.processedtrack;
+    exports net.frogmouth.rnd.jim.s4676.message.sensormeasurement;
     exports net.frogmouth.rnd.jim.s4676.message.trackdata;
     exports net.frogmouth.rnd.jim.s4676.message.trackdata.id1241;
     exports net.frogmouth.rnd.jim.s4676.message.tracklinkage;

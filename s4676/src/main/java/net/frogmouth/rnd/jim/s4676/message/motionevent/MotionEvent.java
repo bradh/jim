@@ -3,6 +3,8 @@ package net.frogmouth.rnd.jim.s4676.message.motionevent;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import java.util.ArrayList;
+import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
 import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
@@ -33,18 +35,18 @@ public class MotionEvent extends IdentifiedElement {
     @JacksonXmlProperty(isAttribute = true)
     private IMotionEventType type;
 
-    // TODO: "trackUID",
+    // TODO: List<> "trackUID",
+
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "trackLID")
+    private List<Long> trackLIDs;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    private Long trackLID;
-
-    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     private long startRelTime;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
-    private long endRelTime;
+    private Long endRelTime;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Confidence confidence;
@@ -96,6 +98,81 @@ public class MotionEvent extends IdentifiedElement {
      */
     public void setType(IMotionEventType type) {
         this.type = type;
+    }
+
+    // TODO: missing getter and setter - trackUIDs
+
+    /**
+     * Track local identifiers (LIDs).
+     *
+     * <p>The track LID(s) of the vehicles involved in the motion event.
+     *
+     * @return list of track identifiers
+     */
+    public List<Long> getTrackLIDs() {
+        return trackLIDs;
+    }
+
+    /**
+     * Add a track local identifier (LID).
+     *
+     * <p>The track LID(s) of the vehicles involved in the motion event.
+     *
+     * @param lid the identifier to add
+     */
+    public void addTrackLID(Long lid) {
+        if (this.trackLIDs == null) {
+            this.trackLIDs = new ArrayList<>();
+        }
+        this.trackLIDs.add(lid);
+    }
+
+    /**
+     * Start relative time.
+     *
+     * <p>The start time of the motion event, in relative time increments.
+     *
+     * @return the relative time
+     */
+    public long getStartRelTime() {
+        return startRelTime;
+    }
+
+    /**
+     * Set the start relative time.
+     *
+     * <p>The start time of the motion event, in relative time increments.
+     *
+     * @param startRelTime the relative time
+     */
+    public void setStartRelTime(long startRelTime) {
+        this.startRelTime = startRelTime;
+    }
+
+    /**
+     * End relative time.
+     *
+     * <p>The end time of the motion event in relative time increments Where the endRelTime is
+     * unknown, it means the data producer does not know the end time OR the end time is
+     * instantaneous (endRelTime = startRelTime).
+     *
+     * @return the end relative time, or null if not set
+     */
+    public Long getEndRelTime() {
+        return endRelTime;
+    }
+
+    /**
+     * Set the end relative time.
+     *
+     * <p>The end time of the motion event in relative time increments Where the endRelTime is
+     * unknown, it means the data producer does not know the end time OR the end time is
+     * instantaneous (endRelTime = startRelTime).
+     *
+     * @param endRelTime the end relative time
+     */
+    public void setEndRelTime(Long endRelTime) {
+        this.endRelTime = endRelTime;
     }
 
     /**
