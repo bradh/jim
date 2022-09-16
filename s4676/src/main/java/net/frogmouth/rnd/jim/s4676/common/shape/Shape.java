@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import net.frogmouth.rnd.jim.s4676.common.Dimensionality;
 import net.frogmouth.rnd.jim.s4676.common.ICoordinateSystemType;
+import net.frogmouth.rnd.jim.s4676.common.UniqueID;
 
 /**
  * Abstract Shape.
@@ -35,7 +36,9 @@ public abstract class Shape {
     @JacksonXmlProperty(isAttribute = true)
     private ICoordinateSystemType cs;
 
-    // TODO: cftUID
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private UniqueID cftUID;
+
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Long cftLID;
 
@@ -105,7 +108,31 @@ public abstract class Shape {
         this.cs = cs;
     }
 
-    // TODO: additional getter and setter for cftUID
+    /**
+     * Coordinate frame transformation unique identifier.
+     *
+     * <p>A UUID reference to the coordinate system transformation that describes how to convert
+     * from local coordinates to an absolute coordinate system. If the points are specified in a
+     * local coordinate system, then either the cftLID or cftUID is required.
+     *
+     * @return the unique identifier
+     */
+    public UniqueID getCftUID() {
+        return cftUID;
+    }
+
+    /**
+     * Set the coordinate frame transformation unique identifier.
+     *
+     * <p>A UUID reference to the coordinate system transformation that describes how to convert
+     * from local coordinates to an absolute coordinate system. If the points are specified in a
+     * local coordinate system, then either the cftLID or cftUID is required.
+     *
+     * @param cftUID the unique identifier
+     */
+    public void setCftUID(UniqueID cftUID) {
+        this.cftUID = cftUID;
+    }
 
     /**
      * Coordinate frame transformation local identifier.

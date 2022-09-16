@@ -7,4 +7,3 @@ package net.frogmouth.rnd.jim.s4676.message.trackpoint;
  * when the Evidence type is CIRCUMSTANTIAL.
  */
 public interface IEvidenceSubtype {}
-// TODO: concrete implementation

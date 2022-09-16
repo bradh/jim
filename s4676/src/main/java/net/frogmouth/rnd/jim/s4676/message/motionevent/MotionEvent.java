@@ -8,6 +8,7 @@ import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
 import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
+import net.frogmouth.rnd.jim.s4676.common.UniqueID;
 import net.frogmouth.rnd.jim.s4676.common.shape.Shape;
 
 /**
@@ -17,6 +18,8 @@ import net.frogmouth.rnd.jim.s4676.common.shape.Shape;
  * interest to the producer. Since the ability to measure these events is dependent upon the data
  * producer’s capabilities, the definition of each motion event is largely left to the data producer
  * (for example, what speed constitutes a “START” or “STOP” event).
+ *
+ * <p>Either trackUID(s) or trackLID(s) are required for the event to be meaningful.
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({
@@ -35,7 +38,10 @@ public class MotionEvent extends IdentifiedElement {
     @JacksonXmlProperty(isAttribute = true)
     private IMotionEventType type;
 
-    // TODO: List<> "trackUID",
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "trackUID")
+    private List<UniqueID> trackUIDs;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
@@ -100,7 +106,30 @@ public class MotionEvent extends IdentifiedElement {
         this.type = type;
     }
 
-    // TODO: missing getter and setter - trackUIDs
+    /**
+     * Track unique identifiers (UIDs).
+     *
+     * <p>The track UID(s) of the vehicles involved in the motion event.
+     *
+     * @return list of track identifiers
+     */
+    public List<UniqueID> getTrackUIDs() {
+        return trackUIDs;
+    }
+
+    /**
+     * Add a track unique identifier (UID).
+     *
+     * <p>The track UID of a vehicle involved in the motion event.
+     *
+     * @param uid the identifier to add
+     */
+    public void addTrackUID(UniqueID uid) {
+        if (this.trackUIDs == null) {
+            this.trackUIDs = new ArrayList<>();
+        }
+        this.trackUIDs.add(uid);
+    }
 
     /**
      * Track local identifiers (LIDs).
@@ -116,7 +145,7 @@ public class MotionEvent extends IdentifiedElement {
     /**
      * Add a track local identifier (LID).
      *
-     * <p>The track LID(s) of the vehicles involved in the motion event.
+     * <p>The track LID of a vehicle involved in the motion event.
      *
      * @param lid the identifier to add
      */

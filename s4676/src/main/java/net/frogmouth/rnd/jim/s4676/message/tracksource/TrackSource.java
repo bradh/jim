@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4676.common.UniqueID;
 
 /**
  * Track Source.
@@ -38,26 +39,72 @@ import java.util.List;
 })
 public class TrackSource {
 
-    // TODO: List<UUID> sensorUID
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "sensorUID")
+    private List<UniqueID> sensorUIDs;
+
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "sensorLID")
     private List<Long> sensorLIDs;
-    // TODO: List<UUID> trackerUID
+
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "trackerUID")
+    private List<UniqueID> trackerUIDs;
+
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "trackerLID")
     private List<Long> trackerLIDs;
-    // TODO: List<UUID> collectionUID
+
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "collectionUID")
+    private List<UniqueID> collectionUIDs;
+
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "collectionLID")
     private List<Long> collectionLIDs;
-    // TODO: List<UUID> productUID
+
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "productUID")
+    private List<UniqueID> productUIDs;
+
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "productLID")
     private List<Long> productLIDs;
+
+    /**
+     * Add sensor unique identifier.
+     *
+     * <p>The unique ID of a sensor used to generate the detections that went into this track.
+     *
+     * @param uid the unique identifier to add
+     */
+    public void addSensorUID(UniqueID uid) {
+        if (this.sensorUIDs == null) {
+            this.sensorUIDs = new ArrayList<>();
+        }
+        this.sensorUIDs.add(uid);
+    }
+
+    /**
+     * Sensor unique identifiers.
+     *
+     * <p>The unique ID(s) of the sensor(s) used to generate the detections that went into this
+     * track.
+     *
+     * @return list of unique identifiers
+     */
+    @JsonIgnore
+    public List<UniqueID> getSensorUIDs() {
+        return this.sensorUIDs;
+    }
 
     /**
      * Add sensor local identifier.
@@ -84,6 +131,33 @@ public class TrackSource {
     @JsonIgnore
     public List<Long> getSensorLIDs() {
         return this.sensorLIDs;
+    }
+
+    /**
+     * Add tracker unique identifier.
+     *
+     * <p>The unique ID of a tracker used to generate the detections that went into this track.
+     *
+     * @param uid the unique identifier to add
+     */
+    public void addTrackerUID(UniqueID uid) {
+        if (this.trackerUIDs == null) {
+            this.trackerUIDs = new ArrayList<>();
+        }
+        this.trackerUIDs.add(uid);
+    }
+
+    /**
+     * Tracker unique identifiers.
+     *
+     * <p>The unique ID(s) of the tracker(s) used to generate the detections that went into this
+     * track.
+     *
+     * @return list of unique identifiers.
+     */
+    @JsonIgnore
+    public List<UniqueID> getTrackerUIDs() {
+        return this.trackerUIDs;
     }
 
     /**
@@ -114,6 +188,33 @@ public class TrackSource {
     }
 
     /**
+     * Add collection unique identifier.
+     *
+     * <p>The unique ID of a collection used to generate the detections that went into this track.
+     *
+     * @param uid the unique identifier to add
+     */
+    public void addCollectionUID(UniqueID uid) {
+        if (this.collectionUIDs == null) {
+            this.collectionUIDs = new ArrayList<>();
+        }
+        this.collectionUIDs.add(uid);
+    }
+
+    /**
+     * Collection unique identifiers.
+     *
+     * <p>The unique ID(s) of the collections(s) used to generate the detections that went into this
+     * track.
+     *
+     * @return list of unique identifiers.
+     */
+    @JsonIgnore
+    public List<UniqueID> getCollectionUIDs() {
+        return this.collectionUIDs;
+    }
+
+    /**
      * Add collection local identifier.
      *
      * <p>The local ID of a collection used to generate the detections that went into this track.
@@ -138,6 +239,43 @@ public class TrackSource {
     @JsonIgnore
     public List<Long> getCollectionLIDs() {
         return this.collectionLIDs;
+    }
+
+    /**
+     * Add product unique identifier.
+     *
+     * <p>The unique ID of a product used to generate the detections that went into this track. Note
+     * that NITSRoot does not include the capability to obtain information about products other than
+     * the specific data product corresponding to that NITSRoot instance. If there are multiple
+     * product sources (e.g., this NITSRoot was created by merging data from other specifically
+     * identified data products), then the link between the productUID value and the product
+     * information must be made with data external to this NITSRoot.
+     *
+     * @param uid the unique identifier to add
+     */
+    public void addProductLID(UniqueID uid) {
+        if (this.productUIDs == null) {
+            this.productUIDs = new ArrayList<>();
+        }
+        this.productUIDs.add(uid);
+    }
+
+    /**
+     * Product unique identifiers.
+     *
+     * <p>The unique ID(s) of the product(s) containing the detections and track points that went
+     * into the generation of the applicable track data. Note that NITSRoot does not include the
+     * capability to obtain information about products other than the specific data product
+     * corresponding to that NITSRoot instance. If there are multiple product sources (e.g., this
+     * NITSRoot was created by merging data from other specifically identified data products), then
+     * the link between the productUID value and the product information must be made with data
+     * external to this NITSRoot.
+     *
+     * @return list of unique identifiers.
+     */
+    @JsonIgnore
+    public List<UniqueID> getProductUIDs() {
+        return this.productUIDs;
     }
 
     /**

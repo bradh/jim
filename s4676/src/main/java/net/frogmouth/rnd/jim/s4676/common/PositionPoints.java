@@ -57,8 +57,6 @@ public class PositionPoints {
         this.points = List.of(points);
     }
 
-    // TODO: cftUID getters and setters
-
     /**
      * Dimensionality.
      *

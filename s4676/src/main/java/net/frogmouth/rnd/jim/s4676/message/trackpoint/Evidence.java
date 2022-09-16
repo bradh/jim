@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
+import net.frogmouth.rnd.jim.s4676.common.UniqueID;
 
 /**
  * Evidence.
@@ -33,7 +34,11 @@ public class Evidence extends IdentifiedElement {
     @JacksonXmlProperty(isAttribute = true)
     private IEvidenceSubtype subType;
 
-    // TODO: List<> detectionUID;
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "detectionUID")
+    private List<UniqueID> detectionUIDs;
+
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "detectionLID")
@@ -95,7 +100,34 @@ public class Evidence extends IdentifiedElement {
         this.subType = subType;
     }
 
-    // TODO: detectionUID getter and adder
+    /**
+     * Add detection unique identifier.
+     *
+     * <p>A unique ID reference to a detection that form part or all of the basis for this evidence.
+     * Either detectionUID or detectionLID must be specified if the data producer wants to report
+     * evidence.
+     *
+     * @param uid the unique identifier to add
+     */
+    public void addDetectionUID(UniqueID uid) {
+        if (this.detectionUIDs == null) {
+            this.detectionUIDs = new ArrayList<>();
+        }
+        this.detectionUIDs.add(uid);
+    }
+
+    /**
+     * Detection unique identifiers.
+     *
+     * <p>A unique ID reference to the detection(s) that form the basis for this evidence. Either
+     * detectionUID or detectionLID must be specified if the data producer wants to report evidence.
+     *
+     * @return list of unique identifiers.
+     */
+    @JsonIgnore
+    public List<UniqueID> getDetectionUIDs() {
+        return this.detectionUIDs;
+    }
 
     /**
      * Add detection local identifier.

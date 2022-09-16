@@ -3,6 +3,7 @@ package net.frogmouth.rnd.jim.s4676.message.trackdata;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
 import net.frogmouth.rnd.jim.s4676.message.trackdata.id1241.ID1241;
@@ -50,7 +51,8 @@ public class TrackedObject extends IdentifiedElement {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Short priority;
 
-    // TODO: <xs:element name="iffCode" type="IFFCode" minOccurs="0" maxOccurs="unbounded"/>
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private List<IFFCode> iffCodes;
 
     // TODO: <xs:element name="objectClass" type="ObjectClass" minOccurs="0" maxOccurs="unbounded"/>
 

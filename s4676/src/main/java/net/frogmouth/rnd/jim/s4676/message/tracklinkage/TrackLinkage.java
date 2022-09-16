@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
+import net.frogmouth.rnd.jim.s4676.common.UniqueID;
 
 /**
  * Track Linkage.
@@ -49,14 +50,20 @@ public class TrackLinkage extends IdentifiedElement {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     Confidence confidence;
 
-    // TODO: "preUID",
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "preUID")
+    private List<UniqueID> preUIDs;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "preLID")
     private List<Long> preLIDs;
 
-    // TODO: "postUID",
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "postUID")
+    private List<UniqueID> postUIDs;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
@@ -166,6 +173,45 @@ public class TrackLinkage extends IdentifiedElement {
     }
 
     /**
+     * Add unique identifier for input track.
+     *
+     * <p>Track unique ID that exists prior to the relationship. The exact number of track UUIDs or
+     * localIDs that must be reported depends upon the type of track linkage:
+     *
+     * <ul>
+     *   <li>SPLIT: [1]
+     *   <li>MERGE: [2..*]
+     *   <li>STITCH: [1]
+     * </ul>
+     *
+     * @param uid the unique identifier for the input track to add
+     */
+    public void addPreLinkageUniqueId(UniqueID uid) {
+        if (this.preUIDs == null) {
+            this.preUIDs = new ArrayList<>();
+        }
+        this.preUIDs.add(uid);
+    }
+
+    /**
+     * Unique identifiers for input tracks.
+     *
+     * <p>Track unique IDs that exist prior to the relationship. The exact number of track UUIDs or
+     * localIDs that must be reported depends upon the type of track linkage:
+     *
+     * <ul>
+     *   <li>SPLIT: [1]
+     *   <li>MERGE: [2..*]
+     *   <li>STITCH: [1]
+     * </ul>
+     *
+     * @return the unique identifiers
+     */
+    @JsonIgnore
+    public List<UniqueID> getPreLinkageUniqueIds() {
+        return this.preUIDs;
+    }
+    /**
      * Add local identifier for input track.
      *
      * <p>Track local ID that exists prior to the relationship. The exact number of track UUIDs or
@@ -203,6 +249,46 @@ public class TrackLinkage extends IdentifiedElement {
     @JsonIgnore
     public List<Long> getPreLinkageLocalIds() {
         return this.preLIDs;
+    }
+
+    /**
+     * Add unique identifier for output track.
+     *
+     * <p>Track unique ID that exists after the relationship. The exact number of track UUIDs or
+     * localIDs that must be reported depends upon the type of track linkage:
+     *
+     * <ul>
+     *   <li>SPLIT: [2..*]
+     *   <li>MERGE: [1]
+     *   <li>STITCH: [1]
+     * </ul>
+     *
+     * @param uid the unique identifier for the output track to add
+     */
+    public void addPostLinkageUniqueId(UniqueID uid) {
+        if (this.postUIDs == null) {
+            this.postUIDs = new ArrayList<>();
+        }
+        this.postUIDs.add(uid);
+    }
+
+    /**
+     * Unique identifiers for output track(s).
+     *
+     * <p>Track unique IDs that exist after the relationship. The exact number of track UUIDs or
+     * localIDs that must be reported depends upon the type of track linkage:
+     *
+     * <ul>
+     *   <li>SPLIT: [2..*]
+     *   <li>MERGE: [1]
+     *   <li>STITCH: [1]
+     * </ul>
+     *
+     * @return the unique identifiers
+     */
+    @JsonIgnore
+    public List<UniqueID> getPostLinkageUniqueIds() {
+        return this.postUIDs;
     }
 
     /**

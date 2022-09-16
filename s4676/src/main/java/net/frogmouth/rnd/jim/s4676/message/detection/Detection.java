@@ -8,6 +8,7 @@ import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
 import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
+import net.frogmouth.rnd.jim.s4676.common.UniqueID;
 import net.frogmouth.rnd.jim.s4676.common.shape.Shape;
 import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.SensorMeasurement;
 import net.frogmouth.rnd.jim.s4676.message.tracksource.TrackSource;
@@ -58,12 +59,14 @@ public class Detection extends IdentifiedElement {
             localName = "outline")
     private List<Shape> outlines;
 
-    // TODO: sensorUID;
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private UniqueID sensorUID;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Long sensorLID;
 
-    // TODO: "dynSrcUID",
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private UniqueID dynSrcUID;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Long dynSrcLID;
@@ -191,7 +194,27 @@ public class Detection extends IdentifiedElement {
         this.outlines.add(outline);
     }
 
-    // TODO: getter and setter for sensorUID
+    /**
+     * Sensor unique ID (UID).
+     *
+     * <p>An optional reference to the block of sensor information associated with this detection.
+     *
+     * @return the unique identifier for the sensor information, or null if not set.
+     */
+    public UniqueID getSensorUID() {
+        return sensorUID;
+    }
+
+    /**
+     * Set the sensor unique ID (UID).
+     *
+     * <p>An optional reference to the block of sensor information associated with this detection.
+     *
+     * @param sensorUID the unique identifier for the sensor information.
+     */
+    public void setSensorUID(UniqueID sensorUID) {
+        this.sensorUID = sensorUID;
+    }
 
     /**
      * Sensor local ID (LID).
@@ -215,7 +238,29 @@ public class Detection extends IdentifiedElement {
         this.sensorLID = sensorLID;
     }
 
-    // TODO: getter and setter for dynSrcUID
+    /**
+     * Dynamic source unique ID (UID).
+     *
+     * <p>An optional reference to the block of dynamic source information associated with this
+     * detection.
+     *
+     * @return the unique identifier for the dynamic source information, or null if not set
+     */
+    public UniqueID getDynSrcUID() {
+        return dynSrcUID;
+    }
+
+    /**
+     * Set the dynamic source unique ID (UID).
+     *
+     * <p>An optional reference to the block of dynamic source information associated with this
+     * detection.
+     *
+     * @param dynSrcUID the unique identifier for the dynamic source information
+     */
+    public void setDynSrcUID(UniqueID dynSrcUID) {
+        this.dynSrcUID = dynSrcUID;
+    }
 
     /**
      * Dynamic source local ID (LID).
