@@ -62,7 +62,7 @@ public class ProductIdentificationTest {
         assertEquals(product.getName(), "System X Motion Imagery Track Product");
         assertEquals(product.getShortName(), "XMTP");
         assertEquals(product.getEffectivity(), "Ver 2022.1");
-        assertNull(product.getUid());
+        assertNull(product.getUniqueID());
         assertNull(product.getLid());
         String serialisedXml = parser.serialise(rootElement);
         assertThat(
@@ -111,7 +111,8 @@ public class ProductIdentificationTest {
         assertTrue(rootElement.getProduct() instanceof ProductIdentification);
         ProductIdentification product = rootElement.getProduct();
         assertEquals(
-                product.getUidAsUUID(), UUID.fromString("a0d50939-3ef0-442e-9664-dffba9b86cb1"));
+                product.getUniqueIDAsUUID(),
+                UUID.fromString("a0d50939-3ef0-442e-9664-dffba9b86cb1"));
         assertEquals(product.getLid(), 287L);
         assertEquals(product.getId(), "Annex B-3");
         assertEquals(product.getName(), "System X Motion Imagery Track Product");

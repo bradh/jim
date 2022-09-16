@@ -54,7 +54,8 @@ public class TrackedObject extends IdentifiedElement {
 
     // TODO: <xs:element name="objectClass" type="ObjectClass" minOccurs="0" maxOccurs="unbounded"/>
 
-    // TODO: <xs:element ref="idSourceInformation" minOccurs="0" maxOccurs="unbounded"/>
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private IDSourceInformation idSourceInformation;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private ID1241 id1241;

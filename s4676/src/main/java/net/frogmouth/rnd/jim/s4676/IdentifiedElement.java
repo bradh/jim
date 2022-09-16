@@ -2,8 +2,8 @@ package net.frogmouth.rnd.jim.s4676;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import java.nio.ByteBuffer;
 import java.util.UUID;
+import net.frogmouth.rnd.jim.s4676.common.UniqueID;
 
 /**
  * Identified element.
@@ -13,35 +13,10 @@ import java.util.UUID;
  */
 public abstract class IdentifiedElement {
 
-    /**
-     * Convert a byte array to a UUID.
-     *
-     * @param bytes the byte array
-     * @return UUID corresponding to the byte array
-     */
-    public static UUID arrayToUuid(byte[] bytes) {
-        if (16 != bytes.length) {
-            throw new IllegalArgumentException("Too few bytes available to read UUID");
-        }
-        ByteBuffer bb = ByteBuffer.wrap(bytes);
-        return new UUID(bb.getLong(), bb.getLong());
-    }
-
-    /**
-     * Get the content of a UUID as a byte array.
-     *
-     * @param uuid the UUID to convert
-     * @return the equivalent value as a byte array.
-     */
-    public static byte[] uuidToArray(UUID uuid) {
-        ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
-        bb.putLong(uuid.getMostSignificantBits());
-        bb.putLong(uuid.getLeastSignificantBits());
-        return bb.array();
-    }
-
-    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    private byte[] uid;
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "uid")
+    private UniqueID uniqueID;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Long lid;
@@ -49,12 +24,12 @@ public abstract class IdentifiedElement {
     /**
      * Unique Identifier.
      *
-     * <p>A UUID associated with a particular block of information.
+     * <p>A UUID and optional guide prefix associated with a particular block of information.
      *
      * @return the unique identifier for this information as a byte array.
      */
-    public byte[] getUid() {
-        return uid;
+    public UniqueID getUniqueID() {
+        return uniqueID;
     }
 
     /**
@@ -65,19 +40,22 @@ public abstract class IdentifiedElement {
      * @return the unique identifier for this information as a UUID.
      */
     @JsonIgnore
-    public UUID getUidAsUUID() {
-        return arrayToUuid(uid);
+    public UUID getUniqueIDAsUUID() {
+        if (uniqueID == null) {
+            return null;
+        }
+        return uniqueID.getAsUUID();
     }
 
     /**
      * Set the Unique Identifier.
      *
-     * <p>A UUID associated with a particular block of information.
+     * <p>A UUID and optional guide prefix associated with a particular block of information.
      *
      * @param uid the unique identifier for this information as bytes.
      */
-    public void setUid(byte[] uid) {
-        this.uid = uid;
+    public void setUid(UniqueID uid) {
+        this.uniqueID = uid;
     }
 
     /**
@@ -85,11 +63,11 @@ public abstract class IdentifiedElement {
      *
      * <p>A UUID associated with a particular block of sensor information.
      *
-     * @param uid the unique identifier for this information as a UUID.
+     * @param uuid the unique identifier for this information as a UUID.
      */
     @JsonIgnore
-    public void setUidFromUUID(UUID uid) {
-        setUid(uuidToArray(uid));
+    public void setUidFromUUID(UUID uuid) {
+        setUid(new UniqueID(uuid));
     }
 
     /**

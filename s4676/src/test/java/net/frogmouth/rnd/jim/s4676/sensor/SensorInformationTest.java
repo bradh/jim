@@ -107,7 +107,7 @@ public class SensorInformationTest {
         assertEquals(sensor.getUrl(), "https://jericho.edgsespark.net/sensor3");
         assertEquals(sensor.getComment(), "Channel B antenna was offline for a while");
         assertEquals(sensor.getCollectionMode(), "Channel A only");
-        assertEquals(sensor.getUidAsUUID(), SENSOR_UID);
+        assertEquals(sensor.getUniqueIDAsUUID(), SENSOR_UID);
         assertEquals(sensor.getLid(), 29L);
         String serialisedXml = parser.serialise(rootElement);
         assertThat(

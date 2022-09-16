@@ -71,7 +71,7 @@ public class TrackLinkageTest {
         assertEquals(linkages.size(), 1);
         TrackLinkage trackLinkage = linkages.get(0);
         assertEquals(trackLinkage.getType(), TrackLinkageType.MERGE);
-        assertNull(trackLinkage.getUid());
+        assertNull(trackLinkage.getUniqueID());
         assertEquals(trackLinkage.getLid(), 123L);
         assertEquals(trackLinkage.getPreLinkageLocalIds().size(), 2);
         assertEquals(trackLinkage.getPreLinkageLocalIds().get(0), 80L);

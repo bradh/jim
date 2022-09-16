@@ -106,7 +106,7 @@ public class MotionEventTest {
         assertEquals(motionEvents.size(), 1);
         MotionEvent motionEvent = motionEvents.get(0);
         assertEquals(motionEvent.getType(), MotionEventType.CROSSING_TRIPWIRE);
-        assertNull(motionEvent.getUid());
+        assertNull(motionEvent.getUniqueID());
         assertEquals(motionEvent.getLid(), 123L);
         assertNotNull(motionEvent.getConfidence());
         Confidence confidence = motionEvent.getConfidence();

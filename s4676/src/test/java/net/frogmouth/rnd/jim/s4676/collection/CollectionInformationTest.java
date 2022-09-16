@@ -94,7 +94,7 @@ public class CollectionInformationTest {
         List<CollectionInformation> collections = rootElement.getCollections();
         assertEquals(collections.size(), 1);
         CollectionInformation collection = collections.get(0);
-        assertNull(collection.getUid());
+        assertNull(collection.getUniqueID());
         assertEquals(collection.getLid(), 8L);
         assertEquals(collection.getTargetId(), "Target1234-345");
         String serialisedXml = parser.serialise(rootElement);

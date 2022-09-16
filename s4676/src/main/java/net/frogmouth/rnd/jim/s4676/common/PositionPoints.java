@@ -31,7 +31,9 @@ public class PositionPoints {
     @JsonDeserialize(using = PointsListDeserialiser.class)
     private List<Double> points;
 
-    // TODO: private UUID cftUID;
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private UniqueID cftUID;
+
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Long cftLID;
 
@@ -130,6 +132,34 @@ public class PositionPoints {
      */
     public List<Double> getPoints() {
         return this.points;
+    }
+
+    /**
+     * Coordinate frame transformation unique identifier.
+     *
+     * <p>A UUID reference to the coordinate system transformation (see DynamicCFT) between a local
+     * coordinate system and an absolute coordinate system. Only applicable if the dynamics
+     * information (position, velocity, acceleration, and covariance matrix) are specified in a
+     * local coordinate system.
+     *
+     * @return the unique identifier.
+     */
+    public UniqueID getCftUID() {
+        return cftUID;
+    }
+
+    /**
+     * Set the coordinate frame transformation unique identifier.
+     *
+     * <p>A UUID reference to the coordinate system transformation (see DynamicCFT) between a local
+     * coordinate system and an absolute coordinate system. Only applicable if the dynamics
+     * information (position, velocity, acceleration, and covariance matrix) are specified in a
+     * local coordinate system.
+     *
+     * @param cftUID the unique identifier.
+     */
+    public void setCftUID(UniqueID cftUID) {
+        this.cftUID = cftUID;
     }
 
     /**

@@ -100,7 +100,7 @@ public class TrackerInformationTest {
         List<TrackerInformation> trackers = rootElement.getTrackers();
         assertEquals(trackers.size(), 1);
         TrackerInformation tracker = trackers.get(0);
-        assertNull(tracker.getUid());
+        assertNull(tracker.getUniqueID());
         assertEquals(tracker.getLid(), 9L);
         assertEquals(tracker.getName(), "Tracker 4");
         assertEquals(tracker.getVersion(), "0.1alpha");
