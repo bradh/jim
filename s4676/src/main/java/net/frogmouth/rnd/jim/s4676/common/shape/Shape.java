@@ -21,6 +21,7 @@ import net.frogmouth.rnd.jim.s4676.common.UniqueID;
     "cftUID", "cftLID",
 })
 public abstract class Shape {
+    // TODO: Ellipsoid subclass.
 
     /**
      * XSI type.

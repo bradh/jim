@@ -6,6 +6,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
+import net.frogmouth.rnd.jim.s4676.common.UniqueID;
 import net.frogmouth.rnd.jim.s4676.message.trackdata.id1241.ID1241;
 
 /**
@@ -51,10 +52,13 @@ public class TrackedObject extends IdentifiedElement {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Short priority;
 
-    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "iffCode")
     private List<IFFCode> iffCodes;
 
-    // TODO: <xs:element name="objectClass" type="ObjectClass" minOccurs="0" maxOccurs="unbounded"/>
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private List<ObjectClass> objectClass;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private IDSourceInformation idSourceInformation;
@@ -62,8 +66,15 @@ public class TrackedObject extends IdentifiedElement {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private ID1241 id1241;
 
-    // TODO: multiple exampleDetectionUID
-    // TODO: multiple exampleDetectionLID
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "exampleDetectionUID")
+    private List<UniqueID> exampleDetectionUIDs;
+
+    @JacksonXmlProperty(
+            namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
+            localName = "exampleDetectionLID")
+    private List<Long> exampleDetectionLIDs;
 
     // TODO: constructors
 
