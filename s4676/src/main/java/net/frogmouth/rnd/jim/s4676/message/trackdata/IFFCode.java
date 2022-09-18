@@ -6,6 +6,8 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
  * IFF Code.
  *
  * <p>Provides Identification Friend or Foe (IFF) mode and value.
+ *
+ * <p>For more information refer to STANAG 4193. Note that this document is not publicly releasable.
  */
 public class IFFCode {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")

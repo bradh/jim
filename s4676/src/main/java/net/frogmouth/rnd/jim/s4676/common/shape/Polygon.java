@@ -20,6 +20,8 @@ import net.frogmouth.rnd.jim.s4676.common.ICoordinateSystemType;
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({
+    "cftUID",
+    "cftLID",
     "nRings",
     "vertices",
 })

@@ -48,8 +48,11 @@ public class MotionImageryInformation {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Double tea;
 
-    // TODO: "gsd",
-    // TODO: "grd",
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Double[] gsd;
+
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    private Double[] grd;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private Polygon useableFOV;
@@ -233,6 +236,68 @@ public class MotionImageryInformation {
      */
     public void setTea(Double tea) {
         this.tea = tea;
+    }
+
+    /**
+     * Ground sample distance (GSD).
+     *
+     * <p>Ground Sampling Distance (GSD), in meters, at the centre of the field-of- view. The array,
+     * if provided, contains between one and three values. If only one value is provided, the value
+     * represents the geometric mean of the GSD in all known dimensions. If two values are provided,
+     * they represent the GSD in the x and y dimensions, in that order. If three values are
+     * provided, they represent the GSD in the x, y and z dimensions, in that order.
+     *
+     * @return ground sample distance array, in metres.
+     */
+    public Double[] getGsd() {
+        return gsd;
+    }
+
+    /**
+     * Set the ground sample distance (GSD).
+     *
+     * <p>Ground Sampling Distance (GSD), in meters, at the centre of the field-of- view. The array,
+     * if provided, contains between one and three values. If only one value is provided, the value
+     * represents the geometric mean of the GSD in all known dimensions. If two values are provided,
+     * they represent the GSD in the x and y dimensions, in that order. If three values are
+     * provided, they represent the GSD in the x, y and z dimensions, in that order.
+     *
+     * @param gsd ground sample distance array, in metres.
+     */
+    public void setGsd(Double[] gsd) {
+        this.gsd = gsd;
+    }
+
+    /**
+     * Ground resolved distance (GRD).
+     *
+     * <p>Ground Resolved Distance (GRD). When used in the context of an imaging sensor, the size of
+     * the smallest element distinguishable on acquired imagery. The array, if provided, contains
+     * between one and three values. If only one value is provided, the value represents the
+     * geometric mean of the GRD in all known dimensions. If two values are provided, they represent
+     * the GRD in the x and y dimensions, in that order. If three values are provided, they
+     * represent the GRD in the x, y and z dimensions, in that order.
+     *
+     * @return the ground resolved distance array, in metres
+     */
+    public Double[] getGrd() {
+        return grd;
+    }
+
+    /**
+     * Set the ground resolved distance (GRD).
+     *
+     * <p>Ground Resolved Distance (GRD). When used in the context of an imaging sensor, the size of
+     * the smallest element distinguishable on acquired imagery. The array, if provided, contains
+     * between one and three values. If only one value is provided, the value represents the
+     * geometric mean of the GRD in all known dimensions. If two values are provided, they represent
+     * the GRD in the x and y dimensions, in that order. If three values are provided, they
+     * represent the GRD in the x, y and z dimensions, in that order.
+     *
+     * @param grd the ground resolved distance array, in metres
+     */
+    public void setGrd(Double[] grd) {
+        this.grd = grd;
     }
 
     /**
