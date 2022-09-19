@@ -79,7 +79,7 @@ public class MotionEventTest {
                         LocalDateTime.of(2022, Month.SEPTEMBER, 6, 3, 50, 8), ZoneOffset.UTC));
         rootElement.setNitsVersion("B.2");
         String serialisedXml = new Parser().serialise(rootElement);
-        System.out.println(serialisedXml);
+        // System.out.println(serialisedXml);
         assertThat(
                 Input.fromString(serialisedXml),
                 isSimilarTo(
