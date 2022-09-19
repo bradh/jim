@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.common;
+package net.frogmouth.rnd.jim.s4676.serde;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

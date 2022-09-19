@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.common;
+package net.frogmouth.rnd.jim.s4676.serde;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
@@ -81,8 +81,8 @@ public class DoubleArrayDeserializer extends StdDeserializer<Double[]>
         SupplementalDeserialisationInfo info =
                 bp.getAnnotation(SupplementalDeserialisationInfo.class);
         if (info != null) {
-            String elementName = info.elementName();
-            return new DoubleArrayDeserializer(elementName);
+            String elName = info.elementName();
+            return new DoubleArrayDeserializer(elName);
         }
         return this;
     }

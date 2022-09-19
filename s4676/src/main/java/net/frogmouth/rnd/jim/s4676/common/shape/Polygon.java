@@ -7,8 +7,8 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.common.Dimensionality;
-import net.frogmouth.rnd.jim.s4676.common.DoubleListSerialiser;
 import net.frogmouth.rnd.jim.s4676.common.ICoordinateSystemType;
+import net.frogmouth.rnd.jim.s4676.serde.DoubleListSerialiser;
 
 /**
  * Polygon shape.

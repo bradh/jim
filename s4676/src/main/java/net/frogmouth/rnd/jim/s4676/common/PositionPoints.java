@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4676.serde.DoubleListDeserialiser;
+import net.frogmouth.rnd.jim.s4676.serde.DoubleListSerialiser;
+import net.frogmouth.rnd.jim.s4676.serde.SupplementalDeserialisationInfo;
 
 /**
  * Position Points.
@@ -28,7 +31,8 @@ public class PositionPoints {
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     @JsonSerialize(using = DoubleListSerialiser.class)
-    @JsonDeserialize(using = PointsListDeserialiser.class)
+    @JsonDeserialize(using = DoubleListDeserialiser.class)
+    @SupplementalDeserialisationInfo(elementName = "points")
     private List<Double> points;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")

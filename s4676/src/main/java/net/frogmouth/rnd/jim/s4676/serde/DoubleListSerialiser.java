@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.common;
+package net.frogmouth.rnd.jim.s4676.serde;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;

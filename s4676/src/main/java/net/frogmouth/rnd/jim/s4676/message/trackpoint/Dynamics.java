@@ -7,11 +7,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import net.frogmouth.rnd.jim.s4676.common.CoordinateSystemType;
 import net.frogmouth.rnd.jim.s4676.common.CovarianceMatrix;
-import net.frogmouth.rnd.jim.s4676.common.DoubleArrayDeserializer;
-import net.frogmouth.rnd.jim.s4676.common.DoubleArraySerialiser;
 import net.frogmouth.rnd.jim.s4676.common.ICoordinateSystemType;
-import net.frogmouth.rnd.jim.s4676.common.SupplementalDeserialisationInfo;
 import net.frogmouth.rnd.jim.s4676.common.UniqueID;
+import net.frogmouth.rnd.jim.s4676.serde.DoubleArrayDeserializer;
+import net.frogmouth.rnd.jim.s4676.serde.DoubleArraySerialiser;
+import net.frogmouth.rnd.jim.s4676.serde.SupplementalDeserialisationInfo;
 
 /**
  * Dynamics.
