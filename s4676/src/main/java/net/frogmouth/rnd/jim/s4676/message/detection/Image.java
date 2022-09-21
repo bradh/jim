@@ -2,7 +2,12 @@ package net.frogmouth.rnd.jim.s4676.message.detection;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import net.frogmouth.rnd.jim.s4676.serde.IntegerArrayDeserializer;
+import net.frogmouth.rnd.jim.s4676.serde.IntegerArraySerialiser;
+import net.frogmouth.rnd.jim.s4676.serde.SupplementalDeserialisationInfo;
 
 /**
  * Image.
@@ -19,6 +24,9 @@ public class Image {
     private PixelMask pixelMask;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    @JsonSerialize(using = IntegerArraySerialiser.class)
+    @JsonDeserialize(using = IntegerArrayDeserializer.class)
+    @SupplementalDeserialisationInfo(elementName = "centroidPixel")
     private Integer[] centroidPixel;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")

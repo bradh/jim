@@ -2,9 +2,11 @@ package net.frogmouth.rnd.jim.s4676.message.detection;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4676.serde.ListIntegerArraySerialiser;
 
 /**
  * Pixel run.
@@ -34,11 +36,15 @@ public class PixelRun {
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "rs")
+    @JsonSerialize(using = ListIntegerArraySerialiser.class)
+    // TODO: custom deserializer
     private List<Integer[]> rowSequences;
 
     @JacksonXmlProperty(
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "cs")
+    @JsonSerialize(using = ListIntegerArraySerialiser.class)
+    // TODO: custom deserializer
     private List<Integer[]> columnSequences;
 
     /** Constructor. */

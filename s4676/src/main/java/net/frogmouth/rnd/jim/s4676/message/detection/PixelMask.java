@@ -24,4 +24,55 @@ public class PixelMask {
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private PixelRun pixelRun;
+
+    /** Constructor. */
+    public PixelMask() {}
+
+    /**
+     * Pixel polygon.
+     *
+     * <p>A list of pixels that specifies the vertices of a polygon (in pixel space).
+     *
+     * @return the pixel polygon.
+     */
+    public PixelPolygon getPixelPolygon() {
+        return pixelPolygon;
+    }
+
+    /**
+     * Set the pixel polygon.
+     *
+     * <p>A list of pixels that specifies the vertices of a polygon (in pixel space).
+     *
+     * @param pixelPolygon the pixel polygon.
+     */
+    public void setPixelPolygon(PixelPolygon pixelPolygon) {
+        this.pixelPolygon = pixelPolygon;
+    }
+
+    /**
+     * Pixel run.
+     *
+     * <p>A list of pixel runs that specifies a collection of pixels (for example, a detection in
+     * image space). The pixel runs can be specified as runs in the row direction (rs) and/or in the
+     * column direction (cs). If the runs are specified in both directions, they can overlap.
+     *
+     * @return pixel run
+     */
+    public PixelRun getPixelRun() {
+        return pixelRun;
+    }
+
+    /**
+     * Set the pixel run.
+     *
+     * <p>A list of pixel runs that specifies a collection of pixels (for example, a detection in
+     * image space). The pixel runs can be specified as runs in the row direction (rs) and/or in the
+     * column direction (cs). If the runs are specified in both directions, they can overlap.
+     *
+     * @param pixelRun pixel run
+     */
+    public void setPixelRun(PixelRun pixelRun) {
+        this.pixelRun = pixelRun;
+    }
 }

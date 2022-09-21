@@ -130,7 +130,7 @@ public class DetectionTest {
                         LocalDateTime.of(2022, Month.SEPTEMBER, 6, 3, 50, 8), ZoneOffset.UTC));
         rootElement.setNitsVersion("B.2");
         String serialisedXml = new Parser().serialise(rootElement);
-        System.out.println(serialisedXml);
+        // System.out.println(serialisedXml);
         assertThat(
                 Input.fromString(serialisedXml),
                 isSimilarTo(
@@ -138,6 +138,54 @@ public class DetectionTest {
                                         getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream("detection_gmti.xml")))
+                        .ignoreWhitespace());
+    }
+
+    @Test
+    public void testDetectionMotionImagery() throws JsonProcessingException {
+        Detection uut = new Detection();
+        uut.setLid(128L);
+        Image im = new Image();
+        im.setCentroidPixel(new Integer[] {4, 3});
+        PixelMask pixelMask = new PixelMask();
+        PixelRun pixelRun = new PixelRun();
+        pixelRun.addColumnSequence(new Integer[] {2, 3, 5});
+        pixelRun.addRowSequence(new Integer[] {3, 1, 6});
+        pixelRun.addRowSequence(new Integer[] {4, 3, 3});
+        pixelMask.setPixelRun(pixelRun);
+        im.setPixelMask(pixelMask);
+        uut.setImage(im);
+        uut.setSensorLID(808L);
+        uut.setRelativeTime(8242);
+        PositionPoints centroid =
+                new PositionPoints(
+                        Dimensionality.TWO_D,
+                        CoordinateSystemType.WGS_84,
+                        new Double[] {-35.4, 136.8});
+        uut.addCentroid(centroid);
+        TrackSource trackSource = new TrackSource();
+        trackSource.addSensorLID(808L);
+        uut.setSource(trackSource);
+        NitsRoot rootElement = new NitsRoot();
+        TrackMessage message =
+                new TrackMessage(ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC), 0.001);
+        message.addDetection(uut);
+        rootElement.addMessage(message);
+        rootElement.addProfile("STANDALONE");
+        rootElement.setMsgCreatedTime(
+                ZonedDateTime.of(
+                        LocalDateTime.of(2022, Month.SEPTEMBER, 6, 3, 50, 8), ZoneOffset.UTC));
+        rootElement.setNitsVersion("B.2");
+        String serialisedXml = new Parser().serialise(rootElement);
+        System.out.println(serialisedXml);
+        assertThat(
+                Input.fromString(serialisedXml),
+                isSimilarTo(
+                                Input.fromStream(
+                                        getClass()
+                                                .getClassLoader()
+                                                .getResourceAsStream(
+                                                        "detection_motionimagery.xml")))
                         .ignoreWhitespace());
     }
 }

@@ -1,5 +1,6 @@
 package net.frogmouth.rnd.jim.s4676.message.detection;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -341,6 +342,7 @@ public class Detection extends IdentifiedElement {
      *
      * @return image information, or null if not set
      */
+    @JsonIgnore
     public Image getImage() {
         return im;
     }
