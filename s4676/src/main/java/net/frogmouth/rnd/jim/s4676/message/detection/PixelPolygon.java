@@ -2,9 +2,9 @@ package net.frogmouth.rnd.jim.s4676.message.detection;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -111,7 +111,7 @@ public class PixelPolygon {
      * @return row / column coordinates flattened into a String
      */
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    @JsonValue
+    @JacksonXmlText
     public String getIntegerArrayAsString() {
         return integerArray.stream().map(String::valueOf).collect(Collectors.joining(" "));
     }

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import net.frogmouth.rnd.jim.s4676.serde.IntegerArrayDeserializer;
+import net.frogmouth.rnd.jim.s4676.serde.IntegerArrayDeserialiser;
 import net.frogmouth.rnd.jim.s4676.serde.IntegerArraySerialiser;
 import net.frogmouth.rnd.jim.s4676.serde.SupplementalDeserialisationInfo;
 
@@ -25,7 +25,7 @@ public class Image {
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     @JsonSerialize(using = IntegerArraySerialiser.class)
-    @JsonDeserialize(using = IntegerArrayDeserializer.class)
+    @JsonDeserialize(using = IntegerArrayDeserialiser.class)
     @SupplementalDeserialisationInfo(elementName = "centroidPixel")
     private Integer[] centroidPixel;
 

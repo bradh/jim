@@ -7,30 +7,27 @@ import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Deserialisation support for Integer array values.
+ * Deserialisation support for List of Integer array values.
  *
  * <p>Uses of this require the {code SupplementalDeserialisationInfo} annotation to identify the
  * wrapper element name.
  */
-public class IntegerArrayDeserializer extends StdDeserializer<Integer[]>
+public class ListIntegerArrayDeserialiser extends StdDeserializer<List<Integer[]>>
         implements ContextualDeserializer {
-
-    /**
-     * Element name.
-     *
-     * <p>The element to deserialise from.
-     */
     private String elementName;
 
-    private IntegerArrayDeserializer() {
+    /** Constructor. */
+    public ListIntegerArrayDeserialiser() {
         this((String) null);
     }
 
@@ -39,7 +36,7 @@ public class IntegerArrayDeserializer extends StdDeserializer<Integer[]>
      *
      * @param t type
      */
-    public IntegerArrayDeserializer(Class<Integer[]> t) {
+    public ListIntegerArrayDeserialiser(Class<List<Double>> t) {
         super(t);
     }
 
@@ -48,31 +45,38 @@ public class IntegerArrayDeserializer extends StdDeserializer<Integer[]>
      *
      * @param elementName the element name to deserialise from.
      */
-    private IntegerArrayDeserializer(String elementName) {
-        super(Integer[].class);
+    private ListIntegerArrayDeserialiser(String elementName) {
+        super(List.class);
         this.elementName = elementName;
     }
 
     @Override
-    public Integer[] deserialize(JsonParser jp, DeserializationContext dc)
+    public List<Integer[]> deserialize(JsonParser jp, DeserializationContext dc)
             throws IOException, JacksonException {
-        List<Integer> points = new ArrayList<>();
+        List<Integer[]> points = new ArrayList<>();
         TreeNode tree = jp.readValueAsTree();
         TreeNode pointsNode = tree.get(elementName);
-        if ((pointsNode != null)
-                && (pointsNode.isValueNode())
-                && (pointsNode instanceof TextNode)) {
-            String value = ((TextNode) pointsNode).textValue();
-            String[] parts = value.split(" ");
-            for (String part : parts) {
-                points.add(Integer.valueOf(part));
+        if (pointsNode instanceof ArrayNode arrayNode) {
+            for (JsonNode el : arrayNode) {
+                if (el instanceof TextNode textNode) {
+                    points.add(parseTextNode(textNode));
+                }
             }
         }
-        Integer[] arr = new Integer[points.size()];
-        for (int i = 0; i < points.size(); i++) {
-            arr[i] = points.get(i);
+        if (pointsNode instanceof TextNode textNode) {
+            points.add(parseTextNode(textNode));
         }
-        return arr;
+        return points;
+    }
+
+    private Integer[] parseTextNode(TextNode textNode) throws NumberFormatException {
+        String value = textNode.textValue();
+        String[] parts = value.split(" ");
+        Integer[] integerArray = new Integer[parts.length];
+        for (int i = 0; i < integerArray.length; i++) {
+            integerArray[i] = Integer.valueOf(parts[i]);
+        }
+        return integerArray;
     }
 
     @Override
@@ -82,7 +86,7 @@ public class IntegerArrayDeserializer extends StdDeserializer<Integer[]>
                 bp.getAnnotation(SupplementalDeserialisationInfo.class);
         if (info != null) {
             String elName = info.elementName();
-            return new IntegerArrayDeserializer(elName);
+            return new ListIntegerArrayDeserialiser(elName);
         }
         return this;
     }

@@ -177,7 +177,7 @@ public class DetectionTest {
                         LocalDateTime.of(2022, Month.SEPTEMBER, 6, 3, 50, 8), ZoneOffset.UTC));
         rootElement.setNitsVersion("B.2");
         String serialisedXml = new Parser().serialise(rootElement);
-        System.out.println(serialisedXml);
+        // System.out.println(serialisedXml);
         assertThat(
                 Input.fromString(serialisedXml),
                 isSimilarTo(
@@ -190,6 +190,26 @@ public class DetectionTest {
     }
 
     @Test
+    public void testRoundTripMotionImageryPixelRun() throws IOException {
+        Parser parser = new Parser();
+        String xml =
+                new String(
+                        getClass()
+                                .getClassLoader()
+                                .getResourceAsStream("detection_motionimagery_pixel_run.xml")
+                                .readAllBytes());
+        NitsRoot rootElement = parser.parse(xml);
+        assertNotNull(rootElement.getMessages().get(0).getDetections());
+        assertTrue(rootElement.getMessages().get(0).getDetections() instanceof List<Detection>);
+        List<Detection> detections = rootElement.getMessages().get(0).getDetections();
+        assertEquals(detections.size(), 1);
+        String serialisedXml = parser.serialise(rootElement);
+        assertThat(
+                Input.fromString(serialisedXml),
+                isSimilarTo(Input.fromString(xml)).ignoreWhitespace());
+    }
+
+    @Test
     public void testDetectionMotionImageryPixelPolygon() throws JsonProcessingException {
         Detection uut = new Detection();
         uut.setLid(128L);
@@ -197,8 +217,7 @@ public class DetectionTest {
         im.setCentroidPixel(new Integer[] {4, 3});
         PixelMask pixelMask = new PixelMask();
         PixelPolygon pixelPolygon = new PixelPolygon();
-        // TODO: fix this
-        // pixelPolygon.setNumRings(1);
+        pixelPolygon.setNumRings(1);
         pixelPolygon.addCoordinate(3, 1);
         pixelPolygon.addCoordinate(3, 3);
         pixelPolygon.addCoordinate(2, 3);
@@ -234,7 +253,7 @@ public class DetectionTest {
                         LocalDateTime.of(2022, Month.SEPTEMBER, 6, 3, 50, 8), ZoneOffset.UTC));
         rootElement.setNitsVersion("B.2");
         String serialisedXml = new Parser().serialise(rootElement);
-        System.out.println(serialisedXml);
+        // System.out.println(serialisedXml);
         assertThat(
                 Input.fromString(serialisedXml),
                 isSimilarTo(
