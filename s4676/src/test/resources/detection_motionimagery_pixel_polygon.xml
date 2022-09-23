@@ -1,0 +1,27 @@
+<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1">
+    <profile>STANDALONE</profile>
+    <msgCreatedTime>2022-09-06T03:50:08Z</msgCreatedTime>
+    <nitsVersion>B.2</nitsVersion>
+    <message>
+        <baseTime>2022-01-01T00:00:00Z</baseTime>
+        <relTimeIncrement>0.001</relTimeIncrement>
+        <detection>
+            <lid>128</lid>
+            <relTime>8242</relTime>
+            <centroid dims="2" cs="WGS_84">
+                <points>-35.4 136.8</points>
+            </centroid>
+            <sensorLID>808</sensorLID>
+            <source>
+                <sensorLID>808</sensorLID>
+            </source>
+            <im>
+                <pixelMask>
+                    <pixelPolygon>3 1 3 3 2 3 3 3 3 6 3 5 4 5 4 3 6 3 3 3</pixelPolygon>
+                </pixelMask>
+                <centroidPixel>4 3</centroidPixel>
+            </im>
+        </detection>
+    </message>
+</nitsRoot>
+

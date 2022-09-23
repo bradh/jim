@@ -142,7 +142,7 @@ public class DetectionTest {
     }
 
     @Test
-    public void testDetectionMotionImagery() throws JsonProcessingException {
+    public void testDetectionMotionImageryPixelRun() throws JsonProcessingException {
         Detection uut = new Detection();
         uut.setLid(128L);
         Image im = new Image();
@@ -185,7 +185,84 @@ public class DetectionTest {
                                         getClass()
                                                 .getClassLoader()
                                                 .getResourceAsStream(
-                                                        "detection_motionimagery.xml")))
+                                                        "detection_motionimagery_pixel_run.xml")))
                         .ignoreWhitespace());
+    }
+
+    @Test
+    public void testDetectionMotionImageryPixelPolygon() throws JsonProcessingException {
+        Detection uut = new Detection();
+        uut.setLid(128L);
+        Image im = new Image();
+        im.setCentroidPixel(new Integer[] {4, 3});
+        PixelMask pixelMask = new PixelMask();
+        PixelPolygon pixelPolygon = new PixelPolygon();
+        // TODO: fix this
+        // pixelPolygon.setNumRings(1);
+        pixelPolygon.addCoordinate(3, 1);
+        pixelPolygon.addCoordinate(3, 3);
+        pixelPolygon.addCoordinate(2, 3);
+        pixelPolygon.addCoordinate(3, 3);
+        pixelPolygon.addCoordinate(3, 6);
+        pixelPolygon.addCoordinate(3, 5);
+        pixelPolygon.addCoordinate(4, 5);
+        pixelPolygon.addCoordinate(4, 3);
+        pixelPolygon.addCoordinate(6, 3);
+        pixelPolygon.addCoordinate(3, 3);
+        pixelMask.setPixelPolygon(pixelPolygon);
+        im.setPixelMask(pixelMask);
+        uut.setImage(im);
+        uut.setSensorLID(808L);
+        uut.setRelativeTime(8242);
+        PositionPoints centroid =
+                new PositionPoints(
+                        Dimensionality.TWO_D,
+                        CoordinateSystemType.WGS_84,
+                        new Double[] {-35.4, 136.8});
+        uut.addCentroid(centroid);
+        TrackSource trackSource = new TrackSource();
+        trackSource.addSensorLID(808L);
+        uut.setSource(trackSource);
+        NitsRoot rootElement = new NitsRoot();
+        TrackMessage message =
+                new TrackMessage(ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC), 0.001);
+        message.addDetection(uut);
+        rootElement.addMessage(message);
+        rootElement.addProfile("STANDALONE");
+        rootElement.setMsgCreatedTime(
+                ZonedDateTime.of(
+                        LocalDateTime.of(2022, Month.SEPTEMBER, 6, 3, 50, 8), ZoneOffset.UTC));
+        rootElement.setNitsVersion("B.2");
+        String serialisedXml = new Parser().serialise(rootElement);
+        System.out.println(serialisedXml);
+        assertThat(
+                Input.fromString(serialisedXml),
+                isSimilarTo(
+                                Input.fromStream(
+                                        getClass()
+                                                .getClassLoader()
+                                                .getResourceAsStream(
+                                                        "detection_motionimagery_pixel_polygon.xml")))
+                        .ignoreWhitespace());
+    }
+
+    @Test
+    public void testRoundTripMotionImageryPixelPolygon() throws IOException {
+        Parser parser = new Parser();
+        String xml =
+                new String(
+                        getClass()
+                                .getClassLoader()
+                                .getResourceAsStream("detection_motionimagery_pixel_polygon.xml")
+                                .readAllBytes());
+        NitsRoot rootElement = parser.parse(xml);
+        assertNotNull(rootElement.getMessages().get(0).getDetections());
+        assertTrue(rootElement.getMessages().get(0).getDetections() instanceof List<Detection>);
+        List<Detection> detections = rootElement.getMessages().get(0).getDetections();
+        assertEquals(detections.size(), 1);
+        String serialisedXml = parser.serialise(rootElement);
+        assertThat(
+                Input.fromString(serialisedXml),
+                isSimilarTo(Input.fromString(xml)).ignoreWhitespace());
     }
 }

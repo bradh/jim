@@ -1,10 +1,14 @@
 package net.frogmouth.rnd.jim.s4676.message.detection;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import net.frogmouth.rnd.jim.s4676.serde.PixelPolygonDeserialiser;
 
 /**
  * Pixel polygon.
@@ -25,13 +29,12 @@ import java.util.List;
  * translated from 1-based to 0-based coordinates.
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonDeserialize(using = PixelPolygonDeserialiser.class)
 public class PixelPolygon {
     @JacksonXmlProperty(isAttribute = true)
     private Integer numRings;
 
-    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    @JsonValue
-    private List<Integer> integerArray;
+    @JsonIgnore private List<Integer> integerArray;
 
     /**
      * Constructor.
@@ -85,8 +88,32 @@ public class PixelPolygon {
      *
      * @return row / column coordinates list
      */
+    @JsonIgnore
     public List<Integer> getIntegerArray() {
         return integerArray;
+    }
+
+    /**
+     * Get the coordinate points as a String.
+     *
+     * <p>A list of integers that specifies pairs of row, columns values from the image. This list
+     * can contain any even number of elements. The order of these elements for a single ring is:
+     * [row_1, col_1, row_2, col_2, ... row_n, col_n]. The ordering of points within a ring
+     * (controlling whether the ring is included or excluded area) and the syntax for delimiting
+     * rings is specified in AEDP-12 Section 2.1.1.9. The coordinate values in a null point
+     * delimiting the rings in the polygon shall be all set to -1.
+     *
+     * <p>Note that the order of coordinates for an individual point is the opposite of the order
+     * for the PIXELS coordinate space for generic shapes and points.
+     *
+     * <p>This is mainly intended for serialisation.
+     *
+     * @return row / column coordinates flattened into a String
+     */
+    @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
+    @JsonValue
+    public String getIntegerArrayAsString() {
+        return integerArray.stream().map(String::valueOf).collect(Collectors.joining(" "));
     }
 
     /**
