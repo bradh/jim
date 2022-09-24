@@ -1,31 +1,46 @@
 <nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1">
-  <profile>STANDALONE</profile>
-  <msgCreatedTime>2022-09-06T03:50:08Z</msgCreatedTime>
-  <nitsVersion>B.2</nitsVersion>
-  <message>
-    <baseTime>2022-01-01T00:00:00Z</baseTime>
-    <relTimeIncrement>0.001</relTimeIncrement>
-    <detection>
-      <lid>128</lid>
-      <relTime>8242</relTime>
-      <centroid dims="2" cs="WGS_84">
-        <points>-35.4 136.8</points>
-      </centroid>
-      <sensorLID>808</sensorLID>
-      <source>
-        <sensorLID>808</sensorLID>
-      </source>
-      <im>
-        <pixelMask>
-          <pixelRun>
-            <rs>3 1 6</rs>
-            <rs>4 3 3</rs>
-            <cs>2 3 5</cs>
-          </pixelRun>
-        </pixelMask>
-        <centroidPixel>4 3</centroidPixel>
-      </im>
-    </detection>
-  </message>
+    <profile>STANDALONE</profile>
+    <msgCreatedTime>2022-09-06T03:50:08Z</msgCreatedTime>
+    <nitsVersion>B.2</nitsVersion>
+    <message>
+        <baseTime>2022-01-01T00:00:00Z</baseTime>
+        <relTimeIncrement>0.001</relTimeIncrement>
+        <detection>
+            <lid>128</lid>
+            <relTime>8242</relTime>
+            <centroid dims="2" cs="WGS_84">
+                <points>-35.4 136.8</points>
+            </centroid>
+            <centroid cs="WGS_84" dims="3">
+                <points>-35.4 136.8 653.2</points>
+            </centroid>
+            <sensorLID>808</sensorLID>
+            <confidence type="PROBABILITY">
+                <value>60</value>
+            </confidence>
+            <source>
+                <sensorLID>808</sensorLID>
+            </source>
+            <im>
+                <chip type="PNG">
+                    <uri>https://github.com/bradh/jim/</uri>
+                </chip>
+                <pixelMask>
+                    <pixelRun>
+                        <rs>3 1 6</rs>
+                        <rs>4 3 3</rs>
+                        <cs>2 3 5</cs>
+                    </pixelRun>
+                </pixelMask>
+                <centroidPixel>4 3</centroidPixel>
+            </im>
+            <sm method="MEAN" quantity="SNR">
+                <value>12.3</value>
+            </sm>
+            <sm method="MAX" quantity="RADIANCE">
+                <value>0.3</value>
+            </sm>
+        </detection>
+    </message>
 </nitsRoot>
 

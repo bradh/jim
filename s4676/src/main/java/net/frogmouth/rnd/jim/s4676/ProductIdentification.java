@@ -1,9 +1,8 @@
-package net.frogmouth.rnd.jim.s4676.product;
+package net.frogmouth.rnd.jim.s4676;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 
 /**
  * Product Identification.

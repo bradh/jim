@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.product;
+package net.frogmouth.rnd.jim.s4676;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.*;
@@ -11,8 +11,6 @@ import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.UUID;
-import net.frogmouth.rnd.jim.s4676.NitsRoot;
-import net.frogmouth.rnd.jim.s4676.Parser;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
 

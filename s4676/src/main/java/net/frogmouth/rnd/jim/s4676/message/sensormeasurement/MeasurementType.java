@@ -5,7 +5,7 @@ package net.frogmouth.rnd.jim.s4676.message.sensormeasurement;
  *
  * <p>The specific quantity being reported.
  */
-public enum MeasurementType implements IMeasurementMethod {
+public enum MeasurementType implements IMeasurementType {
 
     /**
      * Signal to Noise Ratio.

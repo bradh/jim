@@ -13,12 +13,17 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.NitsRoot;
 import net.frogmouth.rnd.jim.s4676.Parser;
+import net.frogmouth.rnd.jim.s4676.common.CertaintyStatisticType;
+import net.frogmouth.rnd.jim.s4676.common.Confidence;
 import net.frogmouth.rnd.jim.s4676.common.CoordinateSystemType;
 import net.frogmouth.rnd.jim.s4676.common.Dimensionality;
 import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
 import net.frogmouth.rnd.jim.s4676.message.TrackMessage;
 import net.frogmouth.rnd.jim.s4676.message.dynamicsourceinformation.DynamicSourceInformation;
 import net.frogmouth.rnd.jim.s4676.message.dynamicsourceinformation.RadarInformation;
+import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.MeasurementMethod;
+import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.MeasurementType;
+import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.SensorMeasurement;
 import net.frogmouth.rnd.jim.s4676.message.tracksource.TrackSource;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
@@ -154,15 +159,31 @@ public class DetectionTest {
         pixelRun.addRowSequence(new Integer[] {4, 3, 3});
         pixelMask.setPixelRun(pixelRun);
         im.setPixelMask(pixelMask);
+        ImageChip chip = new ImageChip(ImageFormat.PNG, "https://github.com/bradh/jim/");
+        im.setChip(chip);
         uut.setImage(im);
         uut.setSensorLID(808L);
         uut.setRelativeTime(8242);
+        Confidence confidence = new Confidence(CertaintyStatisticType.PROBABILITY, 60);
+        uut.setConfidence(confidence);
+        SensorMeasurement sensorMeasurement1 =
+                new SensorMeasurement(MeasurementType.SNR, MeasurementMethod.MEAN, 12.3);
+        uut.addSensorMeasurement(sensorMeasurement1);
+        SensorMeasurement sensorMeasurement2 =
+                new SensorMeasurement(MeasurementType.RADIANCE, MeasurementMethod.MAX, 0.3);
+        uut.addSensorMeasurement(sensorMeasurement2);
         PositionPoints centroid =
                 new PositionPoints(
                         Dimensionality.TWO_D,
                         CoordinateSystemType.WGS_84,
                         new Double[] {-35.4, 136.8});
         uut.addCentroid(centroid);
+        PositionPoints centroid3d =
+                new PositionPoints(
+                        Dimensionality.THREE_D,
+                        CoordinateSystemType.WGS_84,
+                        new Double[] {-35.4, 136.8, 653.2});
+        uut.addCentroid(centroid3d);
         TrackSource trackSource = new TrackSource();
         trackSource.addSensorLID(808L);
         uut.setSource(trackSource);
@@ -203,6 +224,11 @@ public class DetectionTest {
         assertTrue(rootElement.getMessages().get(0).getDetections() instanceof List<Detection>);
         List<Detection> detections = rootElement.getMessages().get(0).getDetections();
         assertEquals(detections.size(), 1);
+        Detection detection = detections.get(0);
+        assertNotNull(detection);
+        Image image = detection.getImage();
+        assertNotNull(image);
+        assertEquals(image.getCentroidPixel(), new Integer[] {4, 3});
         String serialisedXml = parser.serialise(rootElement);
         assertThat(
                 Input.fromString(serialisedXml),
