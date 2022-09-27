@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.message.trackdata.id1241;
+package net.frogmouth.rnd.jim.s4676.message.trackdata;
 
 /**
  * Identity amplification.

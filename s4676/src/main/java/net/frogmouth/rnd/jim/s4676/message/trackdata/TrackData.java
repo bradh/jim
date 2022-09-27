@@ -6,11 +6,11 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
+import net.frogmouth.rnd.jim.s4676.message.TrackSource;
 import net.frogmouth.rnd.jim.s4676.message.tracksegment.TrackSegment;
-import net.frogmouth.rnd.jim.s4676.message.tracksource.TrackSource;
 
 /**
- * Track Data.
+ * Track data information.
  *
  * <p>The TrackData class contains information specific to a particular track. Multiple instances of
  * the TrackData class can be used to describe the track as a whole and can be segmented into

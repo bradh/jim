@@ -3,7 +3,7 @@
  *
  * <p>This module currently handles STANAG 4674 (AEDP-12) NATO ISR Tracking Standard tracks.
  *
- * <p>Other tracks are possible in the future.
+ * <p>Other tracking standards are possible in the future.
  */
 @SuppressWarnings("module") // That is not a version number - its a document number.
 module net.frogmouth.rnd.jim.s4676 {
@@ -24,11 +24,9 @@ module net.frogmouth.rnd.jim.s4676 {
     exports net.frogmouth.rnd.jim.s4676.message.processedtrack;
     exports net.frogmouth.rnd.jim.s4676.message.sensormeasurement;
     exports net.frogmouth.rnd.jim.s4676.message.trackdata;
-    exports net.frogmouth.rnd.jim.s4676.message.trackdata.id1241;
     exports net.frogmouth.rnd.jim.s4676.message.tracklinkage;
     exports net.frogmouth.rnd.jim.s4676.message.trackpoint;
     exports net.frogmouth.rnd.jim.s4676.message.tracksegment;
-    exports net.frogmouth.rnd.jim.s4676.message.tracksource;
     exports net.frogmouth.rnd.jim.s4676.sensor;
     exports net.frogmouth.rnd.jim.s4676.tracker;
 }

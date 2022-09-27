@@ -1,9 +1,8 @@
-package net.frogmouth.rnd.jim.s4676.common.shape;
+package net.frogmouth.rnd.jim.s4676.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import net.frogmouth.rnd.jim.s4676.common.CovarianceMatrix;
 
 /**
  * Ellipsoid shape.

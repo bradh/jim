@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
+import net.frogmouth.rnd.jim.s4676.common.Shape;
 import net.frogmouth.rnd.jim.s4676.common.UniqueID;
-import net.frogmouth.rnd.jim.s4676.common.shape.Shape;
 import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.SensorMeasurement;
 
 /**

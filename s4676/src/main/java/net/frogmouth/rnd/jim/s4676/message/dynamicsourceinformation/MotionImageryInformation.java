@@ -3,7 +3,7 @@ package net.frogmouth.rnd.jim.s4676.message.dynamicsourceinformation;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import net.frogmouth.rnd.jim.s4676.common.shape.Polygon;
+import net.frogmouth.rnd.jim.s4676.common.Polygon;
 
 /**
  * Motion Imagery (MI) Information.

@@ -6,8 +6,8 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
+import net.frogmouth.rnd.jim.s4676.message.TrackSource;
 import net.frogmouth.rnd.jim.s4676.message.trackpoint.TrackPoint;
-import net.frogmouth.rnd.jim.s4676.message.tracksource.TrackSource;
 
 /**
  * Track Segment.

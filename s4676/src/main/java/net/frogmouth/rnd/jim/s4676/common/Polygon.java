@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.common.shape;
+package net.frogmouth.rnd.jim.s4676.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -6,8 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
-import net.frogmouth.rnd.jim.s4676.common.Dimensionality;
-import net.frogmouth.rnd.jim.s4676.common.ICoordinateSystemType;
 import net.frogmouth.rnd.jim.s4676.serde.DoubleListSerialiser;
 
 /**

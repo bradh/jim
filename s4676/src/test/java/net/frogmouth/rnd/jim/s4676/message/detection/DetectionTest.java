@@ -19,12 +19,12 @@ import net.frogmouth.rnd.jim.s4676.common.CoordinateSystemType;
 import net.frogmouth.rnd.jim.s4676.common.Dimensionality;
 import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
 import net.frogmouth.rnd.jim.s4676.message.TrackMessage;
+import net.frogmouth.rnd.jim.s4676.message.TrackSource;
 import net.frogmouth.rnd.jim.s4676.message.dynamicsourceinformation.DynamicSourceInformation;
 import net.frogmouth.rnd.jim.s4676.message.dynamicsourceinformation.RadarInformation;
 import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.MeasurementMethod;
 import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.MeasurementType;
 import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.SensorMeasurement;
-import net.frogmouth.rnd.jim.s4676.message.tracksource.TrackSource;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
 

@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.s4676.message.tracksource;
+package net.frogmouth.rnd.jim.s4676.message;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;

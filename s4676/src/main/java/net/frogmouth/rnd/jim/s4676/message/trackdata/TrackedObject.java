@@ -8,7 +8,6 @@ import java.util.List;
 import net.frogmouth.rnd.jim.s4676.IdentifiedElement;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
 import net.frogmouth.rnd.jim.s4676.common.UniqueID;
-import net.frogmouth.rnd.jim.s4676.message.trackdata.id1241.ID1241;
 
 /**
  * Tracked object.
