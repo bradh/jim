@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>net.frogmouth.rnd.jim</groupId>
-
     <artifactId>jim</artifactId>
-
     <version>0.1.0-SNAPSHOT</version>
-
     <packaging>pom</packaging>
-
     <name>Java Image Mogrifier (JIM)</name>
-
     <modules>
-
         <module>ui</module>
         <module>mie4nitf</module>
         <module>nitf</module>
@@ -22,7 +14,10 @@
         <module>npif</module>
         <module>s4607</module>
         <module>s4676</module>
+        <module>ui2</module>
+        <module>map</module>
     </modules>
+
     <properties>
         <checkstyle.version>10.0</checkstyle.version>
         <coveralls.version>4.3.0</coveralls.version>
@@ -32,13 +27,13 @@
         <jacoco.version>0.8.7</jacoco.version>
         <jqf.plugin.version>1.8</jqf.plugin.version>
         <jqf.version>1.8</jqf.version>
-        <log4j2.version>2.17.2</log4j2.version>
+        <log4j2.version>2.19.0</log4j2.version>
         <maven.assembly.plugin.version>3.3.0</maven.assembly.plugin.version>
         <maven.checkstyle.version>3.1.2</maven.checkstyle.version>
         <owasp.version>6.2.2</owasp.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <record.builder.version>31</record.builder.version>
-        <slf4j.version>1.7.32</slf4j.version>
+        <slf4j.version>2.0.3</slf4j.version>
         <sortpom.version>3.0.0</sortpom.version>
         <spotbugs.maven.version>4.3.0</spotbugs.maven.version>
         <spotbugs.version>4.5.3</spotbugs.version>
@@ -161,7 +156,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <!-- jacoco plugin for test coverage report -->
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.version}</version>
