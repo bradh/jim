@@ -91,6 +91,7 @@ public class Nitf {
         for (TextSegment textSegment : textSegments) {
             count += LTSH_BYTES;
             count += LT_BYTES;
+            count += textSegment.getSubheaderAsBytes().length;
             count += textSegment.getLengthOfTextSegment();
         }
         return count;

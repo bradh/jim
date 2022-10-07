@@ -31,9 +31,9 @@ public class Writer {
         outputStream.write(WriterUtils.toBCS_NPI(nitf.calculateFileSize(), 12));
         outputStream.write(WriterUtils.toBCS_NPI(nitf.calculateHeaderSize(), 6));
         outputStream.write(WriterUtils.toBCS_NPI(nitf.getNumberOfImageSegments(), 3));
-        // TODO: write out segments
+        // TODO: write out image segments
         outputStream.write(WriterUtils.toBCS_NPI(nitf.getNumberOfGraphicSegments(), 3));
-        // TODO: write out segments
+        // TODO: write out graphic segments
         outputStream.write(WriterUtils.toBCS_NPI(0, 3));
         outputStream.write(WriterUtils.toBCS_NPI(nitf.getNumberOfTextSegments(), 3));
         for (TextSegment textSegment : nitf.getTextSegments()) {
@@ -41,7 +41,7 @@ public class Writer {
             outputStream.write(WriterUtils.toBCS_NPI(textSegment.getLengthOfTextSegment(), 5));
         }
         outputStream.write(WriterUtils.toBCS_NPI(nitf.getNumberOfDataExtensionSegments(), 3));
-        // TODO: write out segments
+        // TODO: write out data extension segments
         outputStream.write(WriterUtils.toBCS_NPI(0, 3));
         // TODO: properly support UDHDL and XHDL, plus conditional bits
         outputStream.write(WriterUtils.toBCS_NPI(0, 5));
@@ -50,7 +50,7 @@ public class Writer {
         // TODO: output graphic segments
         for (TextSegment textSegment : nitf.getTextSegments()) {
             outputStream.write(textSegment.getSubheaderAsBytes());
-            // TODO: body
+            outputStream.write(textSegment.getBodyAsBytes());
         }
         // TODO: output DES
     }
