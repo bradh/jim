@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
+import net.frogmouth.rnd.jim.nitf.text.TextSegment;
 import org.testng.annotations.Test;
 
 public class WriterTest {
@@ -433,6 +434,7 @@ public class WriterTest {
         textSegment1.setBody("AB");
         TextSegment textSegment2 = new TextSegment();
         textSegment2.setIdentifier("TXT0002");
+        textSegment2.setTitle("Segment 2 Title");
         textSegment2.setBody("C");
         Nitf testNitf = new Nitf();
         testNitf.addTextSegment(textSegment1);
@@ -1173,21 +1175,21 @@ public class WriterTest {
                     0x2d,
                     0x2d,
                     0x2d,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
+                    0x53,
+                    0X65,
+                    0X67,
+                    0X6D,
+                    0X65,
+                    0X6E,
+                    0X74,
+                    0X20,
+                    0X32,
+                    0X20,
+                    0X54,
+                    0X69,
+                    0X74,
+                    0X6C,
+                    0X65,
                     0x20,
                     0x20,
                     0x20,

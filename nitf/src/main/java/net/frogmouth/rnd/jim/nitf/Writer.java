@@ -3,6 +3,7 @@ package net.frogmouth.rnd.jim.nitf;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import net.frogmouth.rnd.jim.nitf.text.TextSegment;
 
 public class Writer {
 
