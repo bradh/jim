@@ -2,9 +2,9 @@ package net.frogmouth.rnd.jim.nitf.tre.grdpsb;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
-public class GRDPSB extends TRE {
+public class GRDPSB extends TaggedRecordExtension {
     private static final String TRE_TAG = "GRDPSB";
     private final List<LocationGrid> grids = new ArrayList<>();
 

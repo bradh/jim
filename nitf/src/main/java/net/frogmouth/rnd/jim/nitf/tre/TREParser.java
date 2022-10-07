@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/** TRE Parser. */
+/** TaggedRecordExtension Parser. */
 public class TREParser {
 
     private static final int TRETAG_LEN = 6;
@@ -13,8 +13,8 @@ public class TREParser {
 
     public TREParser() {}
 
-    public List<TRE> parse(byte[] bytes) {
-        List<TRE> tres = new ArrayList<>();
+    public List<TaggedRecordExtension> parse(byte[] bytes) {
+        List<TaggedRecordExtension> tres = new ArrayList<>();
         int offset = 0;
         while (offset < bytes.length) {
             String tag =
@@ -29,7 +29,8 @@ public class TREParser {
             offset += TREL_LEN;
             AbstractTREParser parser = TREParserManager.getInstance().getParser(tag);
             if (parser != null) {
-                TRE tre = parser.parse(tag, Arrays.copyOfRange(bytes, offset, offset + length));
+                TaggedRecordExtension tre =
+                        parser.parse(tag, Arrays.copyOfRange(bytes, offset, offset + length));
                 tres.add(tre);
             } else {
                 System.out.println("No support for " + tag);

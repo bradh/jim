@@ -3,9 +3,9 @@ package net.frogmouth.rnd.jim.nitf.tre.csexrb;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
-public class CSEXRB extends TRE {
+public class CSEXRB extends TaggedRecordExtension {
     private static final String TRE_TAG = "CSEXRB";
 
     private UUID imageUUID;

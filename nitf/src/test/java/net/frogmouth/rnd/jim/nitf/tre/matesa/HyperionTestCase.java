@@ -6,8 +6,8 @@ import static org.testng.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREParser;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 import org.testng.annotations.Test;
 
 public class HyperionTestCase {
@@ -143,9 +143,9 @@ public class HyperionTestCase {
     @Test
     public void parseViaParser() {
         TREParser parser = new TREParser();
-        List<TRE> tres = parser.parse(TRE_WITH_HEADER);
+        List<TaggedRecordExtension> tres = parser.parse(TRE_WITH_HEADER);
         assertEquals(tres.size(), 1);
-        TRE tre = tres.get(0);
+        TaggedRecordExtension tre = tres.get(0);
         assertTrue(tre instanceof MATESA);
         MATESA matesa = (MATESA) tre;
         validateHyperionMATESA(matesa);

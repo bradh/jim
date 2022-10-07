@@ -3,8 +3,8 @@ package net.frogmouth.rnd.jim.nitf.image;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREParser;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 import net.frogmouth.rnd.jim.nitf.utils.ReaderUtils;
 
 /** Image Segment Header. */
@@ -225,9 +225,9 @@ public class ImageSegmentHeader {
         return Arrays.copyOfRange(subheaderBytes, ixshdOffset, ixshdOffset + ixshdLength);
     }
 
-    public List<TRE> getTREs() {
+    public List<TaggedRecordExtension> getTREs() {
         TREParser parser = new TREParser();
-        List<TRE> tres = new ArrayList<>();
+        List<TaggedRecordExtension> tres = new ArrayList<>();
         byte[] udhd = getUserDefinedHeaderData();
         if (udhd.length > 0) {
             tres.addAll(parser.parse(udhd));

@@ -1,9 +1,9 @@
 package net.frogmouth.rnd.jim.nitf.tre.grdpsb;
 
 import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
-/** GRDPSB TRE Parser. */
+/** GRDPSB TaggedRecordExtension Parser. */
 public class GRDPSBParser extends AbstractTREParser {
 
     private static final int NUM_GRDS_LEN = 2;
@@ -20,7 +20,7 @@ public class GRDPSBParser extends AbstractTREParser {
     }
 
     @Override
-    public TRE parse(String tag, byte[] bytes) {
+    public TaggedRecordExtension parse(String tag, byte[] bytes) {
         GRDPSB tre = new GRDPSB();
         int offset = 0;
         int numGrids = this.readBCSN(bytes, offset, NUM_GRDS_LEN);

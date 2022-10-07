@@ -1,9 +1,9 @@
 package net.frogmouth.rnd.jim.nitf.tre.engrda;
 
 import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
-/** ENGRDA TRE Parser. */
+/** ENGRDA TaggedRecordExtension Parser. */
 public class ENGRDAParser extends AbstractTREParser {
 
     private static final int RESRC_LEN = 20;
@@ -22,7 +22,7 @@ public class ENGRDAParser extends AbstractTREParser {
     }
 
     @Override
-    public TRE parse(String tag, byte[] bytes) {
+    public TaggedRecordExtension parse(String tag, byte[] bytes) {
         ENGRDA tre = new ENGRDA();
         int offset = 0;
         tre.setResrc(readBCSA(bytes, offset, RESRC_LEN));

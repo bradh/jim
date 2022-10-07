@@ -2,12 +2,12 @@ package net.frogmouth.rnd.jim.nitf.tre.matesa;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREField;
 import net.frogmouth.rnd.jim.nitf.tre.TREGroup;
 import net.frogmouth.rnd.jim.nitf.tre.TREOrder;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
-public class MATESA extends TRE {
+public class MATESA extends TaggedRecordExtension {
 
     private static final String TRE_TAG = "MATESA";
     private String cur_source;

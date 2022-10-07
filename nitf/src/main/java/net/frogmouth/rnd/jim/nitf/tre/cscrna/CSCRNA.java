@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.nitf.tre.cscrna;
 
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREField;
 import net.frogmouth.rnd.jim.nitf.tre.TREOrder;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
-public class CSCRNA extends TRE {
+public class CSCRNA extends TaggedRecordExtension {
 
     private static final String TRE_TAG = "CSCRNA";
     private String predictCorners;

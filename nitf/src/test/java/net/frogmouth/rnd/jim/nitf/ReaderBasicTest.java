@@ -8,8 +8,8 @@ import java.util.List;
 import net.frogmouth.rnd.jim.nitf.image.ImageSegmentHeader;
 import net.frogmouth.rnd.jim.nitf.image.ImageSegmentInfo;
 import net.frogmouth.rnd.jim.nitf.text.TextSegmentHeader;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREParser;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 import net.frogmouth.rnd.jim.nitf.tre.csdida.CSDIDA;
 import net.frogmouth.rnd.jim.nitf.tre.matesa.MATESA;
 import org.testng.annotations.Test;
@@ -124,7 +124,7 @@ public class ReaderBasicTest extends TestSupport {
         byte[] xhd = ish.getExtendedHeaderData();
         assertEquals(xhd.length, 8051);
         TREParser parser = new TREParser();
-        List<TRE> tres = parser.parse(xhd);
+        List<TaggedRecordExtension> tres = parser.parse(xhd);
         // TODO: should be 10, and need to check the results properly
         assertEquals(tres.size(), 4);
         byte[] uhd = ish.getUserDefinedHeaderData();
@@ -194,7 +194,7 @@ public class ReaderBasicTest extends TestSupport {
         byte[] xhd = ish.getExtendedHeaderData();
         assertEquals(xhd.length, 685);
         TREParser parser = new TREParser();
-        List<TRE> tres = parser.parse(xhd);
+        List<TaggedRecordExtension> tres = parser.parse(xhd);
         // TODO: need to implement more and check the results properly
         assertEquals(tres.size(), 1);
         byte[] uhd = ish.getUserDefinedHeaderData();
@@ -234,7 +234,7 @@ public class ReaderBasicTest extends TestSupport {
         byte[] xhd = ish.getExtendedHeaderData();
         assertEquals(xhd.length, 142);
         TREParser parser = new TREParser();
-        List<TRE> tres = parser.parse(xhd);
+        List<TaggedRecordExtension> tres = parser.parse(xhd);
         // TODO: need to implement more and check the results properly
         assertEquals(tres.size(), 0);
         byte[] uhd = ish.getUserDefinedHeaderData();
@@ -274,7 +274,7 @@ public class ReaderBasicTest extends TestSupport {
         byte[] xhd = ish.getExtendedHeaderData();
         assertEquals(xhd.length, 166);
         TREParser parser = new TREParser();
-        List<TRE> tres = parser.parse(xhd);
+        List<TaggedRecordExtension> tres = parser.parse(xhd);
         // TODO: need to implement more and check the results properly
         assertEquals(tres.size(), 0);
         byte[] uhd = ish.getUserDefinedHeaderData();
@@ -314,7 +314,7 @@ public class ReaderBasicTest extends TestSupport {
         byte[] xhd = ish.getExtendedHeaderData();
         assertEquals(xhd.length, 166);
         TREParser parser = new TREParser();
-        List<TRE> tres = parser.parse(xhd);
+        List<TaggedRecordExtension> tres = parser.parse(xhd);
         // TODO: need to implement more and check the results properly
         assertEquals(tres.size(), 0);
         byte[] uhd = ish.getUserDefinedHeaderData();
@@ -354,7 +354,7 @@ public class ReaderBasicTest extends TestSupport {
         byte[] xhd = ish.getExtendedHeaderData();
         assertEquals(xhd.length, 166);
         TREParser parser = new TREParser();
-        List<TRE> tres = parser.parse(xhd);
+        List<TaggedRecordExtension> tres = parser.parse(xhd);
         // TODO: need to implement more and check the results properly
         assertEquals(tres.size(), 0);
         byte[] uhd = ish.getUserDefinedHeaderData();
@@ -391,7 +391,7 @@ public class ReaderBasicTest extends TestSupport {
         byte[] xhd = ish.getExtendedHeaderData();
         assertEquals(xhd.length, 247);
         TREParser parser = new TREParser();
-        List<TRE> tres = parser.parse(xhd);
+        List<TaggedRecordExtension> tres = parser.parse(xhd);
         // TODO: need to implement more and check the results properly
         assertEquals(tres.size(), 0);
         byte[] uhd = ish.getUserDefinedHeaderData();
@@ -427,7 +427,7 @@ public class ReaderBasicTest extends TestSupport {
     private void verifyXHD(byte[] extendedHeaderData) {
         assertEquals(extendedHeaderData.length, 8650);
         TREParser parser = new TREParser();
-        List<TRE> tres = parser.parse(extendedHeaderData);
+        List<TaggedRecordExtension> tres = parser.parse(extendedHeaderData);
         // There are really 3 TREs, but CCINFA gets handled in a separate module
         assertEquals(tres.size(), 2);
         assertTrue(tres.get(0) instanceof CSDIDA);

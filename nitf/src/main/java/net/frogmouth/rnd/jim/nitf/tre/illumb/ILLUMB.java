@@ -2,12 +2,12 @@ package net.frogmouth.rnd.jim.nitf.tre.illumb;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREField;
 import net.frogmouth.rnd.jim.nitf.tre.TREGroup;
 import net.frogmouth.rnd.jim.nitf.tre.TREOrder;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
-public class ILLUMB extends TRE {
+public class ILLUMB extends TaggedRecordExtension {
 
     private static final String TRE_TAG = "ILLUMB";
     private String band_unit;

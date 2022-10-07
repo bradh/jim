@@ -14,20 +14,21 @@ public abstract class AbstractTREParser {
     /**
      * Get the TRE tag that is supported by this parser.
      *
-     * <p>This includes the version / revision. So for the BLOCKA TRE, this is "BLOCKA".
+     * <p>This includes the version / revision. So for the BLOCKA TaggedRecordExtension, this is
+     * "BLOCKA".
      *
-     * @return the TRE tag as a String.
+     * @return the TaggedRecordExtension tag as a String.
      */
     public abstract String getTag();
 
     /**
-     * Parse the TRE from the given byte array.
+     * Parse the TaggedRecordExtension from the given byte array.
      *
-     * @param tag the TRE tag.
+     * @param tag the TaggedRecordExtension tag.
      * @param bytes the byte array (not including the tag and length fields)
-     * @return the TRE parsed from the byte array.
+     * @return the TaggedRecordExtension parsed from the byte array.
      */
-    public abstract TRE parse(String tag, byte[] bytes);
+    public abstract TaggedRecordExtension parse(String tag, byte[] bytes);
 
     protected int readBCSN(byte[] bytes, int offset, int len) {
         String s = new String(bytes, offset, len, StandardCharsets.US_ASCII);

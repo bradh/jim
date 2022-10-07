@@ -1,9 +1,9 @@
 package net.frogmouth.rnd.jim.nitf.tre.blocka;
 
 import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
-/** BLOCKA TRE Parser. */
+/** BLOCKA TaggedRecordExtension Parser. */
 public class BLOCKAParser extends AbstractTREParser {
 
     private static final int BLOCK_INSTANCE_LEN = 2;
@@ -24,7 +24,7 @@ public class BLOCKAParser extends AbstractTREParser {
     }
 
     @Override
-    public TRE parse(String tag, byte[] bytes) {
+    public TaggedRecordExtension parse(String tag, byte[] bytes) {
         BLOCKA tre = new BLOCKA();
         int offset = 0;
         tre.setBlock_instance(readBCSNPI(bytes, offset, BLOCK_INSTANCE_LEN));

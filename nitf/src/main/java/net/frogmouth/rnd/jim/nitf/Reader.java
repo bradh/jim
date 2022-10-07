@@ -16,8 +16,8 @@ import net.frogmouth.rnd.jim.nitf.image.ImageBlockInfo;
 import net.frogmouth.rnd.jim.nitf.image.ImageSegmentHeader;
 import net.frogmouth.rnd.jim.nitf.image.ImageSegmentInfo;
 import net.frogmouth.rnd.jim.nitf.text.TextSegmentHeader;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREParser;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 import net.frogmouth.rnd.jim.nitf.utils.ReaderUtils;
 
 /** NITF Reader. */
@@ -442,9 +442,9 @@ public class Reader {
         return xhdlofl;
     }
 
-    public List<TRE> getFileTREs() {
+    public List<TaggedRecordExtension> getFileTREs() {
         TREParser parser = new TREParser();
-        List<TRE> tres = new ArrayList<>();
+        List<TaggedRecordExtension> tres = new ArrayList<>();
         byte[] udhd = getUserDefinedHeaderData();
         if (udhd.length > 0) {
             tres.addAll(parser.parse(udhd));

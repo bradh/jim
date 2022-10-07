@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.nitf.tre.csdida;
 
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREField;
 import net.frogmouth.rnd.jim.nitf.tre.TREOrder;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
-public class CSDIDA extends TRE {
+public class CSDIDA extends TaggedRecordExtension {
 
     private static final String TRE_TAG = "CSDIDA";
     private int day;
