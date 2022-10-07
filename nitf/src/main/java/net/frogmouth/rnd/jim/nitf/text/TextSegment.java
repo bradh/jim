@@ -2,8 +2,12 @@ package net.frogmouth.rnd.jim.nitf.text;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import net.frogmouth.rnd.jim.nitf.JBPDateTime;
 import net.frogmouth.rnd.jim.nitf.SecurityMetadata;
 import net.frogmouth.rnd.jim.nitf.WriterUtils;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 // TODO: split this class into a POD instance, and a serialiser instance.
 public class TextSegment {
@@ -13,18 +17,19 @@ public class TextSegment {
 
     private String identifier = "";
     private int attachmentLevel = 0;
+    private JBPDateTime dateTime = new JBPDateTime();
     private String title = "";
     private final SecurityMetadata securityMetadata = new SecurityMetadata();
     private TextFormat textFormat = TextFormat.Standard;
     private String body;
+    private List<TaggedRecordExtension> extensions = new ArrayList<>();
 
     public byte[] getSubheaderAsBytes() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.writeBytes(TE_HEADER);
         baos.writeBytes(WriterUtils.toBCS_A(identifier, 7));
         baos.writeBytes(WriterUtils.toBCS_NPI(attachmentLevel, 3));
-        // TODO: proper date handling
-        baos.writeBytes(WriterUtils.toBCS_A("--------------", 14));
+        baos.writeBytes(dateTime.asBytes());
         baos.writeBytes(WriterUtils.toECS_A(title, 80));
         baos.writeBytes(securityMetadata.asBytes());
         baos.writeBytes(WriterUtils.toBCS_NPI(DEFAULT_ENCRYP_VALUE, 1));
@@ -44,6 +49,14 @@ public class TextSegment {
 
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
+    }
+
+    public JBPDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(JBPDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getTitle() {
@@ -97,5 +110,13 @@ public class TextSegment {
     public byte[] getBodyAsBytes() {
         // TODO: properly handle encoding
         return body.getBytes(StandardCharsets.US_ASCII);
+    }
+
+    public List<TaggedRecordExtension> getExtensions() {
+        return new ArrayList<>(extensions);
+    }
+
+    public void addExtension(TaggedRecordExtension tre) {
+        this.extensions.add(tre);
     }
 }

@@ -432,8 +432,10 @@ public class WriterTest {
         TextSegment textSegment1 = new TextSegment();
         textSegment1.setIdentifier("TXT0001");
         textSegment1.setBody("AB");
+        textSegment1.setDateTime(new JBPDateTime(20, 21, null, null, null, null, null));
         TextSegment textSegment2 = new TextSegment();
         textSegment2.setIdentifier("TXT0002");
+        textSegment2.setDateTime(new JBPDateTime(20, 22, 10, 5, 23, 14, 1));
         textSegment2.setTitle("Segment 2 Title");
         textSegment2.setBody("C");
         Nitf testNitf = new Nitf();
@@ -876,10 +878,11 @@ public class WriterTest {
                     0x30,
                     0x30,
                     0x30,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
+                    // TXTDT start
+                    0x32,
+                    0x30,
+                    0x32,
+                    0x31,
                     0x2d,
                     0x2d,
                     0x2d,
@@ -1161,20 +1164,21 @@ public class WriterTest {
                     0x30,
                     0x30,
                     0x30,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
-                    0x2d,
+                    // Date Time start
+                    0x32,
+                    0x30,
+                    0x32,
+                    0x32,
+                    0x31,
+                    0x30,
+                    0x30,
+                    0x35,
+                    0x32,
+                    0x33,
+                    0x31,
+                    0x34,
+                    0x30,
+                    0x31,
                     0x53,
                     0X65,
                     0X67,
