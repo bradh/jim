@@ -3,7 +3,7 @@ package net.frogmouth.rnd.jim.nitf.tre;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-public abstract class AbstractTREParser {
+public abstract class AbstractTaggedRecordExtensionParser {
 
     protected static final int UUID_LEN = 36;
     protected static final int UE13_LEN = 13;

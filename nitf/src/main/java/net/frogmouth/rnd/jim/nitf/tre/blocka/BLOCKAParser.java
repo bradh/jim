@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.nitf.tre.blocka;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
 import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 /** BLOCKA TaggedRecordExtension Parser. */
-public class BLOCKAParser extends AbstractTREParser {
+public class BLOCKAParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int BLOCK_INSTANCE_LEN = 2;
     private static final int N_GRAY_LEN = 5;

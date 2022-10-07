@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.nitf.tre.illumb;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
 import net.frogmouth.rnd.jim.nitf.utils.ReaderUtils;
 
 /** ILLUMB TRE Parser. */
-public class ILLUMBParser extends AbstractTREParser {
+public class ILLUMBParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int NUM_BANDS_LEN = 4;
     private static final int BAND_UNIT_LEN = 40;

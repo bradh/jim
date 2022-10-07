@@ -1,9 +1,9 @@
 package net.frogmouth.rnd.jim.nitf.tre.matesa;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
 
 /** MATESA TRE Parser. */
-public class MATESAParser extends AbstractTREParser {
+public class MATESAParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int CUR_SOURCE_LEN = 42;
     private static final int CUR_MATE_TYPE_LEN = 16;

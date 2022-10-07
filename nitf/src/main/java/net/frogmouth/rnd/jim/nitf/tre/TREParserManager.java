@@ -6,12 +6,12 @@ import java.util.ServiceLoader;
 
 public class TREParserManager {
 
-    private final ServiceLoader<AbstractTREParser> loader;
-    protected final Map<String, AbstractTREParser> parsers = new HashMap<>();
+    private final ServiceLoader<AbstractTaggedRecordExtensionParser> loader;
+    protected final Map<String, AbstractTaggedRecordExtensionParser> parsers = new HashMap<>();
 
     private TREParserManager() {
-        loader = ServiceLoader.load(AbstractTREParser.class);
-        for (AbstractTREParser factory : loader) {
+        loader = ServiceLoader.load(AbstractTaggedRecordExtensionParser.class);
+        for (AbstractTaggedRecordExtensionParser factory : loader) {
             parsers.put(factory.getTag(), factory);
         }
     }
@@ -20,9 +20,9 @@ public class TREParserManager {
         return TREParserManagerHolder.INSTANCE;
     }
 
-    public AbstractTREParser getParser(String tag) {
+    public AbstractTaggedRecordExtensionParser getParser(String tag) {
         // TODO: decent default parser
-        AbstractTREParser treParser = parsers.getOrDefault(tag, null);
+        AbstractTaggedRecordExtensionParser treParser = parsers.getOrDefault(tag, null);
         return treParser;
     }
 

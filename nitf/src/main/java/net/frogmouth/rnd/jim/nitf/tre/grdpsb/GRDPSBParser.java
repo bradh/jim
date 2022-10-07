@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.nitf.tre.grdpsb;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
 import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 /** GRDPSB TaggedRecordExtension Parser. */
-public class GRDPSBParser extends AbstractTREParser {
+public class GRDPSBParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int NUM_GRDS_LEN = 2;
     private static final int ZVL_LEN = 10;

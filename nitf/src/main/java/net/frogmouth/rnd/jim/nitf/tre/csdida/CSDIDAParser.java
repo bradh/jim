@@ -1,9 +1,9 @@
 package net.frogmouth.rnd.jim.nitf.tre.csdida;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
 
 /** CSDIDA TRE Parser. */
-public class CSDIDAParser extends AbstractTREParser {
+public class CSDIDAParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int DAY_LEN = 2;
     private static final int MONTH_LEN = 3;

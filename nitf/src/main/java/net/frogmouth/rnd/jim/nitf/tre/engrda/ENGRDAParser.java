@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.nitf.tre.engrda;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
 import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 /** ENGRDA TaggedRecordExtension Parser. */
-public class ENGRDAParser extends AbstractTREParser {
+public class ENGRDAParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int RESRC_LEN = 20;
     private static final int RECNT_LEN = 3;

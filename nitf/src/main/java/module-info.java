@@ -6,9 +6,9 @@ module net.frogmouth.rnd.jim.nitf {
     exports net.frogmouth.rnd.jim.nitf.image;
     exports net.frogmouth.rnd.jim.nitf.text;
 
-    uses net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
+    uses net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
 
-    provides net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser with
+    provides net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser with
             net.frogmouth.rnd.jim.nitf.tre.blocka.BLOCKAParser,
             net.frogmouth.rnd.jim.nitf.tre.csdida.CSDIDAParser,
             net.frogmouth.rnd.jim.nitf.tre.cscrna.CSCRNAParser,

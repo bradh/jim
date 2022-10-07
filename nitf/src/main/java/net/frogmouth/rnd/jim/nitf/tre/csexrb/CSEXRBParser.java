@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.nitf.tre.csexrb;
 
 import java.util.UUID;
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
 
 /** CSEXRB TRE Parser. */
-public class CSEXRBParser extends AbstractTREParser {
+public class CSEXRBParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int IMAGE_UUID_LEN = UUID_LEN;
     private static final int NUM_ASSOC_DES_LEN = 3;

@@ -1,9 +1,9 @@
 package net.frogmouth.rnd.jim.nitf.tre.cscrna;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
 
 /** CSCRNA TRE Parser. */
-public class CSCRNAParser extends AbstractTREParser {
+public class CSCRNAParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int PREDICT_CORNERS_LEN = 1;
     private static final int LAT_LEN = 9;
