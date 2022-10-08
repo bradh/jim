@@ -1,6 +1,7 @@
 package net.frogmouth.rnd.jim.nitf.tre.xmldca;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
 import net.frogmouth.rnd.jim.nitf.WriterUtils;
 import net.frogmouth.rnd.jim.nitf.tre.SerialisableTaggedRecordExtension;
 import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
@@ -11,13 +12,7 @@ public class XMLDCA extends TaggedRecordExtension implements SerialisableTaggedR
     private static final int TRESHL_LEN = 4;
     private boolean crcEnabled = false;
     // TODO: this isn't the real body
-    private byte[] body =
-            new byte[] {
-                0x3C, 0x3f, 0X78, 0x6D, 0X6C, 0X20, 0X76, 0X65, 0X72, 0X73, 0X69, 0X6F, 0X6E,
-                0X3D, 0X22, 0X31, 0X2E, 0X30, 0X22, 0X20, 0X65, 0X6E, 0X63, 0X6F, 0X64, 0X69,
-                0X6E, 0X67, 0X3D, 0X22, 0X55, 0X54, 0X46, 0X2D, 0X38, 0X22, 0X3F, 0X3E, 0X0A,
-                0X3C, 0X74, 0X65, 0X73, 0X74, 0X2F, 0X3E,
-            };
+    private String body;
 
     public XMLDCA() {
         super(TRE_TAG);
@@ -30,6 +25,7 @@ public class XMLDCA extends TaggedRecordExtension implements SerialisableTaggedR
 
     @Override
     public byte[] toBytes() {
+        byte[] bodyBytes = body.getBytes(StandardCharsets.UTF_8);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.writeBytes(WriterUtils.toBCS_A(TRE_TAG, 6));
         // TODO: proper subheader handling
@@ -38,13 +34,13 @@ public class XMLDCA extends TaggedRecordExtension implements SerialisableTaggedR
             // TODO: constant
             treshl = 5;
         }
-        int cel = body.length + TRESHL_LEN + treshl;
+        int cel = bodyBytes.length + TRESHL_LEN + treshl;
         baos.writeBytes(WriterUtils.toBCS_NPI(cel, 5));
         baos.writeBytes(WriterUtils.toBCS_NPI(treshl, TRESHL_LEN));
         if (crcEnabled) {
             // TODO: calculate and write CRC
         }
-        baos.writeBytes(body);
+        baos.writeBytes(bodyBytes);
         return baos.toByteArray();
     }
 
@@ -54,5 +50,13 @@ public class XMLDCA extends TaggedRecordExtension implements SerialisableTaggedR
 
     public void setCrcEnabled(boolean crcEnabled) {
         this.crcEnabled = crcEnabled;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 }

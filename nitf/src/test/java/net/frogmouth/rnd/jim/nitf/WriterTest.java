@@ -435,7 +435,8 @@ public class WriterTest {
         textSegment1.setBody("AB");
         textSegment1.setDateTime(new JBPDateTime(20, 21, null, null, null, null, null));
         XMLDCA xmldca = new XMLDCA();
-        // TODO: set properties
+        // TODO: more properties, maybe more instances
+        xmldca.setBody("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<test/>");
         textSegment1.addExtension(xmldca);
         TextSegment textSegment2 = new TextSegment();
         textSegment2.setIdentifier("TXT0002");
@@ -1165,13 +1166,13 @@ public class WriterTest {
                     0x30,
                     0x30,
                     0x30,
-                    0x35,
+                    0x35, // offset 700
                     0x30,
                     0x30,
                     0x30,
                     0x30,
                     0x30,
-                    0x3C,
+                    0x3c,
                     0x3f,
                     0X78,
                     0x6D,
