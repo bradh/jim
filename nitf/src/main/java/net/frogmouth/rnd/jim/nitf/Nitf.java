@@ -3,6 +3,7 @@ package net.frogmouth.rnd.jim.nitf;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.nitf.des.DataExtensionSegment;
 import net.frogmouth.rnd.jim.nitf.text.TextSegment;
 
 public class Nitf {

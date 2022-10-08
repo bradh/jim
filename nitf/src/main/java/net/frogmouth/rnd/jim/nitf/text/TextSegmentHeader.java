@@ -19,8 +19,10 @@ public class TextSegmentHeader {
     private static final int TXTFMT_OFFSET = ENCRYP_OFFSET + ReaderUtils.ENCRYP_LEN;
     private static final int TXTFMT_LEN = 3;
     private static final int TXSHDL_OFFSET = TXTFMT_OFFSET + TXTFMT_LEN;
-    private static final int TXSHDL_LEN = 5;
-    private static final int TXSOFL_LEN = 3;
+    // TODO: move this to shared constants class
+    static final int TXSHDL_LEN = 5;
+    // TODO: move this to shared constants class
+    static final int TXSOFL_LEN = 3;
 
     private final byte[] bytes;
     private String id;

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import net.frogmouth.rnd.jim.nitf.text.TextSegment;
+import net.frogmouth.rnd.jim.nitf.tre.xmldca.XMLDCA;
 import org.testng.annotations.Test;
 
 public class WriterTest {
@@ -433,6 +434,9 @@ public class WriterTest {
         textSegment1.setIdentifier("TXT0001");
         textSegment1.setBody("AB");
         textSegment1.setDateTime(new JBPDateTime(20, 21, null, null, null, null, null));
+        XMLDCA xmldca = new XMLDCA();
+        // TODO: set properties
+        textSegment1.addExtension(xmldca);
         TextSegment textSegment2 = new TextSegment();
         textSegment2.setIdentifier("TXT0002");
         textSegment2.setDateTime(new JBPDateTime(20, 22, 10, 5, 23, 14, 1));
@@ -797,10 +801,10 @@ public class WriterTest {
                     0x30,
                     0x30,
                     0x30,
-                    0x30, // Offset 350
-                    0x39,
-                    0x37,
+                    0x31, // Offset 350
+                    0x30,
                     0x33,
+                    0x37,
                     // Header size
                     0x30,
                     0x30,
@@ -827,9 +831,9 @@ public class WriterTest {
                     // TODO: proper text segment sizes
                     // First text segment sizes
                     0x30,
-                    0x32, // Offset 373
-                    0x38,
-                    0x32,
+                    0x33, // Offset 373
+                    0x34,
+                    0x36,
                     0x30,
                     0x30,
                     0x30,
@@ -1147,8 +1151,72 @@ public class WriterTest {
                     0x30,
                     0x30,
                     0x30,
+                    0x36,
+                    0x34,
                     0x30,
                     0x30,
+                    0x30,
+                    0x58,
+                    0x4d,
+                    0x4c,
+                    0x44,
+                    0x43,
+                    0x41,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x35,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x3C,
+                    0x3f,
+                    0X78,
+                    0x6D,
+                    0X6C,
+                    0X20,
+                    0X76,
+                    0X65,
+                    0X72,
+                    0X73,
+                    0X69,
+                    0X6F,
+                    0X6E,
+                    0X3D,
+                    0X22,
+                    0X31,
+                    0X2E,
+                    0X30,
+                    0X22,
+                    0X20,
+                    0X65,
+                    0X6E,
+                    0X63,
+                    0X6F,
+                    0X64,
+                    0X69,
+                    0X6E,
+                    0X67,
+                    0X3D,
+                    0X22,
+                    0X55,
+                    0X54,
+                    0X46,
+                    0X2D,
+                    0X38,
+                    0X22,
+                    0X3F,
+                    0X3E,
+                    0X0A,
+                    0X3C,
+                    0X74,
+                    0X65,
+                    0X73,
+                    0X74,
+                    0X2F,
+                    0X3E,
                     0x41,
                     0x42,
                     // Text segment #2 header and body

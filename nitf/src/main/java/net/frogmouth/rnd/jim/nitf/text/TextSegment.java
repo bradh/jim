@@ -1,5 +1,8 @@
 package net.frogmouth.rnd.jim.nitf.text;
 
+import static net.frogmouth.rnd.jim.nitf.text.TextSegmentHeader.TXSHDL_LEN;
+import static net.frogmouth.rnd.jim.nitf.text.TextSegmentHeader.TXSOFL_LEN;
+
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -7,7 +10,7 @@ import java.util.List;
 import net.frogmouth.rnd.jim.nitf.JBPDateTime;
 import net.frogmouth.rnd.jim.nitf.SecurityMetadata;
 import net.frogmouth.rnd.jim.nitf.WriterUtils;
-import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
+import net.frogmouth.rnd.jim.nitf.tre.SerialisableTaggedRecordExtension;
 
 // TODO: split this class into a POD instance, and a serialiser instance.
 public class TextSegment {
@@ -22,7 +25,7 @@ public class TextSegment {
     private final SecurityMetadata securityMetadata = new SecurityMetadata();
     private TextFormat textFormat = TextFormat.Standard;
     private String body;
-    private List<TaggedRecordExtension> extensions = new ArrayList<>();
+    private List<SerialisableTaggedRecordExtension> extensions = new ArrayList<>();
 
     public byte[] getSubheaderAsBytes() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -34,9 +37,36 @@ public class TextSegment {
         baos.writeBytes(securityMetadata.asBytes());
         baos.writeBytes(WriterUtils.toBCS_NPI(DEFAULT_ENCRYP_VALUE, 1));
         baos.writeBytes(WriterUtils.toBCS_A(textFormat.getEncodedValue(), 3));
-        // TODO: proper handling of extension area
-        baos.writeBytes(WriterUtils.toBCS_NPI(0, 5));
+        writeExtensionArea(baos);
         return baos.toByteArray();
+    }
+
+    private void writeExtensionArea(ByteArrayOutputStream baos) {
+        byte[] extensionBytes = collectExtensionBytes();
+        if (extensionBytes.length == 0) {
+            baos.writeBytes(WriterUtils.toBCS_NPI(0, 5));
+        } else {
+            int txshdl = TXSOFL_LEN + extensionBytes.length;
+            // TODO: handle case where it is too long to fit in TXSHD
+            int txsofl = 0;
+            baos.writeBytes(WriterUtils.toBCS_NPI(txshdl, TXSHDL_LEN));
+            baos.writeBytes(WriterUtils.toBCS_NPI(txsofl, TXSOFL_LEN));
+            baos.writeBytes(extensionBytes);
+        }
+    }
+
+    private byte[] collectExtensionBytes() {
+        if (this.extensions.isEmpty()) {
+            return new byte[0];
+        } else {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            for (SerialisableTaggedRecordExtension extension : extensions) {
+                if (extension != null) {
+                    baos.writeBytes(extension.toBytes());
+                }
+            }
+            return baos.toByteArray();
+        }
     }
 
     public int getLengthOfTextSegment() {
@@ -112,11 +142,11 @@ public class TextSegment {
         return body.getBytes(StandardCharsets.US_ASCII);
     }
 
-    public List<TaggedRecordExtension> getExtensions() {
+    public List<SerialisableTaggedRecordExtension> getExtensions() {
         return new ArrayList<>(extensions);
     }
 
-    public void addExtension(TaggedRecordExtension tre) {
+    public void addExtension(SerialisableTaggedRecordExtension tre) {
         this.extensions.add(tre);
     }
 }
