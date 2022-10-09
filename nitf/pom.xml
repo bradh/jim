@@ -19,6 +19,12 @@
             <artifactId>javafx-controls</artifactId>
         </dependency>
         <dependency>
+            <!-- TODO: replace with our implementation -->
+            <groupId>com.github.snksoft</groupId>
+            <artifactId>crc</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <scope>test</scope>

@@ -1,5 +1,6 @@
 package net.frogmouth.rnd.jim.nitf.tre.xmldca;
 
+import com.github.snksoft.crc.CRC;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import net.frogmouth.rnd.jim.nitf.WriterUtils;
@@ -25,7 +26,10 @@ public class XMLDCA extends TaggedRecordExtension implements SerialisableTaggedR
 
     @Override
     public byte[] toBytes() {
-        byte[] bodyBytes = body.getBytes(StandardCharsets.UTF_8);
+        byte[] bodyBytes = new byte[0];
+        if (body != null) {
+            bodyBytes = body.getBytes(StandardCharsets.UTF_8);
+        }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.writeBytes(WriterUtils.toBCS_A(TRE_TAG, 6));
         // TODO: proper subheader handling
@@ -39,6 +43,8 @@ public class XMLDCA extends TaggedRecordExtension implements SerialisableTaggedR
         baos.writeBytes(WriterUtils.toBCS_NPI(treshl, TRESHL_LEN));
         if (crcEnabled) {
             // TODO: calculate and write CRC
+            int crc = (int) CRC.calculateCRC(CRC.Parameters.CRC16, bodyBytes);
+            baos.writeBytes(WriterUtils.toBCS_NPI(crc, 5));
         }
         baos.writeBytes(bodyBytes);
         return baos.toByteArray();
