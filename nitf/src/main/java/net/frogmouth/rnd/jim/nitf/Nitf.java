@@ -11,11 +11,13 @@ public class Nitf {
     private final SecurityMetadata securityMetadata = new SecurityMetadata();
     private List<ImageSegment> imageSegments = new ArrayList<>();
     private List<GraphicSegment> graphicSegments = new ArrayList<>();
-    private List<TextSegment> textSegments = new ArrayList<>();
-    private List<DataExtensionSegment> dataExtensionSegments = new ArrayList<>();
+    private final List<TextSegment> textSegments = new ArrayList<>();
+    private final List<DataExtensionSegment> dataExtensionSegments = new ArrayList<>();
 
     private static final int LTSH_BYTES = 4;
     private static final int LT_BYTES = 5;
+    private static final int LDSH_BYTES = 4;
+    private static final int LD_BYTES = 9;
 
     public boolean isNitf21() {
         // TODO: proper implementation
@@ -96,6 +98,12 @@ public class Nitf {
             count += textSegment.getSubheaderAsBytes().length;
             count += textSegment.getLengthOfTextSegment();
         }
+        for (DataExtensionSegment dataExtensionSegment : dataExtensionSegments) {
+            count += LDSH_BYTES;
+            count += LD_BYTES;
+            count += dataExtensionSegment.getSubheaderAsBytes().length;
+            count += dataExtensionSegment.getLengthOfDataExtensionSegment();
+        }
         return count;
     }
 
@@ -105,6 +113,10 @@ public class Nitf {
         for (TextSegment textSegment : textSegments) {
             count += LTSH_BYTES;
             count += LT_BYTES;
+        }
+        for (DataExtensionSegment dataExtensionSegment : dataExtensionSegments) {
+            count += LDSH_BYTES;
+            count += LD_BYTES;
         }
         return count;
     }
@@ -127,5 +139,9 @@ public class Nitf {
 
     public List<DataExtensionSegment> getDataExtensionSegments() {
         return new ArrayList<>(dataExtensionSegments);
+    }
+
+    public void addDataExtensionSegment(DataExtensionSegment dataExtensionSegment) {
+        this.dataExtensionSegments.add(dataExtensionSegment);
     }
 }

@@ -3,12 +3,12 @@ package net.frogmouth.rnd.jim.nitf;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import net.frogmouth.rnd.jim.nitf.des.DataExtensionSegment;
 import net.frogmouth.rnd.jim.nitf.text.TextSegment;
 
 public class Writer {
 
     // TODO: make shared constants class and share with reader
-
     private static final byte[] NITF21_BYTES =
             new byte[] {0x4e, 0x49, 0x54, 0x46, 0x30, 0x32, 0x2e, 0x31, 0x30};
 
@@ -42,7 +42,14 @@ public class Writer {
             outputStream.write(WriterUtils.toBCS_NPI(textSegment.getLengthOfTextSegment(), 5));
         }
         outputStream.write(WriterUtils.toBCS_NPI(nitf.getNumberOfDataExtensionSegments(), 3));
-        // TODO: write out data extension segments
+        for (DataExtensionSegment dataExtensionSegment : nitf.getDataExtensionSegments()) {
+            outputStream.write(
+                    WriterUtils.toBCS_NPI(dataExtensionSegment.getSubheaderAsBytes().length, 4));
+            // TODO: write out real data extension segment length
+            outputStream.write(
+                    WriterUtils.toBCS_NPI(
+                            dataExtensionSegment.getLengthOfDataExtensionSegment(), 9));
+        }
         outputStream.write(WriterUtils.toBCS_NPI(0, 3));
         // TODO: properly support UDHDL and XHDL, plus conditional bits
         outputStream.write(WriterUtils.toBCS_NPI(0, 5));
@@ -53,7 +60,10 @@ public class Writer {
             outputStream.write(textSegment.getSubheaderAsBytes());
             outputStream.write(textSegment.getBodyAsBytes());
         }
-        // TODO: output DES
+        for (DataExtensionSegment dataExtensionSegment : nitf.getDataExtensionSegments()) {
+            outputStream.write(dataExtensionSegment.getSubheaderAsBytes());
+            outputStream.write(dataExtensionSegment.getDesData());
+        }
     }
 
     private byte[] makeHeader(Nitf nitf) throws IOException {

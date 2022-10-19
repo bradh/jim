@@ -55,6 +55,7 @@ public class TextSegment {
         }
     }
 
+    // TODO: share with DataExtensionSegment
     private byte[] collectExtensionBytes() {
         if (this.extensions.isEmpty()) {
             return new byte[0];
