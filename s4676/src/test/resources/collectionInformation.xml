@@ -6,6 +6,6 @@
     <lid>8</lid>
     <intent>ENGINEERING</intent>
     <essence>SYNTHETIC</essence>
-    <targetId>Target1234-345</targetId>
+    <targetID>Target1234-345</targetID>
   </collection>
 </nitsRoot>

@@ -12,14 +12,14 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({
     "stationID",
-    "nationalityTrigraph",
+    "nationality",
 })
 public class IDData {
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private String stationID;
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
-    private String nationalityTrigraph;
+    private String nationality;
 
     /**
      * Constructor.
@@ -36,7 +36,7 @@ public class IDData {
      */
     public IDData(String stationID, String nationalityTrigraph) {
         this.stationID = stationID;
-        this.nationalityTrigraph = nationalityTrigraph;
+        this.nationality = nationalityTrigraph;
     }
 
     /**
@@ -78,8 +78,8 @@ public class IDData {
      *
      * @return the nationality trigraph
      */
-    public String getNationalityTrigraph() {
-        return nationalityTrigraph;
+    public String getNationality() {
+        return nationality;
     }
 
     /**
@@ -95,7 +95,7 @@ public class IDData {
      *
      * @param nationalityTrigraph the nationality trigraph
      */
-    public void setNationalityTrigraph(String nationalityTrigraph) {
-        this.nationalityTrigraph = nationalityTrigraph;
+    public void setNationality(String nationalityTrigraph) {
+        this.nationality = nationalityTrigraph;
     }
 }

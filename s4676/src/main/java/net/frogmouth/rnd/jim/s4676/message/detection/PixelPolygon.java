@@ -31,7 +31,7 @@ import net.frogmouth.rnd.jim.s4676.serde.PixelPolygonDeserialiser;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonDeserialize(using = PixelPolygonDeserialiser.class)
 public class PixelPolygon {
-    @JacksonXmlProperty(isAttribute = true)
+    @JacksonXmlProperty(isAttribute = true, localName = "nRings")
     private Integer numRings;
 
     @JsonIgnore private List<Integer> integerArray;

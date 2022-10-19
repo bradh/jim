@@ -6,12 +6,12 @@
     <lid>8</lid>
     <intent>ENGINEERING</intent>
     <essence>SYNTHETIC</essence>
-    <targetId>Target1234-345</targetId>
+    <targetID>Target1234-345</targetID>
   </collection>
   <collection>
     <lid>80000</lid>
     <intent>ENGINEERING</intent>
     <essence>SIMULATED</essence>
-    <targetId>A different target</targetId>
+    <targetID>A different target</targetID>
   </collection>
 </nitsRoot>

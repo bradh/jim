@@ -32,6 +32,7 @@ public class MotionEventTest {
     public void testMotionEventWithTripwire() throws JsonProcessingException {
         MotionEvent uut = new MotionEvent(MotionEventType.CROSSING_TRIPWIRE, 21477000000L);
         uut.setLid(123L);
+        uut.addTrackLID(234L);
         uut.setConfidence(new Confidence(CertaintyStatisticType.PROBABILITY, 65));
         PositionPoints tripwirePoints =
                 new PositionPoints(
@@ -65,8 +66,10 @@ public class MotionEventTest {
     public void testMotionEventWithROI() throws JsonProcessingException {
         MotionEvent uut = new MotionEvent(MotionEventType.ENTERING_ROI, 21477000000L);
         uut.setLid(123L);
+        uut.addTrackLID(234L);
         uut.setConfidence(new Confidence(CertaintyStatisticType.PROBABILITY, 65));
         Polygon polygon = new Polygon(Dimensionality.TWO_D, CoordinateSystemType.WGS_84);
+        // TODO: polygon needs vertices
         uut.setRegion(polygon);
         NitsRoot rootElement = new NitsRoot();
         TrackMessage message =

@@ -63,7 +63,7 @@ public class PixelPolygonDeserialiser extends StdDeserializer<PixelPolygon>
                 polygon.addCoordinateValue(Integer.valueOf(part));
             }
         }
-        TreeNode numRingsNode = tree.get("numRings");
+        TreeNode numRingsNode = tree.get("nRings");
         if ((numRingsNode != null)
                 && (numRingsNode.isValueNode())
                 && (numRingsNode instanceof TextNode)) {

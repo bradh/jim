@@ -7,6 +7,7 @@
         <relTimeIncrement>0.001</relTimeIncrement>
         <motionEvent type="ENTERING_ROI">
             <lid>123</lid>
+            <trackLID>234</trackLID>
             <startRelTime>21477000000</startRelTime>
             <confidence type="PROBABILITY">
                 <value>65</value>

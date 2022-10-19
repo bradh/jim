@@ -6,7 +6,7 @@
         <lid>9</lid>
         <trackerID>
             <stationID>TRACKER 4 </stationID>
-            <nationalityTrigraph>AUS</nationalityTrigraph>
+            <nationality>AUS</nationality>
         </trackerID>
         <name>Tracker 4</name>
         <description>Test description of tracker 4</description>

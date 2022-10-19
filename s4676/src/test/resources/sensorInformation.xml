@@ -7,7 +7,7 @@
         <lid>29</lid>
         <sensorID>
             <stationID>SENSOR 3  </stationID>
-            <nationalityTrigraph>AUS</nationalityTrigraph>
+            <nationality>AUS</nationality>
         </sensorID>
         <name>sensor 3</name>
         <description>Fixed surface AIS receiver at Pt Barren.</description>

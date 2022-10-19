@@ -7,13 +7,14 @@
         <relTimeIncrement>0.001</relTimeIncrement>
         <motionEvent type="CROSSING_TRIPWIRE">
             <lid>123</lid>
+            <trackLID>234</trackLID>
             <startRelTime>21477000000</startRelTime>
             <confidence type="PROBABILITY">
                 <value>65</value>
             </confidence>
-                  <tripwire dims="2" cs="WGS_84">
-        <points>-34.0 140.0 -36.0 142.0</points>
-      </tripwire>
+            <tripwire dims="2" cs="WGS_84">
+                <points>-34.0 140.0 -36.0 142.0</points>
+            </tripwire>
         </motionEvent>
     </message>
 </nitsRoot>

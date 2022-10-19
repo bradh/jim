@@ -100,7 +100,7 @@ public class SensorInformationTest {
         assertNotNull(sensor.getSensorID());
         assertEquals(sensor.getSensorID().getStationID(), "SENSOR 3  ");
         assertEquals(sensor.getSensorID().getStationID().length(), 10);
-        assertEquals(sensor.getSensorID().getNationalityTrigraph(), "AUS");
+        assertEquals(sensor.getSensorID().getNationality(), "AUS");
         assertEquals(sensor.getName(), "sensor 3");
         assertEquals(sensor.getDescription(), "Fixed surface AIS receiver at Pt Barren.");
         assertEquals(sensor.getModality(), ModalityType.ADS_B);
