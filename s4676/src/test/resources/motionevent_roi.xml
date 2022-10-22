@@ -12,7 +12,10 @@
             <confidence type="PROBABILITY">
                 <value>65</value>
             </confidence>
-            <region xsi:type="Polygon" dims="2" cs="WGS_84"/>
+            <region dims="2" cs="WGS_84" xsi:type="Polygon">
+                <nRings>2</nRings>
+                <vertices>-77.428272 38.929786 -77.428336 38.919937 -77.41559 38.918635 -77.413037 38.928401 NaN NaN -77.419431 38.923756 -77.42074 38.922959 -77.420107 38.922458 -77.418728 38.923359</vertices>
+            </region>
         </motionEvent>
     </message>
 </nitsRoot>

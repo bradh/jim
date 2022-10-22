@@ -53,11 +53,11 @@ public class DoubleListDeserialiser extends StdDeserializer<List<Double>>
             throws IOException, JacksonException {
         List<Double> points = new ArrayList<>();
         TreeNode tree = jp.readValueAsTree();
-        TreeNode pointsNode = tree.get(elementName);
-        if ((pointsNode != null)
-                && (pointsNode.isValueNode())
-                && (pointsNode instanceof TextNode)) {
-            String value = ((TextNode) pointsNode).textValue();
+        if (elementName != null) {
+            tree = tree.get(elementName);
+        }
+        if ((tree != null) && (tree.isValueNode()) && (tree instanceof TextNode)) {
+            String value = ((TextNode) tree).textValue();
             String[] parts = value.split(" ");
             for (String part : parts) {
                 points.add(Double.valueOf(part));

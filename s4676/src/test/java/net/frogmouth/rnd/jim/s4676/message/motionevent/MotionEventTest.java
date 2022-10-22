@@ -20,6 +20,7 @@ import net.frogmouth.rnd.jim.s4676.common.CoordinateSystemType;
 import net.frogmouth.rnd.jim.s4676.common.Dimensionality;
 import net.frogmouth.rnd.jim.s4676.common.Polygon;
 import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
+import net.frogmouth.rnd.jim.s4676.common.Shape;
 import net.frogmouth.rnd.jim.s4676.message.TrackMessage;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
@@ -69,7 +70,21 @@ public class MotionEventTest {
         uut.addTrackLID(234L);
         uut.setConfidence(new Confidence(CertaintyStatisticType.PROBABILITY, 65));
         Polygon polygon = new Polygon(Dimensionality.TWO_D, CoordinateSystemType.WGS_84);
-        // TODO: polygon needs vertices
+        polygon.setNumberOfRings(2);
+        polygon.addVertex(-77.428272);
+        polygon.addVertex(38.929786);
+        polygon.addVertex(-77.428336);
+        polygon.addVertex(38.919937);
+        polygon.addVertex(-77.41559);
+        polygon.addVertex(38.918635);
+        polygon.addVertex(-77.413037);
+        polygon.addVertex(38.928401);
+        polygon.addVertex(Double.NaN);
+        polygon.addVertex(Double.NaN);
+        polygon.addVertex(-77.419431, 38.923756);
+        polygon.addVertex(-77.42074, 38.922959);
+        polygon.addVertex(-77.420107, 38.922458);
+        polygon.addVertex(-77.418728, 38.923359);
         uut.setRegion(polygon);
         NitsRoot rootElement = new NitsRoot();
         TrackMessage message =
@@ -94,7 +109,7 @@ public class MotionEventTest {
     }
 
     @Test
-    public void testParseMerge() throws IOException {
+    public void testParseMotionEvent() throws IOException {
         Parser parser = new Parser();
         String xml =
                 new String(
@@ -122,6 +137,63 @@ public class MotionEventTest {
         assertEquals(tripwire.getCoordinateSystemType(), CoordinateSystemType.WGS_84);
         List<Double> expectedPoints = Arrays.asList(-34.0, 140.0, -36.0, 142.0);
         assertEquals(tripwire.getPoints(), expectedPoints);
+        String serialisedXml = parser.serialise(rootElement);
+        assertThat(
+                Input.fromString(serialisedXml),
+                isSimilarTo(Input.fromString(xml)).ignoreWhitespace());
+    }
+
+    @Test
+    public void testParseMotionEventROI() throws IOException {
+        Parser parser = new Parser();
+        String xml =
+                new String(
+                        getClass()
+                                .getClassLoader()
+                                .getResourceAsStream("motionevent_roi.xml")
+                                .readAllBytes());
+        NitsRoot rootElement = parser.parse(xml);
+        assertNotNull(rootElement.getMessages().get(0).getMotionEvents());
+        assertTrue(rootElement.getMessages().get(0).getMotionEvents() instanceof List<MotionEvent>);
+        List<MotionEvent> motionEvents = rootElement.getMessages().get(0).getMotionEvents();
+        assertEquals(motionEvents.size(), 1);
+        MotionEvent motionEvent = motionEvents.get(0);
+        assertEquals(motionEvent.getType(), MotionEventType.ENTERING_ROI);
+        assertNull(motionEvent.getUniqueID());
+        assertEquals(motionEvent.getLid(), 123L);
+        assertNotNull(motionEvent.getConfidence());
+        Confidence confidence = motionEvent.getConfidence();
+        assertEquals(confidence.getType(), CertaintyStatisticType.PROBABILITY);
+        assertEquals(confidence.getValue(), 65);
+        assertNull(confidence.getSourceReliability());
+        assertNotNull(motionEvent.getRegion());
+        Shape regionShape = motionEvent.getRegion();
+        assertTrue(regionShape instanceof Polygon);
+        Polygon region = (Polygon) regionShape;
+        assertEquals(region.getDims(), Dimensionality.TWO_D);
+        assertEquals(region.getCoordinateSystemType(), CoordinateSystemType.WGS_84);
+        assertEquals(region.getNumberOfRings(), 2);
+        List<Double> expectedPoints =
+                Arrays.asList(
+                        -77.428272,
+                        38.929786,
+                        -77.428336,
+                        38.919937,
+                        -77.41559,
+                        38.918635,
+                        -77.413037,
+                        38.928401,
+                        Double.NaN,
+                        Double.NaN,
+                        -77.419431,
+                        38.923756,
+                        -77.42074,
+                        38.922959,
+                        -77.420107,
+                        38.922458,
+                        -77.418728,
+                        38.923359);
+        assertEquals(region.getVertices(), expectedPoints);
         String serialisedXml = parser.serialise(rootElement);
         assertThat(
                 Input.fromString(serialisedXml),

@@ -13,6 +13,8 @@ import net.frogmouth.rnd.jim.s4676.collection.ICollectionEssenceType;
 import net.frogmouth.rnd.jim.s4676.collection.ICollectionIntentType;
 import net.frogmouth.rnd.jim.s4676.common.CoordinateSystemTypeDeserialiser;
 import net.frogmouth.rnd.jim.s4676.common.ICoordinateSystemType;
+import net.frogmouth.rnd.jim.s4676.common.Shape;
+import net.frogmouth.rnd.jim.s4676.common.ShapeDeserialiser;
 import net.frogmouth.rnd.jim.s4676.message.detection.IImageFormat;
 import net.frogmouth.rnd.jim.s4676.message.detection.ImageFormatDeserialiser;
 import net.frogmouth.rnd.jim.s4676.message.motionevent.IMotionEventType;
@@ -95,6 +97,7 @@ public class Parser {
                 ISupplementaryDataType.class, new SupplementaryDataTypeDeserialiser());
         module.addDeserializer(ITrackLinkageType.class, new TrackLinkageTypeDeserialiser());
         module.addDeserializer(ITrackerType.class, new TrackerTypeDeserialiser());
+        module.addDeserializer(Shape.class, new ShapeDeserialiser());
         mapper.registerModule(module);
     }
 }

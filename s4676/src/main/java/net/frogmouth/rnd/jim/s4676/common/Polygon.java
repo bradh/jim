@@ -1,11 +1,14 @@
 package net.frogmouth.rnd.jim.s4676.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.s4676.serde.DoubleListDeserialiser;
 import net.frogmouth.rnd.jim.s4676.serde.DoubleListSerialiser;
 
 /**
@@ -30,8 +33,7 @@ public class Polygon extends Shape {
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     @JsonSerialize(using = DoubleListSerialiser.class)
-    // TODO: custom deserialiser
-    // @JsonDeserialize(using = PointsListDeserialiser.class)
+    @JsonDeserialize(using = DoubleListDeserialiser.class)
     private List<Double> vertices;
 
     /**
@@ -47,10 +49,12 @@ public class Polygon extends Shape {
     /**
      * Constructor.
      *
+     * <p>This will not produce a valid Polygon. Specify the vertices and number of rings (if not 1)
+     * to make it valid.
+     *
      * @param dims dimensionality of the shape
      * @param cs coordinate system of the shape
      */
-    // TODO: add vertices?
     public Polygon(Dimensionality dims, ICoordinateSystemType cs) {
         super(dims, cs);
         type = "Polygon";
@@ -67,6 +71,7 @@ public class Polygon extends Shape {
      *
      * @return the number of rings, or null
      */
+    @JsonIgnore
     public Integer getNumberOfRings() {
         return nRings;
     }
@@ -124,5 +129,19 @@ public class Polygon extends Shape {
      */
     public List<Double> getVertices() {
         return this.vertices;
+    }
+
+    /**
+     * Add vertex value.
+     *
+     * <p>A vertex value. These vertices are listed in the order in which they should be drawn.
+     * Refer to the specific class utilizing the element..
+     *
+     * @param latitude the latitude of the point to add
+     * @param longitude the longitude of the point to add
+     */
+    public void addVertex(double latitude, double longitude) {
+        addVertex(latitude);
+        addVertex(longitude);
     }
 }
