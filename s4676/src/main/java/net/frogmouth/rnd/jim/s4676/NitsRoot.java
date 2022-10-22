@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.collection.CollectionInformation;
 import net.frogmouth.rnd.jim.s4676.message.TrackMessage;
+import net.frogmouth.rnd.jim.s4676.s4774.ConfidentialityLabel;
 import net.frogmouth.rnd.jim.s4676.sensor.SensorInformation;
 import net.frogmouth.rnd.jim.s4676.tracker.TrackerInformation;
 
@@ -35,6 +36,7 @@ import net.frogmouth.rnd.jim.s4676.tracker.TrackerInformation;
         localName = "nitsRoot")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({
+    "originatorConfidentialityLabel",
     "profile",
     "streamUID",
     "fileUID",
@@ -50,6 +52,9 @@ import net.frogmouth.rnd.jim.s4676.tracker.TrackerInformation;
     "message"
 })
 public class NitsRoot {
+
+    @JacksonXmlProperty(namespace = "urn:nato:stanag:4774:confidentialitymetadatalabel:1:0")
+    private ConfidentialityLabel originatorConfidentialityLabel = new ConfidentialityLabel();
 
     @JacksonXmlProperty(namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1")
     private List<String> profile;
@@ -82,6 +87,15 @@ public class NitsRoot {
             namespace = "urn:nato:niia:stanag:4676:isrtrackingstandard:b:1",
             localName = "message")
     private List<TrackMessage> messages;
+
+    public ConfidentialityLabel getOriginatorConfidentialityLabel() {
+        return originatorConfidentialityLabel;
+    }
+
+    public void setOriginatorConfidentialityLabel(
+            ConfidentialityLabel originatorConfidentialityLabel) {
+        this.originatorConfidentialityLabel = originatorConfidentialityLabel;
+    }
 
     /**
      * Compliance Profile.

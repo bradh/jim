@@ -1,7 +1,18 @@
-<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1">
+<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1" xmlns:sec="urn:nato:stanag:4774:confidentialitymetadatalabel:1:0">
+        <sec:originatorConfidentialityLabel>
+        <sec:ConfidentialityInformation>
+            <sec:PolicyIdentifier>AUSTRALIAN PROTECTIVE SECURITY POLICY FRAMEWORK</sec:PolicyIdentifier>
+            <sec:Classification>UNOFFICIAL</sec:Classification>
+        </sec:ConfidentialityInformation>
+        <sec:CreationDateTime>2021-10-10T22:24:33.734Z</sec:CreationDateTime>
+    </sec:originatorConfidentialityLabel>
     <profile>STANDALONE</profile>
     <msgCreatedTime>2022-09-03T04:04:00Z</msgCreatedTime>
     <nitsVersion>B.2</nitsVersion>
+    <sensor>
+        <name>test sensor</name>
+        <modality>OTHER</modality>
+    </sensor>
     <tracker type="SEMIAUTOMATIC_TRACKER">
         <lid>9</lid>
         <trackerID>

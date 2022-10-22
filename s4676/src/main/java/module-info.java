@@ -27,6 +27,7 @@ module net.frogmouth.rnd.jim.s4676 {
     exports net.frogmouth.rnd.jim.s4676.message.tracklinkage;
     exports net.frogmouth.rnd.jim.s4676.message.trackpoint;
     exports net.frogmouth.rnd.jim.s4676.message.tracksegment;
+    exports net.frogmouth.rnd.jim.s4676.s4774;
     exports net.frogmouth.rnd.jim.s4676.sensor;
     exports net.frogmouth.rnd.jim.s4676.tracker;
 }

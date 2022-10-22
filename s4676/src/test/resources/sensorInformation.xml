@@ -1,4 +1,11 @@
-<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1">
+<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1" xmlns:sec="urn:nato:stanag:4774:confidentialitymetadatalabel:1:0">
+        <sec:originatorConfidentialityLabel>
+        <sec:ConfidentialityInformation>
+            <sec:PolicyIdentifier>AUSTRALIAN PROTECTIVE SECURITY POLICY FRAMEWORK</sec:PolicyIdentifier>
+            <sec:Classification>UNOFFICIAL</sec:Classification>
+        </sec:ConfidentialityInformation>
+        <sec:CreationDateTime>2021-10-10T22:24:33.734Z</sec:CreationDateTime>
+    </sec:originatorConfidentialityLabel>
     <profile>STANDALONE</profile>
     <msgCreatedTime>2022-09-01T10:43:08Z</msgCreatedTime>
     <nitsVersion>B.1</nitsVersion>
@@ -16,4 +23,8 @@
         <collectionMode>Channel A only</collectionMode>
         <comment>Channel B antenna was offline for a while</comment>
     </sensor>
+    <tracker type="SEMIAUTOMATIC_TRACKER">
+        <name>test tracker</name>
+        <version>0.1</version>
+    </tracker>
 </nitsRoot>

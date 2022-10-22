@@ -13,16 +13,22 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import net.frogmouth.rnd.jim.s4676.NitsRoot;
 import net.frogmouth.rnd.jim.s4676.Parser;
+import net.frogmouth.rnd.jim.s4676.TestSupport;
+import net.frogmouth.rnd.jim.s4676.sensor.ModalityType;
+import net.frogmouth.rnd.jim.s4676.sensor.SensorInformation;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerInformation;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerType;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
 
-public class MultiprofileTest {
+public class MultiprofileTest extends TestSupport {
 
     public MultiprofileTest() {}
 
     @Test
     public void testCreate() throws JsonProcessingException {
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
         rootElement.addProfile("STANDALONE");
         rootElement.addProfile("EXTENSION_ABCD");
         rootElement.setMsgCreatedTime(
@@ -30,6 +36,12 @@ public class MultiprofileTest {
                         LocalDateTime.of(2021, Month.OCTOBER, 10, 22, 24, 33, 733000000),
                         ZoneOffset.UTC));
         rootElement.setNitsVersion("B.2");
+        SensorInformation sensorInformation =
+                new SensorInformation("test sensor", ModalityType.OTHER);
+        rootElement.addSensor(sensorInformation);
+        TrackerInformation trackerInformation =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "test tracker", "0.1");
+        rootElement.addTracker(trackerInformation);
         String serialisedXml = new Parser().serialise(rootElement);
         // System.out.println(serialisedXml);
         assertThat(

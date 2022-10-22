@@ -1,39 +1,54 @@
-<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1">
-  <profile>STANDALONE</profile>
-  <msgCreatedTime>2022-09-06T03:50:08Z</msgCreatedTime>
-  <nitsVersion>B.2</nitsVersion>
-  <message>
-    <baseTime>2022-01-01T00:00:00Z</baseTime>
-    <relTimeIncrement>0.001</relTimeIncrement>
-    <dynSrcInfo>
-      <lid>367</lid>
-      <relTime>8108</relTime>
-      <sensorLID>808</sensorLID>
-      <sensorLocation dims="3" cs="WGS_84">
-        <points>-35.42 126.81</points>
-      </sensorLocation>
-      <numDetections>3</numDetections>
-      <numReportedDetections>1</numReportedDetections>
-      <sourceRadar>
-        <revisitIndex>865</revisitIndex>
-        <dwellIndex>0</dwellIndex>
-      </sourceRadar>
-    </dynSrcInfo>
-    <detection>
-      <lid>128</lid>
-      <relTime>8242</relTime>
-      <centroid dims="2" cs="WGS_84">
-        <points>-35.4 136.8</points>
-      </centroid>
-      <sensorLID>808</sensorLID>
-      <dynSrcLID>367</dynSrcLID>
-      <source>
-        <sensorLID>808</sensorLID>
-      </source>
-      <radar>
-        <reportIndex>3</reportIndex>
-        <hrrType>0</hrrType>
-      </radar>
-    </detection>
-  </message>
+<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1" xmlns:sec="urn:nato:stanag:4774:confidentialitymetadatalabel:1:0">
+        <sec:originatorConfidentialityLabel>
+        <sec:ConfidentialityInformation>
+            <sec:PolicyIdentifier>AUSTRALIAN PROTECTIVE SECURITY POLICY FRAMEWORK</sec:PolicyIdentifier>
+            <sec:Classification>UNOFFICIAL</sec:Classification>
+        </sec:ConfidentialityInformation>
+        <sec:CreationDateTime>2021-10-10T22:24:33.734Z</sec:CreationDateTime>
+    </sec:originatorConfidentialityLabel>
+    <profile>STANDALONE</profile>
+    <msgCreatedTime>2022-09-06T03:50:08Z</msgCreatedTime>
+    <nitsVersion>B.2</nitsVersion>
+    <sensor>
+        <name>test sensor</name>
+        <modality>DOPPLER_SIGNATURE</modality>
+    </sensor>
+    <tracker type="SEMIAUTOMATIC_TRACKER">
+        <name>test tracker</name>
+        <version>0.1</version>
+    </tracker>
+    <message>
+        <baseTime>2022-01-01T00:00:00Z</baseTime>
+        <relTimeIncrement>0.001</relTimeIncrement>
+        <dynSrcInfo>
+            <lid>367</lid>
+            <relTime>8108</relTime>
+            <sensorLID>808</sensorLID>
+            <sensorLocation dims="3" cs="WGS_84">
+                <points>-35.42 126.81</points>
+            </sensorLocation>
+            <numDetections>3</numDetections>
+            <numReportedDetections>1</numReportedDetections>
+            <sourceRadar>
+                <revisitIndex>865</revisitIndex>
+                <dwellIndex>0</dwellIndex>
+            </sourceRadar>
+        </dynSrcInfo>
+        <detection>
+            <lid>128</lid>
+            <relTime>8242</relTime>
+            <centroid dims="2" cs="WGS_84">
+                <points>-35.4 136.8</points>
+            </centroid>
+            <sensorLID>808</sensorLID>
+            <dynSrcLID>367</dynSrcLID>
+            <source>
+                <sensorLID>808</sensorLID>
+            </source>
+            <radar>
+                <reportIndex>3</reportIndex>
+                <hrrType>0</hrrType>
+            </radar>
+        </detection>
+    </message>
 </nitsRoot>

@@ -14,11 +14,14 @@ import java.util.List;
 import java.util.UUID;
 import net.frogmouth.rnd.jim.s4676.NitsRoot;
 import net.frogmouth.rnd.jim.s4676.Parser;
+import net.frogmouth.rnd.jim.s4676.TestSupport;
 import net.frogmouth.rnd.jim.s4676.common.IDData;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerInformation;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerType;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
 
-public class SensorInformationTest {
+public class SensorInformationTest extends TestSupport {
 
     private static final UUID SENSOR_UID = UUID.fromString("501bc6f5-69f5-4aca-bfa2-d4810890a7e7");
 
@@ -35,12 +38,16 @@ public class SensorInformationTest {
         uut.setDescription("Fixed surface AIS receiver at Pt Barren.");
         uut.setUrl("https://jericho.edgsespark.net/sensor3");
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
         rootElement.addSensor(uut);
         rootElement.addProfile("STANDALONE");
         rootElement.setMsgCreatedTime(
                 ZonedDateTime.of(
                         LocalDateTime.of(2022, Month.SEPTEMBER, 1, 10, 43, 8), ZoneOffset.UTC));
         rootElement.setNitsVersion("B.1");
+        TrackerInformation trackerInformation =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "test tracker", "0.1");
+        rootElement.addTracker(trackerInformation);
         String serialisedXml = new Parser().serialise(rootElement);
         // System.out.println(serialisedXml);
         assertThat(
@@ -63,12 +70,16 @@ public class SensorInformationTest {
         uut.setDescription("Fixed surface AIS receiver at Pt Barren.");
         uut.setUrl("https://jericho.edgsespark.net/sensor3");
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
         rootElement.addSensor(uut);
         rootElement.addProfile("STANDALONE");
         rootElement.setMsgCreatedTime(
                 ZonedDateTime.of(
                         LocalDateTime.of(2022, Month.SEPTEMBER, 1, 10, 43, 8), ZoneOffset.UTC));
         rootElement.setNitsVersion("B.1");
+        TrackerInformation trackerInformation =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "test tracker", "0.1");
+        rootElement.addTracker(trackerInformation);
         rootElement.addSensor(new SensorInformation("Sensor 5", ModalityType.AIS));
         String serialisedXml = new Parser().serialise(rootElement);
         // System.out.println(serialisedXml);

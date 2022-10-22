@@ -17,6 +17,7 @@ class NamespaceXmlFactory extends XmlFactory {
 
     public NamespaceXmlFactory() {
         additionalNamespaces.put("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+        additionalNamespaces.put("sec", "urn:nato:stanag:4774:confidentialitymetadatalabel:1:0");
     }
 
     @Override

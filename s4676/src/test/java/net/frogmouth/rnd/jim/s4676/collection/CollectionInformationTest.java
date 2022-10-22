@@ -13,10 +13,15 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.NitsRoot;
 import net.frogmouth.rnd.jim.s4676.Parser;
+import net.frogmouth.rnd.jim.s4676.TestSupport;
+import net.frogmouth.rnd.jim.s4676.sensor.ModalityType;
+import net.frogmouth.rnd.jim.s4676.sensor.SensorInformation;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerInformation;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerType;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
 
-public class CollectionInformationTest {
+public class CollectionInformationTest extends TestSupport {
 
     public CollectionInformationTest() {}
 
@@ -28,8 +33,15 @@ public class CollectionInformationTest {
         uut.setLid(8L);
         uut.setTargetId("Target1234-345");
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
         rootElement.addCollection(uut);
         rootElement.addProfile("STANDALONE");
+        SensorInformation sensorInformation =
+                new SensorInformation("test sensor", ModalityType.OTHER);
+        rootElement.addSensor(sensorInformation);
+        TrackerInformation trackerInformation =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "test tracker", "0.1");
+        rootElement.addTracker(trackerInformation);
         rootElement.setMsgCreatedTime(
                 ZonedDateTime.of(
                         LocalDateTime.of(2022, Month.SEPTEMBER, 3, 1, 52, 30), ZoneOffset.UTC));
@@ -54,6 +66,13 @@ public class CollectionInformationTest {
         collection1.setLid(8L);
         collection1.setTargetId("Target1234-345");
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
+        SensorInformation sensorInformation =
+                new SensorInformation("test sensor", ModalityType.OTHER);
+        rootElement.addSensor(sensorInformation);
+        TrackerInformation trackerInformation =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "test tracker", "0.1");
+        rootElement.addTracker(trackerInformation);
         rootElement.addCollection(collection1);
         CollectionInformation collection2 =
                 new CollectionInformation(

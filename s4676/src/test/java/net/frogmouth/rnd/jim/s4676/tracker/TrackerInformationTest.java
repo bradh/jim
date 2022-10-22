@@ -13,11 +13,14 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.NitsRoot;
 import net.frogmouth.rnd.jim.s4676.Parser;
+import net.frogmouth.rnd.jim.s4676.TestSupport;
 import net.frogmouth.rnd.jim.s4676.common.IDData;
+import net.frogmouth.rnd.jim.s4676.sensor.ModalityType;
+import net.frogmouth.rnd.jim.s4676.sensor.SensorInformation;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
 
-public class TrackerInformationTest {
+public class TrackerInformationTest extends TestSupport {
 
     public TrackerInformationTest() {}
 
@@ -34,6 +37,10 @@ public class TrackerInformationTest {
         supplementaryData.setDescription("This is a demo shadow map entry");
         uut.addSupplementaryData(supplementaryData);
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
+        SensorInformation sensorInformation =
+                new SensorInformation("test sensor", ModalityType.OTHER);
+        rootElement.addSensor(sensorInformation);
         rootElement.addTracker(uut);
         rootElement.addProfile("STANDALONE");
         rootElement.setMsgCreatedTime(
@@ -65,6 +72,10 @@ public class TrackerInformationTest {
         supplementaryData.setDescription("This is a demo shadow map entry");
         trackerInfo1.addSupplementaryData(supplementaryData);
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
+        SensorInformation sensorInformation =
+                new SensorInformation("test sensor", ModalityType.OTHER);
+        rootElement.addSensor(sensorInformation);
         rootElement.addTracker(trackerInfo1);
         rootElement.addTracker(
                 new TrackerInformation(TrackerType.AUTOMATIC_TRACKER, "Autotracker", "103.8"));

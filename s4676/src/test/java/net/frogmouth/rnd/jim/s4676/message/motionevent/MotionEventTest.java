@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.NitsRoot;
 import net.frogmouth.rnd.jim.s4676.Parser;
+import net.frogmouth.rnd.jim.s4676.TestSupport;
 import net.frogmouth.rnd.jim.s4676.common.CertaintyStatisticType;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
 import net.frogmouth.rnd.jim.s4676.common.CoordinateSystemType;
@@ -22,10 +23,14 @@ import net.frogmouth.rnd.jim.s4676.common.Polygon;
 import net.frogmouth.rnd.jim.s4676.common.PositionPoints;
 import net.frogmouth.rnd.jim.s4676.common.Shape;
 import net.frogmouth.rnd.jim.s4676.message.TrackMessage;
+import net.frogmouth.rnd.jim.s4676.sensor.ModalityType;
+import net.frogmouth.rnd.jim.s4676.sensor.SensorInformation;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerInformation;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerType;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
 
-public class MotionEventTest {
+public class MotionEventTest extends TestSupport {
 
     public MotionEventTest() {}
 
@@ -42,6 +47,13 @@ public class MotionEventTest {
                         new Double[] {-34.0, 140.0, -36.0, 142.0});
         uut.setTripwire(tripwirePoints);
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
+        SensorInformation sensorInformation =
+                new SensorInformation("test sensor", ModalityType.OTHER);
+        rootElement.addSensor(sensorInformation);
+        TrackerInformation trackerInformation =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "test tracker", "0.1");
+        rootElement.addTracker(trackerInformation);
         TrackMessage message =
                 new TrackMessage(ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC), 0.001);
         message.addMotionEvent(uut);
@@ -87,6 +99,13 @@ public class MotionEventTest {
         polygon.addVertex(-77.418728, 38.923359);
         uut.setRegion(polygon);
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
+        SensorInformation sensorInformation =
+                new SensorInformation("test sensor", ModalityType.DOPPLER_SIGNATURE);
+        rootElement.addSensor(sensorInformation);
+        TrackerInformation trackerInformation =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "test tracker", "0.1");
+        rootElement.addTracker(trackerInformation);
         TrackMessage message =
                 new TrackMessage(ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC), 0.001);
         message.addMotionEvent(uut);

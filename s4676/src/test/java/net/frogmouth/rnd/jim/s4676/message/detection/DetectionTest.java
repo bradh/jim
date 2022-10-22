@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import net.frogmouth.rnd.jim.s4676.NitsRoot;
 import net.frogmouth.rnd.jim.s4676.Parser;
+import net.frogmouth.rnd.jim.s4676.TestSupport;
 import net.frogmouth.rnd.jim.s4676.common.CertaintyStatisticType;
 import net.frogmouth.rnd.jim.s4676.common.Confidence;
 import net.frogmouth.rnd.jim.s4676.common.CoordinateSystemType;
@@ -25,10 +26,14 @@ import net.frogmouth.rnd.jim.s4676.message.dynamicsourceinformation.RadarInforma
 import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.MeasurementMethod;
 import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.MeasurementType;
 import net.frogmouth.rnd.jim.s4676.message.sensormeasurement.SensorMeasurement;
+import net.frogmouth.rnd.jim.s4676.sensor.ModalityType;
+import net.frogmouth.rnd.jim.s4676.sensor.SensorInformation;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerInformation;
+import net.frogmouth.rnd.jim.s4676.tracker.TrackerType;
 import org.testng.annotations.Test;
 import org.xmlunit.builder.Input;
 
-public class DetectionTest {
+public class DetectionTest extends TestSupport {
 
     public DetectionTest() {}
 
@@ -49,6 +54,13 @@ public class DetectionTest {
         trackSource.addSensorLID(808L);
         uut.setSource(trackSource);
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
+        SensorInformation sensorInformation =
+                new SensorInformation("test sensor", ModalityType.OTHER);
+        rootElement.addSensor(sensorInformation);
+        TrackerInformation trackerInformation =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "test tracker", "0.1");
+        rootElement.addTracker(trackerInformation);
         TrackMessage message =
                 new TrackMessage(ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC), 0.001);
         message.addDetection(uut);
@@ -111,6 +123,13 @@ public class DetectionTest {
         trackSource.addSensorLID(808L);
         uut.setSource(trackSource);
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
+        SensorInformation sensorInformation =
+                new SensorInformation("test sensor", ModalityType.DOPPLER_SIGNATURE);
+        rootElement.addSensor(sensorInformation);
+        TrackerInformation trackerInformation =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "test tracker", "0.1");
+        rootElement.addTracker(trackerInformation);
         TrackMessage message =
                 new TrackMessage(ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC), 0.001);
         message.addDetection(uut);
@@ -188,6 +207,13 @@ public class DetectionTest {
         trackSource.addSensorLID(808L);
         uut.setSource(trackSource);
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
+        SensorInformation sensorInformation =
+                new SensorInformation("test sensor", ModalityType.OTHER);
+        rootElement.addSensor(sensorInformation);
+        TrackerInformation trackerInformation =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "test tracker", "0.1");
+        rootElement.addTracker(trackerInformation);
         TrackMessage message =
                 new TrackMessage(ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC), 0.001);
         message.addDetection(uut);
@@ -269,6 +295,13 @@ public class DetectionTest {
         trackSource.addSensorLID(808L);
         uut.setSource(trackSource);
         NitsRoot rootElement = new NitsRoot();
+        setJunkSecurity(rootElement);
+        SensorInformation sensorInformation =
+                new SensorInformation("test sensor", ModalityType.OTHER);
+        rootElement.addSensor(sensorInformation);
+        TrackerInformation trackerInformation =
+                new TrackerInformation(TrackerType.SEMIAUTOMATIC_TRACKER, "test tracker", "0.1");
+        rootElement.addTracker(trackerInformation);
         TrackMessage message =
                 new TrackMessage(ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC), 0.001);
         message.addDetection(uut);

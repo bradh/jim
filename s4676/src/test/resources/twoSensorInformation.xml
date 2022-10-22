@@ -1,22 +1,33 @@
-<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1">
-  <profile>STANDALONE</profile>
-  <msgCreatedTime>2022-09-01T10:43:08Z</msgCreatedTime>
-  <nitsVersion>B.1</nitsVersion>
-  <sensor>
-    <lid>29</lid>
-    <sensorID>
-      <stationID>SENSOR 3  </stationID>
-      <nationality>AUS</nationality>
-    </sensorID>
-    <name>sensor 3</name>
-    <description>Fixed surface AIS receiver at Pt Barren.</description>
-    <modality>ADS-B</modality>
-    <url>https://jericho.edgsespark.net/sensor3</url>
-    <collectionMode>Channel A only</collectionMode>
-    <comment>Channel B antenna was offline for a while</comment>
-  </sensor>
-  <sensor>
-    <name>Sensor 5</name>
-    <modality>AIS</modality>
-  </sensor>
+<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1" xmlns:sec="urn:nato:stanag:4774:confidentialitymetadatalabel:1:0">
+        <sec:originatorConfidentialityLabel>
+        <sec:ConfidentialityInformation>
+            <sec:PolicyIdentifier>AUSTRALIAN PROTECTIVE SECURITY POLICY FRAMEWORK</sec:PolicyIdentifier>
+            <sec:Classification>UNOFFICIAL</sec:Classification>
+        </sec:ConfidentialityInformation>
+        <sec:CreationDateTime>2021-10-10T22:24:33.734Z</sec:CreationDateTime>
+    </sec:originatorConfidentialityLabel>
+    <profile>STANDALONE</profile>
+    <msgCreatedTime>2022-09-01T10:43:08Z</msgCreatedTime>
+    <nitsVersion>B.1</nitsVersion>
+    <sensor>
+        <lid>29</lid>
+        <sensorID>
+            <stationID>SENSOR 3  </stationID>
+            <nationality>AUS</nationality>
+        </sensorID>
+        <name>sensor 3</name>
+        <description>Fixed surface AIS receiver at Pt Barren.</description>
+        <modality>ADS-B</modality>
+        <url>https://jericho.edgsespark.net/sensor3</url>
+        <collectionMode>Channel A only</collectionMode>
+        <comment>Channel B antenna was offline for a while</comment>
+    </sensor>
+    <sensor>
+        <name>Sensor 5</name>
+        <modality>AIS</modality>
+    </sensor>
+    <tracker type="SEMIAUTOMATIC_TRACKER">
+        <name>test tracker</name>
+        <version>0.1</version>
+    </tracker>
 </nitsRoot>

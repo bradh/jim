@@ -1,27 +1,35 @@
 <ns2:nitsRoot xmlns:ns3="http://www.nga.gov/MiisSchema" xmlns:ns2="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1" xmlns="urn:nato:stanag:4774:confidentialitymetadatalabel:1:0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1 4676%20XSD%20Schema_20210622_XSD10_extended.xsd">
-	<originatorConfidentialityLabel>
-		<ConfidentialityInformation>
-			<PolicyIdentifier>AUSTRALIAN PROTECTIVE SECURITY POLICY FRAMEWORK</PolicyIdentifier>
-			<Classification>UNOFFICIAL</Classification>
-		</ConfidentialityInformation>
-		<CreationDateTime>2021-10-10T22:24:33.734Z</CreationDateTime>
-	</originatorConfidentialityLabel>
-	<ns2:profile>STANDALONE</ns2:profile>
-	<ns2:msgCreatedTime>2021-10-10T22:24:33.733Z</ns2:msgCreatedTime>
-	<ns2:nitsVersion>B.1</ns2:nitsVersion>
-	<ns2:message>
-		<ns2:baseTime>2021-10-10T22:24:33.688Z</ns2:baseTime>
-		<ns2:relTimeIncrement>0.001</ns2:relTimeIncrement>
-		<ns2:track>
-			<ns2:uid>DFjLwA22RXiKSAWh2eBOGQ==</ns2:uid>
-			<ns2:segment>
-				<ns2:tp>
-					<ns2:relTime>0</ns2:relTime>
-					<ns2:dynamics cs="WGS_84">
-						<ns2:pos>-35.37056 149.105 0.0</ns2:pos>
-					</ns2:dynamics>
-				</ns2:tp>
-			</ns2:segment>
-		</ns2:track>
-	</ns2:message>
+    <originatorConfidentialityLabel>
+        <ConfidentialityInformation>
+            <PolicyIdentifier>AUSTRALIAN PROTECTIVE SECURITY POLICY FRAMEWORK</PolicyIdentifier>
+            <Classification>UNOFFICIAL</Classification>
+        </ConfidentialityInformation>
+        <CreationDateTime>2021-10-10T22:24:33.734Z</CreationDateTime>
+    </originatorConfidentialityLabel>
+    <ns2:profile>STANDALONE</ns2:profile>
+    <ns2:msgCreatedTime>2021-10-10T22:24:33.733Z</ns2:msgCreatedTime>
+    <ns2:nitsVersion>B.1</ns2:nitsVersion>
+    <ns2:sensor>
+        <ns2:name>test sensor</ns2:name>
+        <ns2:modality>OTHER</ns2:modality>
+    </ns2:sensor>
+    <ns2:tracker type="SEMIAUTOMATIC_TRACKER">
+        <ns2:name>test tracker</ns2:name>
+        <ns2:version>0.1</ns2:version>
+    </ns2:tracker>
+    <ns2:message>
+        <ns2:baseTime>2021-10-10T22:24:33.688Z</ns2:baseTime>
+        <ns2:relTimeIncrement>0.001</ns2:relTimeIncrement>
+        <ns2:track>
+            <ns2:uid>DFjLwA22RXiKSAWh2eBOGQ==</ns2:uid>
+            <ns2:segment>
+                <ns2:tp>
+                    <ns2:relTime>0</ns2:relTime>
+                    <ns2:dynamics cs="WGS_84">
+                        <ns2:pos>-35.37056 149.105 0.0</ns2:pos>
+                    </ns2:dynamics>
+                </ns2:tp>
+            </ns2:segment>
+        </ns2:track>
+    </ns2:message>
 </ns2:nitsRoot>

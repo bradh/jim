@@ -1,17 +1,32 @@
-<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1">
-  <profile>STANDALONE</profile>
-  <msgCreatedTime>2022-09-03T01:52:30Z</msgCreatedTime>
-  <nitsVersion>B.2</nitsVersion>
-  <collection>
-    <lid>8</lid>
-    <intent>ENGINEERING</intent>
-    <essence>SYNTHETIC</essence>
-    <targetID>Target1234-345</targetID>
-  </collection>
-  <collection>
-    <lid>80000</lid>
-    <intent>ENGINEERING</intent>
-    <essence>SIMULATED</essence>
-    <targetID>A different target</targetID>
-  </collection>
+<nitsRoot xmlns="urn:nato:niia:stanag:4676:isrtrackingstandard:b:1" xmlns:sec="urn:nato:stanag:4774:confidentialitymetadatalabel:1:0">
+        <sec:originatorConfidentialityLabel>
+        <sec:ConfidentialityInformation>
+            <sec:PolicyIdentifier>AUSTRALIAN PROTECTIVE SECURITY POLICY FRAMEWORK</sec:PolicyIdentifier>
+            <sec:Classification>UNOFFICIAL</sec:Classification>
+        </sec:ConfidentialityInformation>
+        <sec:CreationDateTime>2021-10-10T22:24:33.734Z</sec:CreationDateTime>
+    </sec:originatorConfidentialityLabel>
+    <profile>STANDALONE</profile>
+    <msgCreatedTime>2022-09-03T01:52:30Z</msgCreatedTime>
+    <nitsVersion>B.2</nitsVersion>
+    <collection>
+        <lid>8</lid>
+        <intent>ENGINEERING</intent>
+        <essence>SYNTHETIC</essence>
+        <targetID>Target1234-345</targetID>
+    </collection>
+    <collection>
+        <lid>80000</lid>
+        <intent>ENGINEERING</intent>
+        <essence>SIMULATED</essence>
+        <targetID>A different target</targetID>
+    </collection>
+    <sensor>
+        <name>test sensor</name>
+        <modality>OTHER</modality>
+    </sensor>
+    <tracker type="SEMIAUTOMATIC_TRACKER">
+        <name>test tracker</name>
+        <version>0.1</version>
+    </tracker>
 </nitsRoot>
