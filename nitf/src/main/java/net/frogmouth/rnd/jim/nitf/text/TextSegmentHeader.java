@@ -1,5 +1,10 @@
 package net.frogmouth.rnd.jim.nitf.text;
 
+import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TEXTID_LEN;
+import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TXTALVL_LEN;
+import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TXTFMT_LEN;
+import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TXTITL_LEN;
+
 import java.util.Arrays;
 import net.frogmouth.rnd.jim.nitf.utils.ReaderUtils;
 
@@ -8,21 +13,13 @@ public class TextSegmentHeader {
     private static final int TE_OFFSET = 0;
     private static final int TE_LEN = 2;
     private static final int TEXTID_OFFSET = TE_OFFSET + TE_LEN;
-    private static final int TEXTID_LEN = 7;
     private static final int TXTALVL_OFFSET = TEXTID_OFFSET + TEXTID_LEN;
-    private static final int TXTALVL_LEN = 3;
     private static final int TXTDT_OFFSET = TXTALVL_OFFSET + TXTALVL_LEN;
     private static final int TXTITL_OFFSET = TXTDT_OFFSET + ReaderUtils.DATE_TIME_LEN;
-    private static final int TXTITL_LEN = 80;
     private static final int TEXT_SECURITY_OFFSET = TXTITL_OFFSET + TXTITL_LEN;
     private static final int ENCRYP_OFFSET = TEXT_SECURITY_OFFSET + ReaderUtils.SECURITY_FIELDS_LEN;
     private static final int TXTFMT_OFFSET = ENCRYP_OFFSET + ReaderUtils.ENCRYP_LEN;
-    private static final int TXTFMT_LEN = 3;
     private static final int TXSHDL_OFFSET = TXTFMT_OFFSET + TXTFMT_LEN;
-    // TODO: move this to shared constants class
-    static final int TXSHDL_LEN = 5;
-    // TODO: move this to shared constants class
-    static final int TXSOFL_LEN = 3;
 
     private final byte[] bytes;
     private String id;

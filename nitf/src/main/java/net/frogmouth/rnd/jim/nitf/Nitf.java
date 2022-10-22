@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.nitf.des.DataExtensionSegment;
+import net.frogmouth.rnd.jim.nitf.image.ImageSegment;
 import net.frogmouth.rnd.jim.nitf.text.TextSegment;
 
 public class Nitf {
@@ -123,6 +124,10 @@ public class Nitf {
 
     public List<ImageSegment> getImageSegments() {
         return new ArrayList<>(imageSegments);
+    }
+
+    public void addImageSegment(ImageSegment imageSegment) {
+        this.imageSegments.add(imageSegment);
     }
 
     public List<GraphicSegment> getGraphicSegments() {

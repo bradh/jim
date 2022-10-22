@@ -1,56 +1,56 @@
 package net.frogmouth.rnd.jim.nitf.des;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
 import net.frogmouth.rnd.jim.nitf.SecurityMetadata;
 import net.frogmouth.rnd.jim.nitf.WriterUtils;
-import net.frogmouth.rnd.jim.nitf.tre.SerialisableTaggedRecordExtension;
 
 public class DataExtensionSegment {
 
-    private static final byte[] DE_HEADER = new byte[] {0x44, 0x45};
+    private static final byte[] DE_HEADER = "DE".getBytes(StandardCharsets.US_ASCII);
+    private static final int DESID_LEN = 25;
+    private static final int DESVER_LEN = 2;
+    private static final int DESSHL_LEN = 4;
+
     private String identifier = "";
     private int version = 1;
     private final SecurityMetadata securityMetadata = new SecurityMetadata();
-    private List<SerialisableTaggedRecordExtension> extensions = new ArrayList<>();
+    private byte[] subheader = new byte[0];
     private byte[] desData = new byte[0];
 
     public byte[] getSubheaderAsBytes() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.writeBytes(DE_HEADER);
-        baos.writeBytes(WriterUtils.toBCS_A(identifier, 25));
-        baos.writeBytes(WriterUtils.toBCS_NPI(version, 2));
+        baos.writeBytes(WriterUtils.toBCS_A(identifier, DESID_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(version, DESVER_LEN));
         baos.writeBytes(securityMetadata.asBytes());
         writeExtensionArea(baos);
         return baos.toByteArray();
     }
 
     private void writeExtensionArea(ByteArrayOutputStream baos) {
-        byte[] extensionBytes = collectExtensionBytes();
-        baos.writeBytes(WriterUtils.toBCS_NPI(extensionBytes.length, 4));
-        baos.writeBytes(extensionBytes);
+        baos.writeBytes(WriterUtils.toBCS_NPI(subheader.length, DESSHL_LEN));
+        baos.writeBytes(subheader);
     }
 
-    // TODO: share with TextSegment
-    private byte[] collectExtensionBytes() {
-        if (this.extensions.isEmpty()) {
-            return new byte[0];
-        } else {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            for (SerialisableTaggedRecordExtension extension : extensions) {
-                if (extension != null) {
-                    baos.writeBytes(extension.toBytes());
-                }
-            }
-            return baos.toByteArray();
-        }
-    }
-
+    /**
+     * Identifier for the Data Extension Segment (DESID).
+     *
+     * <p>This is used to define the kind of segment. Only registered values can be used.
+     *
+     * @return the identifier.
+     */
     public String getIdentifier() {
         return identifier;
     }
 
+    /**
+     * Set the identifier for the Data Extension Segment (DESID).
+     *
+     * <p>This is used to define the kind of segment. Only registered values can be used.
+     *
+     * @param identifier the identifier.
+     */
     public void setIdentifier(String identifier) {
         this.identifier = identifier;
     }

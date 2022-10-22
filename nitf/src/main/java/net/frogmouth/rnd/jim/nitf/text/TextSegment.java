@@ -1,7 +1,12 @@
 package net.frogmouth.rnd.jim.nitf.text;
 
-import static net.frogmouth.rnd.jim.nitf.text.TextSegmentHeader.TXSHDL_LEN;
-import static net.frogmouth.rnd.jim.nitf.text.TextSegmentHeader.TXSOFL_LEN;
+import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TEXTID_LEN;
+import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TXSHDL_LEN;
+import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TXSOFL_LEN;
+import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TXTALVL_LEN;
+import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TXTFMT_LEN;
+import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TXTITL_LEN;
+import static net.frogmouth.rnd.jim.nitf.utils.ReaderUtils.ENCRYP_LEN;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
@@ -15,7 +20,7 @@ import net.frogmouth.rnd.jim.nitf.tre.SerialisableTaggedRecordExtension;
 // TODO: split this class into a POD instance, and a serialiser instance.
 public class TextSegment {
 
-    private static final byte[] TE_HEADER = new byte[] {0x54, 0x45};
+    private static final byte[] TE_HEADER = "TE".getBytes(StandardCharsets.US_ASCII);
     private static final int DEFAULT_ENCRYP_VALUE = 0;
 
     private String identifier = "";
@@ -30,13 +35,13 @@ public class TextSegment {
     public byte[] getSubheaderAsBytes() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.writeBytes(TE_HEADER);
-        baos.writeBytes(WriterUtils.toBCS_A(identifier, 7));
-        baos.writeBytes(WriterUtils.toBCS_NPI(attachmentLevel, 3));
+        baos.writeBytes(WriterUtils.toBCS_A(identifier, TEXTID_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(attachmentLevel, TXTALVL_LEN));
         baos.writeBytes(dateTime.asBytes());
-        baos.writeBytes(WriterUtils.toECS_A(title, 80));
+        baos.writeBytes(WriterUtils.toECS_A(title, TXTITL_LEN));
         baos.writeBytes(securityMetadata.asBytes());
-        baos.writeBytes(WriterUtils.toBCS_NPI(DEFAULT_ENCRYP_VALUE, 1));
-        baos.writeBytes(WriterUtils.toBCS_A(textFormat.getEncodedValue(), 3));
+        baos.writeBytes(WriterUtils.toBCS_NPI(DEFAULT_ENCRYP_VALUE, ENCRYP_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(textFormat.getEncodedValue(), TXTFMT_LEN));
         writeExtensionArea(baos);
         return baos.toByteArray();
     }
@@ -44,7 +49,7 @@ public class TextSegment {
     private void writeExtensionArea(ByteArrayOutputStream baos) {
         byte[] extensionBytes = collectExtensionBytes();
         if (extensionBytes.length == 0) {
-            baos.writeBytes(WriterUtils.toBCS_NPI(0, 5));
+            baos.writeBytes(WriterUtils.toBCS_NPI(0, TXSHDL_LEN));
         } else {
             int txshdl = TXSOFL_LEN + extensionBytes.length;
             // TODO: handle case where it is too long to fit in TXSHD
@@ -55,7 +60,6 @@ public class TextSegment {
         }
     }
 
-    // TODO: share with DataExtensionSegment
     private byte[] collectExtensionBytes() {
         if (this.extensions.isEmpty()) {
             return new byte[0];

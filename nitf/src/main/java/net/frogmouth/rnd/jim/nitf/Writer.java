@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import net.frogmouth.rnd.jim.nitf.des.DataExtensionSegment;
+import net.frogmouth.rnd.jim.nitf.image.ImageSegment;
 import net.frogmouth.rnd.jim.nitf.text.TextSegment;
 
 public class Writer {
@@ -32,7 +33,10 @@ public class Writer {
         outputStream.write(WriterUtils.toBCS_NPI(nitf.calculateFileSize(), 12));
         outputStream.write(WriterUtils.toBCS_NPI(nitf.calculateHeaderSize(), 6));
         outputStream.write(WriterUtils.toBCS_NPI(nitf.getNumberOfImageSegments(), 3));
-        // TODO: write out image segments
+        for (ImageSegment imageSegment : nitf.getImageSegments()) {
+            outputStream.write(WriterUtils.toBCS_NPI(imageSegment.getSubheaderLengthInBytes(), 6));
+            outputStream.write(WriterUtils.toBCS_NPI(imageSegment.getLengthOfImageSegment(), 10));
+        }
         outputStream.write(WriterUtils.toBCS_NPI(nitf.getNumberOfGraphicSegments(), 3));
         // TODO: write out graphic segments
         outputStream.write(WriterUtils.toBCS_NPI(0, 3));
@@ -45,7 +49,6 @@ public class Writer {
         for (DataExtensionSegment dataExtensionSegment : nitf.getDataExtensionSegments()) {
             outputStream.write(
                     WriterUtils.toBCS_NPI(dataExtensionSegment.getSubheaderAsBytes().length, 4));
-            // TODO: write out real data extension segment length
             outputStream.write(
                     WriterUtils.toBCS_NPI(
                             dataExtensionSegment.getLengthOfDataExtensionSegment(), 9));
@@ -54,7 +57,10 @@ public class Writer {
         // TODO: properly support UDHDL and XHDL, plus conditional bits
         outputStream.write(WriterUtils.toBCS_NPI(0, 5));
         outputStream.write(WriterUtils.toBCS_NPI(0, 5));
-        // TODO: output image segments
+        for (ImageSegment imageSegment : nitf.getImageSegments()) {
+            outputStream.write(imageSegment.getSubheaderAsBytes());
+            outputStream.write(imageSegment.getBodyAsBytes());
+        }
         // TODO: output graphic segments
         for (TextSegment textSegment : nitf.getTextSegments()) {
             outputStream.write(textSegment.getSubheaderAsBytes());
