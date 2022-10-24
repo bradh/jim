@@ -1,0 +1,9 @@
+net.frogmouth.rnd.jim.s4607.dwell.DwellSegmentParser
+net.frogmouth.rnd.jim.s4607.freetext.FreeTextSegmentParser
+net.frogmouth.rnd.jim.s4607.jobacknowledge.JobAcknowledgeSegmentParser
+net.frogmouth.rnd.jim.s4607.jobdefinition.JobDefinitionSegmentParser
+net.frogmouth.rnd.jim.s4607.jobrequest.JobRequestSegmentParser
+net.frogmouth.rnd.jim.s4607.mission.MissionSegmentParser
+net.frogmouth.rnd.jim.s4607.platformlocation.PlatformLocationSegmentParser
+net.frogmouth.rnd.jim.s4607.processinghistory.ProcessingHistorySegmentParser
+net.frogmouth.rnd.jim.s4607.testandstatus.TestAndStatusSegmentParser
