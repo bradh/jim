@@ -9,7 +9,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import net.frogmouth.rnd.jim.nitf.des.DataExtensionSegment;
+import net.frogmouth.rnd.jim.nitf.image.ImageCategory;
+import net.frogmouth.rnd.jim.nitf.image.ImageRepresentation;
 import net.frogmouth.rnd.jim.nitf.image.ImageSegment;
+import net.frogmouth.rnd.jim.nitf.image.PixelValueType;
 import net.frogmouth.rnd.jim.nitf.text.TextSegment;
 import net.frogmouth.rnd.jim.nitf.tre.xmldca.XMLDCA;
 import org.testng.annotations.Test;
@@ -436,6 +439,9 @@ public class WriterTest {
         Nitf testNitf = new Nitf();
         ImageSegment imageSegment = new ImageSegment();
         imageSegment.setDateTime(new JBPDateTime(20, 22, 10, 21, null, null, null));
+        imageSegment.setPixelValueType(PixelValueType.Integer);
+        imageSegment.setImageRepresentation(ImageRepresentation.RGB);
+        imageSegment.setImageCategory(ImageCategory.VIS);
         testNitf.addImageSegment(imageSegment);
         Writer writer = new Writer();
         writer.write(testNitf, baos);
@@ -1208,7 +1214,26 @@ public class WriterTest {
                     0x30,
                     0x30,
                     0x30,
-                    // TODO: PVTYPE onwards
+                    0x49,
+                    0x4e,
+                    0x54,
+                    0x52,
+                    0x47,
+                    0x42,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x56,
+                    0x49,
+                    0x53,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x20,
+                    // TODO: ABPP onwards
                     // TODO: image segment body
                 });
         Files.write(
