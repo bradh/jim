@@ -15,6 +15,7 @@ module net.frogmouth.rnd.jim.s4676 {
     requires com.fasterxml.jackson.datatype.jsr310;
     requires org.codehaus.stax2;
 
+    exports net.frogmouth.rnd.jim.s4676;
     exports net.frogmouth.rnd.jim.s4676.collection;
     exports net.frogmouth.rnd.jim.s4676.common;
     exports net.frogmouth.rnd.jim.s4676.message;
