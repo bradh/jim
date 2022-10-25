@@ -74,7 +74,7 @@ public enum PixelValueType {
      *
      * <p>This is intended for debug output and output writing.
      *
-     * @return the encoded value for a pixel value formt.
+     * @return the encoded value for a pixel value format.
      */
     public String getEncodedValue() {
         return encodedValue;

@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import net.frogmouth.rnd.jim.nitf.des.DataExtensionSegment;
 import net.frogmouth.rnd.jim.nitf.image.ImageCategory;
+import net.frogmouth.rnd.jim.nitf.image.ImageCompression;
 import net.frogmouth.rnd.jim.nitf.image.ImageRepresentation;
 import net.frogmouth.rnd.jim.nitf.image.ImageSegment;
 import net.frogmouth.rnd.jim.nitf.image.PixelValueType;
@@ -442,6 +443,8 @@ public class WriterTest {
         imageSegment.setPixelValueType(PixelValueType.Integer);
         imageSegment.setImageRepresentation(ImageRepresentation.RGB);
         imageSegment.setImageCategory(ImageCategory.VIS);
+        imageSegment.setActualBitsPerPixelPerBand(8);
+        imageSegment.setImageCompression(ImageCompression.NonCompressed);
         testNitf.addImageSegment(imageSegment);
         Writer writer = new Writer();
         writer.write(testNitf, baos);
@@ -1233,7 +1236,16 @@ public class WriterTest {
                     0x20,
                     0x20,
                     0x20,
-                    // TODO: ABPP onwards
+                    0x30,
+                    0x38,
+                    0x52,
+                    0x20,
+                    // TODO: IGEOLO onwards
+                    0x30,
+                    // TODO: image comments
+                    0x4e,
+                    0x43,
+                    // TODO: COMRAT onwards
                     // TODO: image segment body
                 });
         Files.write(

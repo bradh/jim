@@ -1,18 +1,26 @@
 package net.frogmouth.rnd.jim.nitf.image;
 
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ABPP_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ICAT_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ICOM_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ICORDS_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IC_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IID1_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IID2_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IREP_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ISORCE_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NCOLS_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NICOM_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NROWS_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.PJUST_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.PVTYPE_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.TGTID_LEN;
 import static net.frogmouth.rnd.jim.nitf.utils.ReaderUtils.ENCRYP_LEN;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import net.frogmouth.rnd.jim.nitf.JBPDateTime;
 import net.frogmouth.rnd.jim.nitf.SecurityMetadata;
 import net.frogmouth.rnd.jim.nitf.WriterUtils;
@@ -33,6 +41,11 @@ public class ImageSegment {
     private PixelValueType pixelValueType;
     private ImageRepresentation imageRepresentation;
     private ImageCategory imageCategory;
+    private int actualBitsPerPixelPerBand;
+    private String pixelJustification = "R";
+    private CoordinateRepresentation coordinateRepresentation = CoordinateRepresentation.None;
+    private List<String> comments = new ArrayList<>();
+    private ImageCompression imageCompression;
 
     public byte[] getSubheaderAsBytes() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -49,7 +62,17 @@ public class ImageSegment {
         baos.writeBytes(WriterUtils.toBCS_A(pixelValueType.getEncodedValue(), PVTYPE_LEN));
         baos.writeBytes(WriterUtils.toBCS_A(imageRepresentation.getEncodedValue(), IREP_LEN));
         baos.writeBytes(WriterUtils.toBCS_A(imageCategory.getEncodedValue(), ICAT_LEN));
-        // TODO: ABPP onwards
+        baos.writeBytes(WriterUtils.toBCS_NPI(actualBitsPerPixelPerBand, ABPP_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(pixelJustification, PJUST_LEN));
+        baos.writeBytes(
+                WriterUtils.toBCS_A(coordinateRepresentation.getEncodedValue(), ICORDS_LEN));
+        // TODO: IGEOLO
+        baos.writeBytes(WriterUtils.toBCS_NPI(comments.size(), NICOM_LEN));
+        for (String comment : comments) {
+            baos.writeBytes(WriterUtils.toECS_A(comment, ICOM_LEN));
+        }
+        baos.writeBytes(WriterUtils.toBCS_A(imageCompression.getEncodedValue(), IC_LEN));
+        // TODO: COMRAT onwards
         /*
         writeExtensionArea(baos);
         */
@@ -216,6 +239,109 @@ public class ImageSegment {
      */
     public void setImageCategory(ImageCategory imageCategory) {
         this.imageCategory = imageCategory;
+    }
+
+    /**
+     * Actual bits per pixel per band (ABPP).
+     *
+     * <p>This field contains the number of “significant bits” for the value in each band of each
+     * pixel without compression. Even for a compressed image, ABPP contains the number of
+     * significant bits per pixel that were present in the image before compression. The ABPP field
+     * is less than or equal to Number of Bits Per Pixel (field NBPP). The number of adjacent bits
+     * within each NBPP represents the value.
+     *
+     * <p>The ABPP field “representation bits” is left justified or right justified within the bits
+     * of the NBPP field, according to the value in the PJUST field. For example, storing 11-bit
+     * pixels in 16 bits, the ABPP field is 11 and NBPP is 16. The default number of significant
+     * bits is the value contained in NBPP.
+     *
+     * @return the actual bits per pixel per band.
+     */
+    public int getActualBitsPerPixelPerBand() {
+        return actualBitsPerPixelPerBand;
+    }
+
+    /**
+     * Set the actual bits per pixel per band (ABPP).
+     *
+     * <p>This field contains the number of “significant bits” for the value in each band of each
+     * pixel without compression. Even for a compressed image, ABPP contains the number of
+     * significant bits per pixel that were present in the image before compression. The ABPP field
+     * is less than or equal to Number of Bits Per Pixel (field NBPP). The number of adjacent bits
+     * within each NBPP represents the value.
+     *
+     * <p>The ABPP field “representation bits” is left justified or right justified within the bits
+     * of the NBPP field, according to the value in the PJUST field. For example, storing 11-bit
+     * pixels in 16 bits, the ABPP field is 11 and NBPP is 16. The default number of significant
+     * bits is the value contained in NBPP.
+     *
+     * @param actualBitsPerPixelPerBand the actual bits per pixel per band.
+     */
+    public void setActualBitsPerPixelPerBand(int actualBitsPerPixelPerBand) {
+        this.actualBitsPerPixelPerBand = actualBitsPerPixelPerBand;
+    }
+
+    /**
+     * Pixel Justification (PJUST).
+     *
+     * <p>Where that ABPP is not equal to NBPP, this field indicates whether the significant bits
+     * are left justified (L) or right justified (R). Nonsignificant bits in each pixel are filled
+     * with the binary value 0.
+     *
+     * <p>Right justification is recommended.
+     *
+     * @return the pixel justification ({@code L} or {@code R}).
+     */
+    public String getPixelJustification() {
+        return pixelJustification;
+    }
+
+    public void setPixelJustification(String pixelJustification) {
+        this.pixelJustification = pixelJustification;
+    }
+
+    /**
+     * Coordinate representation (ICORDS).
+     *
+     * <p>Indicates the type of coordinate representation used.
+     *
+     * @return the coordinate representation
+     */
+    public CoordinateRepresentation getCoordinateRepresentation() {
+        return coordinateRepresentation;
+    }
+
+    /**
+     * Set the coordinate representation (ICORDS).
+     *
+     * <p>Indicates the type of coordinate representation used.
+     *
+     * @param coordinateRepresentation the coordinate representation
+     */
+    public void setCoordinateRepresentation(CoordinateRepresentation coordinateRepresentation) {
+        this.coordinateRepresentation = coordinateRepresentation;
+    }
+
+    /**
+     * Image compression (IC).
+     *
+     * <p>This specifies the form of compression used in representing the image data.
+     *
+     * @return the image compression as an enumeration value.
+     */
+    public ImageCompression getImageCompression() {
+        return imageCompression;
+    }
+
+    /**
+     * Set the image compression (IC).
+     *
+     * <p>This specifies the form of compression used in representing the image data.
+     *
+     * @param imageCompression the image compression as an enumeration value.
+     */
+    public void setImageCompression(ImageCompression imageCompression) {
+        this.imageCompression = imageCompression;
     }
 
     public SecurityMetadata getSecurityMetadata() {
