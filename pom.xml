@@ -42,7 +42,7 @@
         <surefire.verbosity>0</surefire.verbosity>
         <surefire.version>3.0.0-M5</surefire.version>
         <testng.version>7.6.1</testng.version>
-        <woodstox.version>6.3.1</woodstox.version>
+        <woodstox.version>6.4.0</woodstox.version>
     </properties>
 
     <dependencyManagement>
