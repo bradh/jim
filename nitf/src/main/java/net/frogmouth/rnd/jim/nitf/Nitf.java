@@ -15,6 +15,8 @@ public class Nitf {
     private final List<TextSegment> textSegments = new ArrayList<>();
     private final List<DataExtensionSegment> dataExtensionSegments = new ArrayList<>();
 
+    private static final int LISH_BYTES = 6;
+    private static final int LI_BYTES = 10;
     private static final int LTSH_BYTES = 4;
     private static final int LT_BYTES = 5;
     private static final int LDSH_BYTES = 4;
@@ -93,6 +95,12 @@ public class Nitf {
     public int calculateFileSize() {
         // TODO: calculate more
         int count = 388;
+        for (ImageSegment imageSegment : imageSegments) {
+            count += LISH_BYTES;
+            count += LI_BYTES;
+            count += imageSegment.getSubheaderAsBytes().length;
+            count += imageSegment.getLengthOfImageSegment();
+        }
         for (TextSegment textSegment : textSegments) {
             count += LTSH_BYTES;
             count += LT_BYTES;
@@ -111,6 +119,10 @@ public class Nitf {
     public int calculateHeaderSize() {
         // TODO: calculate more
         int count = 388;
+        for (ImageSegment imageSegment : imageSegments) {
+            count += LISH_BYTES;
+            count += LI_BYTES;
+        }
         for (TextSegment textSegment : textSegments) {
             count += LTSH_BYTES;
             count += LT_BYTES;

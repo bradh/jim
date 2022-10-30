@@ -1,20 +1,36 @@
 package net.frogmouth.rnd.jim.nitf.image;
 
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ABPP_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.COMRAT_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IALVL_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ICAT_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ICOM_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ICORDS_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IC_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IDLVL_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IID1_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IID2_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IMODE_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IREP_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ISORCE_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ISYNC_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IXSHDL_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IXSOFL_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NBANDS_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NBPC_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NBPP_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NBPR_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NCOLS_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NICOM_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NPPBH_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NPPBV_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NROWS_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.PJUST_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.PVTYPE_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.TGTID_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.UDIDL_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.UDOFL_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.XBANDS_LEN;
 import static net.frogmouth.rnd.jim.nitf.utils.ReaderUtils.ENCRYP_LEN;
 
 import java.io.ByteArrayOutputStream;
@@ -24,6 +40,7 @@ import java.util.List;
 import net.frogmouth.rnd.jim.nitf.JBPDateTime;
 import net.frogmouth.rnd.jim.nitf.SecurityMetadata;
 import net.frogmouth.rnd.jim.nitf.WriterUtils;
+import net.frogmouth.rnd.jim.nitf.tre.SerialisableTaggedRecordExtension;
 
 public class ImageSegment {
 
@@ -46,6 +63,21 @@ public class ImageSegment {
     private CoordinateRepresentation coordinateRepresentation = CoordinateRepresentation.None;
     private List<String> comments = new ArrayList<>();
     private ImageCompression imageCompression;
+    private String compressionRateCode = "----";
+    private List<ImageSegmentBand> bands = new ArrayList<>();
+    private ImageMode imageMode;
+    private int numberOfBlocksPerRow = 1;
+    private int numberOfBlocksPerColumn = 1;
+    private int numberOfPixelsPerBlockHorizontal = 0;
+    private int numberOfPixelsPerBlockVertical = 0;
+    private int numberOfBitsPerPixelPerBand = 8;
+    private int imageDisplayLevel = 1;
+    private int imageAttachmentLevel = 0;
+    private ImageLocation imageLocation = new ImageLocation();
+    private ImageMagnification imageMagnification = new ImageMagnification();
+    private List<SerialisableTaggedRecordExtension> userDefinedExtensions = new ArrayList<>();
+    private List<SerialisableTaggedRecordExtension> imageSegmentExtensions = new ArrayList<>();
+    private byte[] body = new byte[] {};
 
     public byte[] getSubheaderAsBytes() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -72,20 +104,101 @@ public class ImageSegment {
             baos.writeBytes(WriterUtils.toECS_A(comment, ICOM_LEN));
         }
         baos.writeBytes(WriterUtils.toBCS_A(imageCompression.getEncodedValue(), IC_LEN));
-        // TODO: COMRAT onwards
-        /*
-        writeExtensionArea(baos);
-        */
+        if (hasCOMRAT()) {
+            baos.writeBytes(WriterUtils.toBCS_A(compressionRateCode, COMRAT_LEN));
+        }
+
+        if (bands.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Cannot serialise a subheader with no band information");
+        }
+        if (bands.size() > 9) {
+            baos.writeBytes(WriterUtils.toBCS_NPI(0, NBANDS_LEN));
+            baos.writeBytes(WriterUtils.toBCS_NPI(bands.size(), XBANDS_LEN));
+        } else {
+            baos.writeBytes(WriterUtils.toBCS_NPI(bands.size(), NBANDS_LEN));
+        }
+        for (ImageSegmentBand band : bands) {
+            baos.writeBytes(band.asBytes());
+        }
+        baos.writeBytes(WriterUtils.toBCS_NPI(0, ISYNC_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(imageMode.getEncodedValue(), IMODE_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(numberOfBlocksPerRow, NBPR_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(numberOfBlocksPerColumn, NBPC_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(numberOfPixelsPerBlockHorizontal, NPPBH_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(numberOfPixelsPerBlockVertical, NPPBV_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(numberOfBitsPerPixelPerBand, NBPP_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(imageDisplayLevel, IDLVL_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(imageAttachmentLevel, IALVL_LEN));
+        baos.writeBytes(imageLocation.asBytes());
+        baos.writeBytes(imageMagnification.asBytes());
+        writeUserDefinedImageDataArea(baos);
+        writeImageExtendedSubheaderDataArea(baos);
         return baos.toByteArray();
     }
 
+    private void writeUserDefinedImageDataArea(ByteArrayOutputStream baos) {
+        byte[] extensionBytes = collectUserDefinedImageDataBytes();
+        if (extensionBytes.length == 0) {
+            baos.writeBytes(WriterUtils.toBCS_NPI(0, UDIDL_LEN));
+        } else {
+            int udidl = UDOFL_LEN + extensionBytes.length;
+            // TODO: handle case where it is too long to fit in UDID
+            int udofl = 0;
+            baos.writeBytes(WriterUtils.toBCS_NPI(udidl, UDIDL_LEN));
+            baos.writeBytes(WriterUtils.toBCS_NPI(udofl, UDOFL_LEN));
+            baos.writeBytes(extensionBytes);
+        }
+    }
+
+    private byte[] collectUserDefinedImageDataBytes() {
+        if (this.userDefinedExtensions.isEmpty()) {
+            return new byte[0];
+        } else {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            for (SerialisableTaggedRecordExtension extension : userDefinedExtensions) {
+                if (extension != null) {
+                    baos.writeBytes(extension.toBytes());
+                }
+            }
+            return baos.toByteArray();
+        }
+    }
+
+    private void writeImageExtendedSubheaderDataArea(ByteArrayOutputStream baos) {
+        byte[] extensionBytes = collectImageExtendedSubheaderDataBytes();
+        if (extensionBytes.length == 0) {
+            baos.writeBytes(WriterUtils.toBCS_NPI(0, IXSHDL_LEN));
+        } else {
+            int ixshdl = IXSOFL_LEN + extensionBytes.length;
+            // TODO: handle case where it is too long to fit in IXSHD
+            int ixsofl = 0;
+            baos.writeBytes(WriterUtils.toBCS_NPI(ixshdl, IXSHDL_LEN));
+            baos.writeBytes(WriterUtils.toBCS_NPI(ixsofl, IXSOFL_LEN));
+            baos.writeBytes(extensionBytes);
+        }
+    }
+
+    private byte[] collectImageExtendedSubheaderDataBytes() {
+        if (imageSegmentExtensions.isEmpty()) {
+            return new byte[0];
+        } else {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            for (SerialisableTaggedRecordExtension extension : imageSegmentExtensions) {
+                if (extension != null) {
+                    baos.writeBytes(extension.toBytes());
+                }
+            }
+            return baos.toByteArray();
+        }
+    }
+
     public int getLengthOfImageSegment() {
-        // TODO
-        return 0;
+        return body.length;
     }
 
     public int getSubheaderLengthInBytes() {
-        // TODO: just use getSubheaderAsBytes?
+        // TODO: proper calculation
         return 439;
     }
 
@@ -151,6 +264,22 @@ public class ImageSegment {
      */
     public void setImageSource(String imageSource) {
         this.imageSource = imageSource;
+    }
+
+    public int getNumberOfSignificantRows() {
+        return numberOfSignificantRows;
+    }
+
+    public void setNumberOfSignificantRows(int numberOfSignificantRows) {
+        this.numberOfSignificantRows = numberOfSignificantRows;
+    }
+
+    public int getNumberOfSignificantColumns() {
+        return numberOfSignificantColumns;
+    }
+
+    public void setNumberOfSignificantColumns(int numberOfSignificantColumns) {
+        this.numberOfSignificantColumns = numberOfSignificantColumns;
     }
 
     /**
@@ -344,6 +473,141 @@ public class ImageSegment {
         this.imageCompression = imageCompression;
     }
 
+    private boolean hasCOMRAT() {
+        return !((imageCompression == ImageCompression.NonCompressed)
+                || (imageCompression == ImageCompression.NonCompressedWithMask));
+    }
+
+    /**
+     * Compression rate code (COMRAT).
+     *
+     * <p>Where the IC field contains C1, C3, C4, C5, C7, C8, C9, CA, CC, CB, I1, M1, M3, M4, M5,
+     * M7, M8, M9, MA, MB, or MC, the COMRAT field is present and contains a code indicating the
+     * compression rate for the image. Omit this field if the value in IC is NC or NM. If the value
+     * is unknown or cannot be represented, the value is set to four hyphens "----".
+     *
+     * <p>The meaning of the code depends on the IC field. See JBP.
+     *
+     * @return the compression rate code, or hyphen fill.
+     */
+    public String getCompressionRateCode() {
+        return compressionRateCode;
+    }
+
+    /**
+     * Set the compression rate code (COMRAT).
+     *
+     * <p>Where the IC field contains C1, C3, C4, C5, C7, C8, C9, CA, CC, CB, I1, M1, M3, M4, M5,
+     * M7, M8, M9, MA, MB, or MC, the COMRAT field is present and contains a code indicating the
+     * compression rate for the image. Omit this field if the value in IC is NC or NM. If the value
+     * is unknown or cannot be represented, the value is set to four hyphens "----".
+     *
+     * <p>The meaning of the code depends on the IC field. See JBP.
+     *
+     * @param compressionRateCode the compression rate code, or hyphen fill.
+     */
+    public void setCompressionRateCode(String compressionRateCode) {
+        this.compressionRateCode = compressionRateCode;
+    }
+
+    public List<ImageSegmentBand> getBands() {
+        return new ArrayList<>(bands);
+    }
+
+    public void addBand(ImageSegmentBand band) {
+        this.bands.add(band);
+    }
+
+    /**
+     * Image mode (IMODE).
+     *
+     * <p>This field indicates how the image pixels are stored in a JBP file.
+     *
+     * @return the image mode.
+     */
+    public ImageMode getImageMode() {
+        return imageMode;
+    }
+
+    /**
+     * Set the image mode (IMODE).
+     *
+     * <p>This field indicates how the image pixels are stored in a JBP file.
+     *
+     * @param imageMode the image mode
+     */
+    public void setImageMode(ImageMode imageMode) {
+        this.imageMode = imageMode;
+    }
+
+    public int getNumberOfBlocksPerRow() {
+        return numberOfBlocksPerRow;
+    }
+
+    public void setNumberOfBlocksPerRow(int numberOfBlocksPerRow) {
+        this.numberOfBlocksPerRow = numberOfBlocksPerRow;
+    }
+
+    public int getNumberOfBlocksPerColumn() {
+        return numberOfBlocksPerColumn;
+    }
+
+    public void setNumberOfBlocksPerColumn(int numberOfBlocksPerColumn) {
+        this.numberOfBlocksPerColumn = numberOfBlocksPerColumn;
+    }
+
+    public int getNumberOfPixelsPerBlockHorizontal() {
+        return numberOfPixelsPerBlockHorizontal;
+    }
+
+    public void setNumberOfPixelsPerBlockHorizontal(int numberOfPixelsPerBlockHorizontal) {
+        this.numberOfPixelsPerBlockHorizontal = numberOfPixelsPerBlockHorizontal;
+    }
+
+    public int getNumberOfPixelsPerBlockVertical() {
+        return numberOfPixelsPerBlockVertical;
+    }
+
+    public void setNumberOfPixelsPerBlockVertical(int numberOfPixelsPerBlockVertical) {
+        this.numberOfPixelsPerBlockVertical = numberOfPixelsPerBlockVertical;
+    }
+
+    public int getNumberOfBitsPerPixelPerBand() {
+        return numberOfBitsPerPixelPerBand;
+    }
+
+    public void setNumberOfBitsPerPixelPerBand(int numberOfBitsPerPixelPerBand) {
+        this.numberOfBitsPerPixelPerBand = numberOfBitsPerPixelPerBand;
+    }
+
+    /**
+     * Image location (ILOC).
+     *
+     * <p>The image location is the location of the first pixel of the first line of an image. The
+     * ILOC field contains the image location offset from the ILOC or SLOC value of the segment to
+     * which the image is attached or from the origin of the CCS when the image is unattached (IALVL
+     * contains 000).
+     *
+     * @return the image location
+     */
+    public ImageLocation getImageLocation() {
+        return imageLocation;
+    }
+
+    /**
+     * Set the image location (ILOC).
+     *
+     * <p>The image location is the location of the first pixel of the first line of an image. The
+     * ILOC field contains the image location offset from the ILOC or SLOC value of the segment to
+     * which the image is attached or from the origin of the CCS when the image is unattached (IALVL
+     * contains 000).
+     *
+     * @param imageLocation the image location
+     */
+    public void setImageLocation(ImageLocation imageLocation) {
+        this.imageLocation = imageLocation;
+    }
+
     public SecurityMetadata getSecurityMetadata() {
         return securityMetadata;
     }
@@ -352,8 +616,11 @@ public class ImageSegment {
         this.securityMetadata = securityMetadata;
     }
 
-    public byte[] getBodyAsBytes() {
-        // TODO:
-        return new byte[0];
+    public byte[] getBody() {
+        return body.clone();
+    }
+
+    public void setBody(byte[] body) {
+        this.body = body.clone();
     }
 }

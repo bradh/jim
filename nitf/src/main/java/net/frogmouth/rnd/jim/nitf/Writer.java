@@ -59,7 +59,7 @@ public class Writer {
         outputStream.write(WriterUtils.toBCS_NPI(0, 5));
         for (ImageSegment imageSegment : nitf.getImageSegments()) {
             outputStream.write(imageSegment.getSubheaderAsBytes());
-            outputStream.write(imageSegment.getBodyAsBytes());
+            outputStream.write(imageSegment.getBody());
         }
         // TODO: output graphic segments
         for (TextSegment textSegment : nitf.getTextSegments()) {
@@ -74,7 +74,6 @@ public class Writer {
 
     private byte[] makeHeader(Nitf nitf) throws IOException {
         if (nitf.isNitf21()) {
-
             return NITF21_BYTES;
         }
         throw new IOException("Unsupported format");

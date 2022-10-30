@@ -11,8 +11,10 @@ import java.nio.file.StandardOpenOption;
 import net.frogmouth.rnd.jim.nitf.des.DataExtensionSegment;
 import net.frogmouth.rnd.jim.nitf.image.ImageCategory;
 import net.frogmouth.rnd.jim.nitf.image.ImageCompression;
+import net.frogmouth.rnd.jim.nitf.image.ImageMode;
 import net.frogmouth.rnd.jim.nitf.image.ImageRepresentation;
 import net.frogmouth.rnd.jim.nitf.image.ImageSegment;
+import net.frogmouth.rnd.jim.nitf.image.ImageSegmentBand;
 import net.frogmouth.rnd.jim.nitf.image.PixelValueType;
 import net.frogmouth.rnd.jim.nitf.text.TextSegment;
 import net.frogmouth.rnd.jim.nitf.tre.xmldca.XMLDCA;
@@ -439,12 +441,25 @@ public class WriterTest {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Nitf testNitf = new Nitf();
         ImageSegment imageSegment = new ImageSegment();
-        imageSegment.setDateTime(new JBPDateTime(20, 22, 10, 21, null, null, null));
+        imageSegment.setIid1("PANCHROMAT");
+        imageSegment.setDateTime(new JBPDateTime(20, 22, 10, 5, null, null, null));
+        imageSegment.setNumberOfSignificantColumns(2);
+        imageSegment.setNumberOfSignificantRows(4);
         imageSegment.setPixelValueType(PixelValueType.Integer);
-        imageSegment.setImageRepresentation(ImageRepresentation.RGB);
+        imageSegment.setImageRepresentation(ImageRepresentation.Monochrome);
         imageSegment.setImageCategory(ImageCategory.VIS);
         imageSegment.setActualBitsPerPixelPerBand(8);
         imageSegment.setImageCompression(ImageCompression.NonCompressed);
+        ImageSegmentBand bandInformation = new ImageSegmentBand();
+        // TODO: will need to be initialised
+        imageSegment.addBand(bandInformation);
+        imageSegment.setImageMode(ImageMode.BandInterleavedByBlock);
+        imageSegment.setNumberOfPixelsPerBlockHorizontal(2);
+        imageSegment.setNumberOfPixelsPerBlockVertical(4);
+        imageSegment.setBody(
+                new byte[] {
+                    (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, (byte) 0xFF, 0x00, 0x00, 0x00, 0x00
+                });
         testNitf.addImageSegment(imageSegment);
         Writer writer = new Writer();
         writer.write(testNitf, baos);
@@ -803,22 +818,21 @@ public class WriterTest {
                     0x30,
                     0x30,
                     0x30,
-                    0x33,
                     0x38,
-                    0x38,
+                    0x35,
+                    0x31,
                     // Header size
                     0x30,
                     0x30,
                     0x30,
-                    0x33,
-                    0x38,
-                    0x38,
+                    0x34,
+                    0x30,
+                    0x34,
                     // Image segment count
                     0x30,
                     0x30,
                     0x31,
                     // Image segment lengths
-                    // TODO: real lengths
                     0x30,
                     0x30,
                     0x30,
@@ -834,7 +848,7 @@ public class WriterTest {
                     0x30,
                     0x30,
                     0x30,
-                    0x30,
+                    0x38,
                     // Graphic segment count
                     0x30,
                     0x30,
@@ -867,27 +881,27 @@ public class WriterTest {
                     0x30,
                     0x30,
                     0x30,
-                    // TODO: remainder of image segment header
+                    // Image segment header
                     0x49,
                     0x4D,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20,
-                    0x20, // offset 415
+                    0x50,
+                    0x41,
+                    0x4e,
+                    0x43,
+                    0x48,
+                    0x52,
+                    0x4f,
+                    0x4d,
+                    0x41,
+                    0x54,
                     0x32,
                     0x30,
                     0x32,
                     0x32,
                     0x31,
                     0x30,
-                    0x32,
-                    0x31,
+                    0x30,
+                    0x35,
                     0x2d,
                     0x2d,
                     0x2d,
@@ -1208,22 +1222,22 @@ public class WriterTest {
                     0x30,
                     0x30,
                     0x30,
+                    0x34,
                     0x30,
                     0x30,
                     0x30,
                     0x30,
                     0x30,
+                    0x30, // 750
                     0x30,
-                    0x30,
-                    0x30,
-                    0x30,
+                    0x32,
                     0x49,
                     0x4e,
                     0x54,
-                    0x52,
-                    0x47,
-                    0x42,
-                    0x20,
+                    0x4d,
+                    0x4f,
+                    0x4e,
+                    0x4f,
                     0x20,
                     0x20,
                     0x20,
@@ -1245,8 +1259,79 @@ public class WriterTest {
                     // TODO: image comments
                     0x4e,
                     0x43,
-                    // TODO: COMRAT onwards
-                    // TODO: image segment body
+                    0x31,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x4e,
+                    0x20,
+                    0x20,
+                    0x20,
+                    0x30,
+                    0x30,
+                    0x42,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x31,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x31,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x32,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x34,
+                    0x30,
+                    0x38,
+                    0x30,
+                    0x30,
+                    0x31,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x31,
+                    0x2e,
+                    0x30,
+                    0x20,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    0x30,
+                    // image segment body
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    (byte) 0xFF,
+                    0x00,
+                    0x00,
+                    0x00,
+                    0x00
                 });
         Files.write(
                 new File("imagesegment.nitf").toPath(),

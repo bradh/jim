@@ -30,4 +30,14 @@ public class WriterUtils {
         }
         return bytes;
     }
+
+    public static byte[] toBCS_N(int value, int numCharacters) {
+        // TODO: check works for negative values
+        String s = String.format("%0" + numCharacters + "d", value);
+        byte[] bytes = s.getBytes(StandardCharsets.US_ASCII);
+        if (bytes.length != numCharacters) {
+            // TODO: throw
+        }
+        return bytes;
+    }
 }
