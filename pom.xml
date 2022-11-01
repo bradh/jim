@@ -16,6 +16,7 @@
         <module>s4676</module>
         <module>ui2</module>
         <module>map</module>
+        <module>demo</module>
     </modules>
 
     <properties>
