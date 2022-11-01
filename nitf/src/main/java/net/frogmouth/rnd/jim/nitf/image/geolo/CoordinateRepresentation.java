@@ -1,4 +1,4 @@
-package net.frogmouth.rnd.jim.nitf.image;
+package net.frogmouth.rnd.jim.nitf.image.geolo;
 
 public enum CoordinateRepresentation {
 

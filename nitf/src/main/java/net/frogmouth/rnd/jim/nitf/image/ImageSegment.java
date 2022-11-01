@@ -5,7 +5,6 @@ import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.COMRAT_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IALVL_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ICAT_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ICOM_LEN;
-import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.ICORDS_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IC_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IDLVL_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.IID1_LEN;
@@ -40,6 +39,8 @@ import java.util.List;
 import net.frogmouth.rnd.jim.nitf.JBPDateTime;
 import net.frogmouth.rnd.jim.nitf.SecurityMetadata;
 import net.frogmouth.rnd.jim.nitf.WriterUtils;
+import net.frogmouth.rnd.jim.nitf.image.geolo.ImageCoordinates;
+import net.frogmouth.rnd.jim.nitf.image.geolo.ImageCoordinatesNone;
 import net.frogmouth.rnd.jim.nitf.tre.SerialisableTaggedRecordExtension;
 
 public class ImageSegment {
@@ -60,7 +61,7 @@ public class ImageSegment {
     private ImageCategory imageCategory;
     private int actualBitsPerPixelPerBand;
     private String pixelJustification = "R";
-    private CoordinateRepresentation coordinateRepresentation = CoordinateRepresentation.None;
+    private ImageCoordinates imageCoordinates = new ImageCoordinatesNone();
     private List<String> comments = new ArrayList<>();
     private ImageCompression imageCompression;
     private String compressionRateCode = "----";
@@ -96,9 +97,7 @@ public class ImageSegment {
         baos.writeBytes(WriterUtils.toBCS_A(imageCategory.getEncodedValue(), ICAT_LEN));
         baos.writeBytes(WriterUtils.toBCS_NPI(actualBitsPerPixelPerBand, ABPP_LEN));
         baos.writeBytes(WriterUtils.toBCS_A(pixelJustification, PJUST_LEN));
-        baos.writeBytes(
-                WriterUtils.toBCS_A(coordinateRepresentation.getEncodedValue(), ICORDS_LEN));
-        // TODO: IGEOLO
+        baos.writeBytes(imageCoordinates.toBytes());
         baos.writeBytes(WriterUtils.toBCS_NPI(comments.size(), NICOM_LEN));
         for (String comment : comments) {
             baos.writeBytes(WriterUtils.toECS_A(comment, ICOM_LEN));
@@ -198,8 +197,7 @@ public class ImageSegment {
     }
 
     public int getSubheaderLengthInBytes() {
-        // TODO: proper calculation
-        return 439;
+        return getSubheaderAsBytes().length;
     }
 
     public String getIid1() {
@@ -266,18 +264,66 @@ public class ImageSegment {
         this.imageSource = imageSource;
     }
 
+    /**
+     * Number of significant rows (NROWS).
+     *
+     * <p>The NROWS field contains the total number of rows of significant pixels in the image.
+     * Where the product of the values of the NPPBV field and the NBPC field is greater than the
+     * value of the NROWS field (NPPBV * NBPC > NROWS), the rows indexed with the value of the NROWS
+     * field to (NPPBV * NBPC) minus 1 contains fill data.
+     *
+     * <p>The valid range is 00000001 to 99999999.
+     *
+     * @return the number of significant rows.
+     */
     public int getNumberOfSignificantRows() {
         return numberOfSignificantRows;
     }
 
+    /**
+     * Set the number of significant rows (NROWS).
+     *
+     * <p>The NROWS field contains the total number of rows of significant pixels in the image.
+     * Where the product of the values of the NPPBV field and the NBPC field is greater than the
+     * value of the NROWS field (NPPBV * NBPC > NROWS), the rows indexed with the value of the NROWS
+     * field to (NPPBV * NBPC) minus 1 contains fill data.
+     *
+     * <p>The valid range is 00000001 to 99999999.
+     *
+     * @param numberOfSignificantRows the number of significant rows.
+     */
     public void setNumberOfSignificantRows(int numberOfSignificantRows) {
         this.numberOfSignificantRows = numberOfSignificantRows;
     }
 
+    /**
+     * Number of significant columns (NCOLS).
+     *
+     * <p>The NCOLS field contains the total number of columns of significant pixels in the image.
+     * Where the product of the values of the NPPBH field and the NBPR field is greater than the
+     * NCOLS field (NPPBH * NBPR > NCOLS), the columns indexed with the value of the NCOLS field to
+     * (NPPBH * NBPR) minus 1 contains fill data.
+     *
+     * <p>The valid range is 00000001 to 99999999.
+     *
+     * @return the number of significant columns.
+     */
     public int getNumberOfSignificantColumns() {
         return numberOfSignificantColumns;
     }
 
+    /**
+     * Set the number of significant columns (NCOLS).
+     *
+     * <p>The NCOLS field contains the total number of columns of significant pixels in the image.
+     * Where the product of the values of the NPPBH field and the NBPR field is greater than the
+     * NCOLS field (NPPBH * NBPR > NCOLS), the columns indexed with the value of the NCOLS field to
+     * (NPPBH * NBPR) minus 1 contains fill data.
+     *
+     * <p>The valid range is 00000001 to 99999999.
+     *
+     * @param numberOfSignificantColumns the number of significant columns.
+     */
     public void setNumberOfSignificantColumns(int numberOfSignificantColumns) {
         this.numberOfSignificantColumns = numberOfSignificantColumns;
     }
@@ -425,30 +471,27 @@ public class ImageSegment {
         return pixelJustification;
     }
 
+    /**
+     * Set the pixel Justification (PJUST).
+     *
+     * <p>Where that ABPP is not equal to NBPP, this field indicates whether the significant bits
+     * are left justified (L) or right justified (R). Nonsignificant bits in each pixel are filled
+     * with the binary value 0.
+     *
+     * <p>Right justification is recommended.
+     *
+     * @param pixelJustification the pixel justification ({@code L} or {@code R}).
+     */
     public void setPixelJustification(String pixelJustification) {
         this.pixelJustification = pixelJustification;
     }
 
-    /**
-     * Coordinate representation (ICORDS).
-     *
-     * <p>Indicates the type of coordinate representation used.
-     *
-     * @return the coordinate representation
-     */
-    public CoordinateRepresentation getCoordinateRepresentation() {
-        return coordinateRepresentation;
+    public ImageCoordinates getImageCoordinates() {
+        return imageCoordinates;
     }
 
-    /**
-     * Set the coordinate representation (ICORDS).
-     *
-     * <p>Indicates the type of coordinate representation used.
-     *
-     * @param coordinateRepresentation the coordinate representation
-     */
-    public void setCoordinateRepresentation(CoordinateRepresentation coordinateRepresentation) {
-        this.coordinateRepresentation = coordinateRepresentation;
+    public void setImageCoordinates(ImageCoordinates imageCoordinates) {
+        this.imageCoordinates = imageCoordinates;
     }
 
     /**

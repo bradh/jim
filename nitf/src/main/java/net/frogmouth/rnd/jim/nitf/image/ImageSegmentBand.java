@@ -29,4 +29,44 @@ public class ImageSegmentBand {
         // TODO: NELUTS / LUTD
         return baos.toByteArray();
     }
+
+    public String getBandRepresentation() {
+        return bandRepresentation;
+    }
+
+    public void setBandRepresentation(String bandRepresentation) {
+        this.bandRepresentation = bandRepresentation;
+    }
+
+    public String getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
+    }
+
+    public String getImageFilterCondition() {
+        return imageFilterCondition;
+    }
+
+    public void setImageFilterCondition(String imageFilterCondition) {
+        this.imageFilterCondition = imageFilterCondition;
+    }
+
+    public String getImageFilterCode() {
+        return imageFilterCode;
+    }
+
+    public void setImageFilterCode(String imageFilterCode) {
+        this.imageFilterCode = imageFilterCode;
+    }
+
+    public List<LookupTable> getLuts() {
+        return new ArrayList<>(luts);
+    }
+
+    public void setLuts(List<LookupTable> luts) {
+        this.luts = new ArrayList<>(luts);
+    }
 }

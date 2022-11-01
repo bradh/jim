@@ -61,7 +61,7 @@ public class ImageSegmentHeader {
     private final String isource;
     private final int nrows;
     private final int ncols;
-    private final String pvtype;
+    private final PixelValueType pvtype;
     private final String irep;
     private final String icat;
     private final int abpp;
@@ -71,7 +71,7 @@ public class ImageSegmentHeader {
     private final List<String> imageComments = new ArrayList<>();
     private final String ic;
     private final String comrat;
-    private final List<ImageHeaderBandInfo> bandInfos = new ArrayList<>();
+    private final List<ImageSegmentBand> bandInfos = new ArrayList<>();
     private final int isync;
     private final String imode;
     private final int nbpr;
@@ -115,7 +115,9 @@ public class ImageSegmentHeader {
         offset += NROWS_LEN;
         ncols = ReaderUtils.convertByteArrayToBCS_NPI(subheaderBytes, offset, NCOLS_LEN);
         offset += NCOLS_LEN;
-        pvtype = ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, PVTYPE_LEN);
+        pvtype =
+                PixelValueType.lookupByIdent(
+                        ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, PVTYPE_LEN));
         offset += PVTYPE_LEN;
         irep = ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, IREP_LEN);
         offset += IREP_LEN;
@@ -153,16 +155,17 @@ public class ImageSegmentHeader {
             offset += XBANDS_LEN;
         }
         for (int i = 0; i < bands; i++) {
-            ImageHeaderBandInfo bandInfo = new ImageHeaderBandInfo();
-            bandInfo.setIrepband(
+            ImageSegmentBand bandInfo = new ImageSegmentBand();
+            bandInfo.setBandRepresentation(
                     ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, IREPBAND_LEN));
             offset += IREPBAND_LEN;
-            bandInfo.setIsubcat(
+            bandInfo.setSubCategory(
                     ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, ISUBCAT_LEN));
             offset += ISUBCAT_LEN;
-            bandInfo.setIfc(ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, IFC_LEN));
+            bandInfo.setImageFilterCode(
+                    ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, IFC_LEN));
             offset += IFC_LEN;
-            bandInfo.setImflt(
+            bandInfo.setImageFilterCondition(
                     ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, IMFLT_LEN));
             offset += IMFLT_LEN;
             offset += NLUTS_LEN;
@@ -268,7 +271,7 @@ public class ImageSegmentHeader {
         return ncols;
     }
 
-    public String getPvtype() {
+    public PixelValueType getPvtype() {
         return pvtype;
     }
 
@@ -308,14 +311,14 @@ public class ImageSegmentHeader {
         return comrat;
     }
 
-    public List<ImageHeaderBandInfo> getBandInfo() {
+    public List<ImageSegmentBand> getBandInfo() {
         return new ArrayList<>(bandInfos);
     }
 
     public int getBandIndex(String c) {
         for (int i = 0; i < getBandInfo().size(); i++) {
-            ImageHeaderBandInfo info = getBandInfo().get(i);
-            if (info.getIrepband().trim().equals(c)) {
+            ImageSegmentBand info = getBandInfo().get(i);
+            if (info.getBandRepresentation().trim().equals(c)) {
                 return i;
             }
         }

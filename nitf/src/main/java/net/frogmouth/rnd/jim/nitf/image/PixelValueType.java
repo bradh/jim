@@ -79,4 +79,19 @@ public enum PixelValueType {
     public String getEncodedValue() {
         return encodedValue;
     }
+
+    /**
+     * Look up a pixel value type value by identifier.
+     *
+     * @param identifier the code for the value type.
+     * @return pixel value type corresponding to the string identifier.
+     */
+    public static PixelValueType lookupByIdent(String identifier) {
+        for (PixelValueType pixelValueType : PixelValueType.values()) {
+            if (pixelValueType.getEncodedValue().equals(identifier)) {
+                return pixelValueType;
+            }
+        }
+        return UNKNOWN;
+    }
 }

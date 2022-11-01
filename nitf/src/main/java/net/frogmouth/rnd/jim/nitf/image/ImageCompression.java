@@ -45,28 +45,109 @@ public enum ImageCompression {
     VQ("C4"),
 
     /** Vector Quantization with block mask and/or pad pixel mask (M4). */
-    VQMask("M4"),
+    VQ_WithMask("M4"),
 
-    // TODO: C5, M5
+    /**
+     * JPEG DCT Lossless (C5).
+     *
+     * <p>8-bit, 12-bit, or 16-bit.
+     */
+    JPEG_DCT_Lossless("C5"),
 
-    // TODO: C7/M7
+    /**
+     * JPEG DCT Lossless with block mask (M5).
+     *
+     * <p>8-bit, 12-bit, or 16-bit.
+     */
+    JPEG_DCT_Lossless_WithMask("M5"),
+
+    /**
+     * SARZip (C7).
+     *
+     * <p>Represents complex and magnitude only SARZip compressed data, the image consists of a
+     * single JBP Image Block.
+     */
+    SARZip("C7"),
+
+    /**
+     * SARZip with multiple blocks (M7).
+     *
+     * <p>Represent complex and magnitude only SARZip compressed data, the image consists of a
+     * multiple JBP Image Blocks.
+     */
+    SARZipMulti("M7"),
 
     /**
      * Downsampled JPEG DCT (I1).
      *
      * <p>8-bit.
      */
-    DownsampledJPEG_DCT("I1");
+    DownsampledJPEG_DCT("I1"),
 
-    // TODO: CC/MC
+    /**
+     * ZLIB (CC).
+     *
+     * <p>ZLIB for numerically lossless compression of floating-point values.
+     */
+    ZLIB("CC"),
 
-    // TODO: C8/M8
+    /**
+     * ZLIB with block mask and/or pad pixel mask (CC).
+     *
+     * <p>ZLIB with Block mask and/or a pad pixel mask for numerically lossless compression of
+     * floating-point values.
+     */
+    ZLIB_WithMask("MC"),
 
-    // TODO: C9/M9
+    /**
+     * JPEG 2000 (C8).
+     *
+     * <p>Still imagery only - use {@link JPEG2000MotionImagery} for motion imagery.
+     *
+     * <p>C8 representing the values from ISO standard compression JPEG 2000 and BPJ2K01.10.
+     */
+    JPEG2000("C8"),
 
-    // TODO: CA/MA
+    /**
+     * JPEG 2000 with block mask and/or pad pixel mask (M8).
+     *
+     * <p>Still imagery only - use {@link JPEG2000MotionImageryWithMask} for motion imagery.
+     *
+     * <p>M8 with Block mask and/or a pad pixel mask representing the values for ISO standard
+     * compression JPEG 2000 and BPJ2K01.10.
+     */
+    JPEG2000WithMask("M8"),
 
-    // TODO: CB/MB
+    /** H.264 motion imagery (C9). */
+    H264("C9"),
+
+    /** H.264 motion imagery with block mask (M9). */
+    H264WithMask("M9"),
+
+    /** H.265 motion imagery (CA). */
+    H265("CA"),
+
+    /** H.265 motion imagery with block mask (MA). */
+    H265WithMask("MA"),
+
+    /**
+     * JPEG 2000 Motion Imagery (CB).
+     *
+     * <p>Motion imagery only - use {@link JPEG2000} for still imagery.
+     *
+     * <p>JPEG 2000 with frames per provisions of NGA.STND.0044, MIE4NITF with time association.
+     */
+    JPEG2000MotionImagery("CB"),
+
+    /**
+     * JPEG 2000 Motion Imagery with mask (MB).
+     *
+     * <p>Motion imagery only - use {@link JPEG2000WithMask} for still imagery.
+     *
+     * <p>Blocked JPEG 2000 with frames per provisions of NGA.STND.0044, MIE4NITF with time
+     * association.
+     */
+    JPEG2000MotionImageryWithMask("MB");
 
     private final String encodedValue;
 
