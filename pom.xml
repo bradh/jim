@@ -17,6 +17,7 @@
         <module>ui2</module>
         <module>map</module>
         <module>demo</module>
+        <module>charsets</module>
     </modules>
 
     <properties>
