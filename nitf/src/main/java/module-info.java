@@ -1,6 +1,7 @@
 module net.frogmouth.rnd.jim.nitf {
     requires javafx.controls;
     requires com.github.snksoft.crc;
+    requires net.frogmouth.rnd.jim.charsets;
 
     exports net.frogmouth.rnd.jim.nitf;
     exports net.frogmouth.rnd.jim.nitf.tre;

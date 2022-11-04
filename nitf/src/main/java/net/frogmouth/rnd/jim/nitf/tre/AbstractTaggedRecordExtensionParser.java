@@ -2,6 +2,7 @@ package net.frogmouth.rnd.jim.nitf.tre;
 
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
+import net.frogmouth.rnd.jim.charsets.ECS_A;
 
 /**
  * Abstract Tagged Record Extension (TRE) parser.
@@ -99,8 +100,7 @@ public abstract class AbstractTaggedRecordExtensionParser {
     }
 
     protected String readECSA(byte[] bytes, int offset, int len) {
-        // TODO: this isn't right - need to do conversion
-        return new String(bytes, offset, len, StandardCharsets.ISO_8859_1);
+        return new String(bytes, offset, len, new ECS_A());
     }
 
     protected String readUTF8(byte[] bytes, int offset, int len) {

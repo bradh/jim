@@ -1,6 +1,7 @@
 package net.frogmouth.rnd.jim.nitf;
 
 import java.nio.charset.StandardCharsets;
+import net.frogmouth.rnd.jim.charsets.ECS_A;
 
 public class WriterUtils {
     public static byte[] toBCS_NPI(int value, int numCharacters) {
@@ -23,8 +24,7 @@ public class WriterUtils {
 
     public static byte[] toECS_A(String value, int numCharacters) {
         String s = String.format("%1$-" + numCharacters + "s", value);
-        // TODO: proper ECS-A translation
-        byte[] bytes = s.getBytes(StandardCharsets.US_ASCII);
+        byte[] bytes = s.getBytes(new ECS_A());
         if (bytes.length != numCharacters) {
             // TODO: throw
         }

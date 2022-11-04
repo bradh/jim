@@ -1,6 +1,7 @@
 package net.frogmouth.rnd.jim.nitf.utils;
 
 import java.nio.charset.StandardCharsets;
+import net.frogmouth.rnd.jim.charsets.ECS_A;
 
 public class ReaderUtils {
 
@@ -52,12 +53,10 @@ public class ReaderUtils {
     }
 
     public static String convertByteArrayToECSA(byte[] bytes) {
-        // TODO: this isn't quite right - needs to be more precise
-        return new String(bytes, StandardCharsets.ISO_8859_1);
+        return new String(bytes, new ECS_A());
     }
 
     public static String convertByteArrayToECSA(byte[] bytes, int offset, int len) {
-        // TODO: this isn't quite right - needs to be more precise
-        return new String(bytes, offset, len, StandardCharsets.ISO_8859_1);
+        return new String(bytes, offset, len, new ECS_A());
     }
 }
