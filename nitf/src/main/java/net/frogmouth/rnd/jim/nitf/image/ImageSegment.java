@@ -494,6 +494,25 @@ public class ImageSegment {
         this.imageCoordinates = imageCoordinates;
     }
 
+    public List<String> getComments() {
+        return new ArrayList<>(comments);
+    }
+
+    /**
+     * Add a comment.
+     *
+     * <p>Note that an image segment can only have 10 comments, and each comment is at most 80 ECS-A
+     * characters.
+     *
+     * <p>If the image comment is classified, it is preceded by the classification, including
+     * codeword(s).
+     *
+     * @param comment the comment.
+     */
+    public void addComment(String comment) {
+        this.comments.add(comment);
+    }
+
     /**
      * Image compression (IC).
      *
@@ -657,6 +676,22 @@ public class ImageSegment {
 
     public void setSecurityMetadata(SecurityMetadata securityMetadata) {
         this.securityMetadata = securityMetadata;
+    }
+
+    public List<SerialisableTaggedRecordExtension> getUserDefinedExtensions() {
+        return new ArrayList<>(userDefinedExtensions);
+    }
+
+    public void addUserDefinedExtension(SerialisableTaggedRecordExtension userDefinedExtension) {
+        this.userDefinedExtensions.add(userDefinedExtension);
+    }
+
+    public List<SerialisableTaggedRecordExtension> getImageSegmentExtensions() {
+        return new ArrayList<>(imageSegmentExtensions);
+    }
+
+    public void addImageSegmentExtensions(SerialisableTaggedRecordExtension imageSegmentExtension) {
+        this.imageSegmentExtensions.add(imageSegmentExtension);
     }
 
     public byte[] getBody() {
