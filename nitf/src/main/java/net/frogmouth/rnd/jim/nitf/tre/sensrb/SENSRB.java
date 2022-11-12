@@ -19,8 +19,11 @@ public class SENSRB extends TaggedRecordExtension implements SerialisableTaggedR
     private Module8 module8;
     private Module9 module9;
     private Module10 module10;
-    private List<PointSet> module11 = new ArrayList<>();
-    private List<Uncertainty> module14 = new ArrayList<>();
+    private final List<PointSet> module11 = new ArrayList<>();
+    private final List<TimeStampedSet> module12 = new ArrayList<>();
+    private final List<PixelReferencedDataSet> module13 = new ArrayList<>();
+    private final List<Uncertainty> module14 = new ArrayList<>();
+    private final List<AdditionalParameter> module15 = new ArrayList<>();
 
     public SENSRB() {
         super(TRE_TAG);
@@ -141,11 +144,35 @@ public class SENSRB extends TaggedRecordExtension implements SerialisableTaggedR
         this.module11.add(pointSet);
     }
 
+    public List<TimeStampedSet> getModule12() {
+        return new ArrayList<>(module12);
+    }
+
+    public void addTimeStampedSet(TimeStampedSet timeStampedSet) {
+        this.module12.add(timeStampedSet);
+    }
+
+    public List<PixelReferencedDataSet> getModule13() {
+        return new ArrayList<>(module13);
+    }
+
+    public void addPixelReferencedDataSet(PixelReferencedDataSet pixelReferencedDataSet) {
+        this.module13.add(pixelReferencedDataSet);
+    }
+
     public List<Uncertainty> getModule14() {
         return new ArrayList<>(module14);
     }
 
     public void addUncertainty(Uncertainty uncertainty) {
         this.module14.add(uncertainty);
+    }
+
+    public List<AdditionalParameter> getModule15() {
+        return new ArrayList<>(module15);
+    }
+
+    public void addAdditionalParameter(AdditionalParameter additionalParameter) {
+        this.module15.add(additionalParameter);
     }
 }

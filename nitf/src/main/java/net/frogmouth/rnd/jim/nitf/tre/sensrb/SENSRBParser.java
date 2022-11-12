@@ -76,8 +76,15 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
     private static final int LONGITUDE_LEN = 11;
     private static final int ELEVATION_LEN = 6;
     private static final int RANGE_LEN = 8;
+    // Module 12
     private static final int TIME_STAMPED_DATA_SET_COUNT_LEN = 2;
+    private static final int TIME_STAMP_TYPE_LEN = 3;
+    private static final int TIME_STAMP_COUNT_LEN = 4;
+    private static final int TIME_STAMP_TIME_LEN = 12;
+    // Module 13
     private static final int PIXEL_REFERENCED_DATA_SET_COUNT_LEN = 2;
+    private static final int PIXEL_REFERENCE_TYPE_LEN = 3;
+    private static final int PIXEL_REFERENCE_COUNT_LEN = 4;
     // Module 14
     private static final int UNCERTAINTY_DATA_COUNT_LEN = 3;
     private static final int UNCERTAINTY_FIRST_TYPE_LEN = 11;
@@ -85,6 +92,9 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
     private static final int UNCERTAINTY_VALUE_LEN = 10;
     // Module 15
     private static final int ADDITIONAL_DATA_COUNT_LEN = 3;
+    private static final int PARAMETER_NAME_LEN = 25;
+    private static final int PARAMETER_SIZE_LEN = 3;
+    private static final int PARAMETER_COUNT_LEN = 4;
 
     @Override
     public String getTag() {
@@ -480,7 +490,25 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
                             bytes, offset, TIME_STAMPED_DATA_SET_COUNT_LEN);
             offset += TIME_STAMPED_DATA_SET_COUNT_LEN;
             for (int i = 0; i < timeStampedDataSetsCount; i++) {
-                throw new UnsupportedOperationException("Module 12 not supported yet.");
+                TimeStampedSet timeStampedSet = new TimeStampedSet();
+                timeStampedSet.setType(
+                        ReaderUtils.convertByteArrayToBCSA(bytes, offset, TIME_STAMP_TYPE_LEN));
+                offset += TIME_STAMP_TYPE_LEN;
+                int length = lookupLengthForType(timeStampedSet.getType());
+                int count =
+                        ReaderUtils.convertByteArrayToBCS_NPI(bytes, offset, TIME_STAMP_COUNT_LEN);
+                offset += TIME_STAMP_COUNT_LEN;
+                for (int j = 0; j < count; j++) {
+                    TimeStampedValuePair tsvp = new TimeStampedValuePair();
+                    tsvp.setTimeStamp(
+                            ReaderUtils.convertByteArrayToBCS_N_Double(
+                                    bytes, offset, TIME_STAMP_TIME_LEN));
+                    offset += TIME_STAMP_TIME_LEN;
+                    tsvp.setValue(ReaderUtils.convertByteArrayToBCSA(bytes, offset, length));
+                    offset += length;
+                    timeStampedSet.addTimeStampedValue(tsvp);
+                }
+                tre.addTimeStampedSet(timeStampedSet);
             }
         }
         {
@@ -489,7 +517,30 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
                             bytes, offset, PIXEL_REFERENCED_DATA_SET_COUNT_LEN);
             offset += PIXEL_REFERENCED_DATA_SET_COUNT_LEN;
             for (int i = 0; i < pixelReferencedDataSetsCount; i++) {
-                throw new UnsupportedOperationException("Module 13 not supported yet.");
+                PixelReferencedDataSet prds = new PixelReferencedDataSet();
+                // TODO: proper parsing
+                // TODO: constants
+                prds.setType(
+                        ReaderUtils.convertByteArrayToBCSA(
+                                bytes, offset, PIXEL_REFERENCE_TYPE_LEN));
+                offset += PIXEL_REFERENCE_TYPE_LEN;
+                int length = lookupLengthForType(prds.getType());
+                int count =
+                        ReaderUtils.convertByteArrayToBCS_NPI(
+                                bytes, offset, PIXEL_REFERENCE_COUNT_LEN);
+                offset += PIXEL_REFERENCE_COUNT_LEN;
+                for (int j = 0; j < count; j++) {
+                    PixelReferencedValue value = new PixelReferencedValue();
+                    value.setRow(ReaderUtils.convertByteArrayToBCS_NPI(bytes, offset, ROW_LEN));
+                    offset += ROW_LEN;
+                    value.setColumn(
+                            ReaderUtils.convertByteArrayToBCS_NPI(bytes, offset, COLUMN_LEN));
+                    offset += COLUMN_LEN;
+                    value.setValue(ReaderUtils.convertByteArrayToBCSA(bytes, offset, length));
+                    offset += length;
+                    prds.addPixelReferencedValue(value);
+                }
+                tre.addPixelReferencedDataSet(prds);
             }
         }
         {
@@ -519,10 +570,48 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
                     ReaderUtils.convertByteArrayToBCS_NPI(bytes, offset, ADDITIONAL_DATA_COUNT_LEN);
             offset += ADDITIONAL_DATA_COUNT_LEN;
             for (int i = 0; i < additionalDataCount; i++) {
-                throw new UnsupportedOperationException("Module 15 not supported yet.");
+                AdditionalParameter additionalParameter = new AdditionalParameter();
+                additionalParameter.setName(
+                        ReaderUtils.convertByteArrayToBCSA(bytes, offset, PARAMETER_NAME_LEN));
+                offset += PARAMETER_NAME_LEN;
+                int fieldSize =
+                        ReaderUtils.convertByteArrayToBCS_NPI(bytes, offset, PARAMETER_SIZE_LEN);
+                offset += PARAMETER_SIZE_LEN;
+                int parameterCount =
+                        ReaderUtils.convertByteArrayToBCS_NPI(bytes, offset, PARAMETER_COUNT_LEN);
+                offset += PARAMETER_COUNT_LEN;
+                for (int j = 0; j < parameterCount; j++) {
+                    additionalParameter.addValue(
+                            ReaderUtils.convertByteArrayToBCSA(bytes, offset, fieldSize));
+                    offset += fieldSize;
+                }
+                tre.addAdditionalParameter(additionalParameter);
             }
         }
         assert offset == bytes.length;
         return tre;
+    }
+
+    private int lookupLengthForType(String type) {
+        // TODO: this needs a lot more type entries
+        switch (type) {
+            case "09a":
+                return QUATERNION_LEN;
+            case "09b":
+                return QUATERNION_LEN;
+            case "09c":
+                return QUATERNION_LEN;
+            case "09d":
+                return QUATERNION_LEN;
+            case "10a":
+                return VELOCITY_LEN;
+            case "10b":
+                return VELOCITY_LEN;
+            case "10c":
+                return VELOCITY_LEN;
+            default:
+                throw new UnsupportedOperationException(
+                        "No time varying support for type: " + type);
+        }
     }
 }
