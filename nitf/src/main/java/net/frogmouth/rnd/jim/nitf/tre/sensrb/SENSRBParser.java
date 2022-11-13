@@ -54,7 +54,7 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
     private static final int SENSOR_X_OFFSET_LEN = 8;
     private static final int SENSOR_Y_OFFSET_LEN = 8;
     private static final int SENSOR_Z_OFFSET_LEN = 8;
-    private static final int SENSOR_ANGLE_MODULE_LEN = 1;
+    private static final int SENSOR_ANGLE_MODEL_LEN = 1;
     private static final int SENSOR_ANGLE_1_LEN = 10;
     private static final int SENSOR_ANGLE_2_LEN = 9;
     private static final int SENSOR_ANGLE_3_LEN = 10;
@@ -335,8 +335,8 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
                 Module7 module7 = new Module7();
                 module7.setSensorAngleModel(
                         ReaderUtils.convertByteArrayToBCS_NPI(
-                                bytes, offset, SENSOR_ANGLE_MODULE_LEN));
-                offset += SENSOR_ANGLE_MODULE_LEN;
+                                bytes, offset, SENSOR_ANGLE_MODEL_LEN));
+                offset += SENSOR_ANGLE_MODEL_LEN;
                 module7.setSensorAngle1(
                         ReaderUtils.convertByteArrayToBCS_N_Double(
                                 bytes, offset, SENSOR_ANGLE_1_LEN));
@@ -595,6 +595,28 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
     private int lookupLengthForType(String type) {
         // TODO: this needs a lot more type entries
         switch (type) {
+            case "05a":
+                return REFERENCE_TIME_LEN;
+            case "05b":
+                return ROW_LEN;
+            case "05c":
+                return COLUMN_LEN;
+            case "07a":
+                return SENSOR_ANGLE_MODEL_LEN;
+            case "07b":
+                return SENSOR_ANGLE_1_LEN;
+            case "07c":
+                return SENSOR_ANGLE_2_LEN;
+            case "07d":
+                return SENSOR_ANGLE_3_LEN;
+            case "07e":
+                return PLATFORM_RELATIVE_FLAG_LEN;
+            case "07f":
+                return PLATFORM_HEADING_LEN;
+            case "07g":
+                return PLATFORM_PITCH_LEN;
+            case "07h":
+                return PLATFORM_ROLL_LEN;
             case "09a":
                 return QUATERNION_LEN;
             case "09b":

@@ -49,6 +49,9 @@ public class SENSRB extends TaggedRecordExtension implements SerialisableTaggedR
     }
 
     public Module2 getModule2() {
+        if (module2 == null) {
+            return null;
+        }
         return new Module2(module2);
     }
 
@@ -68,6 +71,9 @@ public class SENSRB extends TaggedRecordExtension implements SerialisableTaggedR
     }
 
     public Module4 getModule4() {
+        if (module4 == null) {
+            return null;
+        }
         return new Module4(module4);
     }
 
