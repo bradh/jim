@@ -601,6 +601,18 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
                 return ROW_LEN;
             case "05c":
                 return COLUMN_LEN;
+            case "06a":
+                return LATITUDE_OR_X_LEN;
+            case "06b":
+                return LONGITUDE_OR_Y_LEN;
+            case "06c":
+                return ALTITUDE_OR_Z_LEN;
+            case "06d":
+                return SENSOR_X_OFFSET_LEN;
+            case "06e":
+                return SENSOR_Y_OFFSET_LEN;
+            case "06f":
+                return SENSOR_Z_OFFSET_LEN;
             case "07a":
                 return SENSOR_ANGLE_MODEL_LEN;
             case "07b":
@@ -617,6 +629,16 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
                 return PLATFORM_PITCH_LEN;
             case "07h":
                 return PLATFORM_ROLL_LEN;
+            case "08a":
+            case "08b":
+            case "08c":
+            case "08d":
+            case "08e":
+            case "08f":
+            case "08g":
+            case "08h":
+            case "08i":
+                return ATTITUDE_UNIT_VECTOR_COMPONENT_LEN;
             case "09a":
                 return QUATERNION_LEN;
             case "09b":
