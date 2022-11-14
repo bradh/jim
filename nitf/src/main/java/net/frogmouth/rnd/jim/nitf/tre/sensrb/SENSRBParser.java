@@ -296,12 +296,14 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
         {
             Module5 module5 = new Module5();
             module5.setReferenceTime(
-                    ReaderUtils.convertByteArrayToBCS_NPI(bytes, offset, REFERENCE_TIME_LEN));
+                    ReaderUtils.convertByteArrayToBCS_NPI_Integer(
+                            bytes, offset, REFERENCE_TIME_LEN));
             offset += REFERENCE_TIME_LEN;
-            module5.setReferenceRow(ReaderUtils.convertByteArrayToBCS_NPI(bytes, offset, ROW_LEN));
+            module5.setReferenceRow(
+                    ReaderUtils.convertByteArrayToBCS_NPI_Integer(bytes, offset, ROW_LEN));
             offset += ROW_LEN;
             module5.setReferenceColumn(
-                    ReaderUtils.convertByteArrayToBCS_NPI(bytes, offset, COLUMN_LEN));
+                    ReaderUtils.convertByteArrayToBCS_NPI_Integer(bytes, offset, COLUMN_LEN));
             offset += COLUMN_LEN;
             tre.setModule5(module5);
         }

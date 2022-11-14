@@ -27,6 +27,19 @@ public class ReaderUtils {
         return Integer.parseInt(s);
     }
 
+    public static Integer convertByteArrayToBCS_NPI_Integer(byte[] dest, int offset, int len) {
+        String s = new String(dest, offset, len, StandardCharsets.US_ASCII);
+        String fill = "-".repeat(len);
+        if (s.isBlank() || s.equals(fill)) {
+            return null;
+        }
+        try {
+            return Integer.valueOf(s);
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+    }
+
     public static double convertByteArrayToBCS_NPI_Double(byte[] bytes, int offset, int len) {
         return convertByteArrayToBCS_N_Double(bytes, offset, len);
     }

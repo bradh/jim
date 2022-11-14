@@ -2323,6 +2323,346 @@ public class SENSRBParserTest {
     }
 
     @Test
+    public void checkTimestamped7Timepixel10() throws IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        byte[] allBytes =
+                classLoader
+                        .getResourceAsStream("SENSRB/SENSRB_timestamped7_timepixel10.txt")
+                        .readAllBytes();
+        SENSRBParser uut = new SENSRBParser();
+        SENSRB sensrb = uut.parse("SENSRB", Arrays.copyOfRange(allBytes, 11, allBytes.length));
+        assertNotNull(sensrb);
+        assertNotNull(sensrb.getModule1());
+        /*
+        1.01a	Sensor	SYERS2A
+        1.01b	Sensor URI
+        1.01c	Platform	U-2
+        1.01d	Platform URI
+        1.01e	Operational Domain	Airborne
+        1.01f	Content Level	4
+        1.01g	Geodetic System	WGS84
+        1.01h	Geodetic Type	G
+        1.01i	Elevation Datum	HAE
+        1.01j	Length Unit	SI
+        1.01k	Angular Unit	DEG
+        1.01l	Start Date	20141012
+        1.01m	Start Time	00000000000300
+        1.01n	End Date	20141013
+        1.01o	End Time	00000000000120
+        1.01p	Generation Count	00
+        1.01q	Generation Date	--------
+        1.01r	Generation Time	----------
+        */
+        assertEquals(sensrb.getModule1().getSensor().trim(), "SYERS2A");
+        assertEquals(sensrb.getModule1().getSensorUri().trim(), "");
+        assertEquals(sensrb.getModule1().getPlatform().trim(), "U-2");
+        assertEquals(sensrb.getModule1().getPlatformUri().trim(), "");
+        assertEquals(sensrb.getModule1().getOperationalDomain(), "Airborne  ");
+        assertEquals(sensrb.getModule1().getContentLevel(), 4);
+        assertEquals(sensrb.getModule1().getGeodeticSystem(), "WGS84");
+        assertEquals(sensrb.getModule1().getGeodeticType(), "G");
+        assertEquals(sensrb.getModule1().getElevationDatum(), "HAE");
+        assertEquals(sensrb.getModule1().getLengthUnit(), "SI");
+        assertEquals(sensrb.getModule1().getAngularUnit(), "DEG");
+        assertEquals(sensrb.getModule1().getStartDate(), "20141012");
+        assertEquals(sensrb.getModule1().getStartTime(), "00000000000300");
+        assertEquals(sensrb.getModule1().getEndDate(), "20141013");
+        assertEquals(sensrb.getModule1().getEndTime(), "00000000000120");
+        assertEquals(sensrb.getModule1().getGenerationCount(), 0);
+        assertEquals(sensrb.getModule1().getGenerationDate(), "--------");
+        assertEquals(sensrb.getModule1().getGenerationTime(), "----------");
+        assertNotNull(sensrb.getModule2());
+        /*
+        1.02a	Detection	PAN
+        1.02b	Row Detectors	00001024
+        1.02c	Column Detectors	00000256
+        1.02d	Row Metric	000000.3
+        1.02e	Column Metric	000000.1
+        1.02f	Focal Length	00000876
+        1.02g	Row FOV	--------
+        1.02h	Column FOV	--------
+        1.02i	Calibrated	N
+        */
+        assertEquals(sensrb.getModule2().getDetection().trim(), "PAN");
+        assertEquals(sensrb.getModule2().getRowDetectors(), 1024);
+        assertEquals(sensrb.getModule2().getColumnDetectors(), 256);
+        assertEquals(sensrb.getModule2().getRowMetric(), 0.3);
+        assertEquals(sensrb.getModule2().getColumnMetric(), 0.1);
+        assertEquals(sensrb.getModule2().getFocalLength(), 876.0);
+        assertEquals(sensrb.getModule2().getRowFieldOfView(), "--------");
+        assertEquals(sensrb.getModule2().getColumnFieldOfView(), "--------");
+        assertEquals(sensrb.getModule2().getCalibrated(), "N");
+        assertNull(sensrb.getModule3());
+        assertNotNull(sensrb.getModule4());
+        /*
+        1.04a	Method	Single Frame
+        1.04b	Mode	015
+        1.04c	Row Count	00002048
+        1.04d	Column Count	00000256
+        1.04e	Row Set	00002048
+        1.04f	Column Set	00000256
+        1.04g	Row Rate	000000.002
+        1.04h	Column Rate	0000000.04
+        1.04i	First Pixel Row	00000000
+        1.04j	First Pixel Column	00000000
+        1.04k	Transform Params	6
+        1.04l	Transform Param 1	0000000002.4
+        1.04m	Transform Param 2	0000000000.3
+        1.04n	Transform Param 3	000000000002
+        1.04o	Transform Param 4	-000004.3e-2
+        1.04p	Transform Param 5	0000000000.4
+        1.04q	Transform Param 6	000000000001
+                */
+        assertEquals(sensrb.getModule4().getMethod().trim(), "Single Frame");
+        assertEquals(sensrb.getModule4().getMode(), "015");
+        assertEquals(sensrb.getModule4().getRowCount(), 2048);
+        assertEquals(sensrb.getModule4().getColumnCount(), 256);
+        assertEquals(sensrb.getModule4().getRowSet(), 2048);
+        assertEquals(sensrb.getModule4().getColumnSet(), 256);
+        assertEquals(sensrb.getModule4().getRowRate(), 0.002);
+        assertEquals(sensrb.getModule4().getColumnRate(), 0.04);
+        assertEquals(sensrb.getModule4().getFirstPixelRow(), 0);
+        assertEquals(sensrb.getModule4().getFirstPixelColumn(), 0);
+        double[] transformParams = sensrb.getModule4().getTransformParams();
+        assertEquals(transformParams.length, 6);
+        assertEquals(transformParams[0], 2.4);
+        assertEquals(transformParams[1], 0.3);
+        assertEquals(transformParams[2], 2.0);
+        assertEquals(transformParams[3], -4.3e-2);
+        assertEquals(transformParams[4], 0.4);
+        assertEquals(transformParams[5], 1.0);
+        assertNotNull(sensrb.getModule5());
+        /*
+        1.05a   Reference Time  000000000000
+        1.05b   Reference Row   00000001
+        1.05c   Reference Column        00000002
+        */
+        assertEquals(sensrb.getModule5().getReferenceTime(), 0);
+        assertEquals(sensrb.getModule5().getReferenceRow(), 1);
+        assertEquals(sensrb.getModule5().getReferenceColumn(), 2);
+        assertNotNull(sensrb.getModule6());
+        /*
+        1.06a   Latitude        -00000034.3
+        1.06b   Longitude       0000000140.2
+        1.06c   Altitude        00000020000
+        1.06d   Sensor X Offset 000003.2
+        1.06e   Sensor Y Offset -0000001
+        1.06f   Sensor Z Offset 00000002
+        */
+        assertEquals(sensrb.getModule6().getLatitude_or_x(), -34.3);
+        assertEquals(sensrb.getModule6().getLongitude_or_y(), 140.2);
+        assertEquals(sensrb.getModule6().getAltitude_or_z(), 20000.0);
+        assertEquals(sensrb.getModule6().getSensorOffsetX(), 3.2);
+        assertEquals(sensrb.getModule6().getSensorOffsetY(), -1.0);
+        assertEquals(sensrb.getModule6().getSensorOffsetZ(), 2.0);
+        assertNotNull(sensrb.getModule7());
+        /*
+        1.07a	Sensor Angle Model	2
+        1.07b	Sensor Angle 1	0000000004
+        1.07c	Sensor Angle 2	000000005
+        1.07d	Sensor Angle 3	-000000012
+        1.07e	Platform Relative	N
+        1.07f	Platform Heading	---------
+        1.07g	Platform Pitch	---------
+        1.07h	Platform Roll	----------
+        */
+        assertEquals(sensrb.getModule7().getSensorAngleModel(), 2);
+        assertEquals(sensrb.getModule7().getSensorAngle1(), 4.0);
+        assertEquals(sensrb.getModule7().getSensorAngle2(), 5.0);
+        assertEquals(sensrb.getModule7().getSensorAngle3(), -12.0);
+        assertEquals(sensrb.getModule7().getPlatformRelative(), "N");
+        assertEquals(sensrb.getModule7().getPlatformHeading(), "---------");
+        assertEquals(sensrb.getModule7().getPlatformPitch(), "---------");
+        assertEquals(sensrb.getModule7().getPlatformRoll(), "----------");
+        assertNull(sensrb.getModule8());
+        assertNull(sensrb.getModule9());
+        assertNotNull(sensrb.getModule10());
+        /*
+        1.10a	Velocity North	000000304
+        1.10b	Velocity East	000000040
+        1.10c	Velocity Down	0000003.8
+        */
+        assertEquals(sensrb.getModule10().getVelocityNorthOrX(), 304.0);
+        assertEquals(sensrb.getModule10().getVelocityEastOrY(), 40.0);
+        assertEquals(sensrb.getModule10().getVelocityDownOrZ(), 3.8);
+        assertEquals(sensrb.getModule11().size(), 0);
+        assertEquals(sensrb.getModule12().size(), 9);
+        /*
+        1.12	Time Stamps Sets	09
+        1.12a.1	Time Stamp Type	07b
+        1.12b.1	Time Stamp Count	0002
+        1.12c.1.1	Time Stamp Time	000000000200
+        1.12d.1.1	Sensor Angle 1	-0000001.3
+        1.12c.1.2	Time Stamp Time	000000000400
+        1.12d.1.2	Sensor Angle 1	00000002.5
+        1.12a.2	Time Stamp Type	07c
+        1.12b.2	Time Stamp Count	0001
+        1.12c.2.1	Time Stamp Time	000000000399
+        1.12d.2.1	Sensor Angle 2	000000078
+        1.12a.3	Time Stamp Type	07d
+        1.12b.3	Time Stamp Count	0001
+        1.12c.3.1	Time Stamp Time	000000000401
+        1.12d.3.1	Sensor Angle 3	-0000003.6
+        1.12a.4	Time Stamp Type	07f
+        1.12b.4	Time Stamp Count	0001
+        1.12c.4.1	Time Stamp Time	000000000503
+        1.12d.4.1	Platform Heading	0000083.2
+        1.12a.5	Time Stamp Type	07g
+        1.12b.5	Time Stamp Count	0001
+        1.12c.5.1	Time Stamp Time	000000000402
+        1.12d.5.1	Platform Pitch	0000005.6
+        1.12a.6	Time Stamp Type	07h
+        1.12b.6	Time Stamp Count	0001
+        1.12c.6.1	Time Stamp Time	000000000504
+        1.12d.6.1	Platform Roll	-0000001.6
+        1.12a.7	Time Stamp Type	10a
+        1.12b.7	Time Stamp Count	0001
+        1.12c.7.1	Time Stamp Time	000000000700
+        1.12d.7.1	Velocity North	000000354
+        1.12a.8	Time Stamp Type	10b
+        1.12b.8	Time Stamp Count	0002
+        1.12c.8.1	Time Stamp Time	000000000023
+        1.12d.8.1	Velocity East	000000401
+        1.12c.8.2	Time Stamp Time	000000000200
+        1.12d.8.2	Velocity East	000000405
+        1.12a.9	Time Stamp Type	10c
+        1.12b.9	Time Stamp Count	0001
+        1.12c.9.1	Time Stamp Time	000000000508
+        1.12d.9.1	Velocity Down	-000003.2
+        */
+        assertNotNull(sensrb.getModule12().get(0));
+        assertEquals(sensrb.getModule12().get(0).getType(), "07b");
+        assertEquals(sensrb.getModule12().get(0).getTimeStampedValues().size(), 2);
+        assertEquals(sensrb.getModule12().get(0).getTimeStampedValues().get(0).getTimeStamp(), 200);
+        assertEquals(
+                sensrb.getModule12().get(0).getTimeStampedValues().get(0).getValue(), "-0000001.3");
+        assertEquals(sensrb.getModule12().get(0).getTimeStampedValues().get(1).getTimeStamp(), 400);
+        assertEquals(
+                sensrb.getModule12().get(0).getTimeStampedValues().get(1).getValue(), "00000002.5");
+        assertNotNull(sensrb.getModule12().get(1));
+        assertEquals(sensrb.getModule12().get(1).getType(), "07c");
+        assertEquals(sensrb.getModule12().get(1).getTimeStampedValues().size(), 1);
+        assertEquals(sensrb.getModule12().get(1).getTimeStampedValues().get(0).getTimeStamp(), 399);
+        assertEquals(
+                sensrb.getModule12().get(1).getTimeStampedValues().get(0).getValue(), "000000078");
+        assertNotNull(sensrb.getModule12().get(2));
+        assertEquals(sensrb.getModule12().get(2).getType(), "07d");
+        assertEquals(sensrb.getModule12().get(2).getTimeStampedValues().size(), 1);
+        assertEquals(sensrb.getModule12().get(2).getTimeStampedValues().get(0).getTimeStamp(), 401);
+        assertEquals(
+                sensrb.getModule12().get(2).getTimeStampedValues().get(0).getValue(), "-0000003.6");
+        assertNotNull(sensrb.getModule12().get(3));
+        assertEquals(sensrb.getModule12().get(3).getType(), "07f");
+        assertEquals(sensrb.getModule12().get(3).getTimeStampedValues().size(), 1);
+        assertEquals(sensrb.getModule12().get(3).getTimeStampedValues().get(0).getTimeStamp(), 503);
+        assertEquals(
+                sensrb.getModule12().get(3).getTimeStampedValues().get(0).getValue(), "0000083.2");
+        assertNotNull(sensrb.getModule12().get(4));
+        assertEquals(sensrb.getModule12().get(4).getType(), "07g");
+        assertEquals(sensrb.getModule12().get(4).getTimeStampedValues().size(), 1);
+        assertEquals(sensrb.getModule12().get(4).getTimeStampedValues().get(0).getTimeStamp(), 402);
+        assertEquals(
+                sensrb.getModule12().get(4).getTimeStampedValues().get(0).getValue(), "0000005.6");
+        assertNotNull(sensrb.getModule12().get(5));
+        assertEquals(sensrb.getModule12().get(5).getType(), "07h");
+        assertEquals(sensrb.getModule12().get(5).getTimeStampedValues().size(), 1);
+        assertEquals(sensrb.getModule12().get(5).getTimeStampedValues().get(0).getTimeStamp(), 504);
+        assertEquals(
+                sensrb.getModule12().get(5).getTimeStampedValues().get(0).getValue(), "-0000001.6");
+        assertNotNull(sensrb.getModule12().get(6));
+        assertEquals(sensrb.getModule12().get(6).getType(), "10a");
+        assertEquals(sensrb.getModule12().get(6).getTimeStampedValues().size(), 1);
+        assertEquals(sensrb.getModule12().get(6).getTimeStampedValues().get(0).getTimeStamp(), 700);
+        assertEquals(
+                sensrb.getModule12().get(6).getTimeStampedValues().get(0).getValue(), "000000354");
+        assertNotNull(sensrb.getModule12().get(7));
+        assertEquals(sensrb.getModule12().get(7).getType(), "10b");
+        assertEquals(sensrb.getModule12().get(7).getTimeStampedValues().size(), 2);
+        assertEquals(sensrb.getModule12().get(7).getTimeStampedValues().get(0).getTimeStamp(), 23);
+        assertEquals(
+                sensrb.getModule12().get(7).getTimeStampedValues().get(0).getValue(), "000000401");
+        assertEquals(sensrb.getModule12().get(7).getTimeStampedValues().get(1).getTimeStamp(), 200);
+        assertEquals(
+                sensrb.getModule12().get(7).getTimeStampedValues().get(1).getValue(), "000000405");
+        assertNotNull(sensrb.getModule12().get(8));
+        assertEquals(sensrb.getModule12().get(8).getType(), "10c");
+        assertEquals(sensrb.getModule12().get(8).getTimeStampedValues().size(), 1);
+        assertEquals(sensrb.getModule12().get(8).getTimeStampedValues().get(0).getTimeStamp(), 508);
+        assertEquals(
+                sensrb.getModule12().get(8).getTimeStampedValues().get(0).getValue(), "-000003.2");
+        assertEquals(sensrb.getModule13().size(), 3);
+        /*
+        1.13a.1	Pixel Reference Type	10a
+        1.13b.1	Pixel Reference Count	0003
+        1.13c.1.1	Pixel Reference Row	00000055
+        1.13d.1.1	Pixel Reference Column	00000078
+        1.13e.1.1	Velocity North	-00000408
+        1.13c.1.2	Pixel Reference Row	00000087
+        1.13d.1.2	Pixel Reference Column	00003945
+        1.13e.1.2	Velocity North	-00000407
+        1.13c.1.3	Pixel Reference Row	00005734
+        1.13d.1.3	Pixel Reference Column	00003430
+        1.13e.1.3	Velocity North	-00000409
+        1.13a.2	Pixel Reference Type	10b
+        1.13b.2	Pixel Reference Count	0001
+        1.13c.2.1	Pixel Reference Row	00000046
+        1.13d.2.1	Pixel Reference Column	00000079
+        1.13e.2.1	Velocity East	-00000034
+        1.13a.3	Pixel Reference Type	10c
+        1.13b.3	Pixel Reference Count	0001
+        1.13c.3.1	Pixel Reference Row	00004223
+        1.13d.3.1	Pixel Reference Column	00004222
+        1.13e.3.1	Velocity Down	0000455.4
+        */
+        assertNotNull(sensrb.getModule13().get(0));
+        assertEquals(sensrb.getModule13().get(0).getType(), "10a");
+        assertEquals(sensrb.getModule13().get(0).getValues().size(), 3);
+        assertEquals(sensrb.getModule13().get(0).getValues().get(0).getRow(), 55);
+        assertEquals(sensrb.getModule13().get(0).getValues().get(0).getColumn(), 78);
+        assertEquals(sensrb.getModule13().get(0).getValues().get(0).getValue(), "-00000408");
+        assertEquals(sensrb.getModule13().get(0).getValues().get(1).getRow(), 87);
+        assertEquals(sensrb.getModule13().get(0).getValues().get(1).getColumn(), 3945);
+        assertEquals(sensrb.getModule13().get(0).getValues().get(1).getValue(), "-00000407");
+        assertEquals(sensrb.getModule13().get(0).getValues().get(2).getRow(), 5734);
+        assertEquals(sensrb.getModule13().get(0).getValues().get(2).getColumn(), 3430);
+        assertEquals(sensrb.getModule13().get(0).getValues().get(2).getValue(), "-00000409");
+        assertNotNull(sensrb.getModule13().get(1));
+        assertEquals(sensrb.getModule13().get(1).getType(), "10b");
+        assertEquals(sensrb.getModule13().get(1).getValues().size(), 1);
+        assertEquals(sensrb.getModule13().get(1).getValues().get(0).getRow(), 46);
+        assertEquals(sensrb.getModule13().get(1).getValues().get(0).getColumn(), 79);
+        assertEquals(sensrb.getModule13().get(1).getValues().get(0).getValue(), "-00000034");
+        assertNotNull(sensrb.getModule13().get(2));
+        assertEquals(sensrb.getModule13().get(2).getType(), "10c");
+        assertEquals(sensrb.getModule13().get(2).getValues().size(), 1);
+        assertEquals(sensrb.getModule13().get(2).getValues().get(0).getRow(), 4223);
+        assertEquals(sensrb.getModule13().get(2).getValues().get(0).getColumn(), 4222);
+        assertEquals(sensrb.getModule13().get(2).getValues().get(0).getValue(), "0000455.4");
+        assertEquals(sensrb.getModule14().size(), 0);
+        assertEquals(sensrb.getModule15().size(), 2);
+        /*
+        1.15a.1	Parameter Name	LUNAR_AZIMUTH
+        1.15b.1	Parameter Size	002
+        1.15c.1	Parameter Count	0003
+        1.15d.1.1	LUNAR_AZIMUTH Value	43
+        1.15d.1.2	LUNAR_AZIMUTH Value	01
+        1.15d.1.3	LUNAR_AZIMUTH Value	AB
+        1.15a.2	Parameter Name	MI_LDS_VERSION
+        1.15b.2	Parameter Size	014
+        1.15c.2	Parameter Count	0001
+        1.15d.2.1	MI_LDS_VERSION Value	4434343FG
+        */
+        assertEquals(sensrb.getModule15().get(0).getName(), "LUNAR_AZIMUTH            ");
+        assertEquals(sensrb.getModule15().get(0).getValues().size(), 3);
+        assertEquals(sensrb.getModule15().get(0).getValues().get(0), "43");
+        assertEquals(sensrb.getModule15().get(0).getValues().get(1), "01");
+        assertEquals(sensrb.getModule15().get(0).getValues().get(2), "AB");
+        assertEquals(sensrb.getModule15().get(1).getName(), "MI_LDS_VERSION           ");
+        assertEquals(sensrb.getModule15().get(1).getValues().size(), 1);
+        assertEquals(sensrb.getModule15().get(1).getValues().get(0), "4434343FG     ");
+    }
+
+    @Test
     public void checkTimestamped9() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         byte[] allBytes =
