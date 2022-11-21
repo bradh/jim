@@ -9,19 +9,23 @@ public class Country {
 
     @JacksonXmlText private String name;
 
+    private Country() {}
+
+    public Country(String countryCode, String name) {
+        this.countryCode = countryCode;
+        this.name = name;
+    }
+
+    public Country(Country other) {
+        this.countryCode = other.countryCode;
+        this.name = other.name;
+    }
+
     public String getCountryCode() {
         return countryCode;
     }
 
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

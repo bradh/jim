@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spaceObjectDescriptionData
+    xmlns:ism="urn:us:gov:ic:ism"
+    xmlns:arh="urn:us:gov:ic:arh"
+    xmlns="urn:us:mil:nga:ntb:soddxa"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:us:mil:nga:ntb:soddxa soddxa.xsd">
+    <securityData>
+        <arh:Security ism:ownerProducer="USA" ism:classification="U" ism:resourceElement="true" />
+        <soClassification>
+            <arh:ExternalSecurity ism:ownerProducer="USA" ism:classification="U" ism:excludeFromRollup="true" />
+        </soClassification>
+        <soSIC>0</soSIC>
+        <orconOrganization>NASA</orconOrganization>
+        <smClassification>
+            <arh:ExternalSecurity ism:ownerProducer="USA" ism:classification="U" ism:excludeFromRollup="true" />
+        </smClassification>
+        <accmClassification>
+            <arh:ExternalSecurity ism:ownerProducer="USA" ism:classification="U" ism:excludeFromRollup="true" />
+        </accmClassification>
+        <accmImageHold>false</accmImageHold>
+    </securityData>
+    <sourceCatalog catalogDate="2021-11-22T16:36:40Z" catalogVersion="1.0">Space-Track</sourceCatalog>
+    <absVisualMagnitude>123.456</absVisualMagnitude>
+    <radarCrossSection>13.761</radarCrossSection>
+    <length>8.752</length>
+    <width>7.081</width>
+    <height>3.277</height>
+    <diameter>3.218</diameter>
+    <mass>6762.962</mass>
+    <soUid>24b1907e-6cac-4dfa-9958-a919f7999ed6</soUid>
+    <soType>satellite</soType>
+    <satelliteInformation>
+        <satNo>987654321</satNo>
+        <targetId>rIY4Vc</targetId>
+        <satelliteName>Battlestar Falcon</satelliteName>
+        <platformId>BF_001</platformId>
+        <satelliteCategory>interPlanetaryMission</satelliteCategory>
+        <satelliteDescription>Mission to find New Earth in the Outer Rim</satelliteDescription>
+        <internationalDesignator pieceType="platform">2021-123A</internationalDesignator>
+        <internationalDesignator pieceType="payload">2021-123B</internationalDesignator>
+        <constellationFlag>false</constellationFlag>
+        <closelySpacedObject>false</closelySpacedObject>
+        <threatCategory>friend</threatCategory>
+        <status statusDate="2021-06-24T16:36:40Z">afmc</status>
+        <flightOrientation>earthCenterStable</flightOrientation>
+        <attitudeControlMode>threeAxis</attitudeControlMode>
+        <attitudeActuatorType>activeMagTorque</attitudeActuatorType>
+        <maneuverData>
+            <maneuverableVehicleFlag>true</maneuverableVehicleFlag>
+            <maneuverEpoch>2021-07-18T16:36:40Z</maneuverEpoch>
+            <maneuverPurpose>Align weapons for planetary defense</maneuverPurpose>
+        </maneuverData>
+        <payload>
+            <payloadName>WormholeGenerator</payloadName>
+            <payloadId>WG42</payloadId>
+            <payloadDescription>Generate wormhole for inter-galaxy travel</payloadDescription>
+            <sensor>
+                <missionId>WGM-SN9</missionId>
+                <sensorName>Temporal Shift Detector</sensorName>
+                <sensorId>TSD99</sensorId>
+                <modality>hsi</modality>
+                <sensorDescription>Detect temporal shift from spectral distribution of light coming through an open wormhole</sensorDescription>
+            </sensor>
+        </payload>
+        <launch>
+            <launchSiteId facilityName="Andrews Spaceport">ntZxixqXAq1Gv43GFSG</launchSiteId>
+            <launchOrg>US Space Force</launchOrg>
+            <launchDate>2021-07-03T16:36:40Z</launchDate>
+            <launchVehicle>Battlestar Falcon</launchVehicle>
+        </launch>
+        <affiliation>
+            <countryName cc="ge:GENC:3:ed1:USA">UNITED STATES</countryName>
+            <orgName>US Space Force</orgName>
+            <orgType>military</orgType>
+            <orgRole>owner</orgRole>
+            <orgRole>operator</orgRole>
+        </affiliation>
+        <affiliation>
+            <countryName cc="ge:GENC:3:ed1:GBR">UNITED KINGDOM</countryName>
+            <orgName>Royal Space Navy</orgName>
+            <orgType>military</orgType>
+            <orgRole>owner</orgRole>
+        </affiliation>
+    </satelliteInformation>
+    <collectionData>
+        <collectionReqId>LeqxAjtNRuqC</collectionReqId>
+        <priority>9</priority>
+        <revNumber>9813892</revNumber>
+        <passNumber>42</passNumber>
+        <background>deepSpace</background>
+        <lightingCondition>sunlit</lightingCondition>
+        <appVisualMagnitude>201.99</appVisualMagnitude>
+        <reflectance>72</reflectance>
+        <snr>-8.196</snr>
+    </collectionData>
+    <orbitData>
+        <epochDate>2021-09-06Z</epochDate>
+        <orbitRegime type="earthEscapeOrbit">interPlanetary</orbitRegime>
+        <orbitCenter>earth</orbitCenter>
+        <meanMotion>125.212</meanMotion>
+        <orbitalPeriod>11.97</orbitalPeriod>
+        <inclination>125.748</inclination>
+        <eccentricity>0.664</eccentricity>
+        <apogeeAltitude>37618.693</apogeeAltitude>
+        <perigeeAltitude>51560.34</perigeeAltitude>
+    </orbitData>
+</spaceObjectDescriptionData>

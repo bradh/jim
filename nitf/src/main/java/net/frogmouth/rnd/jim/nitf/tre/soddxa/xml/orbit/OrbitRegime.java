@@ -12,7 +12,7 @@ public class OrbitRegime {
     @JacksonXmlProperty(isAttribute = true)
     private OrbitRegimeType type;
 
-    @JacksonXmlText private Regime regime;
+    @JacksonXmlText private OrbitRegimeRegion regime;
 
     public OrbitRegime() {}
 
@@ -29,11 +29,11 @@ public class OrbitRegime {
         this.type = type;
     }
 
-    public Regime getRegime() {
+    public OrbitRegimeRegion getRegime() {
         return regime;
     }
 
-    public void setRegime(Regime regime) {
+    public void setRegime(OrbitRegimeRegion regime) {
         this.regime = regime;
     }
 }

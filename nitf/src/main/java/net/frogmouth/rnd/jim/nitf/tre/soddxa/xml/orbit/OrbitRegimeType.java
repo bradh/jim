@@ -2,7 +2,16 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Orbit regime type.
+ *
+ * <p>The type of the orbit regime of the space object.
+ *
+ * <p>This could be considered a refinement or specialisation of the related {@link
+ * OrbitRegimeRegion}.
+ */
 public enum OrbitRegimeType {
+
     /**
      * Earth escape orbit.
      *
@@ -10,7 +19,8 @@ public enum OrbitRegimeType {
      * gravitational influence of a massive body, thus reaching an infinite distance from it. Also
      * known as Hyperbolic Orbit.
      *
-     * <p>Associated with {@link Regime#DEEP_SPACE} and {@link Regime#INTERPLANETARY}.
+     * <p>Associated with {@link OrbitRegimeRegion#DEEP_SPACE} and {@link
+     * OrbitRegimeRegion#INTERPLANETARY}.
      */
     @JsonProperty("earthEscapeOrbit")
     EARTH_ESCAPE_ORBIT,
@@ -21,7 +31,7 @@ public enum OrbitRegimeType {
      * <p>An intentional suborbital spaceflight in which the spacecraft returns to Earth’s surface
      * from which it was launched.
      *
-     * <p>Associated with {@link Regime#SUB_ORBITAL}.
+     * <p>Associated with {@link OrbitRegimeRegion#SUB_ORBITAL}.
      */
     @JsonProperty("earthImpactOrbit")
     EARTH_IMACT_ORBIT,
@@ -35,7 +45,7 @@ public enum OrbitRegimeType {
      * direction as the rotation of the Earth, not always above the equator (zero inclination), and
      * eccentricity may not necessarily be zero. Also known as GSO.
      *
-     * <p>Associated with {@link Regime#HEO}.
+     * <p>Associated with {@link OrbitRegimeRegion#HEO}.
      */
     @JsonProperty("geosynchronousOrbit")
     GEOSYNCHRONOUS_ORBIT,
@@ -49,7 +59,7 @@ public enum OrbitRegimeType {
      * crosses over the same two locations at the Earth’s equator and follows the same passes every
      * 24 hours.
      *
-     * <p>Associated with {@link Regime#MEO}.
+     * <p>Associated with {@link OrbitRegimeRegion#MEO}.
      */
     @JsonProperty("molniyaOrbit")
     MOLNIYA_ORBIT,
@@ -62,7 +72,7 @@ public enum OrbitRegimeType {
      * travelling in the same direction of Earth’s rotation. The satellite crosses over the same two
      * locations at the Earth’s equator every day.
      *
-     * <p>Associated with {@link Regime#MEO}.
+     * <p>Associated with {@link OrbitRegimeRegion#MEO}.
      */
     @JsonProperty("semiSynchronousOrbit")
     SEMI_SYNCHRONOUS_ORBIT,
@@ -72,7 +82,7 @@ public enum OrbitRegimeType {
      *
      * <p>A suborbital spaceflight in which the spacecraft intentionally detonates midair.
      *
-     * <p>Associated with {@link Regime#SUB_ORBITAL}.
+     * <p>Associated with {@link OrbitRegimeRegion#SUB_ORBITAL}.
      */
     @JsonProperty("spaceImpactOrbit")
     SPACE_IMPACT_ORBIT,
@@ -84,7 +94,7 @@ public enum OrbitRegimeType {
      * period of the satellite is greater than the Earth’s rotational period (approximately 24
      * hours).
      *
-     * <p>Associated with {@link Regime#HEO}.
+     * <p>Associated with {@link OrbitRegimeRegion#HEO}.
      */
     @JsonProperty("superSynchronousOrbit")
     SUPER_SYNCHRONOUS_ORBIT,
@@ -97,7 +107,7 @@ public enum OrbitRegimeType {
      * which the satellite travels over the polar regions. The satellite always passes over the
      * equator at the same local solar time. Also known as SSO.
      *
-     * <p>Associated with {@link Regime#LEO}.
+     * <p>Associated with {@link OrbitRegimeRegion#LEO}.
      */
     @JsonProperty("sunSynchronousOrbit")
     SUN_SYNCHRONOUS_ORBIT,
@@ -110,7 +120,7 @@ public enum OrbitRegimeType {
      * altitude. The orbit is typically used soon after launch and insertion as an orbital manoeuvre
      * to move a satellite from one orbit to another.
      *
-     * <p>Associated with {@link Regime#LEO}.
+     * <p>Associated with {@link OrbitRegimeRegion#LEO}.
      */
     @JsonProperty("transferOrbit")
     TRANSFER_ORBIT,
@@ -125,7 +135,7 @@ public enum OrbitRegimeType {
      * lemniscate. These are conceptually similar to Molniya orbits which have the same inclination
      * but half the period (about 12 hours).
      *
-     * <p>Associated with {#link Regime#MEO}.
+     * <p>Associated with {#link OrbitRegimeRegion#MEO}.
      */
     @JsonProperty("tundraOrbit")
     TUNDRA_ORBIT

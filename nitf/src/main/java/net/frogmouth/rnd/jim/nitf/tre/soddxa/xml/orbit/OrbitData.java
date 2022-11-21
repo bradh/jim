@@ -45,6 +45,26 @@ public class OrbitData {
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa")
     private Double perigeeAltitude;
 
+    /** Constructor. */
+    public OrbitData() {}
+
+    /**
+     * Copy constructor.
+     *
+     * @param other the source object to copy from.
+     */
+    public OrbitData(OrbitData other) {
+        this.epochDate = other.epochDate;
+        this.orbitRegime = other.orbitRegime;
+        this.orbitCenter = other.orbitCenter;
+        this.meanMotion = other.meanMotion;
+        this.orbitalPeriod = other.orbitalPeriod;
+        this.inclination = other.inclination;
+        this.eccentricity = other.eccentricity;
+        this.apogeeAltitude = other.apogeeAltitude;
+        this.perigeeAltitude = other.perigeeAltitude;
+    }
+
     public String getEpochDate() {
         return epochDate;
     }

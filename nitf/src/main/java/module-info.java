@@ -23,6 +23,9 @@ module net.frogmouth.rnd.jim.nitf {
     exports net.frogmouth.rnd.jim.nitf.image;
     exports net.frogmouth.rnd.jim.nitf.text;
 
+    opens net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite to
+            com.fasterxml.jackson.databind;
+
     uses net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
 
     provides net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser with

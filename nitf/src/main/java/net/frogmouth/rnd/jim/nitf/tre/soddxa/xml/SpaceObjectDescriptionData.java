@@ -211,10 +211,18 @@ public class SpaceObjectDescriptionData {
     }
 
     public OrbitData getOrbitData() {
-        return orbitData;
+        if (orbitData == null) {
+            return null;
+        } else {
+            return new OrbitData(orbitData);
+        }
     }
 
     public void setOrbitData(OrbitData orbitData) {
-        this.orbitData = orbitData;
+        if (orbitData == null) {
+            this.orbitData = null;
+        } else {
+            this.orbitData = new OrbitData(orbitData);
+        }
     }
 }

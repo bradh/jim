@@ -2,7 +2,13 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Sensor modality.
+ *
+ * <p>The phenomenology of the sensor payload included on the imaged satellite.
+ */
 public enum Modality {
+
     /**
      * Panchromatic.
      *

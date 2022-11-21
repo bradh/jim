@@ -74,7 +74,7 @@ public class SatelliteInformation {
     private AttitudeActuatorType attitudeActuatorType;
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa")
-    private ManeuverDataType maneuverData;
+    private ManoeuvreData maneuverData;
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa", localName = "payload")
     private List<Payload> payloads;
@@ -83,7 +83,7 @@ public class SatelliteInformation {
     private LaunchType launch;
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa", localName = "affiliation")
-    private List<AffiliationType> affiliations;
+    private List<Affiliation> affiliations;
 
     public int getSatNo() {
         return satNo;
@@ -198,35 +198,51 @@ public class SatelliteInformation {
         this.attitudeActuatorType = attitudeActuatorType;
     }
 
-    public ManeuverDataType getManeuverData() {
-        return maneuverData;
+    public ManoeuvreData getManeuverData() {
+        if (maneuverData == null) {
+            return null;
+        } else {
+            return new ManoeuvreData(maneuverData);
+        }
     }
 
-    public void setManeuverData(ManeuverDataType maneuverData) {
-        this.maneuverData = maneuverData;
+    public void setManeuverData(ManoeuvreData maneuverData) {
+        if (maneuverData == null) {
+            this.maneuverData = null;
+        } else {
+            this.maneuverData = new ManoeuvreData(maneuverData);
+        }
     }
 
     public List<Payload> getPayloads() {
-        return payloads;
+        return new ArrayList<>(payloads);
     }
 
     public void setPayloads(List<Payload> payloads) {
-        this.payloads = payloads;
+        this.payloads = new ArrayList<>(payloads);
     }
 
     public LaunchType getLaunch() {
-        return launch;
+        if (launch == null) {
+            return null;
+        } else {
+            return new LaunchType(launch);
+        }
     }
 
     public void setLaunch(LaunchType launch) {
-        this.launch = launch;
+        if (launch == null) {
+            this.launch = null;
+        } else {
+            this.launch = new LaunchType(launch);
+        }
     }
 
-    public List<AffiliationType> getAffiliations() {
-        return affiliations;
+    public List<Affiliation> getAffiliations() {
+        return new ArrayList<>(affiliations);
     }
 
-    public void setAffiliations(List<AffiliationType> affiliations) {
-        this.affiliations = affiliations;
+    public void setAffiliations(List<Affiliation> affiliations) {
+        this.affiliations = new ArrayList<>(affiliations);
     }
 }

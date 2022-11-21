@@ -10,6 +10,20 @@ public class LaunchSite {
 
     @JacksonXmlText private String value;
 
+    /** Constructor. */
+    // TODO: consider making this private and requiring at least value.
+    public LaunchSite() {}
+
+    /**
+     * Copy constructor.
+     *
+     * @param other the source object to copy values from
+     */
+    public LaunchSite(LaunchSite other) {
+        this.facilityName = other.facilityName;
+        this.value = other.value;
+    }
+
     public String getFacilityName() {
         return facilityName;
     }

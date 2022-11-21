@@ -2,7 +2,13 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Flight orientation.
+ *
+ * <p>The stability of the space object in orbit.
+ */
 public enum FlightOrientation {
+
     /** Earth centre stable. */
     @JsonProperty("earthCenterStable")
     EARTH_CENTER_STABLE,

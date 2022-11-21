@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spaceObjectDescriptionData
+    xmlns:ism="urn:us:gov:ic:ism"
+    xmlns:arh="urn:us:gov:ic:arh"
+    xmlns="urn:us:mil:nga:ntb:soddxa"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:us:mil:nga:ntb:soddxa soddxa.xsd">
+    <securityData>
+        <arh:Security ism:ownerProducer="USA" ism:classification="U" ism:resourceElement="true" />
+        <soClassification>
+            <arh:ExternalSecurity ism:ownerProducer="USA" ism:classification="U" ism:excludeFromRollup="true" />
+        </soClassification>
+        <soSIC>0</soSIC>
+        <orconOrganization>NASA</orconOrganization>
+        <smClassification>
+            <arh:ExternalSecurity ism:ownerProducer="USA" ism:classification="U" ism:excludeFromRollup="true" />
+        </smClassification>
+        <accmClassification>
+            <arh:ExternalSecurity ism:ownerProducer="USA" ism:classification="U" ism:excludeFromRollup="true" />
+        </accmClassification>
+        <accmImageHold>false</accmImageHold>
+    </securityData>
+    <sourceCatalog catalogDate="2021-11-22T16:36:40Z" catalogVersion="1.0">Space-Track</sourceCatalog>
+    <absVisualMagnitude>123.456</absVisualMagnitude>
+    <radarCrossSection>13.761</radarCrossSection>
+    <length>8.752</length>
+    <width>7.081</width>
+    <height>3.277</height>
+    <diameter>3.218</diameter>
+    <mass>6762.962</mass>
+    <soUid>677f0e08-4d32-4332-8f84-f7433e861f0d</soUid>
+    <soType>meteor</soType>
+    <nonSatelliteInformation>
+        <name>meteor</name>
+        <identifier>nih_HA5c6Zq1VRQsz9_hyqCPNcU9s0</identifier>
+        <description>Halley's Comet</description>
+    </nonSatelliteInformation>
+    <collectionData>
+        <collectionReqId>LeqxAjtNRuqC</collectionReqId>
+        <priority>9</priority>
+        <revNumber>9813892</revNumber>
+        <passNumber>42</passNumber>
+        <background>deepSpace</background>
+        <lightingCondition>sunlit</lightingCondition>
+        <appVisualMagnitude>201.99</appVisualMagnitude>
+        <reflectance>72</reflectance>
+        <snr>-8.196</snr>
+    </collectionData>
+    <orbitData>
+        <epochDate>2021-09-06Z</epochDate>
+        <orbitRegime type="earthEscapeOrbit">interPlanetary</orbitRegime>
+        <orbitCenter>earth</orbitCenter>
+        <meanMotion>125.212</meanMotion>
+        <orbitalPeriod>11.97</orbitalPeriod>
+        <inclination>125.748</inclination>
+        <eccentricity>0.664</eccentricity>
+        <apogeeAltitude>37618.693</apogeeAltitude>
+        <perigeeAltitude>51560.34</perigeeAltitude>
+    </orbitData>
+</spaceObjectDescriptionData>

@@ -13,8 +13,8 @@ import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.catalog.SourceCatalogName;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.collection.Background;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.collection.LightingCondition;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit.OrbitCenter;
+import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit.OrbitRegimeRegion;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit.OrbitRegimeType;
-import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit.Regime;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.AttitudeActuatorType;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.AttitudeControlMode;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.FlightOrientation;
@@ -136,13 +136,13 @@ public class SODDXAParserTest {
                 AttitudeActuatorType.ACTIVE_MAG_TORQUE);
         assertNotNull(rootElement.getSatelliteInformation().getManeuverData());
         assertEquals(
-                rootElement.getSatelliteInformation().getManeuverData().isManeuverableVehicle(),
+                rootElement.getSatelliteInformation().getManeuverData().isManoeuvrableVehicle(),
                 true);
         assertEquals(
-                rootElement.getSatelliteInformation().getManeuverData().getManeuverEpoch(),
+                rootElement.getSatelliteInformation().getManeuverData().getManoeuvreEpoch(),
                 "2021-07-18T16:36:40Z");
         assertEquals(
-                rootElement.getSatelliteInformation().getManeuverData().getManeuverPurpose(),
+                rootElement.getSatelliteInformation().getManeuverData().getManoeuvrePurpose(),
                 "Align weapons for planetary defense");
         assertNotNull(rootElement.getSatelliteInformation().getPayloads());
         assertEquals(rootElement.getSatelliteInformation().getPayloads().size(), 1);
@@ -339,7 +339,8 @@ public class SODDXAParserTest {
                 rootElement.getOrbitData().getOrbitRegime().getType(),
                 OrbitRegimeType.EARTH_ESCAPE_ORBIT);
         assertEquals(
-                rootElement.getOrbitData().getOrbitRegime().getRegime(), Regime.INTERPLANETARY);
+                rootElement.getOrbitData().getOrbitRegime().getRegime(),
+                OrbitRegimeRegion.INTERPLANETARY);
         assertEquals(rootElement.getOrbitData().getOrbitCenter(), OrbitCenter.EARTH);
         assertEquals(rootElement.getOrbitData().getMeanMotion(), 125.212);
         assertEquals(rootElement.getOrbitData().getOrbitalPeriod(), 11.97);
