@@ -2,7 +2,14 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Space object type.
+ *
+ * <p>This enumeration identifies the subject of the space object description (i.e. the thing being
+ * imaged). The key distinction is between {@code satellite} and other objects types.
+ */
 public enum SpaceObjectType {
+
     /**
      * Earth.
      *
@@ -14,6 +21,7 @@ public enum SpaceObjectType {
      */
     @JsonProperty("earth")
     EARTH,
+
     /**
      * Meteor.
      *

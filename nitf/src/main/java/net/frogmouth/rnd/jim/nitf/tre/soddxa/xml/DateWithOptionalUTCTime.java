@@ -7,11 +7,35 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Date with optional UTC time.
+ *
+ * <p>A date and time in UTC. The time may be omitted only when the time is not available.
+ */
 @JsonSerialize(using = DateWithOptionalUTCTimeSerializer.class)
 public class DateWithOptionalUTCTime {
     private LocalDate date;
     private LocalTime time;
 
+    /**
+     * Constructor.
+     *
+     * @param date date part, implicitly in UTC.
+     * @param time time part, implicitly in UTC.
+     */
+    public DateWithOptionalUTCTime(LocalDate date, LocalTime time) {
+        this.date = date;
+        this.time = time;
+    }
+
+    /**
+     * Constructor.
+     *
+     * <p>This initialises from the specified string, which must match the {@link
+     * DateTimeFormatter#ISO_OFFSET_DATE_TIME} or {@link DateTimeFormatter#ISO_DATE}.
+     *
+     * @param s the string to parse
+     */
     public DateWithOptionalUTCTime(String s) {
         try {
             ZonedDateTime zdt = ZonedDateTime.parse(s, DateTimeFormatter.ISO_OFFSET_DATE_TIME);

@@ -2,7 +2,9 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/** Attitude control mode. */
 public enum AttitudeControlMode {
+
     /**
      * Three axis.
      *
@@ -10,6 +12,7 @@ public enum AttitudeControlMode {
      */
     @JsonProperty("threeAxis")
     THREE_AXIS,
+
     /**
      * Spin.
      *
@@ -17,9 +20,11 @@ public enum AttitudeControlMode {
      */
     @JsonProperty("spin")
     SPIN,
+
     /** Tumbling. */
     @JsonProperty("tumbling")
     TUMBLING,
+
     /**
      * Gravity gradient.
      *

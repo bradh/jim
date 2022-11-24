@@ -191,10 +191,30 @@ public class SpaceObjectDescriptionData {
         }
     }
 
+    /**
+     * Source catalogue.
+     *
+     * <p>Information about the the space object catalogue used to populate many elements within the
+     * SODDXA TRE.
+     *
+     * <p>This field is required.
+     *
+     * @return the source catalogue.
+     */
     public SourceCatalog getSourceCatalog() {
         return sourceCatalog;
     }
 
+    /**
+     * Set the source catalogue.
+     *
+     * <p>Information about the the space object catalogue used to populate many elements within the
+     * SODDXA TRE.
+     *
+     * <p>This field is required.
+     *
+     * @param sourceCatalog the source catalogue.
+     */
     public void setSourceCatalog(SourceCatalog sourceCatalog) {
         this.sourceCatalog = sourceCatalog;
     }

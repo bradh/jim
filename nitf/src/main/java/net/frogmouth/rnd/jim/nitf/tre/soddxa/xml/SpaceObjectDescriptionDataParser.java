@@ -8,6 +8,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.IOException;
 
+/** Parser for SpaceObjectDescriptionData. */
 public class SpaceObjectDescriptionDataParser {
 
     private final XmlMapper mapper;

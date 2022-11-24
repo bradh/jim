@@ -130,10 +130,30 @@ public class SecurityData {
         this.soClassification = soClassification;
     }
 
+    /**
+     * Security Indicator Code (SIC).
+     *
+     * <p>The Security Indicator Code (SIC) alphanumeric character that controls the distribution of
+     * imagery and associated metadata to pre-arranged users as defined by NGA Source.
+     *
+     * <p>This field is optional.
+     *
+     * @return the SIC as text ( 0 to 9, A to F as defined by NGA Source)
+     */
     public String getSoSIC() {
         return soSIC;
     }
 
+    /**
+     * Set the Security Indicator Code (SIC).
+     *
+     * <p>The Security Indicator Code (SIC) alphanumeric character that controls the distribution of
+     * imagery and associated metadata to pre-arranged users as defined by NGA Source.
+     *
+     * <p>This field is optional.
+     *
+     * @param soSIC the SIC as text ( 0 to 9, A to F as defined by NGA Source)
+     */
     public void setSoSIC(String soSIC) {
         this.soSIC = soSIC;
     }

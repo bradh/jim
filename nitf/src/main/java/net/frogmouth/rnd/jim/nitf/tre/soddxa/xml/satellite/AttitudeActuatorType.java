@@ -2,7 +2,9 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/** Attitude actuator type. */
 public enum AttitudeActuatorType {
+
     /** Active magnetic torque. */
     @JsonProperty("activeMagTorque")
     ACTIVE_MAG_TORQUE,
