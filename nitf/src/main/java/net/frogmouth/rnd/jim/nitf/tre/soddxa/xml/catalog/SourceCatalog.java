@@ -2,35 +2,62 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.catalog;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.DateWithOptionalUTCTime;
 
 /**
  * Source catalogue.
  *
  * <p>The name of the space object catalogue used to populate many elements within the SODDXA TRE.
+ *
+ * <p>This class is immutable.
  */
 public class SourceCatalog {
 
     @JacksonXmlProperty(isAttribute = true)
-    // TODO: DateWithOptionalUTCTime instead
-    private String catalogDate;
+    private DateWithOptionalUTCTime catalogDate;
 
     @JacksonXmlProperty(isAttribute = true)
     private String catalogVersion;
 
     @JacksonXmlText private SourceCatalogName catalogName;
 
-    /** Constructor. */
-    public SourceCatalog() {}
+    /**
+     * Constructor.
+     *
+     * <p>This is only for the deserialiser. Use a version that takes date and name values, with
+     * optional version.
+     */
+    private SourceCatalog() {}
 
     /**
-     * Copy constructor.
+     * Constructor.
      *
-     * @param other the source object to copy values for.
+     * @param catalogName the catalogue as an enumerated value.
+     * @param catalogDate the catalogue publish / update date.
+     * @param catalogVersion the catalogue version
      */
-    public SourceCatalog(SourceCatalog other) {
-        this.catalogDate = other.catalogDate;
-        this.catalogVersion = other.catalogVersion;
-        this.catalogName = other.catalogName;
+    public SourceCatalog(
+            SourceCatalogName catalogName,
+            DateWithOptionalUTCTime catalogDate,
+            String catalogVersion) {
+        this.catalogDate = catalogDate;
+        this.catalogVersion = catalogVersion;
+        this.catalogName = catalogName;
+    }
+
+    /**
+     * Constructor.
+     *
+     * <p>This will set the catalogue version to null, indicating the publisher does not assign
+     * version numbers.
+     *
+     * @param catalogName the catalogue as an enumerated value.
+     * @param catalogDate the catalogue publish / update date.
+     */
+    public SourceCatalog(SourceCatalogName catalogName, DateWithOptionalUTCTime catalogDate) {
+        this.catalogDate = catalogDate;
+        this.catalogVersion = null;
+        this.catalogName = catalogName;
     }
 
     /**
@@ -42,12 +69,8 @@ public class SourceCatalog {
      *
      * @return the catalogue date.
      */
-    public String getCatalogDate() {
+    public DateWithOptionalUTCTime getCatalogDate() {
         return catalogDate;
-    }
-
-    public void setCatalogDate(String catalogDate) {
-        this.catalogDate = catalogDate;
     }
 
     /**
@@ -64,10 +87,6 @@ public class SourceCatalog {
         return catalogVersion;
     }
 
-    public void setCatalogVersion(String catalogVersion) {
-        this.catalogVersion = catalogVersion;
-    }
-
     /**
      * The catalogue name.
      *
@@ -75,9 +94,5 @@ public class SourceCatalog {
      */
     public SourceCatalogName getCatalogName() {
         return catalogName;
-    }
-
-    public void setCatalogName(SourceCatalogName catalogName) {
-        this.catalogName = catalogName;
     }
 }

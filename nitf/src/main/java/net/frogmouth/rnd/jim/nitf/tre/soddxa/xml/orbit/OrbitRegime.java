@@ -5,6 +5,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
+/**
+ * Orbit regime.
+ *
+ * <p>The region in space associated with a system’s dominant gravitational attraction capable of
+ * capturing the orbit of other space objects.
+ *
+ * <p>The orbit regime identifies the general kind of orbit (e.g. LEO or HEO), and optionally allows
+ * further specification (e.g. Tundra or Molniya).
+ */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({"type", "regime"})
 public class OrbitRegime {
@@ -14,26 +23,50 @@ public class OrbitRegime {
 
     @JacksonXmlText private OrbitRegimeRegion regime;
 
-    public OrbitRegime() {}
+    /**
+     * Constructor.
+     *
+     * <p>This is only for the deserialisation implementation. Use the version that specifies the
+     * orbit regime region, or both regime and type.
+     */
+    private OrbitRegime() {}
 
-    public OrbitRegime(OrbitRegime other) {
-        this.type = other.type;
-        this.regime = other.regime;
+    /**
+     * Constructor.
+     *
+     * @param regime the orbit regime region.
+     */
+    public OrbitRegime(OrbitRegimeRegion regime) {
+        this.regime = regime;
+        this.type = null;
     }
 
+    /**
+     * Constructor.
+     *
+     * @param regime the value of regime
+     * @param type the value of type
+     */
+    public OrbitRegime(OrbitRegimeRegion regime, OrbitRegimeType type) {
+        this.type = type;
+        this.regime = regime;
+    }
+
+    /**
+     * Orbit regime type.
+     *
+     * @return the orbit regime type as an enumerated value
+     */
     public OrbitRegimeType getType() {
         return type;
     }
 
-    public void setType(OrbitRegimeType type) {
-        this.type = type;
-    }
-
+    /**
+     * Orbit regime region.
+     *
+     * @return the orbit regime region as an enumerated value.
+     */
     public OrbitRegimeRegion getRegime() {
         return regime;
-    }
-
-    public void setRegime(OrbitRegimeRegion regime) {
-        this.regime = regime;
     }
 }

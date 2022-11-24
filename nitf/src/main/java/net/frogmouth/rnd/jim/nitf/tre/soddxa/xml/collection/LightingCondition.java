@@ -2,6 +2,11 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.collection;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Lighting condition.
+ *
+ * <p>Identifies the natural illumination source of the space object.
+ */
 public enum LightingCondition {
     /**
      * Earth shine.

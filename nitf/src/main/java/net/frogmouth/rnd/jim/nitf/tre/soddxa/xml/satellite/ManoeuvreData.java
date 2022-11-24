@@ -3,6 +3,7 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.DateWithOptionalUTCTime;
 
 /**
  * Manoeuvre data.
@@ -20,8 +21,7 @@ public class ManoeuvreData {
     private Boolean manoeuvrableVehicle;
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa", localName = "maneuverEpoch")
-    // TODO: DateWithOptionalUTCTime
-    private String manoeuvreEpoch;
+    private DateWithOptionalUTCTime manoeuvreEpoch;
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa", localName = "maneuverPurpose")
     private String manoeuvrePurpose;
@@ -65,11 +65,11 @@ public class ManoeuvreData {
      *
      * @return the manoeuvre date / time.
      */
-    public String getManoeuvreEpoch() {
+    public DateWithOptionalUTCTime getManoeuvreEpoch() {
         return manoeuvreEpoch;
     }
 
-    public void setManoeuvreEpoch(String maneuverEpoch) {
+    public void setManoeuvreEpoch(DateWithOptionalUTCTime maneuverEpoch) {
         this.manoeuvreEpoch = maneuverEpoch;
     }
 

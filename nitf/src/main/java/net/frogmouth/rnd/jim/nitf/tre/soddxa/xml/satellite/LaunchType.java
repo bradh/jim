@@ -3,6 +3,7 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.DateWithOptionalUTCTime;
 
 /**
  * Launch information.
@@ -20,8 +21,7 @@ public class LaunchType {
     private String launchOrg;
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa")
-    // TODO: DateWithOptionalUTCTime
-    private String launchDate;
+    private DateWithOptionalUTCTime launchDate;
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa")
     private String launchVehicle;
@@ -44,25 +44,17 @@ public class LaunchType {
     /**
      * Launch site identification.
      *
-     * <p>The satellite launch site unique identifier as provided by the catalog specified in the
-     * sourceCatalog element.
+     * <p>The satellite launch site unique identifier and name as provided by the catalogue
+     * specified in the {@code sourceCatalog} element.
      *
      * @return the launch site identification.
      */
     public LaunchSite getLaunchSiteId() {
-        if (launchSiteId == null) {
-            return null;
-        } else {
-            return new LaunchSite(launchSiteId);
-        }
+        return this.launchSiteId;
     }
 
     public void setLaunchSiteId(LaunchSite launchSiteId) {
-        if (launchSiteId == null) {
-            this.launchSiteId = null;
-        } else {
-            this.launchSiteId = new LaunchSite(launchSiteId);
-        }
+        this.launchSiteId = launchSiteId;
     }
 
     /**
@@ -77,6 +69,14 @@ public class LaunchType {
         return launchOrg;
     }
 
+    /**
+     * Set the launch organisation.
+     *
+     * <p>The name of the organisation charged with the launch operation that includes the satellite
+     * payload.
+     *
+     * @param launchOrg the launch organisation.
+     */
     public void setLaunchOrg(String launchOrg) {
         this.launchOrg = launchOrg;
     }
@@ -85,16 +85,25 @@ public class LaunchType {
      * Launch date.
      *
      * <p>The UTC date and UTC time or just the UTC date (only when time is not available to the
-     * data provider) on which the satellite was launched as provided by the catalog specified in
+     * data provider) on which the satellite was launched as provided by the catalogue specified in
      * the sourceCatalog element.
      *
      * @return launch date / time.
      */
-    public String getLaunchDate() {
+    public DateWithOptionalUTCTime getLaunchDate() {
         return launchDate;
     }
 
-    public void setLaunchDate(String launchDate) {
+    /**
+     * Set the launch date.
+     *
+     * <p>The UTC date and UTC time or just the UTC date (only when time is not available to the
+     * data provider) on which the satellite was launched as provided by the catalogue specified in
+     * the sourceCatalog element.
+     *
+     * @param launchDate launch date / time.
+     */
+    public void setLaunchDate(DateWithOptionalUTCTime launchDate) {
         this.launchDate = launchDate;
     }
 

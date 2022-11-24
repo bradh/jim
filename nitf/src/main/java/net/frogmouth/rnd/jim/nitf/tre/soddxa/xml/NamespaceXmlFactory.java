@@ -10,11 +10,17 @@ import java.util.Map;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+/**
+ * SODDXA namespace factory.
+ *
+ * <p>This is an implementation detail for the Jackson parser. It should not be called directly.
+ */
 class NamespaceXmlFactory extends XmlFactory {
 
     private static final String DEFAULT_NAMESPACE = "urn:us:mil:nga:ntb:soddxa";
     private final Map<String, String> additionalNamespaces = new HashMap<>();
 
+    /** Constructor. */
     public NamespaceXmlFactory() {
         additionalNamespaces.put("xsi", "http://www.w3.org/2001/XMLSchema-instance");
         additionalNamespaces.put("arh", "urn:us:gov:ic:arh");

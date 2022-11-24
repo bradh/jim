@@ -85,6 +85,34 @@ public class SatelliteInformation {
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa", localName = "affiliation")
     private List<Affiliation> affiliations;
 
+    private SatelliteInformation() {}
+
+    public SatelliteInformation(int satNo, String satelliteName) {
+        this.satNo = satNo;
+        this.satelliteName = satelliteName;
+    }
+
+    public SatelliteInformation(SatelliteInformation other) {
+        this.satNo = other.satNo;
+        this.targetId = other.targetId;
+        this.satelliteName = other.satelliteName;
+        this.platformId = other.platformId;
+        this.satelliteCategories = other.satelliteCategories;
+        this.satelliteDescription = other.satelliteDescription;
+        this.internationalDesignators = other.internationalDesignators;
+        this.constellation = other.constellation;
+        this.closelySpacedObject = other.closelySpacedObject;
+        this.threatCategory = other.threatCategory;
+        this.status = other.status;
+        this.flightOrientation = other.flightOrientation;
+        this.attitudeControlMode = other.attitudeControlMode;
+        this.attitudeActuatorType = other.attitudeActuatorType;
+        this.maneuverData = other.maneuverData;
+        this.payloads = other.payloads;
+        this.launch = other.launch;
+        this.affiliations = other.affiliations;
+    }
+
     public int getSatNo() {
         return satNo;
     }

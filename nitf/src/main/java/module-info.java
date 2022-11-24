@@ -23,6 +23,12 @@ module net.frogmouth.rnd.jim.nitf {
     exports net.frogmouth.rnd.jim.nitf.image;
     exports net.frogmouth.rnd.jim.nitf.text;
 
+    opens net.frogmouth.rnd.jim.nitf.tre.soddxa.xml to
+            com.fasterxml.jackson.databind;
+    opens net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.catalog to
+            com.fasterxml.jackson.databind;
+    opens net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit to
+            com.fasterxml.jackson.databind;
     opens net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite to
             com.fasterxml.jackson.databind;
 

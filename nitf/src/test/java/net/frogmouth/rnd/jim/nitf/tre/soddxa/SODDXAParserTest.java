@@ -12,7 +12,7 @@ import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.SpaceObjectType;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.catalog.SourceCatalogName;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.collection.Background;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.collection.LightingCondition;
-import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit.OrbitCenter;
+import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit.OrbitCentre;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit.OrbitRegimeRegion;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit.OrbitRegimeType;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.AttitudeActuatorType;
@@ -61,11 +61,12 @@ public class SODDXAParserTest {
         assertNotNull(rootElement);
         assertNotNull(rootElement.getSecurityData());
         assertNotNull(rootElement.getSourceCatalog());
-        assertEquals(rootElement.getSourceCatalog().getCatalogDate(), "2021-11-22T16:36:40Z");
+        assertEquals(
+                rootElement.getSourceCatalog().getCatalogDate().toString(), "2021-11-22T16:36:40Z");
         assertEquals(rootElement.getSourceCatalog().getCatalogVersion(), "1.0");
         assertEquals(
                 rootElement.getSourceCatalog().getCatalogName(), SourceCatalogName.SPACE_TRACK);
-        assertEquals(rootElement.getAbsVisualMagnitude(), 123.456);
+        assertEquals(rootElement.getAbsoluteVisualMagnitude(), 123.456);
         assertEquals(rootElement.getRadarCrossSection(), 13.761);
         assertEquals(rootElement.getLength(), 8.752);
         assertEquals(rootElement.getWidth(), 7.081);
@@ -122,7 +123,7 @@ public class SODDXAParserTest {
                 rootElement.getSatelliteInformation().getThreatCategory(), ThreatCategory.FRIEND);
         assertNotNull(rootElement.getSatelliteInformation().getStatus());
         assertEquals(
-                rootElement.getSatelliteInformation().getStatus().getStatusDate(),
+                rootElement.getSatelliteInformation().getStatus().getStatusDate().toString(),
                 "2021-06-24T16:36:40Z");
         assertEquals(rootElement.getSatelliteInformation().getStatus().getValue(), StatusType.AFMC);
         assertEquals(
@@ -139,7 +140,11 @@ public class SODDXAParserTest {
                 rootElement.getSatelliteInformation().getManeuverData().isManoeuvrableVehicle(),
                 true);
         assertEquals(
-                rootElement.getSatelliteInformation().getManeuverData().getManoeuvreEpoch(),
+                rootElement
+                        .getSatelliteInformation()
+                        .getManeuverData()
+                        .getManoeuvreEpoch()
+                        .toString(),
                 "2021-07-18T16:36:40Z");
         assertEquals(
                 rootElement.getSatelliteInformation().getManeuverData().getManoeuvrePurpose(),
@@ -210,12 +215,12 @@ public class SODDXAParserTest {
                         .getFacilityName(),
                 "Andrews Spaceport");
         assertEquals(
-                rootElement.getSatelliteInformation().getLaunch().getLaunchSiteId().getValue(),
+                rootElement.getSatelliteInformation().getLaunch().getLaunchSiteId().getIdentifier(),
                 "ntZxixqXAq1Gv43GFSG");
         assertEquals(
                 rootElement.getSatelliteInformation().getLaunch().getLaunchOrg(), "US Space Force");
         assertEquals(
-                rootElement.getSatelliteInformation().getLaunch().getLaunchDate(),
+                rootElement.getSatelliteInformation().getLaunch().getLaunchDate().toString(),
                 "2021-07-03T16:36:40Z");
         assertEquals(
                 rootElement.getSatelliteInformation().getLaunch().getLaunchVehicle(),
@@ -334,14 +339,14 @@ public class SODDXAParserTest {
         assertEquals(rootElement.getCollectionData().getAppVisualMagnitude(), 201.99);
         assertEquals(rootElement.getCollectionData().getReflectance(), 72);
         assertEquals(rootElement.getCollectionData().getSnr(), -8.196);
-        assertEquals(rootElement.getOrbitData().getEpochDate(), "2021-09-06Z");
+        assertEquals(rootElement.getOrbitData().getEpochDate().toString(), "2021-09-06Z");
         assertEquals(
                 rootElement.getOrbitData().getOrbitRegime().getType(),
                 OrbitRegimeType.EARTH_ESCAPE_ORBIT);
         assertEquals(
                 rootElement.getOrbitData().getOrbitRegime().getRegime(),
                 OrbitRegimeRegion.INTERPLANETARY);
-        assertEquals(rootElement.getOrbitData().getOrbitCenter(), OrbitCenter.EARTH);
+        assertEquals(rootElement.getOrbitData().getOrbitCentre(), OrbitCentre.EARTH);
         assertEquals(rootElement.getOrbitData().getMeanMotion(), 125.212);
         assertEquals(rootElement.getOrbitData().getOrbitalPeriod(), 11.97);
         assertEquals(rootElement.getOrbitData().getInclination(), 125.748);

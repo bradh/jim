@@ -2,6 +2,7 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
+import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.DateWithOptionalUTCTime;
 
 /**
  * Status.
@@ -10,8 +11,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
  */
 public class Status {
     @JacksonXmlProperty(isAttribute = true)
-    // TODO: DateWithOptionalUTCTime
-    private String statusDate;
+    private DateWithOptionalUTCTime statusDate;
 
     @JacksonXmlText private StatusType value;
 
@@ -29,7 +29,7 @@ public class Status {
      * @param statusDate
      * @param value
      */
-    public Status(String statusDate, StatusType value) {
+    public Status(DateWithOptionalUTCTime statusDate, StatusType value) {
         this.statusDate = statusDate;
         this.value = value;
     }
@@ -52,7 +52,7 @@ public class Status {
      *
      * @return the status date
      */
-    public String getStatusDate() {
+    public DateWithOptionalUTCTime getStatusDate() {
         return statusDate;
     }
 
