@@ -2,6 +2,11 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Organisation role.
+ *
+ * <p>The organization’s affiliation with the space object.
+ */
 public enum OrganisationRole {
     /**
      * Financier.

@@ -67,7 +67,11 @@ public class CollectionData {
         this.revNumber = other.revNumber;
         this.passNumber = other.passNumber;
         this.background = other.background;
-        this.lightingConditions = new ArrayList<>(other.lightingConditions);
+        if (other.lightingConditions == null) {
+            this.lightingConditions = null;
+        } else {
+            this.lightingConditions = new ArrayList<>(other.lightingConditions);
+        }
         this.appVisualMagnitude = other.appVisualMagnitude;
         this.reflectance = other.reflectance;
         this.snr = other.snr;

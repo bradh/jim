@@ -21,6 +21,7 @@ import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.FlightOrientation;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.Modality;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.OrganisationRole;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.OrganisationType;
+import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.PieceType;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.SatelliteCategory;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.StatusType;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.ThreatCategory;
@@ -95,7 +96,7 @@ public class SODDXAParserTest {
                         .getInternationalDesignators()
                         .get(0)
                         .getPieceType(),
-                "platform");
+                PieceType.PLATFORM);
         assertEquals(
                 rootElement
                         .getSatelliteInformation()
@@ -109,7 +110,7 @@ public class SODDXAParserTest {
                         .getInternationalDesignators()
                         .get(1)
                         .getPieceType(),
-                "payload");
+                PieceType.PAYLOAD);
         assertEquals(
                 rootElement
                         .getSatelliteInformation()
@@ -232,7 +233,7 @@ public class SODDXAParserTest {
                         .getSatelliteInformation()
                         .getAffiliations()
                         .get(0)
-                        .getCountryName()
+                        .getCountry()
                         .getCountryCode(),
                 "ge:GENC:3:ed1:USA");
         assertEquals(
@@ -240,7 +241,7 @@ public class SODDXAParserTest {
                         .getSatelliteInformation()
                         .getAffiliations()
                         .get(0)
-                        .getCountryName()
+                        .getCountry()
                         .getName(),
                 "UNITED STATES");
         assertEquals(
@@ -286,7 +287,7 @@ public class SODDXAParserTest {
                         .getSatelliteInformation()
                         .getAffiliations()
                         .get(1)
-                        .getCountryName()
+                        .getCountry()
                         .getCountryCode(),
                 "ge:GENC:3:ed1:GBR");
         assertEquals(
@@ -294,7 +295,7 @@ public class SODDXAParserTest {
                         .getSatelliteInformation()
                         .getAffiliations()
                         .get(1)
-                        .getCountryName()
+                        .getCountry()
                         .getName(),
                 "UNITED KINGDOM");
         assertEquals(

@@ -12,7 +12,7 @@ import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.DateWithOptionalUTCTime;
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({"launchSiteId", "launchOrg", "launchDate", "launchVehicle"})
-public class LaunchType {
+public class Launch {
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa")
     private LaunchSite launchSiteId;
@@ -27,14 +27,14 @@ public class LaunchType {
     private String launchVehicle;
 
     /** Constructor. */
-    public LaunchType() {}
+    public Launch() {}
 
     /**
      * Copy constructor.
      *
      * @param other the source object to copy values from.
      */
-    public LaunchType(LaunchType other) {
+    public Launch(Launch other) {
         this.launchSiteId = other.launchSiteId;
         this.launchOrg = other.launchOrg;
         this.launchDate = other.launchDate;

@@ -2,6 +2,13 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Status type.
+ *
+ * <p>The most current reported satellite operational status or orbital status.
+ *
+ * <p>The {@link Status} class combines one of these values with a timestamp.
+ */
 public enum StatusType {
     /** Active – Fully Mission Capable. */
     @JsonProperty("afmc")

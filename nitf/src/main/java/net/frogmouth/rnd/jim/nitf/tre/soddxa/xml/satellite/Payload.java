@@ -11,7 +11,7 @@ import java.util.List;
  *
  * <p>The payload container specifies information about the platform's sensors and equipment
  * necessary to perform specific tasks, excluding the instrumentation necessary for the platform to
- * operate. A platform may include one or more payloads.
+ * operate. A platform may include zero or more payloads.
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @JsonPropertyOrder({"payloadName", "payloadId", "payloadDescription", "sensor"})
@@ -40,6 +40,14 @@ public class Payload {
         return payloadName;
     }
 
+    /**
+     * Set the payload name.
+     *
+     * <p>The common name of the payload or sensor suite carried or mounted to the satellite
+     * platform.
+     *
+     * @param payloadName the payload name.
+     */
     public void setPayloadName(String payloadName) {
         this.payloadName = payloadName;
     }
@@ -56,6 +64,14 @@ public class Payload {
         return payloadId;
     }
 
+    /**
+     * Set the payload identifier.
+     *
+     * <p>A sequence of characters derived from a catalogue or other authoritative source that
+     * uniquely identifies a payload or sensor suite.
+     *
+     * @param payloadId the payload identifier.
+     */
     public void setPayloadId(String payloadId) {
         this.payloadId = payloadId;
     }
@@ -71,6 +87,13 @@ public class Payload {
         return payloadDescription;
     }
 
+    /**
+     * Set the payload description.
+     *
+     * <p>A free-text description of the imaged satellite's payload.
+     *
+     * @param payloadDescription the payload description.
+     */
     public void setPayloadDescription(String payloadDescription) {
         this.payloadDescription = payloadDescription;
     }
@@ -87,6 +110,14 @@ public class Payload {
         return new ArrayList<>(sensors);
     }
 
+    /**
+     * Set the sensors.
+     *
+     * <p>List of sensors. Each sensor instance provides information about a sensor on the space
+     * object. This element may be repeated to support multiple sensors on the space object.
+     *
+     * @param sensors the list of sensors, may be empty.
+     */
     public void setSensors(List<Sensor> sensors) {
         this.sensors = new ArrayList<>(sensors);
     }

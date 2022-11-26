@@ -53,6 +53,15 @@ public class ManoeuvreData {
         return manoeuvrableVehicle;
     }
 
+    /**
+     * Set the manoeuvrable vehicle flag.
+     *
+     * <p>A boolean value indicating if the space object can perform manoeuvres (true) or not
+     * (false).
+     *
+     * @param manoeuvrableVehicle true for a manoeuvrable vehicle, false for a non-manoeuvrable
+     *     vehicle.
+     */
     public void setManoeuvrableVehicle(Boolean manoeuvrableVehicle) {
         this.manoeuvrableVehicle = manoeuvrableVehicle;
     }

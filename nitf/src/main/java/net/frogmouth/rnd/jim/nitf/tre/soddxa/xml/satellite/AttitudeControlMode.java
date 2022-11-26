@@ -2,7 +2,11 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/** Attitude control mode. */
+/**
+ * Attitude control mode.
+ *
+ * <p>The satellite's primary mode of attitude control.
+ */
 public enum AttitudeControlMode {
 
     /**

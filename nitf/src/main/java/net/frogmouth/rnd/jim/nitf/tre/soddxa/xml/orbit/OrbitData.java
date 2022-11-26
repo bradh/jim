@@ -3,7 +3,10 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import java.util.ArrayList;
+import java.util.List;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.DateWithOptionalUTCTime;
+import net.frogmouth.rnd.jim.nitf.validation.ValidationResult;
 
 /**
  * Orbit data.
@@ -336,5 +339,12 @@ public class OrbitData {
      */
     public void setPerigeeAltitude(Double perigeeAltitude) {
         this.perigeeAltitude = perigeeAltitude;
+    }
+
+    public List<ValidationResult> checkValidity() {
+        List<ValidationResult> results = new ArrayList<>();
+        // TODO: check epoch date
+        // TODO: check value ranges
+        return results;
     }
 }

@@ -2,7 +2,11 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/** Attitude actuator type. */
+/**
+ * Attitude actuator type.
+ *
+ * <p>The satellite's type of actuator used for attitude control.
+ */
 public enum AttitudeActuatorType {
 
     /** Active magnetic torque. */
@@ -23,5 +27,13 @@ public enum AttitudeActuatorType {
 
     /** Passive magnetic torque */
     @JsonProperty("passiveMagTorque")
-    PASSIVE_MAG_TORQUE
+    PASSIVE_MAG_TORQUE,
+
+    /** Reaction wheels. */
+    @JsonProperty("reactionWheels")
+    REACTION_WHEELS,
+
+    /** Solar sail. */
+    @JsonProperty("solarSail")
+    SOLAR_SAIL
 }

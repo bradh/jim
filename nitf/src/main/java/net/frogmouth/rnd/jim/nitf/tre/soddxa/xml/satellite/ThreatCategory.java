@@ -2,6 +2,11 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Threat category.
+ *
+ * <p>The satellite threat category.
+ */
 public enum ThreatCategory {
     /**
      * Bandit.
@@ -17,7 +22,7 @@ public enum ThreatCategory {
      * Bogey.
      *
      * <p>An element (e.g., contact, track) whose identity is unknown. Some databases of space
-     * object information refer to this threat category as “Pending”.
+     * object information refer to this threat category as "Pending".
      */
     @JsonProperty("bogey")
     BOGEY,

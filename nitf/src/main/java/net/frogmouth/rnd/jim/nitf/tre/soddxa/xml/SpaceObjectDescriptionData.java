@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.catalog.SourceCatalog;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.collection.CollectionData;
@@ -11,6 +13,9 @@ import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.nonsatellite.NonSatelliteInform
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.orbit.OrbitData;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite.SatelliteInformation;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.security.SecurityData;
+import net.frogmouth.rnd.jim.nitf.validation.ValidationResult;
+import net.frogmouth.rnd.jim.nitf.validation.ValidationResults;
+import net.frogmouth.rnd.jim.nitf.validation.Validity;
 
 /**
  * Space object description data.
@@ -605,5 +610,128 @@ public class SpaceObjectDescriptionData {
         } else {
             this.orbitData = new OrbitData(orbitData);
         }
+    }
+
+    public ValidationResults checkValidity() {
+        ValidationResults result = new ValidationResults();
+        result.addResults(validateSecurityDataPresent());
+        result.addResults(validateSourceCatalog());
+        result.addResults(validateRadarCrossSection());
+        result.addResults(validateLength());
+        result.addResults(validateWidth());
+        result.addResults(validateHeight());
+        result.addResults(validateDiameter());
+        result.addResults(validateMass());
+        result.addResults(validateUid());
+        // TODO: validate soType and related data match
+        // TODO: if satelliteInformation, check that is valid
+        // TODO: collection data is non-null and valid
+        result.addResults(validateOrbitData());
+        return result;
+    }
+
+    private List<ValidationResult> validateSecurityDataPresent() {
+        List<ValidationResult> results = new ArrayList<>();
+        if (this.securityData == null) {
+            ValidationResult result = new ValidationResult(Validity.DoesNotConform);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription("securityData is required element, even if it is empty");
+            results.add(result);
+        } else {
+            // TODO: more checks.
+        }
+        return results;
+    }
+
+    private List<ValidationResult> validateSourceCatalog() {
+        List<ValidationResult> results = new ArrayList<>();
+        if (this.sourceCatalog == null) {
+            ValidationResult result = new ValidationResult(Validity.DoesNotConform);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription("sourceCatalog is a required element");
+            results.add(result);
+        } else {
+            results.addAll(sourceCatalog.checkValidity());
+        }
+        return results;
+    }
+
+    private List<ValidationResult> validateUid() {
+        List<ValidationResult> results = new ArrayList<>();
+        if (this.soUid == null) {
+            ValidationResult result = new ValidationResult(Validity.DoesNotConform);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription("soUid is required element, even if it is empty");
+            results.add(result);
+        } else {
+            ValidationResult result = new ValidationResult(Validity.Conforms);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription("soUid was found non-null");
+            results.add(result);
+            results.add(validateUidFormat());
+        }
+        return results;
+    }
+
+    private ValidationResult validateUidFormat() {
+        if (soUid.equals(new UUID(0, 0))) {
+            ValidationResult result = new ValidationResult(Validity.DoesNotConform);
+            result.setDescription("soUid should not be a null UUID");
+            return result;
+        } else {
+            ValidationResult result = new ValidationResult(Validity.Conforms);
+            result.setDescription("soUid is not a null UUID");
+            return result;
+        }
+    }
+
+    private List<ValidationResult> validateRadarCrossSection() {
+        return validateIsPositive(this.radarCrossSection, "radarCrossSection");
+    }
+
+    private List<ValidationResult> validateLength() {
+        return validateIsPositive(this.length, "length");
+    }
+
+    private List<ValidationResult> validateWidth() {
+        return validateIsPositive(this.width, "width");
+    }
+
+    private List<ValidationResult> validateHeight() {
+        return validateIsPositive(this.height, "height");
+    }
+
+    private List<ValidationResult> validateDiameter() {
+        return validateIsPositive(this.diameter, "diameter");
+    }
+
+    private List<ValidationResult> validateMass() {
+        return validateIsPositive(this.mass, "mass");
+    }
+
+    private List<ValidationResult> validateIsPositive(Double value, String label) {
+        if (value == null) {
+            return new ArrayList<>();
+        }
+        List<ValidationResult> results = new ArrayList<>();
+        if (value <= 0.0) {
+            ValidationResult result = new ValidationResult(Validity.DoesNotConform);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription(label + " must be strictly positive");
+            results.add(result);
+        } else {
+            ValidationResult result = new ValidationResult(Validity.Conforms);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription(label + " was found as strictly positive");
+            results.add(result);
+        }
+        return results;
+    }
+
+    private List<ValidationResult> validateOrbitData() {
+        if (this.orbitData == null) {
+            return new ArrayList<>();
+        }
+        return orbitData.checkValidity();
     }
 }

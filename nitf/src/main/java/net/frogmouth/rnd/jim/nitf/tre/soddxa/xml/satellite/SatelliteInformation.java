@@ -80,7 +80,7 @@ public class SatelliteInformation {
     private List<Payload> payloads;
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa")
-    private LaunchType launch;
+    private Launch launch;
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa", localName = "affiliation")
     private List<Affiliation> affiliations;
@@ -161,10 +161,30 @@ public class SatelliteInformation {
         this.satelliteDescription = satelliteDescription;
     }
 
+    /**
+     * International designators.
+     *
+     * <p>The USSF standard format International Designator(s) and piece types as provided by the
+     * catalogue specified in the {@code sourceCatalog} element.
+     *
+     * <p>This field is allowed to contain any number (including zero) designators.
+     *
+     * @return list of designators
+     */
     public List<InternationalDesignator> getInternationalDesignators() {
         return new ArrayList<>(internationalDesignators);
     }
 
+    /**
+     * Set the international designators.
+     *
+     * <p>The USSF standard format International Designator(s) and piece types as provided by the
+     * catalogue specified in the {@code sourceCatalog} element.
+     *
+     * <p>This field is allowed to contain any number (including zero) designators.
+     *
+     * @param internationalDesignators list of designators
+     */
     public void setInternationalDesignators(
             List<InternationalDesignator> internationalDesignators) {
         this.internationalDesignators = new ArrayList<>(internationalDesignators);
@@ -250,19 +270,19 @@ public class SatelliteInformation {
         this.payloads = new ArrayList<>(payloads);
     }
 
-    public LaunchType getLaunch() {
+    public Launch getLaunch() {
         if (launch == null) {
             return null;
         } else {
-            return new LaunchType(launch);
+            return new Launch(launch);
         }
     }
 
-    public void setLaunch(LaunchType launch) {
+    public void setLaunch(Launch launch) {
         if (launch == null) {
             this.launch = null;
         } else {
-            this.launch = new LaunchType(launch);
+            this.launch = new Launch(launch);
         }
     }
 

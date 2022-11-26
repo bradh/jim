@@ -2,6 +2,11 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Satellite category.
+ *
+ * <p>A descriptor of the satellite's functional capabilities.
+ */
 public enum SatelliteCategory {
     /** Amateur radio. */
     @JsonProperty("amateurRadio")

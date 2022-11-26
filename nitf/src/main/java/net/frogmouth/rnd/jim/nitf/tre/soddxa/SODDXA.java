@@ -1,5 +1,7 @@
 package net.frogmouth.rnd.jim.nitf.tre.soddxa;
 
+import static net.frogmouth.rnd.jim.nitf.tre.soddxa.Constants.TRE_TAG;
+
 import net.frogmouth.rnd.jim.nitf.tre.TREField;
 import net.frogmouth.rnd.jim.nitf.tre.TREOrder;
 import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
@@ -17,7 +19,6 @@ import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
  */
 public class SODDXA extends TaggedRecordExtension {
 
-    private static final String TRE_TAG = "SODDXA";
     private String cedata;
 
     /** Constructor. */

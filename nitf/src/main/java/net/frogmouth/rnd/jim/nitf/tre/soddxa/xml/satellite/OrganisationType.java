@@ -2,6 +2,11 @@ package net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.satellite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Organisation type.
+ *
+ * <p>The type of organization associated with this affiliation element.
+ */
 public enum OrganisationType {
     /**
      * Civil.

@@ -17,7 +17,7 @@ import java.util.List;
 public class Affiliation {
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa", localName = "countryName")
-    private Country countryName;
+    private Country country;
 
     @JacksonXmlProperty(namespace = "urn:us:mil:nga:ntb:soddxa", localName = "orgName")
     private String organisationName;
@@ -29,24 +29,27 @@ public class Affiliation {
     private List<OrganisationRole> organisationRoles;
 
     /**
-     * Country name.
+     * Country.
      *
-     * <p>The name of the country or other geopolitical entity (or administrative subdivision of an
-     * entity) that is affiliated with the space object and associated with its country parent
-     * element. This textual value is correlated to its country code. If multiple countryName
-     * elements are provided, then the space object is jointly affiliated with the entities
-     * specified by those multiple countryName elements. If responsibility or affiliation with the
-     * space object is not equally divided, then entities with larger responsibility should be given
-     * before entities with lesser responsibility.
+     * <p>The country or other geopolitical entity (or administrative subdivision of an entity) that
+     * is affiliated with the space object and associated with its affiliation parent element.
      *
      * @return the country name and country code.
      */
-    public Country getCountryName() {
-        return countryName;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryName(final Country countryName) {
-        this.countryName = countryName;
+    /**
+     * Set the country.
+     *
+     * <p>The country or other geopolitical entity (or administrative subdivision of an entity) that
+     * is affiliated with the space object and associated with its affiliation parent element.
+     *
+     * @param country the country name and country code.
+     */
+    public void setCountry(final Country country) {
+        this.country = country;
     }
 
     /**
@@ -62,6 +65,15 @@ public class Affiliation {
         return organisationName;
     }
 
+    /**
+     * Set the organisation name.
+     *
+     * <p>The name of the organization or consortium that is affiliated with the space object in
+     * whole or in part. If the space object is affiliated with a consortium, then the consortium
+     * name is preferred over listing multiple affiliated elements.
+     *
+     * @param organisationName the organisation name, as a free-form string.
+     */
     public void setOrganisationName(String organisationName) {
         this.organisationName = organisationName;
     }
@@ -77,6 +89,13 @@ public class Affiliation {
         return organisationType;
     }
 
+    /**
+     * Set the organisation type.
+     *
+     * <p>The type of organisation associated with this affiliation element.
+     *
+     * @param organisationType organisation type as an enumerated value.
+     */
     public void setOrganisationType(OrganisationType organisationType) {
         this.organisationType = organisationType;
     }
@@ -92,6 +111,13 @@ public class Affiliation {
         return new ArrayList<>(organisationRoles);
     }
 
+    /**
+     * Set the organisation roles.
+     *
+     * <p>The organisation's affiliation with the space object.
+     *
+     * @param organisationRoles the list of organisation roles.
+     */
     public void setOrganisationRoles(List<OrganisationRole> organisationRoles) {
         this.organisationRoles = new ArrayList<>(organisationRoles);
     }

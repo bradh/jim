@@ -28,23 +28,46 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 public class InternationalDesignator {
 
     @JacksonXmlProperty(isAttribute = true)
-    private String pieceType;
+    private PieceType pieceType;
 
     @JacksonXmlText private String value;
 
-    public String getPieceType() {
+    /**
+     * Constructor.
+     *
+     * <p>This is only for deserialisation support. Use the version that takes piece type and
+     * identifier value arguments.
+     */
+    public InternationalDesignator() {}
+
+    /**
+     * Constructor.
+     *
+     * @param pieceType the piece type as an enumerated value
+     * @param value the identifier value
+     */
+    public InternationalDesignator(PieceType pieceType, String value) {
+        this.pieceType = pieceType;
+        this.value = value;
+    }
+
+    /**
+     * Piece type.
+     *
+     * @return the piece type as an enumerated value
+     */
+    public PieceType getPieceType() {
         return pieceType;
     }
 
-    public void setPieceType(String pieceType) {
-        this.pieceType = pieceType;
-    }
-
+    /**
+     * International identifier value.
+     *
+     * <p>{@code YYYY-LLLp\{pp\}} format.
+     *
+     * @return the identifier value.
+     */
     public String getValue() {
         return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 }
