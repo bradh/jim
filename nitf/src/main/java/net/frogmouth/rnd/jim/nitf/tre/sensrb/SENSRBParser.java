@@ -1,100 +1,89 @@
 package net.frogmouth.rnd.jim.nitf.tre.sensrb;
 
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ADDITIONAL_DATA_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.AFFINITY_DISTORT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ALTITUDE_OR_Z_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ANGULAR_UNIT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ATTITUDE_UNIT_VECTOR_COMPONENT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.CALIBRATED_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.CALIBRATION_UNIT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.COLUMN_FOV_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.COLUMN_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.COLUMN_RATE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.CONTENT_LEVEL_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.DATE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.DECENT_DISTORT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.DETECTION_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ELEVATION_DATUM_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ELEVATION_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.END_DATE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.END_TIME_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.FLAG_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.FOCAL_LENGTH_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.GENERATION_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.GENERATION_DATE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.GENERATION_TIME_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.GEODETIC_SYSTEM_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.GEODETIC_TYPE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.LATITUDE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.LATITUDE_OR_X_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.LENGTH_UNIT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.LONGITUDE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.LONGITUDE_OR_Y_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.METHOD_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.MODE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.OPERATIONAL_DOMAIN_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PARAMETER_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PARAMETER_NAME_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PARAMETER_SIZE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PIXEL_REFERENCED_DATA_SET_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PIXEL_REFERENCE_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PIXEL_REFERENCE_TYPE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PLATFORM_HEADING_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PLATFORM_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PLATFORM_PITCH_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PLATFORM_RELATIVE_FLAG_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PLATFORM_ROLL_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PLATFORM_URI_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.POINT_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.POINT_SET_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.POINT_SET_TYPE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PRINCIPAL_POINT_OFFSET_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.QUATERNION_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.RADIAL_DISTORT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.RADIAL_DISTORT_LIMIT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.RANGE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.REFERENCE_TIME_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ROW_FOV_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ROW_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ROW_RATE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.SENSOR_ANGLE_1_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.SENSOR_ANGLE_2_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.SENSOR_ANGLE_3_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.SENSOR_ANGLE_MODEL_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.SENSOR_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.SENSOR_URI_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.SENSOR_X_OFFSET_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.SENSOR_Y_OFFSET_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.SENSOR_Z_OFFSET_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.START_DATE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.START_TIME_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.TIME_STAMPED_DATA_SET_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.TIME_STAMP_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.TIME_STAMP_TIME_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.TIME_STAMP_TYPE_LEN;
 import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.TRE_TAG;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.UNCERTAINTY_DATA_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.UNCERTAINTY_FIRST_TYPE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.UNCERTAINTY_SECOND_TYPE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.UNCERTAINTY_VALUE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.VELOCITY_LEN;
 
 import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
 import net.frogmouth.rnd.jim.nitf.utils.ReaderUtils;
 
 /** SENSRB TRE Parser. */
 public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
-
-    private static final int FLAG_LEN = 1;
-    private static final int SENSOR_LEN = 25;
-    private static final int SENSOR_URI_LEN = 32;
-    private static final int PLATFORM_LEN = 25;
-    private static final int PLATFORM_URI_LEN = 32;
-    private static final int OPERATIONAL_DOMAIN_LEN = 10;
-    private static final int CONTENT_LEVEL_LEN = 1;
-    private static final int GEODETIC_SYSTEM_LEN = 5;
-    private static final int GEODETIC_TYPE_LEN = 1;
-    private static final int ELEVATION_DATUM_LEN = 3;
-    private static final int LENGTH_UNIT_LEN = 2;
-    private static final int ANGULAR_UNIT_LEN = 3;
-    private static final int START_DATE_LEN = 8;
-    private static final int START_TIME_LEN = 14;
-    private static final int END_DATE_LEN = 8;
-    private static final int END_TIME_LEN = 14;
-    private static final int GENERATION_COUNT_LEN = 2;
-    private static final int GENERATION_DATE_LEN = 8;
-    private static final int GENERATION_TIME_LEN = 10;
-    private static final int DETECTION_LEN = 20;
-    private static final int FOCAL_LENGTH_LEN = 8;
-    private static final int ROW_FOV_LEN = 8;
-    private static final int COLUMN_FOV_LEN = 8;
-    private static final int CALIBRATED_LEN = 1;
-    // Module 3
-    private static final int CALIBRATION_UNIT_LEN = 2;
-    private static final int PRINCIPAL_POINT_OFFSET_LEN = 9;
-    private static final int RADIAL_DISTORT_LEN = 12;
-    private static final int RADIAL_DISTORT_LIMIT_LEN = 9;
-    private static final int DECENT_DISTORT_LEN = 12;
-    private static final int AFFINITY_DISTORT_LEN = 12;
-    private static final int DATE_LEN = 8;
-    // Module 4
-    private static final int METHOD_LEN = 15;
-    private static final int MODE_LEN = 3;
-    private static final int ROW_RATE_LEN = 10;
-    private static final int COLUMN_RATE_LEN = 10;
-    private static final int REFERENCE_TIME_LEN = 12;
-    private static final int ROW_LEN = 8;
-    private static final int COLUMN_LEN = 8;
-    private static final int LATITUDE_OR_X_LEN = 11;
-    private static final int LONGITUDE_OR_Y_LEN = 12;
-    private static final int ALTITUDE_OR_Z_LEN = 11;
-    private static final int SENSOR_X_OFFSET_LEN = 8;
-    private static final int SENSOR_Y_OFFSET_LEN = 8;
-    private static final int SENSOR_Z_OFFSET_LEN = 8;
-    private static final int SENSOR_ANGLE_MODEL_LEN = 1;
-    private static final int SENSOR_ANGLE_1_LEN = 10;
-    private static final int SENSOR_ANGLE_2_LEN = 9;
-    private static final int SENSOR_ANGLE_3_LEN = 10;
-    private static final int PLATFORM_RELATIVE_FLAG_LEN = 1;
-    private static final int PLATFORM_HEADING_LEN = 9;
-    private static final int PLATFORM_PITCH_LEN = 9;
-    private static final int PLATFORM_ROLL_LEN = 10;
-    // Module 8
-    private static final int ATTITUDE_UNIT_VECTOR_COMPONENT_LEN = 10;
-    // Module 9
-    private static final int QUATERNION_LEN = 10;
-    // Module 10
-    private static final int VELOCITY_LEN = 9;
-    // Module 11
-    private static final int POINT_SET_COUNT_LEN = 2;
-    private static final int POINT_SET_TYPE_LEN = 25;
-    private static final int POINT_COUNT_LEN = 3;
-    private static final int LATITUDE_LEN = 10;
-    private static final int LONGITUDE_LEN = 11;
-    private static final int ELEVATION_LEN = 6;
-    private static final int RANGE_LEN = 8;
-    // Module 12
-    private static final int TIME_STAMPED_DATA_SET_COUNT_LEN = 2;
-    private static final int TIME_STAMP_TYPE_LEN = 3;
-    private static final int TIME_STAMP_COUNT_LEN = 4;
-    private static final int TIME_STAMP_TIME_LEN = 12;
-    // Module 13
-    private static final int PIXEL_REFERENCED_DATA_SET_COUNT_LEN = 2;
-    private static final int PIXEL_REFERENCE_TYPE_LEN = 3;
-    private static final int PIXEL_REFERENCE_COUNT_LEN = 4;
-    // Module 14
-    private static final int UNCERTAINTY_DATA_COUNT_LEN = 3;
-    private static final int UNCERTAINTY_FIRST_TYPE_LEN = 11;
-    private static final int UNCERTAINTY_SECOND_TYPE_LEN = 11;
-    private static final int UNCERTAINTY_VALUE_LEN = 10;
-    // Module 15
-    private static final int ADDITIONAL_DATA_COUNT_LEN = 3;
-    private static final int PARAMETER_NAME_LEN = 25;
-    private static final int PARAMETER_SIZE_LEN = 3;
-    private static final int PARAMETER_COUNT_LEN = 4;
 
     @Override
     public String getTag() {
@@ -521,7 +510,6 @@ public class SENSRBParser extends AbstractTaggedRecordExtensionParser {
             for (int i = 0; i < pixelReferencedDataSetsCount; i++) {
                 PixelReferencedDataSet prds = new PixelReferencedDataSet();
                 // TODO: proper parsing
-                // TODO: constants
                 prds.setType(
                         ReaderUtils.convertByteArrayToBCSA(
                                 bytes, offset, PIXEL_REFERENCE_TYPE_LEN));

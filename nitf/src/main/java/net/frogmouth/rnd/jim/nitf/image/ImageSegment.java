@@ -43,6 +43,7 @@ import net.frogmouth.rnd.jim.nitf.image.geolo.ImageCoordinates;
 import net.frogmouth.rnd.jim.nitf.image.geolo.ImageCoordinatesNone;
 import net.frogmouth.rnd.jim.nitf.tre.SerialisableTaggedRecordExtension;
 
+/** Image segment (IS). */
 public class ImageSegment {
 
     private static final byte[] IM_HEADER = "IM".getBytes(StandardCharsets.US_ASCII);
@@ -62,10 +63,10 @@ public class ImageSegment {
     private int actualBitsPerPixelPerBand;
     private String pixelJustification = "R";
     private ImageCoordinates imageCoordinates = new ImageCoordinatesNone();
-    private List<String> comments = new ArrayList<>();
+    private final List<String> comments = new ArrayList<>();
     private ImageCompression imageCompression;
     private String compressionRateCode = "----";
-    private List<ImageSegmentBand> bands = new ArrayList<>();
+    private final List<ImageSegmentBand> bands = new ArrayList<>();
     private ImageMode imageMode;
     private int numberOfBlocksPerRow = 1;
     private int numberOfBlocksPerColumn = 1;
@@ -200,10 +201,30 @@ public class ImageSegment {
         return getSubheaderAsBytes().length;
     }
 
+    /**
+     * Image Identifier 1 (IID1).
+     *
+     * <p>A value string containing an alphanumeric identification code associated with the image.
+     *
+     * <p>The valid code is determined by the implementation. It is not valid for this value to be
+     * all space filled.
+     *
+     * @return the IID1 field value as a String.
+     */
     public String getIid1() {
         return iid1;
     }
 
+    /**
+     * Set the Image Identifier 1 (IID1).
+     *
+     * <p>A value string containing an alphanumeric identification code associated with the image.
+     *
+     * <p>The valid code is determined by the implementation. It is not valid for this value to be
+     * all space filled.
+     *
+     * @param iid1 the IID1 field value as a String.
+     */
     public void setIid1(String iid1) {
         this.iid1 = iid1;
     }
@@ -216,18 +237,102 @@ public class ImageSegment {
         this.dateTime = dateTime;
     }
 
+    /**
+     * Target identifier (TGTID).
+     *
+     * <p>This field contains the Identifier (ID) of the primary target and the bare two-character
+     * country code for the location of the target. The primary target ID is no more than 15
+     * characters. If the primary target ID is less than 15 characters, it is padded with BCS spaces
+     * to 15 characters.
+     *
+     * <p>Note 1: The bare two-character country code, with values as specified in Section 4.6.7,
+     * are always placed in the 16th and 17th characters of the TGTID field value or BCS-spaces if
+     * unknown.
+     *
+     * <p>Note 2: The primary target ID is provided in one of the following target types and
+     * formats. Additional target ID formats must be registered with the GWG NTB.
+     *
+     * <ul>
+     *   <li>Basic Encyclopedia (BE) targets: A ten-character BE identifier, followed by a five-
+     *       character OSUFFIX in the format BBBBBBBBBBOOOOO. If there is no OSUFFIX for the BE
+     *       target ID, then the five-characters for OSUFFIX are filled with BCS spaces,
+     *   <li>Lines of Communication (LOC) targets: “L” followed by 5 alphanumeric characters,
+     *   <li>Directed Search Area (DSA) targets: “D” followed by 5 alphanumeric characters,
+     *   <li>Broad Search Area (BAS) targets: “B”, “C”, or “S” followed by 5 alphanumeric
+     *       characters,
+     *   <li>Rectangle targets: “M” or “R” followed by 5 alphanumeric characters, •
+     *   <li>Moving targets: “OBJ” followed by 12 alphanumeric characters, •
+     *   <li>Geodef Point targets: “GPT” followed by 12 alphanumeric characters, •
+     *   <li>Geodef Polygon targets: “GPG” followed by 12 alphanumeric characters.
+     * </ul>
+     *
+     * <p>(Default is BCS-A spaces (0x20) for all or any sub-part of this field)
+     *
+     * @return the target identifier, or space fill.
+     */
     public String getTargetId() {
         return targetId;
     }
 
+    /**
+     * Set the target identifier (TGTID).
+     *
+     * <p>This field contains the Identifier (ID) of the primary target and the bare two-character
+     * country code for the location of the target. The primary target ID is no more than 15
+     * characters. If the primary target ID is less than 15 characters, it is padded with BCS spaces
+     * to 15 characters.
+     *
+     * <p>Note 1: The bare two-character country code, with values as specified in Section 4.6.7,
+     * are always placed in the 16th and 17th characters of the TGTID field value or BCS-spaces if
+     * unknown.
+     *
+     * <p>Note 2: The primary target ID is provided in one of the following target types and
+     * formats. Additional target ID formats must be registered with the GWG NTB.
+     *
+     * <ul>
+     *   <li>Basic Encyclopedia (BE) targets: A ten-character BE identifier, followed by a five-
+     *       character OSUFFIX in the format BBBBBBBBBBOOOOO. If there is no OSUFFIX for the BE
+     *       target ID, then the five-characters for OSUFFIX are filled with BCS spaces,
+     *   <li>Lines of Communication (LOC) targets: “L” followed by 5 alphanumeric characters,
+     *   <li>Directed Search Area (DSA) targets: “D” followed by 5 alphanumeric characters,
+     *   <li>Broad Search Area (BAS) targets: “B”, “C”, or “S” followed by 5 alphanumeric
+     *       characters,
+     *   <li>Rectangle targets: “M” or “R” followed by 5 alphanumeric characters, •
+     *   <li>Moving targets: “OBJ” followed by 12 alphanumeric characters, •
+     *   <li>Geodef Point targets: “GPT” followed by 12 alphanumeric characters, •
+     *   <li>Geodef Polygon targets: “GPG” followed by 12 alphanumeric characters.
+     * </ul>
+     *
+     * <p>(Default is BCS-A spaces (0x20) for all or any sub-part of this field)
+     *
+     * @param targetId the target identifier.
+     */
     public void setTargetId(String targetId) {
         this.targetId = targetId;
     }
 
+    /**
+     * Image identifier 2 (IID2).
+     *
+     * <p>This field contains additional identifying information about the image. Where the title of
+     * an image is known, a value containing the title of the image, a universally unique identifier
+     * or if the title of an image is unknown the IID2 field is populated with ECS-A spaces (0x20).
+     *
+     * @return the image identifier 2 value, or space fill.
+     */
     public String getIid2() {
         return iid2;
     }
 
+    /**
+     * Set the image identifier 2 (IID2).
+     *
+     * <p>This field contains additional identifying information about the image. Where the title of
+     * an image is known, a value containing the title of the image, a universally unique identifier
+     * or if the title of an image is unknown the IID2 field is populated with ECS-A spaces (0x20).
+     *
+     * @param iid2 the image identifier 2 value.
+     */
     public void setIid2(String iid2) {
         this.iid2 = iid2;
     }
@@ -486,14 +591,43 @@ public class ImageSegment {
         this.pixelJustification = pixelJustification;
     }
 
+    /**
+     * Image coordinates (ICORDS/IGEOLO).
+     *
+     * <p>This is the image corner coordinates, represented by a subclass of {@link
+     * ImageCoordinates}.
+     *
+     * @return the image corner coordinates
+     */
     public ImageCoordinates getImageCoordinates() {
         return imageCoordinates;
     }
 
+    /**
+     * Set the image coordinates (ICORDS/IGEOLO).
+     *
+     * <p>This is the image corner coordinates, represented by a subclass of {@link
+     * ImageCoordinates}.
+     *
+     * @param imageCoordinates the image corner coordinates
+     */
     public void setImageCoordinates(ImageCoordinates imageCoordinates) {
         this.imageCoordinates = imageCoordinates;
     }
 
+    /**
+     * Image comments (ICOM).
+     *
+     * <p>Free text image segment comments.
+     *
+     * <p>Note that an image segment can only have 10 comments, and each comment is at most 80 ECS-A
+     * characters.
+     *
+     * <p>If the image comment is classified, it is preceded by the classification, including
+     * codeword(s).
+     *
+     * @return
+     */
     public List<String> getComments() {
         return new ArrayList<>(comments);
     }

@@ -1,5 +1,6 @@
 package net.frogmouth.rnd.jim.nitf.image;
 
+/** Image mode. */
 public enum ImageMode {
 
     /**

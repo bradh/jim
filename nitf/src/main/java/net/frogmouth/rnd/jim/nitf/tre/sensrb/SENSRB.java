@@ -1,14 +1,23 @@
 package net.frogmouth.rnd.jim.nitf.tre.sensrb;
 
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ADDITIONAL_DATA_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PIXEL_REFERENCED_DATA_SET_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.POINT_SET_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.TIME_STAMPED_DATA_SET_COUNT_LEN;
 import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.TRE_TAG;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.UNCERTAINTY_DATA_COUNT_LEN;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.nitf.WriterUtils;
 import net.frogmouth.rnd.jim.nitf.tre.SerialisableTaggedRecordExtension;
 import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 public class SENSRB extends TaggedRecordExtension implements SerialisableTaggedRecordExtension {
 
+    private static final int TRETAG_LEN = 6;
+    private static final int TREL_LEN = 5;
     private Module1 module1;
     private Module2 module2;
     private Module3 module3;
@@ -36,8 +45,12 @@ public class SENSRB extends TaggedRecordExtension implements SerialisableTaggedR
 
     @Override
     public byte[] toBytes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from
-        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        byte[] bodyBytes = getBodyBytes();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        baos.writeBytes(WriterUtils.toBCS_A(TRE_TAG, TRETAG_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(bodyBytes.length, TREL_LEN));
+        baos.writeBytes(bodyBytes);
+        return baos.toByteArray();
     }
 
     public Module1 getModule1() {
@@ -180,5 +193,76 @@ public class SENSRB extends TaggedRecordExtension implements SerialisableTaggedR
 
     public void addAdditionalParameter(AdditionalParameter additionalParameter) {
         this.module15.add(additionalParameter);
+    }
+
+    private byte[] getBodyBytes() {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (module1 == null) {
+            baos.writeBytes(WriterUtils.toBCS_A("N", Constants.FLAG_LEN));
+        } else {
+            baos.writeBytes(WriterUtils.toBCS_A("Y", Constants.FLAG_LEN));
+            module1.appendBytes(baos);
+        }
+        if (module2 == null) {
+            baos.writeBytes(WriterUtils.toBCS_A("N", Constants.FLAG_LEN));
+        } else {
+            baos.writeBytes(WriterUtils.toBCS_A("Y", Constants.FLAG_LEN));
+            module2.appendBytes(baos);
+        }
+        if (module3 == null) {
+            baos.writeBytes(WriterUtils.toBCS_A("N", Constants.FLAG_LEN));
+        } else {
+            baos.writeBytes(WriterUtils.toBCS_A("Y", Constants.FLAG_LEN));
+            module3.appendBytes(baos);
+        }
+        if (module4 == null) {
+            baos.writeBytes(WriterUtils.toBCS_A("N", Constants.FLAG_LEN));
+        } else {
+            baos.writeBytes(WriterUtils.toBCS_A("Y", Constants.FLAG_LEN));
+            module4.appendBytes(baos);
+        }
+        if (module5 == null) {
+            baos.writeBytes(WriterUtils.toBCS_A("N", Constants.FLAG_LEN));
+        } else {
+            baos.writeBytes(WriterUtils.toBCS_A("Y", Constants.FLAG_LEN));
+            module5.appendBytes(baos);
+        }
+        if (module6 == null) {
+            baos.writeBytes(WriterUtils.toBCS_A("N", Constants.FLAG_LEN));
+        } else {
+            baos.writeBytes(WriterUtils.toBCS_A("Y", Constants.FLAG_LEN));
+            module6.appendBytes(baos);
+        }
+        if (module7 == null) {
+            baos.writeBytes(WriterUtils.toBCS_A("N", Constants.FLAG_LEN));
+        } else {
+            baos.writeBytes(WriterUtils.toBCS_A("Y", Constants.FLAG_LEN));
+            module7.appendBytes(baos);
+        }
+        if (module8 == null) {
+            baos.writeBytes(WriterUtils.toBCS_A("N", Constants.FLAG_LEN));
+        } else {
+            baos.writeBytes(WriterUtils.toBCS_A("Y", Constants.FLAG_LEN));
+            module8.appendBytes(baos);
+        }
+        if (module9 == null) {
+            baos.writeBytes(WriterUtils.toBCS_A("N", Constants.FLAG_LEN));
+        } else {
+            baos.writeBytes(WriterUtils.toBCS_A("Y", Constants.FLAG_LEN));
+            module9.appendBytes(baos);
+        }
+        if (module10 == null) {
+            baos.writeBytes(WriterUtils.toBCS_A("N", Constants.FLAG_LEN));
+        } else {
+            baos.writeBytes(WriterUtils.toBCS_A("Y", Constants.FLAG_LEN));
+            module10.appendBytes(baos);
+        }
+        baos.writeBytes(WriterUtils.toBCS_NPI(module11.size(), POINT_SET_COUNT_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(module12.size(), TIME_STAMPED_DATA_SET_COUNT_LEN));
+        baos.writeBytes(
+                WriterUtils.toBCS_NPI(module13.size(), PIXEL_REFERENCED_DATA_SET_COUNT_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(module14.size(), UNCERTAINTY_DATA_COUNT_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(module15.size(), ADDITIONAL_DATA_COUNT_LEN));
+        return baos.toByteArray();
     }
 }

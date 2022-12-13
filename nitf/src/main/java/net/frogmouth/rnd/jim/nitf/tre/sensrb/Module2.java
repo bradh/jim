@@ -1,5 +1,13 @@
 package net.frogmouth.rnd.jim.nitf.tre.sensrb;
 
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.COLUMN_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.DETECTION_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.FOCAL_LENGTH_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ROW_LEN;
+
+import java.io.ByteArrayOutputStream;
+import net.frogmouth.rnd.jim.nitf.WriterUtils;
+
 public class Module2 {
     private String detection;
     private int rowDetectors;
@@ -95,5 +103,15 @@ public class Module2 {
 
     public void setCalibrated(String calibrated) {
         this.calibrated = calibrated;
+    }
+
+    void appendBytes(ByteArrayOutputStream baos) {
+        baos.writeBytes(WriterUtils.toBCS_A(this.detection, DETECTION_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(rowDetectors, ROW_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(columnDetectors, COLUMN_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(rowMetric, ROW_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(columnMetric, COLUMN_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(focalLength, FOCAL_LENGTH_LEN));
+        // TODO: 02g onwards
     }
 }

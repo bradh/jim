@@ -1,5 +1,7 @@
 package net.frogmouth.rnd.jim.nitf.tre.sensrb;
 
+import java.io.ByteArrayOutputStream;
+
 public class Module6 {
     private double latitude_or_x;
     private double longitude_or_y;
@@ -65,5 +67,9 @@ public class Module6 {
 
     public void setSensorOffsetZ(double sensorOffsetZ) {
         this.sensorOffsetZ = sensorOffsetZ;
+    }
+
+    void appendBytes(ByteArrayOutputStream baos) {
+        // TODO: need proper writer support
     }
 }

@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.mie4nitf.tre.tminta;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 /** TMINTA TRE Parser. */
-public class TMINTAParser extends AbstractTREParser {
+public class TMINTAParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int NUM_TIME_INT_LEN = 4;
     private static final int TIME_INTERVAL_INDEX_LEN = 6;
@@ -15,7 +15,7 @@ public class TMINTAParser extends AbstractTREParser {
     }
 
     @Override
-    public TRE parse(String tag, byte[] bytes) {
+    public TaggedRecordExtension parse(String tag, byte[] bytes) {
         TMINTA tre = new TMINTA();
         int offset = 0;
         int num_time_int = readBCSN(bytes, offset, NUM_TIME_INT_LEN);

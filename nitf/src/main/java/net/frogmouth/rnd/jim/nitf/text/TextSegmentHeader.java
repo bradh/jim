@@ -5,7 +5,6 @@ import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TXTALVL_LEN;
 import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TXTFMT_LEN;
 import static net.frogmouth.rnd.jim.nitf.text.TextConstants.TXTITL_LEN;
 
-import java.util.Arrays;
 import net.frogmouth.rnd.jim.nitf.utils.ReaderUtils;
 
 public class TextSegmentHeader {
@@ -21,15 +20,16 @@ public class TextSegmentHeader {
     private static final int TXTFMT_OFFSET = ENCRYP_OFFSET + ReaderUtils.ENCRYP_LEN;
     private static final int TXSHDL_OFFSET = TXTFMT_OFFSET + TXTFMT_LEN;
 
-    private final byte[] bytes;
     private String id;
     private int attachmentLevel;
     private String dateTime;
-    private String title;
-    private String format;
+    private String title = "";
+    private TextFormat textFormat = TextFormat.Standard;
+
+    /** Constructor. */
+    public TextSegmentHeader() {}
 
     public TextSegmentHeader(byte[] subheaderBytes) {
-        bytes = Arrays.copyOf(subheaderBytes, subheaderBytes.length);
         id = ReaderUtils.convertByteArrayToBCSA(subheaderBytes, TEXTID_OFFSET, TEXTID_LEN);
         attachmentLevel =
                 ReaderUtils.convertByteArrayToBCS_NPI(subheaderBytes, TXTALVL_OFFSET, TXTALVL_LEN);
@@ -37,7 +37,9 @@ public class TextSegmentHeader {
                 ReaderUtils.convertByteArrayToBCSA(
                         subheaderBytes, TXTDT_OFFSET, ReaderUtils.DATE_TIME_LEN);
         title = ReaderUtils.convertByteArrayToECSA(subheaderBytes, TXTITL_OFFSET, TXTITL_LEN);
-        format = ReaderUtils.convertByteArrayToBCSA(subheaderBytes, TXTFMT_OFFSET, TXTFMT_LEN);
+        String formatAsText =
+                ReaderUtils.convertByteArrayToBCSA(subheaderBytes, TXTFMT_OFFSET, TXTFMT_LEN);
+        textFormat = TextFormat.lookupByIdent(formatAsText);
     }
 
     public String getId() {
@@ -72,11 +74,35 @@ public class TextSegmentHeader {
         this.title = title;
     }
 
-    public String getFormat() {
-        return format;
+    /**
+     * Text format (TXTFMT).
+     *
+     * <p>This field contains a valid three-character code indicating the textFormat or type of text
+     * data.
+     *
+     * <p>Note: Valid codes are MTF to indicate USMTF (Refer to STANAG 5500 (NSIF) or MIL-STD-6040
+     * (NITF) for examples of the USMTF textFormat), STA to indicate BCS formatting, UT1 to indicate
+     * ECS text formatting, and U8S to indicate U8S text formatting.
+     *
+     * @return the text textFormat as an enumeration value.
+     */
+    public TextFormat getTextFormat() {
+        return textFormat;
     }
 
-    public void setFormat(String format) {
-        this.format = format;
+    /**
+     * Set the text format (TXTFMT).
+     *
+     * <p>This field contains a valid three-character code indicating the textFormat or type of text
+     * data.
+     *
+     * <p>Note: Valid codes are MTF to indicate USMTF (Refer to STANAG 5500 (NSIF) or MIL-STD-6040
+     * (NITF) for examples of the USMTF textFormat), STA to indicate BCS formatting, UT1 to indicate
+     * ECS text formatting, and U8S to indicate U8S text formatting.
+     *
+     * @param textFormat the text textFormat as an enumeration value.
+     */
+    public void setTextFormat(TextFormat textFormat) {
+        this.textFormat = textFormat;
     }
 }

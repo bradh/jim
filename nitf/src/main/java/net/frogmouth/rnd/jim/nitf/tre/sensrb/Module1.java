@@ -1,5 +1,27 @@
 package net.frogmouth.rnd.jim.nitf.tre.sensrb;
 
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ANGULAR_UNIT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.CONTENT_LEVEL_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ELEVATION_DATUM_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.END_DATE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.END_TIME_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.GENERATION_COUNT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.GENERATION_DATE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.GENERATION_TIME_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.GEODETIC_SYSTEM_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.GEODETIC_TYPE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.LENGTH_UNIT_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.OPERATIONAL_DOMAIN_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PLATFORM_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.PLATFORM_URI_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.SENSOR_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.SENSOR_URI_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.START_DATE_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.START_TIME_LEN;
+
+import java.io.ByteArrayOutputStream;
+import net.frogmouth.rnd.jim.nitf.WriterUtils;
+
 public class Module1 {
     private String sensor;
     private String sensorUri;
@@ -185,5 +207,26 @@ public class Module1 {
 
     public void setGenerationTime(String generationTime) {
         this.generationTime = generationTime;
+    }
+
+    void appendBytes(ByteArrayOutputStream baos) {
+        baos.writeBytes(WriterUtils.toBCS_A(sensor, SENSOR_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(sensorUri, SENSOR_URI_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(platform, PLATFORM_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(platformUri, PLATFORM_URI_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(operationalDomain, OPERATIONAL_DOMAIN_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(contentLevel, CONTENT_LEVEL_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(geodeticSystem, GEODETIC_SYSTEM_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(geodeticType, GEODETIC_TYPE_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(elevationDatum, ELEVATION_DATUM_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(lengthUnit, LENGTH_UNIT_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(angularUnit, ANGULAR_UNIT_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(startDate, START_DATE_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(startTime, START_TIME_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(endDate, END_DATE_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(endTime, END_TIME_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(generationCount, GENERATION_COUNT_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(generationDate, GENERATION_DATE_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(generationTime, GENERATION_TIME_LEN));
     }
 }

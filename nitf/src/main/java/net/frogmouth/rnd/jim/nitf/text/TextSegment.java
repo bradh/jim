@@ -19,29 +19,26 @@ import net.frogmouth.rnd.jim.nitf.tre.SerialisableTaggedRecordExtension;
 
 // TODO: split this class into a POD instance, and a serialiser instance.
 public class TextSegment {
-
+    private TextSegmentHeader header = new TextSegmentHeader();
     private static final byte[] TE_HEADER = "TE".getBytes(StandardCharsets.US_ASCII);
     private static final int DEFAULT_ENCRYP_VALUE = 0;
 
-    private String identifier = "";
     private int attachmentLevel = 0;
     private JBPDateTime dateTime = new JBPDateTime();
-    private String title = "";
     private final SecurityMetadata securityMetadata = new SecurityMetadata();
-    private TextFormat textFormat = TextFormat.Standard;
     private String body;
     private List<SerialisableTaggedRecordExtension> extensions = new ArrayList<>();
 
     public byte[] getSubheaderAsBytes() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos.writeBytes(TE_HEADER);
-        baos.writeBytes(WriterUtils.toBCS_A(identifier, TEXTID_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(header.getId(), TEXTID_LEN));
         baos.writeBytes(WriterUtils.toBCS_NPI(attachmentLevel, TXTALVL_LEN));
         baos.writeBytes(dateTime.asBytes());
-        baos.writeBytes(WriterUtils.toECS_A(title, TXTITL_LEN));
+        baos.writeBytes(WriterUtils.toECS_A(header.getTitle(), TXTITL_LEN));
         baos.writeBytes(securityMetadata.asBytes());
         baos.writeBytes(WriterUtils.toBCS_NPI(DEFAULT_ENCRYP_VALUE, ENCRYP_LEN));
-        baos.writeBytes(WriterUtils.toBCS_A(textFormat.getEncodedValue(), TXTFMT_LEN));
+        baos.writeBytes(WriterUtils.toBCS_A(header.getTextFormat().getEncodedValue(), TXTFMT_LEN));
         writeExtensionArea(baos);
         return baos.toByteArray();
     }
@@ -79,11 +76,11 @@ public class TextSegment {
     }
 
     public String getIdentifier() {
-        return identifier;
+        return header.getId();
     }
 
     public void setIdentifier(String identifier) {
-        this.identifier = identifier;
+        this.header.setId(identifier);
     }
 
     public JBPDateTime getDateTime() {
@@ -95,11 +92,11 @@ public class TextSegment {
     }
 
     public String getTitle() {
-        return title;
+        return header.getTitle();
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.header.setTitle(title);
     }
 
     /**
@@ -115,7 +112,7 @@ public class TextSegment {
      * @return the text format as an enumeration value.
      */
     public TextFormat getTextFormat() {
-        return textFormat;
+        return header.getTextFormat();
     }
 
     /**
@@ -131,7 +128,7 @@ public class TextSegment {
      * @param textFormat the text format as an enumeration value.
      */
     public void setTextFormat(TextFormat textFormat) {
-        this.textFormat = textFormat;
+        this.header.setTextFormat(textFormat);
     }
 
     public String getBody() {

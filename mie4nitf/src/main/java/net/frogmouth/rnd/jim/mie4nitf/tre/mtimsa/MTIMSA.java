@@ -1,14 +1,14 @@
 package net.frogmouth.rnd.jim.mie4nitf.tre.mtimsa;
 
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREField;
 import net.frogmouth.rnd.jim.nitf.tre.TREGroup;
 import net.frogmouth.rnd.jim.nitf.tre.TREOrder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
-public class MTIMSA extends TRE {
+public class MTIMSA extends TaggedRecordExtension {
 
     private static final String TRE_TAG = "MTIMSA";
 

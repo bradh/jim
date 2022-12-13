@@ -13,6 +13,15 @@ public class WriterUtils {
         return bytes;
     }
 
+    public static byte[] toBCS_NPI(double value, int numCharacters) {
+        String s = String.format("%0" + numCharacters + "d", value);
+        byte[] bytes = s.getBytes(StandardCharsets.US_ASCII);
+        if (bytes.length != numCharacters) {
+            // TODO: throw
+        }
+        return bytes;
+    }
+
     public static byte[] toBCS_A(String value, int numCharacters) {
         String s = String.format("%1$-" + numCharacters + "s", value);
         byte[] bytes = s.getBytes(StandardCharsets.US_ASCII);

@@ -1,6 +1,9 @@
 package net.frogmouth.rnd.jim.nitf.tre.sensrb;
 
 // TODO: this might be better with some subclasses
+
+import java.io.ByteArrayOutputStream;
+
 public class Module7 {
     private int sensorAngleModel;
     private double sensorAngle1;
@@ -86,5 +89,10 @@ public class Module7 {
 
     public void setPlatformRoll(String platformRoll) {
         this.platformRoll = platformRoll;
+    }
+
+    void appendBytes(ByteArrayOutputStream baos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

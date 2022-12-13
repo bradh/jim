@@ -669,6 +669,7 @@ public class SENSRBParserTest {
         assertNull(sensrb.getModule7());
         assertNull(sensrb.getModule9());
         assertEquals(sensrb.getModule11().size(), 0);
+        // assertEquals(sensrb.toBytes(), allBytes);
     }
 
     @Test

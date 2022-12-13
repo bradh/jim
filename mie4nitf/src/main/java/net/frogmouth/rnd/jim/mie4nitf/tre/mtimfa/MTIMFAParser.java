@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.mie4nitf.tre.mtimfa;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 /** MTIMFA TRE Parser. */
-public class MTIMFAParser extends AbstractTREParser {
+public class MTIMFAParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int LAYER_ID_LEN = 36;
     private static final int CAMERA_SET_INDEX_LEN = 3;
@@ -20,7 +20,7 @@ public class MTIMFAParser extends AbstractTREParser {
     }
 
     @Override
-    public TRE parse(String tag, byte[] bytes) {
+    public TaggedRecordExtension parse(String tag, byte[] bytes) {
         MTIMFA tre = new MTIMFA();
         int offset = 0;
         tre.setLayer_id(readBCSA(bytes, offset, LAYER_ID_LEN));

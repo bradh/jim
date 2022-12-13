@@ -1,5 +1,7 @@
 package net.frogmouth.rnd.jim.nitf.tre.sensrb;
 
+import java.io.ByteArrayOutputStream;
+
 public class Module9 {
 
     private double attitudeQ1;
@@ -46,5 +48,10 @@ public class Module9 {
 
     public void setAttitudeQ4(double attitudeQ4) {
         this.attitudeQ4 = attitudeQ4;
+    }
+
+    void appendBytes(ByteArrayOutputStream baos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

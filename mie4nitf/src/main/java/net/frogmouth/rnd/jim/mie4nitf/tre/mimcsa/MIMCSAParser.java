@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.mie4nitf.tre.mimcsa;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 /** MIMCSA TRE Parser. */
-public class MIMCSAParser extends AbstractTREParser {
+public class MIMCSAParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int LAYER_ID_LEN = 36;
     private static final int T_RSET_LEN = 2;
@@ -18,7 +18,7 @@ public class MIMCSAParser extends AbstractTREParser {
     }
 
     @Override
-    public TRE parse(String tag, byte[] bytes) {
+    public TaggedRecordExtension parse(String tag, byte[] bytes) {
         MIMCSA tre = new MIMCSA();
         int offset = 0;
         tre.setLayer_id(readBCSA(bytes, offset, LAYER_ID_LEN));

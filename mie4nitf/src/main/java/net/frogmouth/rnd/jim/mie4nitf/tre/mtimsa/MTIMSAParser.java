@@ -1,11 +1,11 @@
 package net.frogmouth.rnd.jim.mie4nitf.tre.mtimsa;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import java.nio.ByteBuffer;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 /** MTIMSA TRE Parser. */
-public class MTIMSAParser extends AbstractTREParser {
+public class MTIMSAParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int IMAGE_SEG_INDEX_LEN = 3;
     private static final int GEOCOORDS_STATIC_LEN = 2;
@@ -25,7 +25,7 @@ public class MTIMSAParser extends AbstractTREParser {
     }
 
     @Override
-    public TRE parse(String tag, byte[] bytes) {
+    public TaggedRecordExtension parse(String tag, byte[] bytes) {
         MTIMSA tre = new MTIMSA();
         int offset = 0;
         tre.setImage_seg_index(readBCSNPI(bytes, offset, IMAGE_SEG_INDEX_LEN));

@@ -1,5 +1,7 @@
 package net.frogmouth.rnd.jim.nitf.tre.sensrb;
 
+import java.io.ByteArrayOutputStream;
+
 public class Module8 {
     private double icxNorthOrX;
     private double icxEastOrY;
@@ -95,5 +97,10 @@ public class Module8 {
 
     public void setIczDownOrZ(double iczDownOrZ) {
         this.iczDownOrZ = iczDownOrZ;
+    }
+
+    void appendBytes(ByteArrayOutputStream baos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

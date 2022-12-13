@@ -1,5 +1,12 @@
 package net.frogmouth.rnd.jim.nitf.tre.sensrb;
 
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.COLUMN_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.REFERENCE_TIME_LEN;
+import static net.frogmouth.rnd.jim.nitf.tre.sensrb.Constants.ROW_LEN;
+
+import java.io.ByteArrayOutputStream;
+import net.frogmouth.rnd.jim.nitf.WriterUtils;
+
 public class Module5 {
 
     // TODO: possibly these should be Double
@@ -37,5 +44,11 @@ public class Module5 {
 
     public void setReferenceColumn(Integer referenceColumn) {
         this.referenceColumn = referenceColumn;
+    }
+
+    void appendBytes(ByteArrayOutputStream baos) {
+        baos.writeBytes(WriterUtils.toBCS_NPI(referenceTime, REFERENCE_TIME_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(referenceRow, ROW_LEN));
+        baos.writeBytes(WriterUtils.toBCS_NPI(referenceColumn, COLUMN_LEN));
     }
 }

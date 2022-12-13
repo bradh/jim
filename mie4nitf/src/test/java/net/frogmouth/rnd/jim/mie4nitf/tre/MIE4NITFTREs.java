@@ -2,7 +2,7 @@ package net.frogmouth.rnd.jim.mie4nitf.tre;
 
 import static org.testng.Assert.assertEquals;
 
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 import net.frogmouth.rnd.jim.nitf.Reader;
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +19,7 @@ public class MIE4NITFTREs extends TestSupport {
         Reader reader = new Reader(getMIE4NITFManifestTestData());
         byte[] udhd = reader.getUserDefinedHeaderData();
         assertEquals(udhd.length, 1380);
-        List<TRE> tres = reader.getFileTREs();
+        List<TaggedRecordExtension> tres = reader.getFileTREs();
         assertEquals(tres.size(), 3);
     }
 }

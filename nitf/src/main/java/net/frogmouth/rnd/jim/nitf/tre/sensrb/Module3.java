@@ -1,5 +1,7 @@
 package net.frogmouth.rnd.jim.nitf.tre.sensrb;
 
+import java.io.ByteArrayOutputStream;
+
 public class Module3 {
     private String calibrationUnit;
     private String principalPointOffsetX;
@@ -125,5 +127,10 @@ public class Module3 {
 
     public void setCalibrationDate(String calibrationDate) {
         this.calibrationDate = calibrationDate;
+    }
+
+    void appendBytes(ByteArrayOutputStream baos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

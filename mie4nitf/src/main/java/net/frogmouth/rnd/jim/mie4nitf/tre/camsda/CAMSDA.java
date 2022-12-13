@@ -1,14 +1,14 @@
 package net.frogmouth.rnd.jim.mie4nitf.tre.camsda;
 
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREField;
 import net.frogmouth.rnd.jim.nitf.tre.TREGroup;
 import net.frogmouth.rnd.jim.nitf.tre.TREOrder;
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 /** CAMSDA TRE. */
-public class CAMSDA extends TRE {
+public class CAMSDA extends TaggedRecordExtension {
 
     private int numCameraSets;
     private final List<CameraSet> cameraSets = new ArrayList<>();

@@ -24,7 +24,7 @@ import net.frogmouth.rnd.jim.nitf.image.ImageBlockInfo;
 import net.frogmouth.rnd.jim.nitf.image.ImageSegmentHeader;
 import net.frogmouth.rnd.jim.nitf.image.ImageSegmentInfo;
 import net.frogmouth.rnd.jim.nitf.text.TextSegmentHeader;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 import org.freedesktop.gstreamer.Buffer;
 import org.freedesktop.gstreamer.Bus;
 import org.freedesktop.gstreamer.Element;
@@ -93,10 +93,10 @@ public class PrimaryController {
         // Set the cell factory
         treeView.setCellFactory((TreeView<String> p) -> new TextFieldTreeCellWithMenu());
         // TODO: file header info here?
-        List<TRE> tres = reader.getFileTREs();
+        List<TaggedRecordExtension> tres = reader.getFileTREs();
         TreeItem<String> treRoot = new TreeItem<>("File TREs");
         fileRoot.getChildren().add(treRoot);
-        for (TRE tre : tres) {
+        for (TaggedRecordExtension tre : tres) {
             treRoot.getChildren().add(tre.toTreeItem());
         }
         if (reader.getNumberOfImageSegments() > 0) {
@@ -232,7 +232,7 @@ public class PrimaryController {
         addTreeItem(headerRoot, "ISORCE", header.getIsource());
         addTreeItem(headerRoot, "NROWS", header.getNrows());
         addTreeItem(headerRoot, "NCOLS", header.getNcols());
-        addTreeItem(headerRoot, "PVTYPE", header.getPvtype());
+        addTreeItem(headerRoot, "PVTYPE", header.getPvtype().getEncodedValue());
         addTreeItem(headerRoot, "IREP", header.getIrep());
         addTreeItem(headerRoot, "ICAT", header.getIcat());
         addTreeItem(headerRoot, "ABPP", header.getAbpp());
@@ -258,7 +258,7 @@ public class PrimaryController {
         segmentTreeItem.getChildren().add(headerRoot);
         TreeItem<String> treRoot = new TreeItem<>("TREs");
         segmentTreeItem.getChildren().add(treRoot);
-        for (TRE tre : header.getTREs()) {
+        for (TaggedRecordExtension tre : header.getTREs()) {
             treRoot.getChildren().add(tre.toTreeItem());
         }
         parentItem.getChildren().add(segmentTreeItem);

@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.ccinfa.tre;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 /** CCINFA TRE Parser. */
-public class CCINFAParser extends AbstractTREParser {
+public class CCINFAParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int NUM_CODE_LEN = 3;
     private static final int CODE_LEN = 1;
@@ -19,7 +19,7 @@ public class CCINFAParser extends AbstractTREParser {
     }
 
     @Override
-    public TRE parse(String tag, byte[] bytes) {
+    public TaggedRecordExtension parse(String tag, byte[] bytes) {
         CCINFA tre = new CCINFA();
         int offset = 0;
         int numcode = readBCSNPI(bytes, offset, NUM_CODE_LEN);

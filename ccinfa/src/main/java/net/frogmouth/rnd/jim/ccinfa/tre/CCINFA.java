@@ -2,9 +2,9 @@ package net.frogmouth.rnd.jim.ccinfa.tre;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREGroup;
 import net.frogmouth.rnd.jim.nitf.tre.TREOrder;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 /**
  * Country Code Information (CCINFA) TRE.
@@ -33,7 +33,7 @@ import net.frogmouth.rnd.jim.nitf.tre.TREOrder;
  *
  * <p>The CCINFA TRE is defined in STDI-0002 Volume 1 Appendix AG: CCINFA.
  */
-public class CCINFA extends TRE {
+public class CCINFA extends TaggedRecordExtension {
 
     private static final String TRE_TAG = "CCINFA";
     private final List<Code> codes = new ArrayList<>();;

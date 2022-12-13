@@ -1,10 +1,10 @@
 package net.frogmouth.rnd.jim.mie4nitf.tre.camsda;
 
-import net.frogmouth.rnd.jim.nitf.tre.AbstractTREParser;
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
+import net.frogmouth.rnd.jim.nitf.tre.AbstractTaggedRecordExtensionParser;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
 /** CAMSDA TRE Parser. */
-public class CAMSDAParser extends AbstractTREParser {
+public class CAMSDAParser extends AbstractTaggedRecordExtensionParser {
 
     private static final int NUM_CAMERA_SETS_LEN = 3;
     private static final int NUM_CAMERA_SETS_IN_TRE_LEN = 3;
@@ -26,7 +26,7 @@ public class CAMSDAParser extends AbstractTREParser {
     }
 
     @Override
-    public TRE parse(String tag, byte[] bytes) {
+    public TaggedRecordExtension parse(String tag, byte[] bytes) {
         CAMSDA tre = new CAMSDA();
         int offset = 0;
         int num_camera_sets = readBCSN(bytes, offset, NUM_CAMERA_SETS_LEN);

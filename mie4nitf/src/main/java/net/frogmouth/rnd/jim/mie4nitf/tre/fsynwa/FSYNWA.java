@@ -1,18 +1,18 @@
 package net.frogmouth.rnd.jim.mie4nitf.tre.fsynwa;
 
-import net.frogmouth.rnd.jim.nitf.tre.TRE;
 import net.frogmouth.rnd.jim.nitf.tre.TREField;
 import net.frogmouth.rnd.jim.nitf.tre.TREGroup;
 import net.frogmouth.rnd.jim.nitf.tre.TREOrder;
 import java.util.ArrayList;
 import java.util.List;
+import net.frogmouth.rnd.jim.nitf.tre.TaggedRecordExtension;
 
-public class FSYNWA extends TRE {
+public class FSYNWA extends TaggedRecordExtension {
 
     private static final String TRE_TAG = "FSYNWA";
     private int start_frame_number;
     private int end_frame_number;
-    private final List<TRE> tres = new ArrayList<>();
+    private final List<TaggedRecordExtension> tres = new ArrayList<>();
 
     public FSYNWA() {
         super(TRE_TAG);
@@ -40,11 +40,11 @@ public class FSYNWA extends TRE {
 
     @TREOrder(order = 3)
     @TREGroup()
-    public List<TRE> getTres() {
+    public List<TaggedRecordExtension> getTres() {
         return new ArrayList<>(tres);
     }
 
-    public void addTRE(TRE tre) {
+    public void addTRE(TaggedRecordExtension tre) {
         tres.add(tre);
     }
 

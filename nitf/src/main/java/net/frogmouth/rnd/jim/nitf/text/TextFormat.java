@@ -76,4 +76,19 @@ public enum TextFormat {
     public String getEncodedValue() {
         return encodedValue;
     }
+
+    /**
+     * Look up a text format value by identifier.
+     *
+     * @param identifier the code for the value type.
+     * @return text format corresponding to the string identifier.
+     */
+    public static TextFormat lookupByIdent(String identifier) {
+        for (TextFormat textFormat : TextFormat.values()) {
+            if (textFormat.getEncodedValue().equals(identifier)) {
+                return textFormat;
+            }
+        }
+        return UNKNOWN;
+    }
 }

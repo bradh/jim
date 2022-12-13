@@ -7,11 +7,12 @@
         <version>0.1.0-SNAPSHOT</version>
     </parent>
     <artifactId>mie4nitf</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JIM Integrated MIE4NITF (JIM)</name>
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>

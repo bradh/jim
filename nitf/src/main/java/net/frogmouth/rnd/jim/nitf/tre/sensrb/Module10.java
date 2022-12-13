@@ -1,5 +1,7 @@
 package net.frogmouth.rnd.jim.nitf.tre.sensrb;
 
+import java.io.ByteArrayOutputStream;
+
 public class Module10 {
     private double velocityNorthOrX;
     private double velocityEastOrY;
@@ -35,5 +37,10 @@ public class Module10 {
 
     public void setVelocityDownOrZ(double velocityDownOrZ) {
         this.velocityDownOrZ = velocityDownOrZ;
+    }
+
+    void appendBytes(ByteArrayOutputStream baos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from
+        // nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.DateWithOptionalUTCTime;
 import net.frogmouth.rnd.jim.nitf.validation.ValidationResult;
+import net.frogmouth.rnd.jim.nitf.validation.Validity;
 
 /**
  * Orbit data.
@@ -344,7 +345,69 @@ public class OrbitData {
     public List<ValidationResult> checkValidity() {
         List<ValidationResult> results = new ArrayList<>();
         // TODO: check epoch date
-        // TODO: check value ranges
+        results.addAll(validateIsPositive(this.meanMotion, "meanMotion"));
+        results.addAll(validateIsPositive(this.orbitalPeriod, "orbitalPeriod"));
+        results.addAll(validateEccentricity());
+        results.addAll(validateInclination());
+        results.addAll(validateIsPositive(this.apogeeAltitude, "apogeeAltitude"));
+        results.addAll(validateIsPositive(this.perigeeAltitude, "perigeeAltitude"));
+        return results;
+    }
+
+    private List<ValidationResult> validateIsPositive(Double value, String label) {
+        if (value == null) {
+            return new ArrayList<>();
+        }
+        List<ValidationResult> results = new ArrayList<>();
+        if (value <= 0.0) {
+            ValidationResult result = new ValidationResult(Validity.DoesNotConform);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription("orbitData" + label + " must be strictly positive");
+            results.add(result);
+        } else {
+            ValidationResult result = new ValidationResult(Validity.Conforms);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription("orbitData" + label + " was found as strictly positive");
+            results.add(result);
+        }
+        return results;
+    }
+
+    private List<ValidationResult> validateEccentricity() {
+        if (this.eccentricity == null) {
+            return new ArrayList<>();
+        }
+        List<ValidationResult> results = new ArrayList<>();
+        if ((this.eccentricity < 0.0) || (this.eccentricity > 1.0)) {
+            ValidationResult result = new ValidationResult(Validity.DoesNotConform);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription("orbitData eccentricity must be in the range [0.0, 1.0]");
+            results.add(result);
+        } else {
+            ValidationResult result = new ValidationResult(Validity.Conforms);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription("orbitData eccentricity was in the range [0.0, 1.0]");
+            results.add(result);
+        }
+        return results;
+    }
+
+    private List<ValidationResult> validateInclination() {
+        if (this.inclination == null) {
+            return new ArrayList<>();
+        }
+        List<ValidationResult> results = new ArrayList<>();
+        if ((this.inclination < 0.0) || (this.inclination > 180.0)) {
+            ValidationResult result = new ValidationResult(Validity.DoesNotConform);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription("orbitData inclination must be in the range [0.0, 180.0]");
+            results.add(result);
+        } else {
+            ValidationResult result = new ValidationResult(Validity.Conforms);
+            result.setTraceability("STDI-0002 Appendix AP Table 5");
+            result.setDescription("orbitData inclination was in the range [0.0, 180.0]");
+            results.add(result);
+        }
         return results;
     }
 }
