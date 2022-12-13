@@ -21,7 +21,7 @@
     </modules>
 
     <properties>
-        <checkstyle.version>10.3.4</checkstyle.version>
+        <checkstyle.version>10.5.0</checkstyle.version>
         <coveralls.version>4.3.0</coveralls.version>
         <failsafe.version>3.0.0-M5</failsafe.version>
         <googleformatter.maven.plugin.version>1.7.5</googleformatter.maven.plugin.version>
@@ -36,10 +36,10 @@
         <owasp.version>6.2.2</owasp.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <record.builder.version>31</record.builder.version>
-        <slf4j.version>2.0.5</slf4j.version>
+        <slf4j.version>2.0.6</slf4j.version>
         <sortpom.version>3.0.0</sortpom.version>
         <spotbugs.maven.version>4.3.0</spotbugs.maven.version>
-        <spotbugs.version>4.7.2</spotbugs.version>
+        <spotbugs.version>4.7.3</spotbugs.version>
         <spotless.version>2.20.0</spotless.version>
         <surefire.verbosity>0</surefire.verbosity>
         <surefire.version>3.0.0-M5</surefire.version>
