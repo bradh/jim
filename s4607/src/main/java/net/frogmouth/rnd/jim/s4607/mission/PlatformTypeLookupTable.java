@@ -56,7 +56,7 @@ public class PlatformTypeLookupTable {
      *
      * @return the singleton instance.
      */
-    public static PlatformTypeLookupTable getInstance() {
+    public static synchronized PlatformTypeLookupTable getInstance() {
         return PlatformTypeLookupTableHolder.INSTANCE;
     }
 

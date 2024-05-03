@@ -77,11 +77,11 @@ public class CSEXRBParser extends AbstractTaggedRecordExtensionParser {
         offset += SENSOR_ID_LEN;
         tre.setSensorType(this.readBCSA(bytes, offset, SENSOR_TYPE_LEN));
         offset += SENSOR_TYPE_LEN;
-        tre.setGroundRefPointX(this.readECEF(bytes, offset, GROUND_REF_POINT_LEN));
+        tre.setGroundRefPointX(this.readDoubleOrNullFromBCSN(bytes, offset, GROUND_REF_POINT_LEN));
         offset += GROUND_REF_POINT_LEN;
-        tre.setGroundRefPointY(this.readECEF(bytes, offset, GROUND_REF_POINT_LEN));
+        tre.setGroundRefPointY(this.readDoubleOrNullFromBCSN(bytes, offset, GROUND_REF_POINT_LEN));
         offset += GROUND_REF_POINT_LEN;
-        tre.setGroundRefPointZ(this.readECEF(bytes, offset, GROUND_REF_POINT_LEN));
+        tre.setGroundRefPointZ(this.readDoubleOrNullFromBCSN(bytes, offset, GROUND_REF_POINT_LEN));
         offset += GROUND_REF_POINT_LEN;
         if (tre.getSensorType().equals("S")) {
             tre.setDayfirstLineImage(this.readBCSA(bytes, offset, DAY_FIRST_LINE_IMAGE_LEN));

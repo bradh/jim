@@ -4,7 +4,7 @@ import static org.testng.Assert.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import org.testng.annotations.Test;
 
@@ -27,7 +27,7 @@ public class TestParse {
         assertEquals(rootElement.getNitsVersion(), "B.1");
         ZonedDateTime expectedDateTime =
                 ZonedDateTime.of(
-                        LocalDateTime.of(2021, 10, 10, 22, 24, 33, 733000000), ZoneId.of("UTC"));
+                        LocalDateTime.of(2021, 10, 10, 22, 24, 33, 733000000), ZoneOffset.UTC);
         assertEquals(rootElement.getMsgCreatedTime(), expectedDateTime);
     }
 }

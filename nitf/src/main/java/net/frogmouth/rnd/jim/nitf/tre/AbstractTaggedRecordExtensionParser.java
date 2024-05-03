@@ -17,18 +17,21 @@ public abstract class AbstractTaggedRecordExtensionParser {
      * <p>This is the usual text representation length in bytes.
      */
     protected static final int UUID_LEN = 36;
+
     /**
      * Binary-encoded double field length.
      *
      * <p>Length in bytes.
      */
     protected static final int UE13_LEN = 13;
+
     /**
      * Timestamp field length.
      *
      * <p>Length in bytes.
      */
     protected static final int TIMESTAMP_LEN = 24;
+
     /**
      * Controlled Extension Tag (CETAG) field length.
      *
@@ -37,6 +40,7 @@ public abstract class AbstractTaggedRecordExtensionParser {
      * <p>Length in bytes.
      */
     protected static final int CETAG_LEN = 6;
+
     /**
      * Controlled Extension Length (CEL) field length.
      *
@@ -69,7 +73,7 @@ public abstract class AbstractTaggedRecordExtensionParser {
      * Read a BCS-N value.
      *
      * @param bytes the byte array to read from
-     * @param offset the offset into the byte array to start reading at
+     * @param offset the offset into the byte array to start reading from
      * @param len the number of bytes to read
      * @return the integer equivalent to the BCS-N encoded value.
      */
@@ -78,17 +82,36 @@ public abstract class AbstractTaggedRecordExtensionParser {
         return Integer.parseInt(s);
     }
 
+    /**
+     * Read a UUID from the string representation.
+     *
+     * <p>The string representation is an ASCII encoded 36 byte array, in canonical form.
+     *
+     * @param bytes the byte array to read from
+     * @param offset the offset into the byte array to start reading from
+     * @return the corresponding UUID
+     */
     protected UUID readUUIDAsString(byte[] bytes, int offset) {
         String s = new String(bytes, offset, UUID_LEN, StandardCharsets.US_ASCII);
         return UUID.fromString(s);
     }
 
+    /**
+     * Read a standard timestamp from the string representation.
+     *
+     * <p>Note that timestamps can (and sometimes are) space filled. As such, this may not give back
+     * everything need to make a full date or date/time.
+     *
+     * @param bytes the byte array to read from
+     * @param offset the offset into the byte array to start reading from
+     * @return the corresponding String.
+     */
     protected String readTimeStampAsString(byte[] bytes, int offset) {
         return readBCSA(bytes, offset, TIMESTAMP_LEN);
     }
 
     /**
-     * Read a BCS-A value.
+     * Read a BCS-A String value.
      *
      * @param bytes the byte array to read from
      * @param offset the offset into the byte array to start reading at
@@ -99,16 +122,34 @@ public abstract class AbstractTaggedRecordExtensionParser {
         return new String(bytes, offset, len, StandardCharsets.US_ASCII);
     }
 
+    /**
+     * Read an ECS-A String value.
+     *
+     * @param bytes the byte array to read from
+     * @param offset the offset into the byte array to start reading at
+     * @param len the number of bytes to read
+     * @return the String corresponding to the ECS-A encoded value
+     */
     protected String readECSA(byte[] bytes, int offset, int len) {
         return new String(bytes, offset, len, new ECS_A());
     }
 
+    /**
+     * Read a UTF-8 String value.
+     *
+     * @param bytes the byte array to read from
+     * @param offset the offset into the byte array to start reading at
+     * @param len the number of bytes to read
+     * @return the String corresponding to the UTF-8 encoded value
+     */
     protected String readUTF8(byte[] bytes, int offset, int len) {
         return new String(bytes, offset, len, StandardCharsets.UTF_8);
     }
 
     /**
      * Read a BCS-N(PI) value.
+     *
+     * <p>This is BCS-N coded, positive integer.
      *
      * @param bytes the byte array to read from
      * @param offset the offset into the byte array to start reading at
@@ -137,26 +178,15 @@ public abstract class AbstractTaggedRecordExtensionParser {
         return val;
     }
 
-    protected double readBCSNLatitude(byte[] bytes, int offset, int len) {
-        double latitude = readDoubleFromBCSN(bytes, offset, len);
-        return latitude;
-    }
-
-    protected double readBCSNLongitude(byte[] bytes, int offset, int len) {
-        double longitude = readDoubleFromBCSN(bytes, offset, len);
-        return longitude;
-    }
-
-    protected double readBCSNHeight(byte[] bytes, int offset, int len) {
-        double ht = readDoubleFromBCSN(bytes, offset, len);
-        return ht;
-    }
-
-    protected Double readECEF(byte[] bytes, int offset, int len) {
-        double v = readDoubleOrNullFromBCSN(bytes, offset, len);
-        return v;
-    }
-
+    /**
+     * Read a potentially-empty field as a BCS-N encoded integer.
+     *
+     * @param bytes the byte array to read from
+     * @param offset the offset into the byte array to start reading at
+     * @param len the number of bytes to read
+     * @return the integer value, or null if the field is blank (space filled).
+     * @throws NumberFormatException if the value could not be parsed.
+     */
     protected Integer readIntegerOrNullFromBCSN(byte[] bytes, int offset, int len)
             throws NumberFormatException {
         String s = new String(bytes, offset, len, StandardCharsets.US_ASCII);
@@ -166,6 +196,15 @@ public abstract class AbstractTaggedRecordExtensionParser {
         return Integer.valueOf(s);
     }
 
+    /**
+     * Read a potentially-empty field as a BCS-N encoded double.
+     *
+     * @param bytes the byte array to read from
+     * @param offset the offset into the byte array to start reading at
+     * @param len the number of bytes to read
+     * @return the double value, or null if the field is blank (space filled).
+     * @throws NumberFormatException if the value could not be parsed.
+     */
     protected Double readDoubleOrNullFromBCSN(byte[] bytes, int offset, int len)
             throws NumberFormatException {
         String s = new String(bytes, offset, len, StandardCharsets.US_ASCII);
@@ -175,6 +214,15 @@ public abstract class AbstractTaggedRecordExtensionParser {
         return Double.valueOf(s);
     }
 
+    /**
+     * Read a field as a BCS-N encoded double.
+     *
+     * @param bytes the byte array to read from
+     * @param offset the offset into the byte array to start reading at
+     * @param len the number of bytes to read
+     * @return the double value
+     * @throws NumberFormatException if the value could not be parsed.
+     */
     protected double readDoubleFromBCSN(byte[] bytes, int offset, int len)
             throws NumberFormatException {
         String s = new String(bytes, offset, len, StandardCharsets.US_ASCII);

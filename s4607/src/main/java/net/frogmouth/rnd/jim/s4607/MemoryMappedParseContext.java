@@ -13,7 +13,7 @@ import java.util.EnumSet;
  * <p>This is used to provide state between parsing stages, implemented in terms of a memory mapped
  * file.
  */
-public class MemoryMappedParseContext extends AbstractByteBufferParseContext {
+public final class MemoryMappedParseContext extends AbstractByteBufferParseContext {
 
     /**
      * Constructor.

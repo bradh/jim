@@ -16,7 +16,7 @@ import net.frogmouth.rnd.jim.npif.tables.DataTableParser;
 import net.frogmouth.rnd.jim.npif.tables.DataTableParserManager;
 import net.frogmouth.rnd.jim.npif.tables.Header;
 
-public class Reader {
+public final class Reader {
 
     private static final int HEADER_EDITION_NUMBER_LEN = 1;
     private static final int HEADER_FLAGS_LEN = 1;

@@ -57,7 +57,7 @@ public class ExerciseIndicatorLookupTable {
      *
      * @return instance value
      */
-    public static ExerciseIndicatorLookupTable getInstance() {
+    public static synchronized ExerciseIndicatorLookupTable getInstance() {
         return ExerciseIndicatorLookupTableHolder.INSTANCE;
     }
 

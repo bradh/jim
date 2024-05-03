@@ -2,3 +2,6 @@ net.frogmouth.rnd.jim.nitf.tre.blocka.BLOCKAParser
 net.frogmouth.rnd.jim.nitf.tre.engrda.ENGRDAParser
 net.frogmouth.rnd.jim.nitf.tre.illumb.ILLUMBParser
 net.frogmouth.rnd.jim.nitf.tre.matesa.MATESAParser
+net.frogmouth.rnd.jim.nitf.tre.rpfhdr.RPFHDRParser
+net.frogmouth.rnd.jim.nitf.tre.rpfimg.RPFIMGParser
+

@@ -1,4 +1,5 @@
 package net.frogmouth.rnd.jim.s4676.message.detection;
+
 /**
  * Image format.
  *

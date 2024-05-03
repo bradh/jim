@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import net.frogmouth.rnd.jim.s4676.NitsRoot;
@@ -70,7 +69,7 @@ public class MultiprofileTest extends TestSupport {
         assertEquals(rootElement.getNitsVersion(), "B.2");
         ZonedDateTime expectedDateTime =
                 ZonedDateTime.of(
-                        LocalDateTime.of(2021, 10, 10, 22, 24, 33, 733000000), ZoneId.of("UTC"));
+                        LocalDateTime.of(2021, 10, 10, 22, 24, 33, 733000000), ZoneOffset.UTC);
         assertEquals(rootElement.getMsgCreatedTime(), expectedDateTime);
         String serialisedXml = parser.serialise(rootElement);
         // System.out.println(serialisedXml);

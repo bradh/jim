@@ -25,26 +25,26 @@
         <coveralls.version>4.3.0</coveralls.version>
         <failsafe.version>3.0.0-M5</failsafe.version>
         <googleformatter.maven.plugin.version>1.7.5</googleformatter.maven.plugin.version>
-        <jackson.version>2.14.1</jackson.version>
-        <jacoco.version>0.8.7</jacoco.version>
-        <javafx.version>17.0.2</javafx.version>
+        <jackson.version>2.17.0</jackson.version>
+        <jacoco.version>0.8.12</jacoco.version>
+        <javafx.version>23-ea+3</javafx.version>
         <jqf.plugin.version>1.8</jqf.plugin.version>
         <jqf.version>1.8</jqf.version>
-        <log4j2.version>2.19.0</log4j2.version>
+        <log4j2.version>2.23.1</log4j2.version>
         <maven.assembly.plugin.version>3.3.0</maven.assembly.plugin.version>
         <maven.checkstyle.version>3.1.2</maven.checkstyle.version>
         <owasp.version>6.2.2</owasp.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <record.builder.version>31</record.builder.version>
-        <slf4j.version>2.0.6</slf4j.version>
-        <sortpom.version>3.0.0</sortpom.version>
-        <spotbugs.maven.version>4.3.0</spotbugs.maven.version>
-        <spotbugs.version>4.7.3</spotbugs.version>
-        <spotless.version>2.20.0</spotless.version>
+        <slf4j.version>2.1.0-alpha1</slf4j.version>
+        <sortpom.version>3.4.1</sortpom.version>
+        <spotbugs.maven.version>4.8.4.0</spotbugs.maven.version>
+        <spotbugs.version>4.8.4</spotbugs.version>
+        <spotless.version>2.43.0</spotless.version>
         <surefire.verbosity>0</surefire.verbosity>
         <surefire.version>3.0.0-M5</surefire.version>
-        <testng.version>7.7.0</testng.version>
-        <woodstox.version>6.4.0</woodstox.version>
+        <testng.version>7.10.2</testng.version>
+        <woodstox.version>6.6.2</woodstox.version>
     </properties>
 
     <dependencyManagement>
@@ -112,7 +112,7 @@
                     <configuration>
                         <java>
                             <googleJavaFormat>
-                                <version>1.13.0</version>
+                                <version>1.17.0</version>
                                 <style>AOSP</style>
                             </googleJavaFormat>
                         </java>

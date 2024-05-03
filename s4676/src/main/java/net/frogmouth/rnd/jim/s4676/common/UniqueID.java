@@ -112,6 +112,7 @@ public class UniqueID {
     public byte[] getUid() {
         return uid;
     }
+
     /**
      * Set the unique identifier.
      *
@@ -123,6 +124,7 @@ public class UniqueID {
     public void setUid(byte[] uid) {
         this.uid = uid;
     }
+
     /**
      * Get the identifier as a UUID.
      *

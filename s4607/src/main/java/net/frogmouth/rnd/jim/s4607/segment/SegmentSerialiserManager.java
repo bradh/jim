@@ -30,7 +30,7 @@ public class SegmentSerialiserManager {
      *
      * @return the singleton instance of this serialiser manager.
      */
-    public static SegmentSerialiserManager getInstance() {
+    public static synchronized SegmentSerialiserManager getInstance() {
         return SegmentSerialiserManagerHolder.INSTANCE;
     }
 

@@ -211,6 +211,7 @@ public class TrackLinkage extends IdentifiedElement {
     public List<UniqueID> getPreLinkageUniqueIds() {
         return this.preUIDs;
     }
+
     /**
      * Add local identifier for input track.
      *

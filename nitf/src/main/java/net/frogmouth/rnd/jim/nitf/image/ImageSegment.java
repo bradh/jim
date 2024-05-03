@@ -193,10 +193,24 @@ public class ImageSegment {
         }
     }
 
+    /**
+     * Length of image segment.
+     *
+     * <p>This is the body length, and does not include the length of the subheader.
+     *
+     * @return the length of the image segment body in bytes.
+     * @see #getSubheaderLengthInBytes()
+     */
     public int getLengthOfImageSegment() {
         return body.length;
     }
 
+    /**
+     * Length of image segment subheader.
+     *
+     * @return the length of the image segment subheader in bytes.
+     * @see #getLengthOfImageSegment()
+     */
     public int getSubheaderLengthInBytes() {
         return getSubheaderAsBytes().length;
     }
@@ -626,7 +640,7 @@ public class ImageSegment {
      * <p>If the image comment is classified, it is preceded by the classification, including
      * codeword(s).
      *
-     * @return
+     * @return the image comments as a list.
      */
     public List<String> getComments() {
         return new ArrayList<>(comments);
@@ -736,42 +750,92 @@ public class ImageSegment {
         this.imageMode = imageMode;
     }
 
+    /**
+     * Number of blocks per row.
+     *
+     * @return the number of blocks per row as an integer value
+     */
     public int getNumberOfBlocksPerRow() {
         return numberOfBlocksPerRow;
     }
 
+    /**
+     * Set the number of blocks per row.
+     *
+     * @param numberOfBlocksPerRow the number of blocks per row as an integer value
+     */
     public void setNumberOfBlocksPerRow(int numberOfBlocksPerRow) {
         this.numberOfBlocksPerRow = numberOfBlocksPerRow;
     }
 
+    /**
+     * Number of blocks per column.
+     *
+     * @return the number of blocks per column as an integer value.
+     */
     public int getNumberOfBlocksPerColumn() {
         return numberOfBlocksPerColumn;
     }
 
+    /**
+     * Set the number of blocks per column.
+     *
+     * @param numberOfBlocksPerColumn the number of blocks per column as an integer value.
+     */
     public void setNumberOfBlocksPerColumn(int numberOfBlocksPerColumn) {
         this.numberOfBlocksPerColumn = numberOfBlocksPerColumn;
     }
 
+    /**
+     * Number of pixels per block in the horizontal direction.
+     *
+     * @return the number of pixels as an integer value
+     */
     public int getNumberOfPixelsPerBlockHorizontal() {
         return numberOfPixelsPerBlockHorizontal;
     }
 
+    /**
+     * Set the number of pixels per block in the horizontal direction.
+     *
+     * @param numberOfPixelsPerBlockHorizontal the number of pixels as an integer value
+     */
     public void setNumberOfPixelsPerBlockHorizontal(int numberOfPixelsPerBlockHorizontal) {
         this.numberOfPixelsPerBlockHorizontal = numberOfPixelsPerBlockHorizontal;
     }
 
+    /**
+     * Number of pixels per block in the vertical direction.
+     *
+     * @return the number of pixels as an integer value
+     */
     public int getNumberOfPixelsPerBlockVertical() {
         return numberOfPixelsPerBlockVertical;
     }
 
+    /**
+     * Set the number of pixels per block in the vertical direction.
+     *
+     * @param numberOfPixelsPerBlockVertical the number of pixels as an integer value
+     */
     public void setNumberOfPixelsPerBlockVertical(int numberOfPixelsPerBlockVertical) {
         this.numberOfPixelsPerBlockVertical = numberOfPixelsPerBlockVertical;
     }
 
+    /**
+     * Number of bits per pixel per band.
+     *
+     * @return the number of bits
+     */
     public int getNumberOfBitsPerPixelPerBand() {
         return numberOfBitsPerPixelPerBand;
     }
 
+    /**
+     * Set the number of bits per pixel per band.
+     *
+     * @param numberOfBitsPerPixelPerBand the number of bits
+     */
     public void setNumberOfBitsPerPixelPerBand(int numberOfBitsPerPixelPerBand) {
         this.numberOfBitsPerPixelPerBand = numberOfBitsPerPixelPerBand;
     }
@@ -804,34 +868,82 @@ public class ImageSegment {
         this.imageLocation = imageLocation;
     }
 
+    /**
+     * Security metadata.
+     *
+     * @return the security metadata
+     */
     public SecurityMetadata getSecurityMetadata() {
         return securityMetadata;
     }
 
+    /**
+     * Set the security metadata.
+     *
+     * @param securityMetadata the security metadata
+     */
     public void setSecurityMetadata(SecurityMetadata securityMetadata) {
         this.securityMetadata = securityMetadata;
     }
 
+    /**
+     * Get the user defined extensions (TREs).
+     *
+     * <p>This corresponds to the UDID space.
+     *
+     * @return copy of the user defined extensions as a List.
+     */
     public List<SerialisableTaggedRecordExtension> getUserDefinedExtensions() {
         return new ArrayList<>(userDefinedExtensions);
     }
 
+    /**
+     * Add a user defined extension (TRE).
+     *
+     * <p>This corresponds to the UDID space.
+     *
+     * @param userDefinedExtension the extension to add
+     */
     public void addUserDefinedExtension(SerialisableTaggedRecordExtension userDefinedExtension) {
         this.userDefinedExtensions.add(userDefinedExtension);
     }
 
+    /**
+     * Get the image segment extensions (TREs).
+     *
+     * <p>This corresponds to the IXSHD space.
+     *
+     * @return copy of the image segment extensions.
+     */
     public List<SerialisableTaggedRecordExtension> getImageSegmentExtensions() {
         return new ArrayList<>(imageSegmentExtensions);
     }
 
+    /**
+     * Add an image segment extension (TRE).
+     *
+     * <p>This corresponds to the IXSHD space.
+     *
+     * @param imageSegmentExtension the extension to add.
+     */
     public void addImageSegmentExtensions(SerialisableTaggedRecordExtension imageSegmentExtension) {
         this.imageSegmentExtensions.add(imageSegmentExtension);
     }
 
+    /**
+     * Get the body of the image segment.
+     *
+     * @return copy of the image segment body as a byte array.
+     */
     public byte[] getBody() {
         return body.clone();
     }
 
+    /**
+     * Set the body of the image segment.
+     *
+     * @param body the image segment body as a byte array
+     */
     public void setBody(byte[] body) {
         this.body = body.clone();
     }

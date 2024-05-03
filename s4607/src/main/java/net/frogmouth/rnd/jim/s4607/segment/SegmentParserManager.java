@@ -29,7 +29,7 @@ public class SegmentParserManager {
      *
      * @return the singleton instance of this parser manager.
      */
-    public static SegmentParserManager getInstance() {
+    public static synchronized SegmentParserManager getInstance() {
         return SegmentParserManagerHolder.INSTANCE;
     }
 

@@ -89,6 +89,9 @@ public class ImageConstants {
     /** NLUTS field length in bytes. */
     public static final int NLUTS_LEN = 1;
 
+    /** NELUTn field length in bytes. */
+    public static final int NELUT_LEN = 5;
+
     /** ISYNC field length in bytes. */
     public static final int ISYNC_LEN = 1;
 

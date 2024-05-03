@@ -57,7 +57,7 @@ public class SecurityClassificationLookupTable {
      *
      * @return instance value
      */
-    public static SecurityClassificationLookupTable getInstance() {
+    public static synchronized SecurityClassificationLookupTable getInstance() {
         return SecurityClassificationLookupTableHolder.INSTANCE;
     }
 

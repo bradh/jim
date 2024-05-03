@@ -29,6 +29,7 @@ import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NBPC_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NBPP_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NBPR_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NCOLS_LEN;
+import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NELUT_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NICOM_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NLUTS_LEN;
 import static net.frogmouth.rnd.jim.nitf.image.ImageConstants.NPPBH_LEN;
@@ -168,8 +169,19 @@ public class ImageSegmentHeader {
             bandInfo.setImageFilterCondition(
                     ReaderUtils.convertByteArrayToBCSA(subheaderBytes, offset, IMFLT_LEN));
             offset += IMFLT_LEN;
+            int numLUTs = ReaderUtils.convertByteArrayToBCS_NPI(subheaderBytes, offset, NLUTS_LEN);
             offset += NLUTS_LEN;
-            // TODO: handle LUTS
+            for (int j = 0; j < numLUTs; j++) {
+                int numEntriesInLookupTable =
+                        ReaderUtils.convertByteArrayToBCS_NPI(subheaderBytes, offset, NELUT_LEN);
+                offset += NELUT_LEN;
+                byte[] lutEntries =
+                        Arrays.copyOfRange(
+                                subheaderBytes, offset, offset + numEntriesInLookupTable);
+                offset += numEntriesInLookupTable;
+                ImageBandLookupTable lut = new ImageBandLookupTable(lutEntries);
+                bandInfo.addLUT(lut);
+            }
             this.bandInfos.add(bandInfo);
         }
         isync = ReaderUtils.convertByteArrayToBCS_NPI(subheaderBytes, offset, ISYNC_LEN);

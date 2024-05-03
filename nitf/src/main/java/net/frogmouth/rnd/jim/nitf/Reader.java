@@ -75,6 +75,8 @@ public class Reader {
     private static final int XHDL_LEN = 5;
     private static final int XHDLOFL_LEN = 3;
 
+    private static final byte[] NITF20_BYTES =
+            new byte[] {0x4e, 0x49, 0x54, 0x46, 0x30, 0x32, 0x2e, 0x30, 0x30};
     private static final byte[] NITF21_BYTES =
             new byte[] {0x4e, 0x49, 0x54, 0x46, 0x30, 0x32, 0x2e, 0x31, 0x30};
     private static final byte[] NSIF10_BYTES =
@@ -204,7 +206,7 @@ public class Reader {
      */
     public final boolean isNITF() {
         byte[] bytes = getBytesAt(FHDR_OFFSET, FHDR_LEN + FVER_LEN);
-        return (Arrays.equals(bytes, NITF21_BYTES));
+        return (Arrays.equals(bytes, NITF21_BYTES) || Arrays.equals(bytes, NITF20_BYTES));
     }
 
     /**

@@ -60,7 +60,7 @@ public class RadarModeLookupTable {
      *
      * @return the singleton instance.
      */
-    public static RadarModeLookupTable getInstance() {
+    public static synchronized RadarModeLookupTable getInstance() {
         return SensorTypeLookupTableHolder.INSTANCE;
     }
 

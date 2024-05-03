@@ -12,6 +12,8 @@ module net.frogmouth.rnd.jim.nitf {
 
     exports net.frogmouth.rnd.jim.nitf;
     exports net.frogmouth.rnd.jim.nitf.tre;
+    exports net.frogmouth.rnd.jim.nitf.tre.rpfhdr;
+    exports net.frogmouth.rnd.jim.nitf.tre.rpfimg;
     exports net.frogmouth.rnd.jim.nitf.tre.soddxa;
     exports net.frogmouth.rnd.jim.nitf.tre.soddxa.xml;
     exports net.frogmouth.rnd.jim.nitf.tre.soddxa.xml.catalog;
@@ -42,5 +44,7 @@ module net.frogmouth.rnd.jim.nitf {
             net.frogmouth.rnd.jim.nitf.tre.engrda.ENGRDAParser,
             net.frogmouth.rnd.jim.nitf.tre.grdpsb.GRDPSBParser,
             net.frogmouth.rnd.jim.nitf.tre.illumb.ILLUMBParser,
-            net.frogmouth.rnd.jim.nitf.tre.matesa.MATESAParser;
+            net.frogmouth.rnd.jim.nitf.tre.matesa.MATESAParser,
+            net.frogmouth.rnd.jim.nitf.tre.rpfhdr.RPFHDRParser,
+            net.frogmouth.rnd.jim.nitf.tre.rpfimg.RPFIMGParser;
 }

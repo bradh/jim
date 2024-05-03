@@ -61,7 +61,7 @@ public class TargetClassificationLookupTable {
      *
      * @return the lookup table instance.
      */
-    public static TargetClassificationLookupTable getInstance() {
+    public static synchronized TargetClassificationLookupTable getInstance() {
         return TargetClassificationLookupTableHolder.INSTANCE;
     }
 

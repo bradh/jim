@@ -56,7 +56,7 @@ public class SensorTypeLookupTable {
      *
      * @return the singleton instance.
      */
-    public static SensorTypeLookupTable getInstance() {
+    public static synchronized SensorTypeLookupTable getInstance() {
         return SensorTypeLookupTableHolder.INSTANCE;
     }
 

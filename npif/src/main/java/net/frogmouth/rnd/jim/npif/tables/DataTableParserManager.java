@@ -17,7 +17,7 @@ public class DataTableParserManager {
         }
     }
 
-    public static DataTableParserManager getInstance() {
+    public static synchronized DataTableParserManager getInstance() {
         return TREParserManagerHolder.INSTANCE;
     }
 
